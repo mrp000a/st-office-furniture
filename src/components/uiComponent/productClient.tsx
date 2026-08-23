@@ -1,0 +1,184 @@
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
+import { ProductDefaultImage } from "../data/core";
+import { SimpleBubble } from "./uiCom";
+import { HandleAddToCart, HandleAddToLocalCart } from "@/lib/api";
+import { Button } from "../ui/button";
+import { useSession } from "next-auth/react";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/navigation";
+import { Banknote, CirclePlus } from "lucide-react";
+import { Category, Product } from "@/generated/prisma";
+
+const ProductClient = ({
+  item,
+}: {
+  item: Product & {
+    category: Category;
+    _count: {
+      descriptions: number;
+      reviews: number;
+      orderItems: number;
+      cartItems: number;
+    };
+  };
+}) => {
+  const session = useSession();
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  return (
+    <div className="hover:shadow-2xl bg-background hover:translate-y-1 shadow-blue-primary/40 hover:ring-2 ring-gray-secondary transition-all flex flex-col max-w-full box-border w-full justify-start items-start gap-2 ring p-1 rounded-sm relative">
+      {/* main image and discont red  */}
+      <Link
+        href={`/products/${item.productCode.toLowerCase()}`}
+        className="  w-full aspect-square relative border box-border border-gray-secondary rounded-md overflow-hidden"
+      >
+        <Image
+          src={
+            item.images[0]
+              ? `${process.env.NEXT_PUBLIC_URL_R2}/${item.images[0].length > 0 ? item.images[0] : ProductDefaultImage}`
+              : `${process.env.NEXT_PUBLIC_URL_R2}/${ProductDefaultImage}`
+          }
+          alt={item.title}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          fill
+          className="object-contain hover:scale-120 active:sca1e-120 transition-all duration-500 ease-in-out"
+        />
+        <span
+          className={`bg-red-primary flex-center flex-col  text-background rounded-md text-xs ring-2 ring-gray-secondary px-2 py-1  absolute right-0 top-0 z-20 ${item.discount ? "" : "hidden"}`}
+        >
+          <span className="font-bold">{Number(item.discount)}%</span>
+          <span className="text-xs">Off</span>
+        </span>
+      </Link>
+
+      <div className="flex flex-col w-full">
+        <Link
+          href={`/products/${item.productCode.toLowerCase()}`}
+          className="line-clamp-2 font-semibold  text-justify"
+        >
+          {item.title}
+        </Link>
+        <Link
+          href={`/categories/${item.category.name.toLowerCase()}`}
+          className="font-semibold text-gray-secondary text-xs"
+        >
+          {item.category?.name ?? "N/A"}
+        </Link>
+        <div className=" font-bold flex flex-wrap justify-between items-center">
+          <div className="space-x-2">
+            <span className="text-gray-primary">Price:</span>{" "}
+            <span className="font-semibold">
+              ৳
+              {Number(item.discount)
+                ? Number(item.discountPrice).toFixed(2)
+                : Number(item.price).toFixed(2)}
+            </span>
+            <span
+              className={`text-xs text-gray-primary line-through px-1 ${item.discount ? "" : "hidden"}`}
+            >
+              ৳{Number(item.price).toFixed(2)}
+            </span>
+          </div>
+        </div>
+
+        {/* buttons - add to cart and order now  */}
+        <div className="flex  flex-wrap gap-2 p-2 justify-around">
+          <Button
+            onClick={async () => {
+              if (!session || !session.data?.user?.id) {
+                HandleAddToLocalCart({
+                  brand: item.brand,
+                  stock: item.stock,
+                  keyFeatures: item.keyFeatures,
+                  createdAt: item.createdAt,
+                  updatedAt: item.updatedAt,
+                  categoryId: item.categoryId,
+                  id: item.id,
+                  title: item.title,
+                  price: item.price,
+                  productCode: item.productCode,
+                  images: item.images,
+                  discount: item.discount,
+                  discountPrice: item.discountPrice,
+                  qty: 1,
+                  dispatch,
+                });
+                return;
+              }
+              await HandleAddToCart({
+                dispatch,
+                userId: Number(session.data?.user?.id) ?? undefined,
+                title: item.title,
+                price: Number(item.price),
+                qty: 1,
+                productId: item.id,
+              });
+            }}
+            disabled={item.stock < 1}
+            type="button"
+            size={"lg"}
+            variant={"secondary"}
+
+            // className="text-lg px-3 py-1 disabled:bg-gray-secondary/50 disabled:text-background rounded-lg bg-gray-secondary/20 hover:bg-red-primary hover:ring-2 active:bg-red-primary/50 hover:text-background transition-all border-gray-secondary border flex-center gap-2 "
+          >
+            <CirclePlus /> Add to Cart
+          </Button>
+          <Button
+            onClick={async () => {
+              if (!session || !session.data?.user?.id) {
+                HandleAddToLocalCart({
+                  dispatch,
+                  brand: item.brand,
+                  stock: item.stock,
+                  keyFeatures: item.keyFeatures,
+                  createdAt: item.createdAt,
+                  updatedAt: item.updatedAt,
+                  categoryId: item.categoryId,
+                  id: item.id,
+                  title: item.title,
+                  price: item.price,
+                  productCode: item.productCode,
+                  images: item.images,
+                  discount: item.discount,
+                  discountPrice: item.discountPrice,
+                  qty: 1,
+                });
+
+                const time = setTimeout(() => {
+                  router.push("/order");
+                }, 1000);
+
+                return;
+              }
+              // images, discount, discountPrice, price, productCode, id, title, qty
+              const res = await HandleAddToCart({
+                dispatch,
+                title: item.title,
+                price: Number(item.price),
+                qty: 1,
+                productId: item.id,
+                userId: Number(session.data?.user?.id),
+              });
+              if (!res) {
+                return;
+              }
+              router.push("/order");
+            }}
+            disabled={item.stock < 1}
+            type="button"
+            size={"lg"}
+            variant={"default"}
+            // className="text-lg px-3 disabled:bg-red-primary/50 py-1 rounded-lg  bg-red-primary hover:bg-red-primary/80 hover:ring-2 active:bg-red-primary/50 text-background transition-all border-gray-secondary border flex-center gap-2 "
+          >
+            <Banknote /> Order Now
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ProductClient;

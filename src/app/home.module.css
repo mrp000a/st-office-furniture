@@ -1,0 +1,89 @@
+/* -------------------------------- */
+/* Slider.module.css */
+.slideImage {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  opacity: 0;
+  animation: crossFade 5s infinite;
+}
+
+@keyframes crossFade {
+  0% {
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  /* Image is fully visible */
+  30% {
+    opacity: 1;
+  }
+
+  /* Image stays visible */
+  40% {
+    opacity: 0;
+  }
+
+  /* Image fades out */
+  100% {
+    opacity: 0;
+  }
+}
+
+/* ---------------------- */
+/* Slider.module.css */
+.kenBurnsImage {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  animation: kenBurns 5s ease-in-out infinite alternate;
+}
+
+@keyframes kenBurns {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+
+  100% {
+    transform: scale(1.09) translate(-1%, -1%);
+  }
+}
+
+/* -------------------------------------------- */
+/* Slider.module.css */
+.sliderTrack {
+  display: flex;
+  width: 300%;
+  /* Adjust based on the number of images (e.g., 3 images = 300%) */
+  animation: slideLeft 24s infinite ease-in-out;
+}
+
+.slide {
+  width: 100%;
+  object-fit: cover;
+}
+
+@keyframes slideLeft {
+
+  0%,
+  25% {
+    transform: translateX(0%);
+  }
+
+  33%,
+  58% {
+    transform: translateX(-33.33%);
+  }
+
+  66%,
+  91% {
+    transform: translateX(-66.66%);
+  }
+
+  100% {
+    transform: translateX(0%);
+  }
+}
