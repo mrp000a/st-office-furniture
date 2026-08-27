@@ -59,6 +59,46 @@ export async function GET(req: NextRequest) {
   }
 }
 
+export async function PUT(req: NextRequest) {
+  const searchParams = req.nextUrl.searchParams;
+  const userId = searchParams.get("userId");
+
+  if (!userId) {
+    return NextResponse.json({
+      success: false,
+      message: "User id is required.",
+    });
+  }
+  try {
+    // const sessionPromise = getSession();
+    // await requireRole(sessionPromise, "ADMIN");
+
+    const cart = await prisma.cart.delete({
+      where: {
+        userId: Number(userId),
+      },
+    });
+
+    if (!cart) {
+      return NextResponse.json({
+        success: false,
+        message: "Cart Not found.",
+      });
+    }
+
+    return NextResponse.json({
+      success: true,
+      result: cart,
+      message: "Cart is loaded.",
+    });
+  } catch (err: any) {
+    return NextResponse.json(
+      { success: false, message: err?.message ?? "Db Error-" },
+      { status: err?.status ?? 500 },
+    );
+  }
+}
+
 export async function POST(req: Request) {
   try {
     const body = await req.json();

@@ -3,7 +3,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { usePathname } from "next/navigation";
 
-import { coreInfo, navItems } from "../data/core";
+import { coreInfo, navItems, ProfileDefaultImage } from "../data/core";
 import { Button } from "../ui/button";
 import { Menu } from "lucide-react";
 import Link from "next/link";
@@ -75,13 +75,7 @@ const Navbar = () => {
                     fill
                     className={`object-cover object-center overflow-hidden rounded-full relative w-200 h-300 ${user?.image ? "" : "mix-blend-darken"}`}
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    src={
-                      user?.image?.startsWith("users/avatar")
-                        ? `${process.env.NEXT_PUBLIC_URL_R2}/${user.image}`
-                        : user?.image
-                          ? user.image
-                          : ""
-                    }
+                    src={`${process.env.NEXT_PUBLIC_URL_R2}/${user?.image ?? ProfileDefaultImage}`}
                     alt=""
                   />
                 </div>

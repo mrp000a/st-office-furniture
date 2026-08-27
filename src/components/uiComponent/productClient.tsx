@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { ProductDefaultImage } from "../data/core";
-import { SimpleBubble } from "./uiCom";
 import { HandleAddToCart, HandleAddToLocalCart } from "@/lib/api";
 import { Button } from "../ui/button";
 import { useSession } from "next-auth/react";
@@ -36,11 +35,7 @@ const ProductClient = ({
         className="  w-full aspect-square relative border box-border border-gray-secondary rounded-md overflow-hidden"
       >
         <Image
-          src={
-            item.images[0]
-              ? `${process.env.NEXT_PUBLIC_URL_R2}/${item.images[0].length > 0 ? item.images[0] : ProductDefaultImage}`
-              : `${process.env.NEXT_PUBLIC_URL_R2}/${ProductDefaultImage}`
-          }
+          src={`${process.env.NEXT_PUBLIC_URL_R2}/${item.images[0] ?? ProductDefaultImage}`}
           alt={item.title}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           fill
@@ -62,8 +57,8 @@ const ProductClient = ({
           {item.title}
         </Link>
         <Link
-          href={`/categories/${item.category.name.toLowerCase()}`}
-          className="font-semibold text-gray-secondary text-xs"
+          href={`/categories/${item.category?.name?.toLowerCase()}`}
+          className="font-semibold text-gray-secondary text-[10px]"
         >
           {item.category?.name ?? "N/A"}
         </Link>

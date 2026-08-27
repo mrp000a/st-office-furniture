@@ -5,6 +5,9 @@ CREATE TYPE "UserRole" AS ENUM ('SUPER_ADMIN', 'ADMIN', 'USER');
 CREATE TYPE "Gender" AS ENUM ('MALE', 'FEMALE', 'OTHER');
 
 -- CreateEnum
+CREATE TYPE "DeliveryAreas" AS ENUM ('INSIDE_DHAKA', 'OUTSIDE_DHAKA');
+
+-- CreateEnum
 CREATE TYPE "PaymentMethods" AS ENUM ('CASH_ON_DELIVERY', 'BKASH', 'NAGAD', 'ROCKET');
 
 -- CreateEnum
@@ -110,11 +113,9 @@ CREATE TABLE "CartItem" (
 -- CreateTable
 CREATE TABLE "Order" (
     "id" SERIAL NOT NULL,
-    "paymentMethod" "PaymentMethods" NOT NULL,
     "paymentStatus" "PaymentStatus" NOT NULL DEFAULT 'PENDING',
     "subtotal" DECIMAL(12,2) NOT NULL,
-    "discount" DECIMAL(12,2) NOT NULL DEFAULT 0,
-    "shippingCost" DECIMAL(12,2) NOT NULL DEFAULT 0,
+    "discountAmount" DECIMAL(12,2) NOT NULL DEFAULT 0,
     "total" DECIMAL(12,2) NOT NULL,
     "paidAmount" DECIMAL(12,2) NOT NULL DEFAULT 0,
     "userId" INTEGER,
@@ -122,7 +123,11 @@ CREATE TABLE "Order" (
     "receiverName" TEXT NOT NULL,
     "receiverPhone" TEXT NOT NULL,
     "address" TEXT NOT NULL,
+    "receiverEmail" TEXT,
     "customerNote" TEXT,
+    "deliveryArea" "DeliveryAreas" NOT NULL,
+    "paymentMethod" "PaymentMethods" NOT NULL DEFAULT 'CASH_ON_DELIVERY',
+    "shippingCost" DECIMAL(12,2) NOT NULL DEFAULT 0,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 

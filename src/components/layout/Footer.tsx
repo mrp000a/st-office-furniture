@@ -1,3 +1,4 @@
+"use client";
 import { FileText, Truck, Undo2, UserShield } from "lucide-react";
 import Image from "next/image";
 import React from "react";
@@ -7,19 +8,27 @@ import { SpeacialH3Header, SpecialLink } from "../uiComponent/uiCom";
 import SocialIcons from "../uiComponent/socialIcons";
 import { FaApple, FaGooglePlay } from "react-icons/fa";
 import NewsLetter from "../uiComponent/newsLetter";
+import { usePathname } from "next/navigation";
 
 const Footer = () => {
+  const pathname = usePathname();
   return (
-    <div className=" w-full border border-gray-primary pb-16 bg-foreground text-xs text-gray-secondary">
+    <footer
+      className={` w-full border border-gray-primary pb-16 bg-foreground text-xs text-gray-secondary ${pathname.startsWith("/dashboard") ? "hidden" : ""}`}
+    >
       {/* first footer line */}
       <div className="w-full bg-gray-800 py-2 text-background">
         <div className="flex flex-wrap w-full max-w-384 mx-auto justify-between items-center gap-4 py-3">
           {firstFooterItems && firstFooterItems.length > 0 ? (
-            firstFooterItems.map(({ label, icon: Icon }, index) => (
-              <div key={index} className="flex-center gap-3 font-semibold">
+            firstFooterItems.map(({ label, href, icon: Icon }, index) => (
+              <Link
+                href={href}
+                key={index}
+                className="flex-center gap-3 font-semibold hover:gap-1 hover:pl-2 hover:text-red-primary hover:scale-105 transition-all"
+              >
                 <Icon className="text-red-primary" />
                 <span className=" line-clamp-1">{label}</span>
-              </div>
+              </Link>
             ))
           ) : (
             <div></div>
@@ -141,7 +150,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-    </div>
+    </footer>
   );
 };
 

@@ -20,7 +20,8 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import Image from "next/image";
 
-import registerImage from "@/components/images/Nature/hassan-nizam-cnL7ebMpuSo-unsplash.jpg";
+import { FaUserCircle } from "react-icons/fa";
+import { LoginAndRegisterPageImages } from "@/components/data/core";
 
 const PageRegister = () => {
   const [showPass, setShowPass] = useState<boolean>(false);
@@ -110,7 +111,7 @@ const PageRegister = () => {
     let fileData = null;
 
     if (image && image[0] !== undefined) {
-      fileData = await uploadFile(image[0]);
+      fileData = await uploadFile(image[0], "r2upload/users/images");
     }
 
     const myHeaders = new Headers();
@@ -157,19 +158,19 @@ const PageRegister = () => {
   };
 
   return (
-    <div className="w-full min-h-[calc(100vh-300px)] flex-center max-w-5xl mx-auto p-2">
-      <div className="rounded-md outline-2 outline-gray-secondary shadow-2xl shadow-foreground/40 w-full flex-col sm:flex-row flex items-stretch overflow-hidden">
+    <div className="w-full min-h-[calc(100vh-300px)] flex-center max-w-5xl mx-auto p-2 py-4">
+      <div className="rounded-md bg-background outline-2 outline-gray-secondary shadow-2xl shadow-foreground/40 w-full flex-col sm:flex-row flex items-stretch overflow-hidden">
         <div className="w-full overflow-hidden relative hidden sm:flex">
           <div className="absolute w-full h-full flex-1 overflow-hidden ">
             <Image
               fill
               className={`object-cover object-center overflow-hidden relative`}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              src={registerImage}
+              src={LoginAndRegisterPageImages.register}
               alt=""
             />
           </div>
-          <div className="relative h-full pt-24 w-full bg-foreground/20 z-20 backdrop-blur-xs flex justify-end p-5 items-center flex-col text-background">
+          <div className="relative h-full pt-24 w-full bg-foreground/30 z-20  flex justify-end p-5 items-center flex-col text-background">
             <h2 className="text-2xl font-bold">Join Us Today!</h2>
             <span className="text-center">
               Create an account to enjoy your shopping experience with us.
@@ -180,7 +181,10 @@ const PageRegister = () => {
           <form onSubmit={handleSubmit(handleSubmitData)}>
             <div className="mt-3 flex flex-col gap-2">
               <div>
-                <h2 className="text-2xl font-bold">Register Now!</h2>
+                <h2 className="text-2xl font-bold flex items-center gap-3">
+                  <FaUserCircle className="text-red-primary" />
+                  <span>Register Now!</span>
+                </h2>
                 <span className="text-center text-gray-secondary">
                   Create an account to enjoy your shopping experience.
                 </span>
@@ -257,7 +261,7 @@ const PageRegister = () => {
                   <Input
                     id="address"
                     type="text"
-                    placeholder="Enter Your Address"
+                    placeholder="House No, Road No, Area, District"
                     {...register("address", {
                       maxLength: {
                         value: 100,
@@ -428,13 +432,13 @@ const PageRegister = () => {
               </div>
             </div>
             <div className="w-full flex-center pt-4">
-              <Button disabled={isSubmitting} type="submit">
+              <Button disabled={isSubmitting} type="submit" className="w-full">
                 {isSubmitting && (
                   <span className="animate-spin">
                     <Loader />
                   </span>
                 )}
-                Register
+                Register Now
               </Button>
             </div>
           </form>
@@ -442,14 +446,17 @@ const PageRegister = () => {
             <span className="bg-background relative z-20 px-2 ">Or</span>
             <div className="absolute top-0 w-full h-[0.10px] my-3 bg-gray-300"></div>
           </div>
-          <div className="text-gray-secondary">
-            {"Don't"} have an account?{" "}
-            <Link
-              className="text-blue-primary/50 hover:underline"
-              href={`/signin?callbackUrl=${callbackUrl}`}
+          <div className="text-gray-secondary flex items-center flex-wrap">
+            <span>Already have an account? </span>
+            <Button
+              variant={"link"}
+              className="text-blue-primary text-sm"
+              asChild
             >
-              Log In Now!
-            </Link>
+              <Link href={`/signin?callbackUrl=${callbackUrl}`} className="">
+                Log In Now
+              </Link>
+            </Button>
           </div>
         </div>
       </div>

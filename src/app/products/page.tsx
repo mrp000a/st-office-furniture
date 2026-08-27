@@ -1,13 +1,13 @@
 import { coreInfo } from "@/components/data/core";
 import { Metadata } from "next";
-import React from "react";
+import React, { Suspense } from "react";
 import ProductsPage from "./productsPage";
 
 const Page = () => {
   return (
-    <>
+    <Suspense>
       <ProductsPage />
-    </>
+    </Suspense>
   );
 };
 

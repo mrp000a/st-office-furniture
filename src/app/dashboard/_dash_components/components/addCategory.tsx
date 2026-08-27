@@ -2,11 +2,10 @@
 import { InputErrorMessage, MaxHeader } from "@/components/uiComponent/uiCom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { FindCategoryExists, uploadFile } from "@/lib/api";
-import { Info, Loader } from "lucide-react";
-import { useEffect, useState } from "react";
-import { useForm, Controller } from "react-hook-form";
-import { CategoryFormData, UserFormData } from "@/lib/formDataTypes";
+import { deleteFile, FindCategoryExists, uploadFile } from "@/lib/api";
+import { File, Info, Loader } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { CategoryFormData } from "@/lib/formDataTypes";
 import { toast } from "sonner";
 import {
   Popover,
@@ -16,15 +15,35 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-import registerImage from "@/components/images/Nature/hassan-nizam-cnL7ebMpuSo-unsplash.jpg";
 import { Textarea } from "@/components/ui/textarea";
 
-const PageAddCategory = () => {
+const PageAddCategory = ({
+  load,
+  setOpenAddCategory,
+  saveButtonText = "Save",
+  id,
+  name = "",
+  description = "",
+  oldImage = "",
+  isEdit = false,
+}: {
+  load?: () => Promise<void>;
+  setOpenAddCategory: React.Dispatch<React.SetStateAction<boolean>>;
+  saveButtonText?: string;
+  id?: number;
+  name?: string;
+  description?: string;
+  oldImage?: string;
+  isEdit?: boolean;
+}) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting },
-  } = useForm<CategoryFormData>({});
+  } = useForm<CategoryFormData>({
+    defaultValues: { name, description, image: undefined },
+  });
 
   const handleSubmitData = async (data: CategoryFormData) => {
     const { name, image, description } = data;
@@ -39,7 +58,7 @@ const PageAddCategory = () => {
     let fileData = null;
 
     if (image && image[0] !== undefined) {
-      fileData = await uploadFile(image[0]);
+      fileData = await uploadFile(image[0], "r2upload/category/images");
     }
 
     const myHeaders = new Headers();
@@ -65,38 +84,71 @@ const PageAddCategory = () => {
     } = await res.json();
     if (createCategory.success) {
       toast.success("Category add success fully!");
+      reset();
+      if (load) load();
+      setOpenAddCategory(false);
+    }
+  };
+
+  const handleSubmitDataEdit = async (data: CategoryFormData) => {
+    const { name, image, description } = data;
+
+    const userExists = await FindCategoryExists({ name, id: Number(id) });
+
+    if (!userExists.success) {
+      toast.error("Category not exists!");
+      return;
+    }
+
+    let fileData = null;
+
+    if (image && image[0] !== undefined) {
+      fileData = await uploadFile(image[0], "r2upload/category/images");
+    }
+
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const raw = JSON.stringify({
+      id: id,
+      name,
+      image: fileData?.key,
+      description,
+    });
+
+    const res = await fetch("/api/categories", {
+      method: "PUT",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    });
+
+    const createCategory: {
+      success: boolean;
+      result?: object;
+      message: string;
+    } = await res.json();
+
+    if (createCategory.success) {
+      toast.success("Category add success fully!");
+      if (fileData?.key) await deleteFile(oldImage);
+
+      reset();
+      if (load) load();
+      setOpenAddCategory(false);
     }
   };
 
   return (
-    <div className="w-full min-h-[calc(100vh-300px)] flex-center max-w-5xl mx-auto p-2">
-      <div className="rounded-md outline-2 outline-gray-secondary shadow-2xl shadow-foreground/40 w-full flex-col sm:flex-row flex items-stretch overflow-hidden">
-        {/* <div className="w-full overflow-hidden relative hidden sm:flex">
-          <div className="absolute w-full h-full flex-1 overflow-hidden ">
-            <Image
-              fill
-              className={`object-cover object-center overflow-hidden relative`}
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              src={registerImage}
-              alt=""
-            />
-          </div>
-          <div className="relative h-full pt-24 w-full bg-foreground/20 z-20 backdrop-blur-xs flex justify-end p-5 items-center flex-col text-background">
-            <h2 className="text-2xl font-bold">Join Us Today!</h2>
-            <span className="text-center">
-              Create an account to enjoy your shopping experience with us.
-            </span>
-          </div>
-        </div> */}
-        <div className="w-full p-4">
-          <form onSubmit={handleSubmit(handleSubmitData)}>
+    <div className="w-full   flex-center">
+      <div className="rounded-md w-full flex-col sm:flex-row flex items-stretch overflow-hidden">
+        <div className="w-full">
+          <form
+            onSubmit={handleSubmit(
+              isEdit ? handleSubmitDataEdit : handleSubmitData,
+            )}
+          >
             <div className="mt-3 flex flex-col gap-2">
-              <div>
-                <h2 className="text-2xl font-bold">Add Category!</h2>
-                <span className="text-center text-gray-secondary">
-                  Create an account to enjoy your shopping experience.
-                </span>
-              </div>
               {/* sec1  */}
               <div className="flex items-start justify-between gap-4 flex-col sm:flex-row">
                 <div className="grid grid-cols-1 space-y-1 flex-1 w-full">
@@ -210,14 +262,21 @@ const PageAddCategory = () => {
                 </div>
               </div>
             </div>
-            <div className="w-full flex-center pt-4">
+            <div className="w-full flex justify-end flex-wrap gap-3 pt-4">
+              <Button
+                type="button"
+                onClick={() => setOpenAddCategory(false)}
+                variant="outline"
+              >
+                Cancel
+              </Button>
               <Button disabled={isSubmitting} type="submit">
                 {isSubmitting && (
                   <span className="animate-spin">
                     <Loader />
                   </span>
                 )}
-                Register
+                {saveButtonText}
               </Button>
             </div>
           </form>

@@ -49,7 +49,7 @@ export default function RootLayout({
           <PathOptions />
           <main className="flex-1">{children}</main>
           <Footer />
-          <Toaster />
+          <Toaster richColors />
         </body>
       </Providers>
     </html>

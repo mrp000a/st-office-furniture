@@ -91,10 +91,37 @@ export const SpecialButton = ({
   return (
     <Link
       href={href}
-      className="px-2 py-1 active:translate-y-0.5 rounded-md bg-red-primary text-background font-semibold hover:ring-1 active:ring-2 ring-gray-primary ring hover:bg-red-primary/50 active:bg-violet-primary transition-all hover:outline hover:outline-gray-primary/40"
+      className="px-2 py-1 active:translate-y-0.5 rounded-md bg-red-primary text-background font-semibold hover:ring-1 active:ring-2 ring-gray-primary ring hover:bg-blue-secondary/80 active:bg-blue-secondary transition-all hover:outline hover:outline-gray-primary/40"
     >
       {label}
     </Link>
   );
 };
 
+export const NoItemsFound = ({
+  label = "No Items Found!",
+}: {
+  label?: string;
+}) => {
+  return (
+    <div className="px-2 py-1 border border-gray-secondary rounded-sm mx-auto my-4">
+      {label}
+    </div>
+  );
+};
+
+export const SpeacialOrderButton = ({
+  children,
+  // onClick,
+}: {
+  children: React.ReactNode;
+}) => {
+  return (
+    <div
+      // onClick={}
+      className="px-4 py-3 flex-center hover:bg-blue-secondary active:bg-foreground hover:-translate-y-0.5 border cursor-pointer transition-all  rounded-md bg-red-primary text-background text-center w-full font-bold"
+    >
+      {children}
+    </div>
+  );
+};

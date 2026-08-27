@@ -1,18 +1,19 @@
 "use client";
 import React, { useState } from "react";
 import { Input } from "../ui/input";
-import { Button } from "../ui/button";
-import { SpecialButton } from "./uiCom";
 import { toast } from "sonner";
 
 const NewsLetter = () => {
   const [email, setEmail] = useState<string>("");
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
+    e.preventDefault();
     console.log(email);
     toast.success("Subscribed to Newsletter!", {
       description: "Thank You for Submit Your Email.",
     });
+    setEmail("");
+    return;
   };
 
   return (
@@ -27,6 +28,7 @@ const NewsLetter = () => {
           name="email"
           id="email"
           placeholder="Enter your email..."
+          value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
         />

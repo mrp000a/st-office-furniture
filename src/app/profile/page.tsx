@@ -1,4 +1,5 @@
 "use client";
+import { ProfileDefaultImage } from "@/components/data/core";
 import HomeNav from "@/components/layout/homeNav";
 import { SignOut } from "@/components/sec_lib/Sessions";
 import { Button } from "@/components/ui/button";
@@ -20,13 +21,7 @@ const Home = () => {
             fill
             className="object-cover object-center w-full h-full "
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            src={
-              user.image?.startsWith("users/avatar")
-                ? `${process.env.NEXT_PUBLIC_URL_R2}/${user.image}`
-                : user.image
-                  ? user.image
-                  : ""
-            }
+            src={`${process.env.NEXT_PUBLIC_URL_R2}/${user.image ? user.image : ProfileDefaultImage}`}
             alt=""
           />
         </div>
@@ -40,13 +35,7 @@ const Home = () => {
                 fill
                 className={`object-cover object-center overflow-hidden rounded-full relative w-200 h-300 ${user.image ? "" : "mix-blend-darken"}`}
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                src={
-                  user.image?.startsWith("users/avatar")
-                    ? `${process.env.NEXT_PUBLIC_URL_R2}/${user.image}`
-                    : user.image
-                      ? user.image
-                      : ""
-                }
+                src={`${process.env.NEXT_PUBLIC_URL_R2}/${user.image ? user.image : ProfileDefaultImage}`}
                 alt=""
               />
             </div>

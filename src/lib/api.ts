@@ -14,7 +14,7 @@ interface UploadReturnType {
 
 export async function uploadFile(
   file: File,
-  path: string = "users/avatar",
+  path: string = "r2upload/others/images",
 ): Promise<UploadReturnType> {
   const formData = new FormData();
 
@@ -31,7 +31,19 @@ export async function uploadFile(
   return data;
 }
 
-// batch related -------------------------------------------------------------------------------------------------------
+export async function deleteFile(key: string) {
+  const res = await fetch("/api/r2/delete", {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ key }),
+  });
+
+  return await res.json();
+}
+
+// products related -------------------------------------------------------------------------------------------------------
 
 // is the batch exists?
 export async function FindProductExists({
@@ -48,21 +60,48 @@ export async function FindProductExists({
 }
 
 // get all products
-export async function getProducts() {
-  const res = await fetch(`/api/products`, {
-    method: "GET",
-    redirect: "follow",
-  });
-  if (!res.ok) {
-    return { success: false, message: "Server Error-" };
+export async function getProducts({
+  searchString = "",
+  category = "",
+  limit = 25,
+  order = "desc",
+}: {
+  searchString?: string;
+  category?: string;
+  limit?: number;
+  order?: "asc" | "desc";
+}) {
+  try {
+    const res = await fetch(
+      `/api/products?search=${searchString}&category=${category}&limit=${limit}&order=${order}`,
+      {
+        method: "GET",
+        redirect: "follow",
+      },
+    );
+    if (!res.ok) return { success: false, message: "Server Error-" };
+
+    const data = await res.json();
+    if (!data.success) return { success: false, message: "Server Error-" };
+    return { success: true, message: "Products Loaded", result: data.result };
+  } catch (error) {
+    return {
+      success: false,
+      message: "Error on products loading!",
+      error: error,
+    };
   }
-  const data = await res.json();
-  return data;
 }
 
 // Category related -------------------------------------------------------------------------------------------------------
-export async function FindCategoryExists({ name }: { name: string }) {
-  const res = await fetch(`/api/categories/check?name=${name}`, {
+export async function FindCategoryExists({
+  name,
+  id,
+}: {
+  name: string;
+  id?: number;
+}) {
+  const res = await fetch(`/api/categories/check?name=${name}&id=${id}`, {
     method: "GET",
     redirect: "follow",
   });
@@ -73,6 +112,58 @@ export async function FindCategoryExists({ name }: { name: string }) {
 export async function getCategories() {
   const res = await fetch(`/api/categories`, {
     method: "GET",
+    redirect: "follow",
+  });
+  if (!res.ok) {
+    return { success: false, message: "Server Error-" };
+  }
+  const data = await res.json();
+  return data;
+}
+
+export async function deleteCategories({
+  id,
+  name,
+}: {
+  id: number;
+  name: string;
+}) {
+  const res = await fetch(`/api/categories?id=${id}&name=${name}`, {
+    method: "DELETE",
+    redirect: "follow",
+  });
+  if (!res.ok) {
+    toast.error("Server Error-", {
+      description: "The item deleted unsuccessful!",
+    });
+    return;
+  }
+  const data = await res.json();
+  if (!data.success) {
+    toast.error("Server Error-", {
+      description: "The item deleted unsuccessful!",
+    });
+    return;
+  }
+  toast.success("Item deleted!", {
+    description: "The item deleted successful!",
+  });
+  return;
+}
+
+export async function editCategories({
+  id,
+  name,
+  description,
+  image,
+}: {
+  id: number;
+  name: string;
+  description?: string;
+  image?: string;
+}) {
+  const res = await fetch(`/api/categories`, {
+    method: "PUT",
     redirect: "follow",
   });
   if (!res.ok) {
@@ -108,6 +199,20 @@ export async function getCart({ userId }: { userId: number }) {
   if (!res.ok) {
     return { success: false, message: "Server Error-" };
   }
+
+  const data = await res.json();
+  return data;
+}
+
+export async function deleteCart({ userId }: { userId: number }) {
+  const res = await fetch(`/api/cart?userId=${userId}`, {
+    method: "PUT",
+    redirect: "follow",
+  });
+
+  if (!res.ok) {
+    return { success: false, message: "Server Error-" };
+  }
   const data = await res.json();
   return data;
 }
@@ -122,7 +227,6 @@ export const loadCart = async ({
   if (!userId) return;
   // if (!userId) throw new Error("User id Required");
   const cartData = await getCart({ userId });
-
   if (!cartData.success) return;
   if (cartData.result && cartData.result.items) {
     // return

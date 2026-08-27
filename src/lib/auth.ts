@@ -5,7 +5,6 @@ import { prisma } from "./prisma";
 import { compare } from "bcryptjs";
 import { ProfileDefaultImage } from "@/components/data/core";
 
-
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
@@ -18,8 +17,13 @@ export const authOptions: NextAuthOptions = {
         if (!credentials?.email || !credentials?.password)
           throw new Error("Missing email or password!");
 
-        const user = await prisma.user.findUnique({
-          where: { email: credentials.email },
+        const user = await prisma.user.findFirst({
+          where: {
+            OR: [
+              { email: credentials.email.toLowerCase().trim() },
+              { phone: credentials.email.toLowerCase().trim() },
+            ],
+          },
         });
         if (!user) throw new Error("Email not found!");
 

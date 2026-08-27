@@ -1,23 +1,45 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { Category, Product, ProductDescription } from "@/generated/prisma";
+import { Product, ProductDescription } from "@/generated/prisma";
 import { getSession } from "@/lib/serverAuth";
 
 export async function GET(req: NextRequest) {
+  const searchParams = req.nextUrl.searchParams;
+  const searchString = searchParams.get("search");
+  const category = searchParams.get("category");
+  const limit = Number(searchParams.get("limit"));
+  const order = searchParams.get("order");
+  console.log({ category, limit, searchString });
   try {
-    // const sessionPromise = getSession();
-    // await requireRole(sessionPromise, "ADMIN");
-
     const products = await prisma.product.findMany({
-      include: { _count: true, category: true },
-      orderBy: { createdAt: "desc" },
-
+      take: limit,
+      where: {
+        AND: [
+          // Match search string if provided
+          searchString
+            ? { title: { contains: searchString, mode: "insensitive" } }
+            : {},
+          // Match category name or ID if provided
+          category
+            ? {
+                category: { name: { contains: category, mode: "insensitive" } },
+              }
+            : {},
+        ],
+      },
+      include: {
+        _count: true,
+        category: true,
+      },
+      orderBy: {
+        // createdAt: order == "asc" ? "asc" : "desc",
+      },
     });
 
     return NextResponse.json({
       success: true,
-      result: products,
       message: "All Products loaded.",
+      result: products,
     });
   } catch (err: any) {
     return NextResponse.json(

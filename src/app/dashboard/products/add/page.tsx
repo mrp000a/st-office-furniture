@@ -1,5 +1,5 @@
 "use client";
-import { InputErrorMessage, MaxHeader } from "@/components/uiComponent/uiCom";
+import { InputErrorMessage } from "@/components/uiComponent/uiCom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -9,7 +9,6 @@ import { useForm, Controller, useFieldArray } from "react-hook-form";
 import { toast } from "sonner";
 
 import { useRouter } from "next/navigation";
-import { Product } from "@/generated/prisma";
 import {
   Popover,
   PopoverContent,
@@ -183,7 +182,12 @@ const PageAddCourses = () => {
     <div className="w-full min-h-[calc(100vh - 300px)] flex-center max-w-300 mx-auto p-2">
       <div className="p-4 rounded-md border border-gray-primary shadow-md w-full">
         <form onSubmit={handleSubmit(handleSubmitData)}>
-          <MaxHeader>Add Product to St Office Furniture</MaxHeader>
+          <div className="flex justify-between items-center flex-wrap">
+            <h2 className="text-2xl font-bold font-mono text-center w-full">
+              {"Add Product"}
+            </h2>
+          </div>
+            <hr className="py-1 inline-block w-full" />
           <div className="mt-3 flex flex-col gap-2">
             {/* sec1  title  and code */}
             <div className="flex items-start justify-between gap-4 flex-col sm:flex-row">
@@ -580,7 +584,7 @@ const PageAddCourses = () => {
                   <Loader />
                 </span>
               )}
-              Create Batch
+              Add Product
             </Button>
           </div>
         </form>

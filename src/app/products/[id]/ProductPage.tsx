@@ -94,8 +94,8 @@ const AProductPage = () => {
       {!isLoadingShow ? (
         productInfo ? (
           <div>
-            <div className="max-w-384 mx-auto p-2 space-y-3">
-              <div className="flex flex-col md:flex-row gap-1 md:gap-4">
+            <div className="max-w-384 mx-auto p-1 space-y-3">
+              <div className="flex flex-col md:flex-row gap-1 md:gap-4 bg-background p-1 md:p-2  rounded-md border">
                 {/* Left side images and something */}
                 <div className="space-y-3 max-w-125 mx-auto w-full md:m-0">
                   <div className=" rounded-md  overflow-hidden w-full   lg:max-w-125 mx-auto aspect-video bg-background shadow-2xl relative flex-center">
@@ -158,11 +158,7 @@ const AProductPage = () => {
                                 fill
                                 className={`object-contain object-center overflow-hidden  relative w-200 h-300 `}
                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                src={
-                                  item.startsWith("r2upload/")
-                                    ? `${process.env.NEXT_PUBLIC_URL_R2}/${item}`
-                                    : item
-                                }
+                                src={`${process.env.NEXT_PUBLIC_URL_R2}/${item ? item : ProductDefaultImage}`}
                                 alt={item}
                               />
                             </div>
@@ -200,11 +196,7 @@ const AProductPage = () => {
                           fill
                           className={`object-contain object-center overflow-hidden  relative w-200 h-300 `}
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                          src={
-                            item.startsWith("r2upload/")
-                              ? `${process.env.NEXT_PUBLIC_URL_R2}/${item}`
-                              : item
-                          }
+                          src={`${process.env.NEXT_PUBLIC_URL_R2}/${item ? item : ProductDefaultImage}`}
                           alt={item}
                         />
                       </button>
@@ -402,9 +394,8 @@ const AProductPage = () => {
                   </div>
                 </div>
               </div>
-              <hr />
               {/* descriptions and more */}
-              <div>
+              <div className="p-1 md:p-2 rounded-md border bg-background ">
                 <div className="flex flex-col p-2 gap-3">
                   <h2 className="text-2xl font-bold border-l-4 border-l-red-primary px-3 rounded-md">
                     Descriptions

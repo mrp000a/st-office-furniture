@@ -44,6 +44,7 @@
   --color-gray-primary: var(--gray-primary);
   --color-gray-secondary: var(--gray-secondary);
   --color-blue-primary: var(--blue-primary);
+  --color-blue-secondary: var(--blue-secondary);
   --color-red-primary: var(--red-primary);
   --color-black-primary: var(--black-primary);
   --color-violet-primary: var(--violet-primary);
@@ -97,6 +98,7 @@
   --gray-primary: #504b4b;
   --gray-secondary: #c3b3b3;
   --blue-primary: #2317c3;
+  --blue-secondary: #080537;
   --red-primary: #c31717;
   --violet-primary: violet;
 }

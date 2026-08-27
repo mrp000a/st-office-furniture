@@ -1,17 +1,27 @@
 "use client";
 
-import { RotateCcw, Search } from "lucide-react";
+import { RotateCcw, Search, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Category, Product } from "@/generated/prisma";
 import ProductClient from "@/components/uiComponent/productClient";
+import { useRouter, useSearchParams } from "next/navigation";
+import { getProducts } from "@/lib/api";
 
 const ProductsPage = () => {
-  const [searchProductString, setSearchProductString] = useState<string>("");
-  const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
-  const inputRef = useRef<HTMLInputElement>(null);
 
-  // 2. Automatically focus the input field as soon as it opens
+  const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
+  const [productLoadLimit, setProductLoadLimit] = useState<number>(25);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const searchParams = useSearchParams();
+  const [searchProductString, setSearchProductString] = useState<string>(
+    searchParams.get("search") ?? "",
+  );
+  const [searchCategoryString, setSearchCategoryString] = useState<string>(
+    searchParams.get("category") ?? "",
+  );
+  const router = useRouter();
+
   useEffect(() => {
     if (isSearchOpen) {
       inputRef.current?.focus();
@@ -33,46 +43,59 @@ const ProductsPage = () => {
   >([]);
 
   const loadProducts = useCallback(async () => {
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-
-    try {
-      const data = await fetch(`/api/products`, {
-        method: "GET",
-        headers: myHeaders,
-        redirect: "follow",
-      });
-      const res = await data.json();
-      if (res.success) {
-        console.log(res.result[0]);
-        setProducts(res.result);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
+    const data = await getProducts({
+      searchString: searchProductString,
+      category: searchCategoryString,
+      limit: productLoadLimit ?? 50,
+    });
+    // console.log(data);
+    if (!data.success) return;
+    setProducts(data.result);
+  }, [searchProductString, productLoadLimit, searchCategoryString]);
 
   useEffect(() => {
-    const a = async () => {
-      await loadProducts();
-      console.log(searchProductString);
+    const a = () => {
+      loadProducts();
     };
     a();
-  }, [loadProducts, searchProductString]);
+  }, [loadProducts]);
+
+  useEffect(() => {
+    const s = searchParams.get("search");
+    const c = searchParams.get("category");
+    const a = () => {
+      setSearchProductString(s ?? "");
+      setSearchCategoryString(c ?? "");
+    };
+    a();
+  }, [searchParams]);
+
+  // useEffect(() => {
+  //   const a = async () => {
+  //     await loadProducts();
+  //     console.log(searchProductString);
+  //   };
+  //   a();
+  // }, [loadProducts, searchProductString, searchCategoryString]);
 
   return (
-    <div className=" w-full">
-      <div className="py-2 px-3 relative w-full flex box-border  justify-between border-b border-b-gray-secondary/50 items-center flex-wrap max-w-384 mx-auto ">
-        <h2 className="text-2xl font-bold">Products</h2>
+    <div className=" w-full space-y-1">
+      <div className="py-2 px-3 relative w-full flex box-border border bg-background rounded-md  justify-between border-b border-b-gray-secondary/50 items-center flex-wrap max-w-384 mx-auto ">
+        <div>
+          <h2 className="text-2xl font-bold">Products</h2>
+        </div>
         <div className="flex-center box-border relative gap-2 flex-wrap max-w-full">
           <div className="hidden sm:flex justify-center items-center focus-within:ring-2 max-w-full focus-within:ring-gray-secondary/80 transition-all ring-gray-secondary/50 ring rounded-md overflow-hidden  gap-1">
             <button
               className="bg-gray-secondary/20 h-full w-fit p-1 px-2"
-              onClick={async () => console.log("object")}
+              onClick={async () =>
+                router.push(`/products?search=${searchProductString}`)
+              }
             >
               <Search />
             </button>
             <input
+              value={searchProductString ?? ""}
               onChange={(e) => setSearchProductString(e.target.value)}
               className="focus:bg-none max-w-full focus:outline-none"
               placeholder="Search Product"
@@ -129,6 +152,33 @@ const ProductsPage = () => {
           </Button>
         </div>
       </div>
+      {/* search client */}
+      <div
+        className={`max-w-384 w-full mx-auto rounded-md gap-2 flex flex-wrap text-gray-primary/80 `}
+      >
+        <span className={`${searchProductString.length > 0 ? "" : "hidden"}`}>
+          Showing result for {`"${searchProductString}"`}
+        </span>
+        <span>
+          {searchProductString.length > 0 &&
+            searchCategoryString.length > 0 &&
+            "In"}
+        </span>
+        <span className={`${searchCategoryString.length > 0 ? "" : "hidden"}`}>
+          Category : {`"${searchCategoryString}"`}
+        </span>
+        <Button
+          onClick={() => {
+            setSearchCategoryString("");
+            setSearchProductString("");
+          }}
+          className={`${searchCategoryString.length > 0 || searchProductString.length > 0 ? "" : "hidden"}`}
+          variant={"destructive"}
+        >
+          <X />
+        </Button>
+      </div>
+
       <div className="max-w-384 flex-center w-full mx-auto ">
         {/* <Button onClick={loadProduct}>Set product</Button> */}
         {products &&
@@ -138,7 +188,6 @@ const ProductsPage = () => {
             .includes(searchProductString.toLocaleLowerCase()),
         ).length > 0 ? (
           <div className="w-full grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5  2xl:grid-cols-5  justify-items-center items-stretch  px-3 py-2 box-border  gap-3">
-           
             {products
               .filter((item) =>
                 item.title
@@ -157,6 +206,16 @@ const ProductsPage = () => {
             </span>
           </div>
         )}{" "}
+      </div>
+      <div className="flex-center py-4 ">
+        <Button
+          onClick={() => {
+            setProductLoadLimit((e) => e + 15);
+          }}
+          variant={"outline"}
+        >
+          See More
+        </Button>
       </div>
     </div>
   );

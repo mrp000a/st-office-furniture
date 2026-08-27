@@ -1,6 +1,16 @@
 "use client";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 import {
   coreInfo,
@@ -12,13 +22,15 @@ import {
 import { Button } from "../ui/button";
 import {
   Menu,
+  MenuIcon,
   RotateCcw,
+  Search,
   ShoppingCart,
   SquareArrowLeft,
   SquareArrowRight,
 } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   Drawer,
   DrawerContent,
@@ -26,18 +38,24 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "../ui/drawer";
-import { NavLinks, SpecialButton } from "../uiComponent/uiCom";
+import { NoItemsFound, SpecialButton } from "../uiComponent/uiCom";
 import { useSession } from "next-auth/react";
 import { CartProductItem } from "../uiComponent/CartRelated";
 import { handleDeleteCartItem, loadCart } from "@/lib/api";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
+import ProductSearchContainer from "../uiComponent/productSearchContainer";
+import { CategoriesNav } from "@/lib/formDataTypes";
 
 const HomeNav = () => {
   const [openMobNav, setOpenMobNav] = useState<boolean>(false);
   const [openCart, setOpenCart] = useState<boolean>(false);
+  const [showSearchBar, setShowSearchBar] = useState(false);
+  const [categoriesShow, setCategoriesShow] = useState(false);
+  const focusSearchInput = useRef<HTMLInputElement>(null);
   const [shakeCart, setShakeCart] = useState(false);
+  const pathname = usePathname();
   const { status, data } = useSession();
   const session = useSession();
   const user = data?.user;
@@ -71,10 +89,26 @@ const HomeNav = () => {
   }, [dispatch, session, user?.id]);
 
   const router = useRouter();
+
+  // useEffect(() => {
+  //   if (pathname.startsWith("/dashboard/") || pathname == "/dashboard") return;
+  // }, [pathname]);
+
   return (
     <>
-      <header className="bg-background/40 backdrop-blur-2xl  sticky z-40 top-0 border border-gray-600 box-border py-2 px-5 ">
-        <div className="w-full h-full justify-center items-center flex relative">
+      <header
+        className={`bg-background/40 backdrop-blur-2xl  sticky z-40 top-0 border border-gray-secondary/80 box-border  ${pathname.startsWith("/dashboard") ? "hidden" : ""}`}
+      >
+        {/* search overlay  */}
+        <button
+          onClick={() => {
+            setShowSearchBar(false);
+            focusSearchInput.current?.focus();
+          }}
+          className={`absolute blur-2xl  top-0 left-0 z-30 w-screen h-screen min-h-screen  overflow-hidden bg-foreground/20 ${showSearchBar ? "" : "hidden backdrop-blur-lg"}`}
+        ></button>
+
+        <div className="w-full py-2 px-1 sm:px-3 h-full justify-center items-center flex relative">
           <div className="max-w-384 w-full mx-auto flex justify-between items-center">
             {/* logo left of navbar and menu  */}
             <div className="flex-center gap-3">
@@ -86,7 +120,7 @@ const HomeNav = () => {
               </button>
               <Link
                 href={"/#"}
-                className="md:h-20 md:w-20 h-15 w-15 relative z-30  rounded-full border border-gray-primary overflow-hidden"
+                className="md:h-15 md:w-15 h-15 w-15 relative z-30  rounded-full border border-gray-primary overflow-hidden"
               >
                 <Image
                   src={coreInfo.image}
@@ -97,10 +131,20 @@ const HomeNav = () => {
                 />
               </Link>
             </div>
+
             {/* right of navbar  */}
 
             {/* log in / reg button and profile button */}
             <div className="space-x-3 flex justify-center items-center ">
+              <button
+                className="sm:hidden "
+                onClick={() => {
+                  setShowSearchBar((e) => !e);
+                  focusSearchInput.current?.focus();
+                }}
+              >
+                <Search />
+              </button>
               {status === "unauthenticated" || status === "loading" ? (
                 <>
                   <SpecialButton href="/signin" label="Log In" key={"alskd"} />
@@ -133,6 +177,7 @@ const HomeNav = () => {
                   </span>
                 </button>
               )}
+
               <button
                 onClick={() => {
                   setOpenCart((e) => !e);
@@ -147,19 +192,93 @@ const HomeNav = () => {
               </button>
             </div>
           </div>
-
-          <nav className="absolute hidden md:flex justify-between items-center gap-3">
+          <>
+            <div
+              className={`absolute justify-between transition-all duration-500 z-30 items-center gap-3 w-full sm:hidden
+              ${
+                showSearchBar
+                  ? "flex translate-y-0 opacity-100"
+                  : "pointer-events-none opacity-0 -translate-y-4"
+              }`}
+            >
+              <ProductSearchContainer
+                focusRef={focusSearchInput}
+                overLayer={setShowSearchBar}
+              />
+            </div>
+            <div
+              className={`absolute justify-between transition-all duration-500 z-30 items-center gap-3 w-full lg:max-w-130 sm:max-w-[calc(100vw-350px)] max-w-[calc(100vw-40px)] max-sm:hidden`}
+            >
+              <ProductSearchContainer />
+            </div>
+          </>
+          {/* <nav className="absolute hidden md:flex justify-between items-center gap-3">
             {navItems.map(({ href, label }, index) => (
               <NavLinks key={index} href={href} label={label} />
             ))}
-          </nav>
-
-          {/* testing */}
+          </nav> */}
         </div>
+
+        {/* category line  */}
+        <div className="w-full bg-red-primary py-1 text-xs md:text-xs lg:text-sm">
+          <div className=" max-w-384 mx-auto px-2 flex justify-start items-center sm:gap-3">
+            <div
+              onMouseEnter={() => setCategoriesShow(true)}
+              onMouseLeave={() => setCategoriesShow(false)}
+            >
+              {/* <button onClick={() => setCategoriesShow(true)}>open</button> */}
+              <DropdownMenu
+                modal={false}
+                open={categoriesShow}
+                onOpenChange={setCategoriesShow}
+              >
+                <DropdownMenuTrigger asChild>
+                  <button className="text-white flex items-center">
+                    <MenuIcon className="h-5" />
+                    <span>Catogories</span>
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-96">
+                  <DropdownMenuGroup>
+                    <DropdownMenuLabel>Categories</DropdownMenuLabel>
+                    {CategoriesNav.map(({ label, href }, index) => (
+                      <DropdownMenuItem key={index} asChild>
+                        <Link
+                          href={href}
+                          className="  px-2 rounded-md active:translate-y-[0.5px]"
+                          key={index}
+                        >
+                          {label}
+                        </Link>
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuGroup>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuGroup>
+                    {/* <DropdownMenuItem>Team</DropdownMenuItem>
+                    <DropdownMenuItem>Subscription</DropdownMenuItem> */}
+                  </DropdownMenuGroup>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+            <div className="flex justify-start items-center gap-3 text-background  max-md:hidden">
+              {CategoriesNav.map(({ label, href }, index) => (
+                <Link
+                  href={href}
+                  className=" bg-blue-secondary/20 hover:bg-blue-secondary/50 active:bg-blue-secondary/80 px-2 rounded-md active:translate-y-[0.5px]"
+                  key={index}
+                >
+                  {label}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+
         {(user?.role === "ADMIN" || user?.role === "SUPER_ADMIN") && (
           <Link
             className="absolute top-0 right-0 text-[9px] rounded-lg border box-border border-gray-primary px-2 py-1 bg-background/60 hover:bg-background active:bg-violet-primary"
-            href={"/admin"}
+            href={"/dashboard"}
           >
             {user?.email}
           </Link>
@@ -254,9 +373,7 @@ const HomeNav = () => {
                   />
                 ))
               ) : (
-                <span className="text-center p-3 rounded-md outline-2 outline-gray-secondary box-border">
-                  No Items Found
-                </span>
+                <NoItemsFound />
               )}
             </div>
             <DrawerFooter className="border-t border-gray-secondary">
@@ -304,8 +421,8 @@ const HomeNav = () => {
       </>
 
       {/* Mobile Navbar */}
-      <div className="md:hidden fixed bottom-0 min-w-full bg-background/40 z-9999 backdrop-blur-2xl border border-gray-600 box-border p-1">
-        <div className="flex w-full justify-between gap-2 overflow-auto">
+      <div className="md:hidden fixed bottom-0 min-w-full bg-background/40 z-9999 backdrop-blur-2xl border border-gray-600 box-border p-1 ">
+        <div className="flex w-full justify-between gap-2 overflow-visible">
           {MobNavItems.map(({ href, label, Logo: Logo }, index) => (
             <button
               onClick={() => {
@@ -316,10 +433,18 @@ const HomeNav = () => {
                 }, 500);
               }}
               key={index}
-              className="px-2 py-1 flex-center flex-col flex-1 rounded-sm hover:bg-background bg-gray-secondary active:bg-violet-primary transition-all hover:outline hover:outline-gray-primary/40 border border-gray-primary cursor-pointer "
+              className={` ${label.toLowerCase() == "home" ? "relative z-30 rounded-full bg-red-primary text-background p-1 px-2  ring ring-gray-primary shadow-lg shadow-yellow-500 -translate-y-4" : `px-2 py-1 flex-center flex-col flex-1 rounded-sm hover:bg-background active:bg-violet-primary transition-all hover:outline hover:outline-gray-primary/40 border border-gray-primary cursor-pointer ${pathname.startsWith(href) ? "bg-blue-secondary/50" : " bg-gray-secondary"} `}`}
             >
-              {Logo && <Logo className="w-6 h-6" />}
-              <span className="text-[8px] ">{label}</span>
+              {Logo && (
+                <Logo
+                  className={`font-bold ${label.toLowerCase() == "home" ? "text-background w-8 h-8 " : "text-red-primary w-6 h-6 "}`}
+                />
+              )}
+              <span
+                className={`text-[8px] ${label.toLowerCase() == "home" ? "hidden" : ""} `}
+              >
+                {label}
+              </span>
             </button>
           ))}
         </div>
