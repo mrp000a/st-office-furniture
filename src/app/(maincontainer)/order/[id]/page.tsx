@@ -243,8 +243,17 @@ const Page = () => {
                 )}
               </div>
 
+              {order.customerNote && (
+                <div className="text-xs text-foreground space-x-2 pt-4">
+                  <span className="text-gray-primary">Customer Note:</span>
+                  <span>{order.customerNote}</span>
+                </div>
+              )}
+
               <div className="flex justify-end items-end w-full">
-                <Button variant={"outline"}>Continue</Button>
+                <Button onClick={() => router.back()} variant={"outline"}>
+                  Continue
+                </Button>
               </div>
             </div>
           </div>
@@ -268,7 +277,7 @@ const Page = () => {
                       </TimelineDate>
                       <TimelineTitle>{status}</TimelineTitle>
                       <TimelineIndicator className="group-data-completed/timeline-item:bg-primary group-data-completed/timeline-item:text-primary-foreground flex size-6 items-center justify-center group-data-completed/timeline-item:border-none group-data-[orientation=vertical]/timeline:-left-7">
-                        <CheckIcon className="size-4 group-not-data-completed/timeline-item:hidden" />
+                        {/* <CheckIcon className="size-4 group-not-data-completed/timeline-item:hidden" /> */}
                         <CheckIcon className="size-4" />
                       </TimelineIndicator>
                     </TimelineHeader>

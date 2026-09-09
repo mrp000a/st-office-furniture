@@ -117,7 +117,7 @@ const Page = () => {
         action: {
           label: "View now!",
           onClick: () => {
-            router.push(`/orders/${CreateOrder.result?.id}`);
+            router.push(`/order/${CreateOrder.result?.id}`);
           },
         },
       });
