@@ -104,7 +104,7 @@ export const NoItemsFound = ({
   label?: string;
 }) => {
   return (
-    <div className="px-2 py-1 border border-gray-secondary rounded-sm mx-auto my-4">
+    <div className="px-2 py-1 border border-gray-secondary text-center rounded-sm mx-auto my-4">
       {label}
     </div>
   );

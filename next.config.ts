@@ -13,6 +13,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "pub-dd7943ad26864258b196b72bac8dadab.r2.dev",
       },
+      {
+        protocol: "https",
+        hostname: "files.stofficefurniture.com",
+      },
     ],
   },
 };

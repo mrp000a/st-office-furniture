@@ -28,7 +28,7 @@ const ProductClient = ({
   const router = useRouter();
 
   return (
-    <div className="hover:shadow-2xl bg-background hover:translate-y-1 shadow-blue-primary/40 hover:ring-2 ring-gray-secondary transition-all flex flex-col max-w-full box-border w-full justify-start items-start gap-2 ring p-1 rounded-sm relative">
+    <div className="hover:shadow-2xl bg-background dark:bg-background hover:translate-y-1 shadow-blue-primary/40 hover:ring-3 hover:ring-blue-primary transition-all flex flex-col max-w-full box-border w-full justify-start items-start gap-2 ring-2 ring-red-primary p-1 rounded-sm relative">
       {/* main image and discont red  */}
       <Link
         href={`/products/${item.productCode.toLowerCase()}`}
@@ -42,7 +42,7 @@ const ProductClient = ({
           className="object-contain hover:scale-120 active:sca1e-120 transition-all duration-500 ease-in-out"
         />
         <span
-          className={`bg-red-primary flex-center flex-col  text-background rounded-md text-xs ring-2 ring-gray-secondary px-2 py-1  absolute right-0 top-0 z-20 ${item.discount ? "" : "hidden"}`}
+          className={`bg-red-primary flex-center flex-col  text-background dark:text-foreground rounded-md text-xs ring-2 ring-gray-secondary px-2 py-1  absolute right-0 top-0 z-20 ${item.discount ? "" : "hidden"}`}
         >
           <span className="font-bold">{Number(item.discount)}%</span>
           <span className="text-xs">Off</span>
@@ -57,8 +57,8 @@ const ProductClient = ({
           {item.title}
         </Link>
         <Link
-          href={`/categories/${item.category?.name?.toLowerCase()}`}
-          className="font-semibold text-gray-secondary text-[10px]"
+          href={`/products?category=${item.category?.name?.toLowerCase() ?? ""}`}
+          className="font-semibold text-gray-secondary text-[10px] w-fit"
         >
           {item.category?.name ?? "N/A"}
         </Link>

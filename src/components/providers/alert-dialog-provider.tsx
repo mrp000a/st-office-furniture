@@ -1,6 +1,6 @@
 "use client";
 
-import {
+import React, {
   createContext,
   useCallback,
   useState,
@@ -20,7 +20,7 @@ import {
 
 export type AlertOptions = {
   title?: string;
-  description?: string;
+  description?: string | React.ReactNode;
   confirmText?: string;
   cancelText?: string;
   destructive?: boolean;
@@ -44,42 +44,32 @@ type AlertDialogContextType = {
   confirm: (options?: AlertOptions) => Promise<boolean>;
 };
 
-export const AlertDialogContext =
-  createContext<AlertDialogContextType | null>(null);
+export const AlertDialogContext = createContext<AlertDialogContextType | null>(
+  null,
+);
 
-export function AlertDialogProvider({
-  children,
-}: {
-  children: ReactNode;
-}) {
-  const [dialog, setDialog] =
-    useState<DialogState>(null);
+export function AlertDialogProvider({ children }: { children: ReactNode }) {
+  const [dialog, setDialog] = useState<DialogState>(null);
 
-  const alert = useCallback(
-    (options: AlertOptions = {}) => {
-      return new Promise<void>((resolve) => {
-        setDialog({
-          type: "alert",
-          options,
-          resolve,
-        });
+  const alert = useCallback((options: AlertOptions = {}) => {
+    return new Promise<void>((resolve) => {
+      setDialog({
+        type: "alert",
+        options,
+        resolve,
       });
-    },
-    []
-  );
+    });
+  }, []);
 
-  const confirm = useCallback(
-    (options: AlertOptions = {}) => {
-      return new Promise<boolean>((resolve) => {
-        setDialog({
-          type: "confirm",
-          options,
-          resolve,
-        });
+  const confirm = useCallback((options: AlertOptions = {}) => {
+    return new Promise<boolean>((resolve) => {
+      setDialog({
+        type: "confirm",
+        options,
+        resolve,
       });
-    },
-    []
-  );
+    });
+  }, []);
 
   const handleConfirm = useCallback(() => {
     if (!dialog) return;
@@ -125,9 +115,7 @@ export function AlertDialogProvider({
             <AlertDialogHeader>
               <AlertDialogTitle>
                 {dialog.options.title ??
-                  (dialog.type === "confirm"
-                    ? "Are you sure?"
-                    : "Notice")}
+                  (dialog.type === "confirm" ? "Are you sure?" : "Notice")}
               </AlertDialogTitle>
 
               {dialog.options.description && (
@@ -139,11 +127,8 @@ export function AlertDialogProvider({
 
             <AlertDialogFooter>
               {dialog.type === "confirm" && (
-                <AlertDialogCancel
-                  onClick={handleCancel}
-                >
-                  {dialog.options.cancelText ??
-                    "Cancel"}
+                <AlertDialogCancel onClick={handleCancel}>
+                  {dialog.options.cancelText ?? "Cancel"}
                 </AlertDialogCancel>
               )}
 
@@ -155,8 +140,7 @@ export function AlertDialogProvider({
                     : undefined
                 }
               >
-                {dialog.options.confirmText ??
-                  "OK"}
+                {dialog.options.confirmText ?? "OK"}
               </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>

@@ -1,16 +1,27 @@
 "use client";
 import { AlertDialogProvider } from "@/components/providers/alert-dialog-provider";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import ReduxProvider from "@/redux/provider";
 import { SessionProvider } from "next-auth/react";
+import { ThemeProvider } from "./themeProviders";
 import React from "react";
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <ReduxProvider>
-        <SessionProvider>
-          <AlertDialogProvider>{children}</AlertDialogProvider>
-        </SessionProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <TooltipProvider>
+            <SessionProvider>
+              <AlertDialogProvider>{children}</AlertDialogProvider>
+            </SessionProvider>
+          </TooltipProvider>
+        </ThemeProvider>
       </ReduxProvider>
     </>
   );

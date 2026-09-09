@@ -23,7 +23,7 @@ export default withAuth(
     }
 
     if (
-      token?.role !== "ADMIN" &&
+      (token?.role == "USER") &&
       (pathname.startsWith("/admin") || pathname.startsWith("/dashboard"))
     ) {
       return NextResponse.redirect(new URL("/", req.url));

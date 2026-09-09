@@ -34,7 +34,7 @@ const HeroSectionA = () => {
     <div>
       {/* hero section  */}
       <section className="py-2">
-        <div className=" rounded-md  overflow-hidden w-full max-w-384 max-[600]:max-h-full    mx-auto aspect-[640/256] bg-background shadow-2xl relative flex-center">
+        <div className=" rounded-md  overflow-hidden w-full max-w-384 max-[600]:max-h-full    mx-auto aspect-[1376/680] bg-background shadow-2xl relative flex-center">
           <Swiper
             onSwiper={setSwiperInstance}
             onSlideChange={(swiper) => {
@@ -51,14 +51,16 @@ const HeroSectionA = () => {
             {coreInfo.images.map((item, index) => (
               <SwiperSlide
                 key={index}
-                className={`flex w-full h-full items-center justify-center text-2xl font-bold `}
+                className={`flex relative w-full h-full items-center justify-center text-2xl font-bold `}
               >
                 <div
                   className={` relative  h-full w-full  overflow-hidden text-shadow-2xs text-shadow-blue-primary `}
                 >
                   <Image
                     fill
-                    className={`object-contain object-center overflow-hidden  relative w-200 h-300 `}
+                    // quality={100}
+                    unoptimized
+                    className={`object-cover object-center overflow-hidden  relative w-200 h-300 `}
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     src={
                       typeof item === "string"
@@ -78,7 +80,7 @@ const HeroSectionA = () => {
           <div className="text-4xl font-bold flex-center">
             <button
               onClick={() => swiperInstance?.slidePrev()}
-              className="showPrevSlide absolute left-0 z-20  bg-gray-secondary/50 rounded-md px-3 py-5 backdrop-blur-md"
+              className="showPrevSlide absolute left-0 z-20  bg-gray-secondary/30 rounded-md lg:px-3 px-1 py-2 lg:py-5  backdrop-blur-xs"
             >
               <ChevronLeft className="" />
             </button>
@@ -86,7 +88,7 @@ const HeroSectionA = () => {
               onClick={() => {
                 swiperInstance?.slideNext();
               }}
-              className="showPrevSlide absolute right-0 z-20  bg-gray-secondary/50 rounded-md px-3 py-5 backdrop-blur-md"
+              className="showPrevSlide absolute right-0 z-20  bg-gray-secondary/30 rounded-md lg:px-3 px-1 py-2 lg:py-5  backdrop-blur-xs"
             >
               <ChevronRight />
             </button>

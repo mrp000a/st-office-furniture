@@ -25,7 +25,6 @@ const ProductSearchContainer = ({
   const loadProducts = useCallback(async () => {
     if (productSearchString.length === 0) return;
     const data = await getProducts({ searchString: productSearchString ?? "" });
-    // console.log(data);
     if (!data.success) return;
     setProducts(data.result);
   }, [productSearchString]);
@@ -42,7 +41,7 @@ const ProductSearchContainer = ({
       <div className="flex w-full rounded-md">
         <Input
           ref={focusRef}
-          className={`w-full bg-background`}
+          className={`w-full   backdrop-blur-sm`}
           value={productSearchString}
           onChange={(e) => setProductSearchString(e.target.value)}
           placeholder="Search Products!"

@@ -1,9 +1,7 @@
-import { Product } from "@/generated/prisma";
+import { OrderStatus, Product } from "@/generated/prisma";
 import { addItem, removeItem, setCart } from "@/redux/features/cart/cartSlice";
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { SessionContextValue } from "next-auth/react";
-import { useRouter } from "next/router";
-import { SetStateAction, useCallback } from "react";
 import { toast } from "sonner";
 
 interface UploadReturnType {
@@ -12,6 +10,7 @@ interface UploadReturnType {
   message?: string;
 }
 
+// r2 storage -----------------------------------------------------------------------------------------------------
 export async function uploadFile(
   file: File,
   path: string = "r2upload/others/images",
@@ -45,7 +44,7 @@ export async function deleteFile(key: string) {
 
 // products related -------------------------------------------------------------------------------------------------------
 
-// is the batch exists?
+// is the product exists?
 export async function FindProductExists({
   productCode,
 }: {
@@ -88,6 +87,36 @@ export async function getProducts({
     return {
       success: false,
       message: "Error on products loading!",
+      error: error,
+    };
+  }
+}
+
+// delete a product
+export async function deleteProduct({
+  id,
+  productCode,
+}: {
+  productCode: string;
+  id: number;
+}) {
+  try {
+    const res = await fetch(
+      `/api/products?id=${id}&productCode=${productCode}`,
+      {
+        method: "DELETE",
+        redirect: "follow",
+      },
+    );
+    if (!res.ok) return { success: false, message: "Server Error-" };
+
+    const data = await res.json();
+    if (!data.success) return { success: false, message: "Server Error-" };
+    return { success: true, message: "Products Deleted!", result: data.result };
+  } catch (error) {
+    return {
+      success: false,
+      message: "Error on products Delete!",
       error: error,
     };
   }
@@ -174,6 +203,30 @@ export async function editCategories({
 }
 
 // Users related -------------------------------------------------------------------------------------------------------
+export async function getUsers({
+  email,
+  phone,
+  name,
+  limit = 100,
+}: {
+  email?: string;
+  phone?: string;
+  name?: string;
+  limit?: number;
+}) {
+  const res = await fetch(
+    `/api/users?email=${email}&phone=${phone}&name=${name}&limit=${limit}`,
+    {
+      method: "GET",
+      redirect: "follow",
+    },
+  );
+
+  const data: { success: boolean; message: null | string; result: any } =
+    await res.json();
+  return data;
+}
+
 export async function FindUserExists({
   email,
   phone,
@@ -188,6 +241,34 @@ export async function FindUserExists({
   const data = await res.json();
   return data;
 }
+
+export async function deleteUser({
+  id,
+  email,
+  image,
+}: {
+  id: number;
+  image?: string;
+  email?: string;
+}) {
+  const res = await fetch(`/api/users?id=${id}&email=${email}`, {
+    method: "DELETE",
+    redirect: "follow",
+  });
+  const data = await res.json();
+
+  if (data.success) {
+    if (image) await deleteFile(image);
+    toast.success("User Deleted Successfully!", {
+      description: `${new Date().toISOString()}`,
+    });
+  } else {
+    toast.error("User Not Deleted!", {
+      description: `${new Date().toISOString()}`,
+    });
+  }
+}
+
 // Cart related -------------------------------------------------------------------------------------------------------
 
 export async function getCart({ userId }: { userId: number }) {
@@ -382,3 +463,81 @@ export const HandleAddToLocalCart = ({
 
   toast.success("Item added to Cart!");
 };
+
+// order related --------------------------------------------------------------------------------------------
+export async function getOrders({
+  userId,
+  status = "PENDING",
+  email,
+  name,
+  limit = 100,
+}: {
+  email?: string;
+  status?: OrderStatus;
+  name?: string;
+  limit?: number;
+  userId?: number;
+}) {
+  const res = await fetch(
+    `/api/order?userId=${userId}&email=${email}&status=${status}&name=${name}&limit=${limit}`,
+    {
+      method: "GET",
+      redirect: "follow",
+    },
+  );
+
+  const data: { success: boolean; message: null | string; result: any } =
+    await res.json();
+  return data;
+}
+export async function getSingleOrder({ orderId }: { orderId?: number }) {
+  if (!orderId)
+    return { success: false, message: "order id is required", result: null }; //toast.error("Order Id is required!");
+  const res = await fetch(`/api/order/id?orderId=${orderId}`, {
+    method: "GET",
+    redirect: "follow",
+  });
+
+  const data: { success: boolean; message: null | string; result: any } =
+    await res.json();
+  return data;
+}
+export async function checkSingleOrder({
+  orderId,
+  phone,
+}: {
+  orderId: number;
+  phone: string;
+}) {
+  if (!orderId || !phone)
+    return { success: false, message: "order id is required", result: null }; //toast.error("Order Id is required!");
+  const res = await fetch(
+    `/api/order/check?orderId=${orderId}&phone=${phone}`,
+    {
+      method: "GET",
+      redirect: "follow",
+    },
+  );
+
+  const data: { success: boolean; message: null | string; result: any } =
+    await res.json();
+  return data;
+}
+
+export async function deleteOrder({ id }: { id: number }) {
+  const res = await fetch(`/api/order?id=${id}`, {
+    method: "DELETE",
+    redirect: "follow",
+  });
+  const data = await res.json();
+
+  if (data.success) {
+    toast.success("Order Deleted Successfully!", {
+      description: `${new Date().toISOString()}`,
+    });
+  } else {
+    toast.error("Order Not Deleted!", {
+      description: `${new Date().toISOString()}`,
+    });
+  }
+}

@@ -10,6 +10,11 @@
   --font-sans: var(--font-sans);
   --font-mono: var(--font-geist-mono);
   --font-heading: var(--font-sans);
+
+  /* custom font */
+  --font-poppins: var(--font-poppins);
+  --font-bangla: var(--font-hind-siliguri);
+
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -104,8 +109,8 @@
 }
 
 .dark {
-  --background: oklch(0.147 0.004 49.25);
-  --foreground: oklch(0.985 0.001 106.423);
+  --background: oklch(22.077% 0.01261 44.416);
+  --foreground: oklch(96.715% 0.01441 106.79);
   --card: oklch(0.216 0.006 56.043);
   --card-foreground: oklch(0.985 0.001 106.423);
   --popover: oklch(0.216 0.006 56.043);
@@ -137,12 +142,15 @@
   --sidebar-ring: oklch(0.553 0.013 58.071);
 
   /* custom colors  */
+  
+  /* custom colors  */
   --magnet-primary: #1c0f0f;
-  --gray-primary: #504b4b;
-  --gray-secondary: #c3b3b3;
-  --blue-primary: #2317c3;
-  --red-primary: #c31717;
-  --violet-primary: violet;
+  --gray-primary: #aa9f9f;
+  --gray-secondary: #574848;
+  --blue-primary: #1a119b;
+  --blue-secondary: #100c4d;
+  --red-primary: #9a1212;
+  --violet-primary: #c15dc1;
 
 
 }
@@ -162,7 +170,7 @@
 }
 
 
-@utility flex-center{
+@utility flex-center {
   @apply flex justify-center items-center
 }
 
@@ -170,6 +178,7 @@
   --animate-cart-shake: cart-shake 0.5s ease-in-out;
 
   @keyframes cart-shake {
+
     0%,
     100% {
       transform: translateX(0);

@@ -1,10 +1,11 @@
 import {
+  Category,
   DeliveryAreas,
   Gender,
   PaymentMethods,
+  Product,
   ProductDescription,
 } from "@/generated/prisma";
-import { TbTruckDelivery } from "react-icons/tb";
 import { PiMoneyWavyFill } from "react-icons/pi";
 
 export type UserFormData = {
@@ -48,7 +49,7 @@ export type ProductFormData = {
   discountPrice?: number;
   discount?: number;
 
-  stock: boolean;
+  stock: number;
   categoryId?: string;
 };
 
@@ -62,7 +63,7 @@ export type OrderFormData = {
   receiverPhone: string;
   address: string;
   customerNote: string;
-  email: string;
+  receiverEmail: string;
 
   deliveryArea: DeliveryAreas;
   shippingCost: number;
@@ -86,14 +87,14 @@ export type MessageFormData = {
   message: string;
 };
 
-export const CategoriesNav = [
-  { label: "All Categories", href: "/products" },
-  { label: "Executive Chair", href: "/products?category=executive-chair" },
-  { label: "Manager Chair", href: "/products?category=manager-chair" },
-  { label: "Boss Chair", href: "/products?category=boss-chair" },
-  { label: "Visitors Chair", href: "/products?category=visitors-chair" },
-  { label: "Wooden Chair", href: "/products?category=wooden-chair" },
-  { label: "All Kinds of Sofa", href: "/products?category=all-kinds-of-sofa" },
-  { label: "Chair Accessories", href: "/products?category=chair-accessories" },
-  // { label: "Test Page", href: "/test" },
-];
+
+export type ProductTypeAdmin = Product & {
+  category: Category;
+  descriptions: ProductDescription[];
+  _count: {
+    descriptions: number;
+    reviews: number;
+    orderItems: number;
+    cartItems: number;
+  };
+};

@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Input } from "../ui/input";
 import { toast } from "sonner";
+import { Button } from "../ui/button";
 
 const NewsLetter = () => {
   const [email, setEmail] = useState<string>("");
@@ -32,12 +33,13 @@ const NewsLetter = () => {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-        <button
+        <Button
           type="submit"
-          className="px-2 py-1 active:translate-y-[0.5px] rounded-md bg-red-primary text-background font-semibold hover:ring-1 active:ring-2 ring-gray-primary ring hover:bg-red-primary/50 transition-all hover:outline hover:outline-gray-primary/40"
+          className="bg-red-primary"
+          // className="px-2 py-1 active:translate-y-[0.5px] rounded-md bg-red-primary text-background font-semibold hover:ring-1 active:ring-2 ring-gray-primary ring hover:bg-red-primary/50 transition-all hover:outline hover:outline-gray-primary/40"
         >
           Submit
-        </button>
+        </Button>
       </form>
     </div>
   );

@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { CartItem } from "@/generated/prisma";
-// import { getSession, requireRole } from "@/lib/serverAuth";
 
 export async function GET(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams;
@@ -14,8 +13,6 @@ export async function GET(req: NextRequest) {
     });
   }
   try {
-    // const sessionPromise = getSession();
-    // await requireRole(sessionPromise, "ADMIN");
 
     const cart = await prisma.cart.findUnique({
       where: {
@@ -70,8 +67,6 @@ export async function PUT(req: NextRequest) {
     });
   }
   try {
-    // const sessionPromise = getSession();
-    // await requireRole(sessionPromise, "ADMIN");
 
     const cart = await prisma.cart.delete({
       where: {

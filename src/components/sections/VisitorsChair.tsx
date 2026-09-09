@@ -40,9 +40,9 @@ const VisitorsChair = () => {
       limit: 10,
       category: "visitors-chair",
     });
-    // console.log(data);
+
     if (!data.success) return;
-    console.log(data);
+   
     setFeaturedProducts(data.result);
   }, []);
 
@@ -67,7 +67,7 @@ const VisitorsChair = () => {
           <span>
             <Button variant={"destructive"} asChild>
               <Link href={"/products"}>
-                <span> See All</span>
+                <span>See All</span>
                 <ArrowBigRight />
               </Link>
             </Button>
@@ -86,11 +86,11 @@ const VisitorsChair = () => {
             ))}
           <div
             key={2342342343}
-            className="min-w-65 w-65 flex h-full rounded-md  bg-background flex-center"
+            className="flex h-full rounded-md  bg-background flex-center"
           >
-            <Button variant={"destructive"} asChild>
+            <Button variant={"default"} asChild>
               <Link href={"/products"}>
-                <span> See All</span>
+                <span>See All</span>
                 <ArrowBigRight />
               </Link>
             </Button>

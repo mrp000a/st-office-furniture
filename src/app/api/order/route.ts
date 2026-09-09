@@ -1,56 +1,57 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { Order, OrderItem, Product } from "@/generated/prisma";
-import { DeliveryAreas } from "@/components/data/core";
-// import { getSession, requireRole } from "@/lib/serverAuth";
+import { Order, OrderItem, OrderStatus, Product } from "@/generated/prisma";
+import { DeliveryAreas, orderStatuses } from "@/components/data/core";
 
 export async function GET(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams;
-  const userId = searchParams.get("userId");
 
-  if (!userId) {
-    return NextResponse.json({
-      success: false,
-      message: "User id is required.",
-    });
-  }
+  const receiverName = searchParams.get("name");
+  const email = searchParams.get("email");
+
+  const limit = searchParams.get("limit") ?? 100;
+
+  const statusGet = searchParams.get("status") as OrderStatus | null;
+
+  const status: OrderStatus =
+    statusGet && orderStatuses.includes(statusGet) ? statusGet : "PENDING";
+
+  // if (!userId) {
+  //   return NextResponse.json({
+  //     success: false,
+  //     message: "User id is required.",
+  //   });
+  // }
+
   try {
-    // const sessionPromise = getSession();
-    // await requireRole(sessionPromise, "ADMIN");
-
-    const cart = await prisma.cart.findUnique({
+    const orders = await prisma.order.findMany({
+      take: Number(limit),
       where: {
-        userId: Number(userId),
+        AND: [
+          status ? { status: status as OrderStatus } : {},
+          receiverName
+            ? { receiverName: { contains: receiverName, mode: "insensitive" } }
+            : {},
+          // id ? { id: Number(id) } : {},
+        ],
       },
       include: {
-        items: {
-          include: {
-            product: {
-              select: {
-                images: true,
-                productCode: true,
-                price: true,
-                discount: true,
-                discountPrice: true,
-              },
-            },
-          },
-        },
         _count: true,
+        user: { select: { email: true, name: true, image: true } },
       },
     });
 
-    if (!cart) {
+    if (!orders) {
       return NextResponse.json({
         success: false,
-        message: "Cart Not found.",
+        message: "Orders Not found.",
       });
     }
 
     return NextResponse.json({
       success: true,
-      result: cart,
-      message: "Cart is loaded.",
+      result: orders,
+      message: "Orders is loaded.",
     });
   } catch (err: any) {
     return NextResponse.json(
@@ -66,6 +67,7 @@ export async function POST(req: Request) {
     const {
       receiverName,
       receiverPhone,
+      receiverEmail,
       deliveryArea,
       address,
       items,
@@ -80,8 +82,7 @@ export async function POST(req: Request) {
       !receiverPhone ||
       !deliveryArea ||
       !address ||
-      !items ||
-      !userId
+      !items
     ) {
       return NextResponse.json(
         {
@@ -105,24 +106,7 @@ export async function POST(req: Request) {
     )[0].charge;
 
     const totalPrice: number = subTotalPrice + deliveryCharge;
-    // testing
-    /*
-    console.log({
-      receiverName,
-      receiverPhone,
-      deliveryArea,
-      address,
-      // items,
-      userId,
-      customerNote,
-      subTotalPrice,
-      totalPrice,
-    });
-    return NextResponse.json({
-      success: false,
-      message: "Error on order load",
-    });
-    */
+
     const sanitizedItems = items.map((item, index) => {
       const itemPrice =
         item.product.discount && item.product.discountPrice
@@ -142,6 +126,7 @@ export async function POST(req: Request) {
         shippingCost: deliveryCharge,
         receiverName,
         receiverPhone,
+        receiverEmail,
         customerNote,
         deliveryArea,
         subtotal: subTotalPrice,
@@ -152,7 +137,7 @@ export async function POST(req: Request) {
           },
         },
         logs: { create: { status: "PENDING", note: "Order placed by user!" } },
-        user: { connect: { id: userId } },
+        user: userId ? { connect: { id: userId } } : {},
       },
       include: { user: true, items: true, logs: true },
     });
@@ -177,32 +162,94 @@ export async function POST(req: Request) {
   }
 }
 
-export async function DELETE(req: NextRequest) {
+export async function PUT(req: Request) {
   try {
-    const searchParams = req.nextUrl.searchParams;
-    const itemId = Number(searchParams.get("itemId"));
+    // const sessionPromise = getSession();
+    // await requireRole(sessionPromise, "ADMIN");
 
-    if (!itemId)
+    const body = await req.json();
+    const {
+      id,
+      receiverEmail,
+      receiverName,
+      receiverPhone,
+      customerNote,
+
+      address,
+      deliveryArea,
+      paymentMethod,
+
+      discountAmount,
+      paidAmount,
+      paymentStatus,
+      shippingCost,
+
+      status,
+      subtotal,
+      total,
+      userId,
+    } = body as Order;
+
+    if (!id || !receiverPhone || !receiverName)
       return NextResponse.json(
         {
           success: false,
-          message: "Product Code and item id are required!",
+          message: "Somethings are required!",
         },
         { status: 400 },
       );
 
-    const deleteItem = await prisma.cartItem.delete({
-      where: {
-        id: itemId,
-      },
-      include: {},
+    const updateData: {
+      name?: string;
+      email?: string;
+      phone?: string;
+      image?: string;
+      address?: string;
+      password?: string;
+    } = {};
+
+    const order = await prisma.order.update({
+      where: { id: Number(id) },
+      data: {},
     });
 
-    return NextResponse.json({ success: true, result: deleteItem });
+    return NextResponse.json({ success: true, result: order });
   } catch (err: any) {
     const message = err?.message ?? String(err);
     return NextResponse.json(
       { success: false, message: message },
+      { status: err?.status ?? 500 },
+    );
+  }
+}
+
+export async function DELETE(req: NextRequest) {
+  try {
+    const searchParams = req.nextUrl.searchParams;
+    const id = searchParams.get("id");
+    const email = searchParams.get("email");
+
+    if (!id) {
+      return NextResponse.json({
+        success: false,
+        message: "Order Not Deleted.",
+      });
+    }
+    // const sessionPromise = getSession();
+    // await requireRole(sessionPromise, "ADMIN");
+
+    const users = await prisma.order.delete({
+      where: { id: Number(id) },
+    });
+
+    return NextResponse.json({
+      success: true,
+      result: users,
+      message: "Order Deleted.",
+    });
+  } catch (err: any) {
+    return NextResponse.json(
+      { success: false, message: err?.message ?? "Db Error-" },
       { status: err?.status ?? 500 },
     );
   }

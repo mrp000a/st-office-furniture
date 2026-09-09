@@ -31,9 +31,9 @@ const SpecialCategoriesPage = () => {
 
   const loadFeaturedProducts = useCallback(async () => {
     const data = await getCategories();
-    // console.log(data);
+   
     if (!data.success) return;
-    console.log(data);
+    
     setSpecialCategories(data.result);
   }, []);
 
@@ -58,7 +58,7 @@ const SpecialCategoriesPage = () => {
           <span>
             <Button variant={"destructive"} asChild>
               <Link href={"/products"}>
-                <span> See All</span>
+                <span>See All</span>
                 <ArrowBigRight />
               </Link>
             </Button>
@@ -73,7 +73,7 @@ const SpecialCategoriesPage = () => {
             specialCategories.map(({ name, description, image }, index) => (
               <div
                 key={index}
-                className="min-w-50 w-50 flex  rounded-md border p-2 box-border transition-all hover:-translate-y-0.5"
+                className="min-w-50 w-50 flex  rounded-md ring-2 ring-red-primary hover:ring-blue-primary p-2 box-border transition-all hover:-translate-y-0.5"
               >
                 <div className="flex flex-col w-full h-full  gap-2">
                   <Link
@@ -108,9 +108,9 @@ const SpecialCategoriesPage = () => {
             ))}
           <div
             key={2342342343}
-            className="min-w-20 w-20 flex h-full rounded-md  bg-background flex-center"
+            className=" flex h-full rounded-md  bg-background flex-center"
           >
-            <Button variant={"destructive"} asChild>
+            <Button variant={"default"} asChild>
               <Link href={"/products"}>
                 <span> See All</span>
                 <ArrowBigRight />

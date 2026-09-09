@@ -5,8 +5,6 @@ import { getSession, requireRole } from "@/lib/serverAuth";
 
 export async function GET() {
   try {
-    // const sessionPromise = getSession();
-    // await requireRole(sessionPromise, "ADMIN");
     const categories = await prisma.category.findMany({
       include: { _count: true },
       orderBy: { name: "asc" },
@@ -27,8 +25,8 @@ export async function GET() {
 
 export async function POST(req: Request) {
   try {
-    // const sessionPromise = getSession();
-    // await requireRole(sessionPromise, "ADMIN");
+    const sessionPromise = getSession();
+    await requireRole(sessionPromise, "ADMIN");
 
     const body = await req.json();
     const { name, image, description } = body as Category;
@@ -75,8 +73,7 @@ export async function PUT(req: Request) {
         },
         { status: 400 },
       );
-    console.log({ id, name, image, description });
-    
+
     const category = await prisma.category.update({
       where: { id },
       data: { name: name.toLowerCase(), description, image },
