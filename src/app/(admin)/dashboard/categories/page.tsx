@@ -10,7 +10,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { FiEdit3 } from "react-icons/fi";
-import PageAddCategory from "../_dash_components/components/addCategory";
+import PageAddCategory from "../_dash_components/common/addCategory";
 import { deleteCategories, getCategories } from "@/lib/api";
 import { Category } from "@/generated/prisma";
 import Image from "next/image";

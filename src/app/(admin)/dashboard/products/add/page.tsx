@@ -179,11 +179,7 @@ const PageAddProduct = () => {
         },
       });
 
-      reset({
-        descriptions: [{ title: "", description: "" }],
-        images: [{ file: undefined as any }],
-        keyFeatures: [{ value: "" }],
-      });
+      reset();
     } else {
       toast.error(CreateProduct.message ?? "Error on product adding!");
     }

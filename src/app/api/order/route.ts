@@ -2,12 +2,13 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { Order, OrderItem, OrderStatus, Product } from "@/generated/prisma";
 import { DeliveryAreas, orderStatuses } from "@/components/data/core";
+import { getSession, requireRole } from "@/lib/serverAuth";
+import { useId } from "react";
 
 export async function GET(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams;
 
   const receiverName = searchParams.get("name");
-  const email = searchParams.get("email");
 
   const limit = searchParams.get("limit") ?? 100;
 
@@ -16,12 +17,6 @@ export async function GET(req: NextRequest) {
   const status: OrderStatus =
     statusGet && orderStatuses.includes(statusGet) ? statusGet : "PENDING";
 
-  // if (!userId) {
-  //   return NextResponse.json({
-  //     success: false,
-  //     message: "User id is required.",
-  //   });
-  // }
 
   try {
     const orders = await prisma.order.findMany({
@@ -32,7 +27,6 @@ export async function GET(req: NextRequest) {
           receiverName
             ? { receiverName: { contains: receiverName, mode: "insensitive" } }
             : {},
-          // id ? { id: Number(id) } : {},
         ],
       },
       include: {
@@ -164,8 +158,8 @@ export async function POST(req: Request) {
 
 export async function PUT(req: Request) {
   try {
-    // const sessionPromise = getSession();
-    // await requireRole(sessionPromise, "ADMIN");
+    const sessionPromise = getSession();
+    await requireRole(sessionPromise, ["ADMIN", "SUPER_ADMIN"]);
 
     const body = await req.json();
     const {
@@ -235,8 +229,8 @@ export async function DELETE(req: NextRequest) {
         message: "Order Not Deleted.",
       });
     }
-    // const sessionPromise = getSession();
-    // await requireRole(sessionPromise, "ADMIN");
+    const sessionPromise = getSession();
+    await requireRole(sessionPromise, ["ADMIN", "SUPER_ADMIN"]);
 
     const users = await prisma.order.delete({
       where: { id: Number(id) },

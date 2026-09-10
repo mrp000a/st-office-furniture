@@ -26,7 +26,7 @@ export async function GET() {
 export async function POST(req: Request) {
   try {
     const sessionPromise = getSession();
-    await requireRole(sessionPromise, "ADMIN");
+    await requireRole(sessionPromise, ["ADMIN", "SUPER_ADMIN"]);
 
     const body = await req.json();
     const { name, image, description } = body as Category;
@@ -60,7 +60,7 @@ export async function POST(req: Request) {
 export async function PUT(req: Request) {
   try {
     const sessionPromise = getSession();
-    await requireRole(sessionPromise, "ADMIN");
+    await requireRole(sessionPromise, ["ADMIN", "SUPER_ADMIN"]);
 
     const body = await req.json();
     const { id, name, image, description } = body as Category;

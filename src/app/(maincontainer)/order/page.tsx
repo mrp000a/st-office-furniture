@@ -31,6 +31,7 @@ import { useRouter } from "next/navigation";
 import { clearCart } from "@/redux/features/cart/cartSlice";
 import { useAlertDialog } from "@/components/hooks/use-alert-dialog";
 import { useEffect } from "react";
+import CouponForm from "@/components/common/coupon";
 
 const Page = () => {
   const session = useSession();
@@ -38,7 +39,7 @@ const Page = () => {
   const user = session.data?.user;
   const cart = useSelector((state: RootState) => state.cart.cart);
   const dispatch = useDispatch();
-  const { alert } = useAlertDialog();
+  const { alert, confirm } = useAlertDialog();
 
   const {
     register,
@@ -132,11 +133,12 @@ const Page = () => {
       }
       dispatch(clearCart());
       reset();
-      await alert({
-        confirmText: "Okey",
+      const view = await confirm({
+        confirmText: "View Now",
         title: `Ordered Successful! Your order Id is "${CreateOrder.result?.id}" .`,
         description: "Please, Remember you order id for track your order",
       });
+      if (view) router.push(`/order/${CreateOrder.result?.id}`);
     } else {
       toast.error(CreateOrder.message ?? "Error on order adding!");
     }
@@ -154,7 +156,7 @@ const Page = () => {
           <div className="w-full bg-background pb-5 shadow-lg shadow-foreground/20 py-2 gap-3 flex-1 flex flex-col px-3 border border-gray-secondary/40 rounded-md">
             <div className="gap-3 flex flex-col">
               <div className="py-3 gap-2 border-b border-b-gray-secondary">
-                <h2 className="text-xl text-blue-secondary font-bold flex items-center gap-2">
+                <h2 className="text-xl text-blue-secondary dark:text-gray-primary font-bold flex items-center gap-2">
                   <Truck className="text-red-primary" />
                   <span>Shipping and Billing Information</span>
                 </h2>
@@ -313,7 +315,7 @@ const Page = () => {
           <div className="w-full py-2 bg-background shadow-lg pb-5 shadow-foreground/20 gap-3 flex-1 flex flex-col px-3 border border-gray-secondary/40 rounded-md">
             <div className="gap-3 flex flex-col">
               <div className="py-3 gap-2 border-b border-b-gray-secondary">
-                <h2 className="text-xl text-blue-secondary font-bold flex items-center gap-2">
+                <h2 className="text-xl text-blue-secondary dark:text-gray-primary font-bold flex items-center gap-2">
                   <Wallet className="text-red-primary" />
                   <span>Select Payment Method</span>
                 </h2>
@@ -384,25 +386,12 @@ const Page = () => {
         <div className="w-full md:w-1/3 h-fit shadow-lg shadow-foreground/20 lg:max-w-2/5  bg-background py-3  overflow-x-hidden overflow-y-auto scrollbar-thumb-gray-secondary/50 px-3  flex flex-col border border-gray-secondary/40 rounded-md ">
           <div className="border-b border-b-gray-secondary">
             <div>
-              <div className="flex justify-between items-center text-blue-secondary">
+              <div className="flex justify-between items-center text-blue-secondary dark:text-gray-primary">
                 <span className="text-xl py-3 font-bold flex items-center gap-2">
                   <Handbag className="text-red-primary " />
                   <span>Order Summery</span>
                 </span>
-                <div>
-                  {/* <Button
-                    variant={"outline"}
-                    type="button"
-                    onClick={async () =>
-                      await loadCart({
-                        userId: Number(session.data?.user.id),
-                        dispatch,
-                      })
-                    }
-                  >
-                    <RotateCcw />
-                  </Button> */}
-                </div>
+                <div></div>
               </div>
             </div>
           </div>
@@ -429,30 +418,7 @@ const Page = () => {
               </span>
             )}
           </div>
-
-          <div className="w-full bg-gray-200 gap-2 px-3 py-5 flex-center flex-col">
-            {/* <label className="text-gray-primary">
-              Have a coupon? Enter here
-            </label> */}
-            <div className="outline wfull outline-gray-secondary focus-within:outline-2 transition-all focus-within:outline-gray-primary box-border flex items-center  rounded-md overflow-hidden">
-              <input
-                placeholder="Have a coupon? Enter here..."
-                type="text"
-                className="outline-none w-full px-2 text-lg placeholder:text-lg  flex-1"
-              />
-              <button
-                type="button"
-                onClick={async () =>
-                  toast.error("Invalid Coupon Entered!", {
-                    description: "Please make sure the coupon is valid.",
-                  })
-                }
-                className="px-1  py-1 line-clamp-1 w-fit bg-blue-secondary cursor-pointer box-border text-background "
-              >
-                Apply Coupon
-              </button>
-            </div>
-          </div>
+          <CouponForm />
 
           <hr className="py-1" />
 
@@ -486,7 +452,7 @@ const Page = () => {
 
               <hr className="w-full bg-foreground text-foreground" />
               {/* total  */}
-              <div className=" space-x-2 flex w-full justify-between items-center text-lg text-blue-secondary py-2">
+              <div className=" space-x-2 flex w-full justify-between items-center text-lg text-blue-secondary dark:text-gray-primary py-2">
                 <span className=" font-bold">Grand Total</span>
                 <span className="font-bold">
                   ৳

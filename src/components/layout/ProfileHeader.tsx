@@ -17,7 +17,7 @@ const ProfileHeader = ({
 }: {
   children: React.ReactNode;
   profileTab: string;
-  setProfileTab: React.Dispatch<React.SetStateAction<string>>;
+  setProfileTab: React.Dispatch<React.SetStateAction<string | null>>;
 }) => {
   const session = useSession();
   const user = session.data?.user;

@@ -45,7 +45,7 @@ const ProductAdmin = ({
             if (load) load();
           }}
           variant={"default"}
-          className="bg-red-primary cursor-pointer"
+          className="bg-red-primary dark:text-foreground cursor-pointer"
         >
           <RiDeleteBinFill /> <span>Delete</span>
         </Button>
@@ -63,7 +63,7 @@ const ProductAdmin = ({
           className="object-contain hover:scale-120 active:sca1e-120 transition-all duration-500 ease-in-out"
         />
         <span
-          className={`bg-red-primary flex-center flex-col  text-background rounded-md text-xs ring-2 ring-gray-secondary px-2 py-1  absolute right-0 top-0 z-20 ${item.discount ? "" : "hidden"}`}
+          className={`bg-red-primary flex-center flex-col  text-background dark:text-foreground rounded-md text-xs ring-2 ring-gray-secondary px-2 py-1  absolute right-0 top-0 z-20 ${item.discount ? "" : "hidden"}`}
         >
           <span className="font-bold">{Number(item.discount)}%</span>
           <span className="text-xs">Off</span>
@@ -128,13 +128,13 @@ const ProductAdmin = ({
             <div>
               <span className="text-gray-primary">Created At:</span>{" "}
               <span className="font-semibold">
-                {new Date(item.createdAt).toISOString().split("T")[0]}
+                {new Date(item.createdAt).toDateString()}
               </span>
             </div>
             <div>
               <span className="text-gray-primary">Updated At:</span>{" "}
               <span className="font-semibold">
-                {new Date(item.updatedAt).toISOString().split("T")[0]}
+                {new Date(item.updatedAt).toDateString()}
               </span>
             </div>
           </div>

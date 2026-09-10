@@ -8,7 +8,7 @@ import { NextResponse } from "next/server";
 export async function DELETE(req: Request) {
   try {
     const sessionPromise = getSession();
-    await requireRole(sessionPromise, "ADMIN");
+    await requireRole(sessionPromise, ["ADMIN", "SUPER_ADMIN"]);
     const body = await req.json();
 
     const key = body.key;

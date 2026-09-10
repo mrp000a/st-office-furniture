@@ -192,7 +192,7 @@ const HomeNav = () => {
                     }}
                     className={` flex-center ${shakeCart ? "animate-cart-shake shadow-2xl bg-blue-primary/40 shadow-blue-primary " : ""}relative flex-col flex-1 rounded-md p-1 px-2 hover:bg-background bg-background/50 transition-all hover:outline hover:outline-gray-primary/40 border border-gray-primary cursor-pointer `}
                   >
-                    <span className="absolute -top-2 -right-2 text-xs text-background bg-red-primary rounded-full px-1 outline-2 outline-gray-secondary">
+                    <span className="absolute -top-2 -right-2 text-xs dark:text-foreground font-semibold text-background bg-red-primary rounded-full px-1 outline-2 outline-gray-secondary">
                       {cart && cart.items.length > 0 ? cart.items.length : 0}
                     </span>
                     <ShoppingCart className="w-6 h-6" />
@@ -326,7 +326,13 @@ const HomeNav = () => {
                 <div className="flex flex-col justify-start gap-2 px-4 overflow-auto">
                   {navItems.map(({ href, label }, index) => (
                     <Button
-                      variant={"default"}
+                      variant={
+                        pathname === href
+                          ? "destructive"
+                          : href !== "/" && pathname.startsWith(href)
+                            ? "destructive"
+                            : "outline"
+                      }
                       onClick={() => {
                         router.push(href);
                         const timerId = setTimeout(() => {

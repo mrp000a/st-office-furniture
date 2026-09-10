@@ -59,7 +59,7 @@ export async function GET(req: NextRequest) {
 export async function POST(req: Request) {
   try {
     const sessionPromise = getSession();
-    await requireRole(sessionPromise, "ADMIN");
+    await requireRole(sessionPromise, ["ADMIN", "SUPER_ADMIN"]);
 
     const body = await req.json();
     const {
@@ -125,7 +125,7 @@ export async function POST(req: Request) {
 export async function PUT(req: Request) {
   try {
     const sessionPromise = getSession();
-    await requireRole(sessionPromise, "ADMIN");
+    await requireRole(sessionPromise, ["ADMIN", "SUPER_ADMIN"]);
 
     const body = await req.json();
     const {
@@ -225,7 +225,7 @@ export async function DELETE(req: NextRequest) {
   // return;
   try {
     const sessionPromise = getSession();
-    await requireRole(sessionPromise, "ADMIN");
+    await requireRole(sessionPromise, ["ADMIN", "SUPER_ADMIN"]);
     const products = await prisma.product.delete({
       where: { id: Number(id) },
     });

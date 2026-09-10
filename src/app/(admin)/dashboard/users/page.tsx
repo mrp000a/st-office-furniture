@@ -17,10 +17,10 @@ import { RiDeleteBin5Fill } from "react-icons/ri";
 import { useAlertDialog } from "@/components/hooks/use-alert-dialog";
 import { ProductDefaultImage } from "@/components/data/core";
 import { FaUserCircle } from "react-icons/fa";
-import PageEditUserAdmin from "../_dash_components/components/PageEditUser";
+import PageEditUserAdmin from "../_dash_components/common/PageEditUser";
 import { NoItemsFound } from "@/components/uiComponent/uiCom";
 import { CirclePlus, Key, Search } from "lucide-react";
-import PageAddUserAdmin from "../_dash_components/components/pageAddUserAdmin";
+import PageAddUserAdmin from "../_dash_components/common/pageAddUserAdmin";
 import { useSession } from "next-auth/react";
 import {
   Table,

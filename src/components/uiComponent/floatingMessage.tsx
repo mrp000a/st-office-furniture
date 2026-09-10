@@ -15,7 +15,7 @@ const FloatingMessage = ({}) => {
       transition-all duration-300 ease-in-out
       ${showMessagesBar ? "opacity-0 scale-50 pointer-events-none invisible" : "opacity-100 scale-100 visible"}`}
       >
-        <AiFillMessage className="animate-bounce h-7 w-7 text-background" />
+        <AiFillMessage className="animate-bounce h-7 w-7 text-background dark:text-foreground" />
       </div>
 
       {/* Open Bar Options Panel */}
@@ -32,7 +32,7 @@ const FloatingMessage = ({}) => {
               href={href}
               key={index}
             >
-              <Icon className="h-7 w-7 text-background" />
+              <Icon className="h-7 w-7 text-background dark:text-foreground" />
             </Link>
           ))}
 
@@ -40,7 +40,7 @@ const FloatingMessage = ({}) => {
           onClick={() => setShowMessagesBar((e) => !e)}
           className="p-2 h-14 w-14 bg-red-600 border border-gray-primary hover:bg-green-800 transition-all flex-center rounded-full cursor-pointer"
         >
-          <IoMdCloseCircle className="h-7 w-7 text-background" />
+          <IoMdCloseCircle className="h-7 w-7 text-background dark:text-foreground" />
         </div>
       </div>
     </div>

@@ -17,9 +17,9 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
           disableTransitionOnChange
         >
           <TooltipProvider>
-            <SessionProvider>
-              <AlertDialogProvider>{children}</AlertDialogProvider>
-            </SessionProvider>
+              <SessionProvider>
+                <AlertDialogProvider>{children}</AlertDialogProvider>
+              </SessionProvider>
           </TooltipProvider>
         </ThemeProvider>
       </ReduxProvider>

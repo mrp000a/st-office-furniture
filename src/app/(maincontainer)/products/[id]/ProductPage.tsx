@@ -120,7 +120,7 @@ const AProductPage = () => {
                 <div className="space-y-3 max-w-125 mx-auto w-full md:m-0">
                   <div className=" rounded-md  overflow-hidden w-full   lg:max-w-125 mx-auto aspect-video bg-background shadow-2xl relative flex-center">
                     <span
-                      className={`bg-red-primary flex-center flex-col  text-background rounded-md text-xl ring-2 ring-gray-secondary px-2 py-1  absolute right-0 top-0 z-20 ${productInfo.discount ? "" : "hidden"}`}
+                      className={`bg-red-primary dark:text-foreground flex-center flex-col  text-background rounded-md text-xl ring-2 ring-gray-secondary px-2 py-1  absolute right-0 top-0 z-20 ${productInfo.discount ? "" : "hidden"}`}
                     >
                       <span className="font-bold">
                         {Number(productInfo.discount)}%
@@ -150,7 +150,7 @@ const AProductPage = () => {
                         </Button>
                       </>
                     )}
-                    {productInfo.images.length > 1 ? (
+                    {productInfo.images.length > 0 ? (
                       <Swiper
                         onSwiper={setSwiperInstance}
                         onSlideChange={(swiper) => {
@@ -200,7 +200,7 @@ const AProductPage = () => {
                           fill
                           className={`object-contain object-center overflow-hidden  relative w-200 h-300 `}
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                          src={`${process.env.NEXT_PUBLIC_URL_R2}/${productInfo.images.length === 1 ? productInfo.images[0] : ProductDefaultImage}`}
+                          src={`${process.env.NEXT_PUBLIC_URL_R2}/${ProductDefaultImage}`}
                           alt={"default image"}
                         />
                       </div>
@@ -256,7 +256,7 @@ const AProductPage = () => {
                       <SimpleBubble>
                         <span className="text-gray-primary">Status:</span>{" "}
                         <span className="font-semibold ">
-                          <span className={`text-red-primary font-bold`}>
+                          <span className={`text-foreground font-bold`}>
                             {productInfo.stock && productInfo.stock > 0
                               ? "In Stock"
                               : "Out of Stock"}
@@ -368,7 +368,7 @@ const AProductPage = () => {
                         type="button"
                         size={"lg"}
                         variant={"secondary"}
-                        className="hover:bg-red-primary  hover:text-background text-base cursor-pointer"
+                        className="hover:bg-red-primary  hover:text-background dark:hover:text-foreground text-base cursor-pointer"
                       >
                         <CirclePlus /> Add to Cart
                       </Button>
@@ -416,7 +416,7 @@ const AProductPage = () => {
                         disabled={productInfo.stock < 1}
                         type="button"
                         size={"lg"}
-                        className="bg-red-primary sm:text-base cursor-pointer"
+                        className="bg-red-primary text-background dark:text-foreground sm:text-base cursor-pointer"
                       >
                         <Banknote /> Order Now
                       </Button>

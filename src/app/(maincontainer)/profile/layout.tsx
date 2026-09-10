@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { coreInfo } from "@/components/data/core";
 import ProfileHeader from "@/components/layout/ProfileHeader";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: `Profile | ${coreInfo.name}`,
@@ -14,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <>
-      {children}
+      <Suspense>{children}</Suspense>
     </>
   );
 }

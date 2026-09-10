@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 import { Gender, User, UserRole } from "@/generated/prisma";
+import { getSession, requireRole } from "@/lib/serverAuth";
 
 export async function GET(req: NextRequest) {
   try {
@@ -34,6 +35,7 @@ export async function GET(req: NextRequest) {
   }
 }
 
+// create user by anyperson
 export async function POST(req: Request) {
   try {
     // const sessionPromise = getSession();
@@ -83,8 +85,8 @@ export async function POST(req: Request) {
 
 export async function PUT(req: Request) {
   try {
-    // const sessionPromise = getSession();
-    // await requireRole(sessionPromise, "ADMIN");
+    const sessionPromise = getSession();
+    await requireRole(sessionPromise, "SUPER_ADMIN");
 
     const body = await req.json();
     const { id, name, email, phone, role, gender, image, address, password } =
@@ -150,8 +152,8 @@ export async function DELETE(req: NextRequest) {
         message: "User Not Deleted.",
       });
     }
-    // const sessionPromise = getSession();
-    // await requireRole(sessionPromise, "ADMIN");
+    const sessionPromise = getSession();
+    await requireRole(sessionPromise, "SUPER_ADMIN");
 
     const users = await prisma.user.delete({
       where: { id: Number(id) },

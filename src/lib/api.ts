@@ -490,6 +490,29 @@ export async function getOrders({
     await res.json();
   return data;
 }
+export async function getUsersOrders({
+  userId,
+  status = "PENDING",
+  name,
+  limit = 100,
+}: {
+  status?: OrderStatus;
+  name?: string;
+  limit?: number;
+  userId: number;
+}) {
+  const res = await fetch(
+    `/api/order/userOrders?userId=${userId}&status=${status}&name=${name}&limit=${limit}`,
+    {
+      method: "GET",
+      redirect: "follow",
+    },
+  );
+
+  const data: { success: boolean; message: null | string; result: any } =
+    await res.json();
+  return data;
+}
 export async function getSingleOrder({ orderId }: { orderId?: number }) {
   if (!orderId)
     return { success: false, message: "order id is required", result: null }; //toast.error("Order Id is required!");

@@ -86,69 +86,79 @@ const PageEditUserAdmin = ({
       password,
       confirmPassword,
     } = data;
-
-    if (password && password.length > 0) {
-      if (password !== confirmPassword) {
-        setError("confirmPassword", { message: "Password doesn't match!" });
-        toast.error("Password doesn't match!");
-        return;
-      }
-    }
-
-
-    if (image && image.length > 0) {
-      const imagefile = image[0];
-
-      // 1kb = 1000
-      if (imagefile.size > 200000) {
-        setError("image", { message: "Max image size 200 kb" });
-        return;
+    try {
+      if (password && password.length > 0) {
+        if (password !== confirmPassword) {
+          setError("confirmPassword", { message: "Password doesn't match!" });
+          toast.error("Password doesn't match!");
+          return;
+        }
       }
 
-      if (!allowedTypes.includes(imagefile.type)) {
-        setError("image", { message: "Image must be jpg, jpeg, png or webp" });
-        return;
+      if (image && image.length > 0) {
+        const imagefile = image[0];
+
+        // 1kb = 1000
+        if (imagefile.size > 200000) {
+          setError("image", { message: "Max image size 200 kb" });
+          return;
+        }
+
+        if (!allowedTypes.includes(imagefile.type)) {
+          setError("image", {
+            message: "Image must be jpg, jpeg, png or webp",
+          });
+          return;
+        }
       }
-    }
 
-    let fileData = null;
+      let fileData = null;
 
-    if (image && image[0] !== undefined) {
-      fileData = await uploadFile(image[0], "r2upload/users/images");
-    }
+      if (image && image[0] !== undefined) {
+        fileData = await uploadFile(image[0], "r2upload/users/images");
+      }
 
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
+      const myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
 
-    const raw = JSON.stringify({
-      id: id,
-      name,
-      email,
-      phone,
-      role,
+      const raw = JSON.stringify({
+        id: id,
+        name,
+        email,
+        phone,
+        role,
 
-      gender,
-      image: fileData?.key ?? oldImage ?? "",
-      address,
+        gender,
+        image: fileData?.key ?? oldImage ?? "",
+        address,
 
-      password,
-    });
-
-    const res = await fetch("/api/users", {
-      method: "PUT",
-      headers: myHeaders,
-      body: raw,
-      redirect: "follow",
-    });
-
-    const updateUser: { success: boolean; result?: object; message: string } =
-      await res.json();
-    if (updateUser.success) {
-      toast.success("User Updated!", {
-        description: "User updated successful!!",
+        password,
       });
-      if (load) await load();
-      setOpen(false);
+
+      const res = await fetch("/api/users", {
+        method: "PUT",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow",
+      });
+
+      const updateUser: { success: boolean; result?: object; message: string } =
+        await res.json();
+      if (updateUser.success) {
+        toast.success("User Updated!", {
+          description: "User updated successful!!",
+        });
+        if (load) await load();
+        setOpen(false);
+      } else {
+        toast.success(updateUser.message ?? "User Not Updated", {
+          description: "User not updated successful!!",
+        });
+      }
+    } catch (error: any) {
+      toast.success(error.message ?? "User Not Updated", {
+        description: "User not updated successful--server--err!",
+      });
     }
   };
 

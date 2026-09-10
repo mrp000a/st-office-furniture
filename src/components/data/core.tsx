@@ -19,7 +19,12 @@ import LogInImage from "@/components/images/Office/kam-idris-_HqHX3LBN18-unsplas
 import { FaFacebook, FaInstagram, FaWhatsapp, FaYoutube } from "react-icons/fa";
 import { FaLocationDot, FaPhone } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
-
+import {
+  CreditCardIcon,
+  LogOutIcon,
+  SettingsIcon,
+  UserIcon,
+} from "lucide-react";
 import {
   Boxes,
   CircleUserRound,
@@ -39,7 +44,7 @@ export const coreInfo: {
   image: string | StaticImageData;
   banner: string | StaticImageData;
   images: string[] | StaticImageData[];
-  description?: string;
+  description: string;
 } = {
   name: "ST Office Furniture",
   description:
@@ -61,6 +66,12 @@ export const LoginAndRegisterPageImages = {
   register: RegisterImage,
 };
 
+export const dropdownAdminData = [
+  { label: "Profile", icon: UserIcon, href: "/profile" },
+  { label: "Billing", icon: CreditCardIcon, href: "#" },
+  { label: "Setting", icon: SettingsIcon, href: "#" },
+];
+
 export const navItems: {
   label: string;
   href: string;
@@ -71,6 +82,7 @@ export const navItems: {
   { label: "Order", href: "/order" },
   { label: "Track Order", href: "/track-order" },
   { label: "Products", href: "/products" },
+  { label: "Profile", href: "/profile" },
 ];
 
 export const MobNavItems: {
@@ -182,8 +194,6 @@ export const quickLinks = [
   // { label: "Delivery Policy", icon: Truck, href: "#" },
   { label: "Our Services", icon: UserShield, href: "/services" },
 ];
-
-
 
 export const CategoriesNav = [
   { label: "All Categories", href: "/products" },

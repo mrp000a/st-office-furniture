@@ -226,6 +226,7 @@ export const CartProductItemOrder = ({
               session: session,
             });
           }}
+          type="button"
           variant={"outline"}
         >
           <Trash2 className="w-5 h-5 text-red-primary" />

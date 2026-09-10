@@ -6,8 +6,8 @@ import { SignOut } from "@/components/sec_lib/Sessions";
 import { Button } from "@/components/ui/button";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import Profile from "./_tabs/Profile";
 import Settings from "./_tabs/Settings";
 import CartItems from "./_tabs/CartItems";
@@ -16,8 +16,19 @@ import Helps from "./_tabs/help";
 import Gifts from "./_tabs/Gifts";
 
 const Home = () => {
-  const [profileTab, setProfileTab] = useState<string>("");
+  const searchParams = useSearchParams();
+
+  const [profileTab, setProfileTab] = useState<string | null>(
+    searchParams.get("tab") ?? null,
+  );
+
   const session = useSession();
+  useEffect(() => {
+    const a = () => {
+      setProfileTab(searchParams.get("tab") ?? null);
+    };
+    a();
+  }, [searchParams]);
 
   return (
     <>
@@ -54,13 +65,37 @@ const Home = () => {
           </div>
         </div> */}
 
-      <ProfileHeader profileTab={profileTab} setProfileTab={setProfileTab}>
-        {(!profileTab || profileTab === "profile") && <Profile />}
+      <ProfileHeader
+        profileTab={profileTab ?? ""}
+        setProfileTab={setProfileTab}
+      >
+        {/* {(!profileTab || profileTab === "profile") && <Profile />}
         {profileTab === "orders" && <Orders />}
         {profileTab === "cartitems" && <CartItems />}
         {profileTab === "settings" && <Settings />}
         {profileTab === "gifts" && <Gifts />}
-        {profileTab === "help" && <Helps />}
+        {profileTab === "help" && <Helps />} */}
+        <span
+          className={`${!(!profileTab || profileTab === "profile") ? "hidden" : ""}`}
+        >
+          <Profile />
+        </span>
+
+        <span className={`${!(profileTab === "orders") ? "hidden" : ""}`}>
+          <Orders />
+        </span>
+        <span className={`${!(profileTab === "cartitems") ? "hidden" : ""}`}>
+          <CartItems />
+        </span>
+        <span className={`${!(profileTab === "settings") ? "hidden" : ""}`}>
+          <Settings />
+        </span>
+        <span className={`${!(profileTab === "gifts") ? "hidden" : ""}`}>
+          <Gifts />
+        </span>
+        <span className={`${!(profileTab === "help") ? "hidden" : ""}`}>
+          <Helps />
+        </span>
       </ProfileHeader>
     </>
   );

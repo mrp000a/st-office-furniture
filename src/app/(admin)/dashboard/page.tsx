@@ -34,7 +34,7 @@ const DashPage = () => {
   return (
     <div className="space-y-2">
       <h2 className="text-2xl font-bold font-mono">
-        Welcome!,Admin {user?.name}
+        Welcome! Admin {user?.name}
       </h2>
       <hr />
       <div className="w-full gap-3 items-end grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">

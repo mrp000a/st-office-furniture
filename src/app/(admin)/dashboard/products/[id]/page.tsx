@@ -213,7 +213,7 @@ const PageEditProduct = ({
 
     // Keep track of the R2 object that needs deletion
     const dik = getValues("deletedImageKeys") ?? [];
-   
+
     setValue("deletedImageKeys", [...dik, imageKey]);
 
     // Remove it from what the user sees
@@ -223,8 +223,6 @@ const PageEditProduct = ({
       "oldImages",
       images.filter((_, i) => i !== index),
     );
-
-   
   };
 
   const handleSubmitData = async (
@@ -327,6 +325,8 @@ const PageEditProduct = ({
           },
         },
       });
+
+      router.back();
     } else {
       toast.error(UpdateProduct.message ?? "Error on product adding!");
     }
@@ -543,7 +543,6 @@ const PageEditProduct = ({
                                 acceptedFormats: (files) => {
                                   const file = files?.[0];
                                   if (!file) return true;
-
 
                                   return (
                                     allowedTypes.includes(file.type) ||

@@ -1,5 +1,6 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "./auth";
+import { UserRole } from "@/generated/prisma";
 
 export async function getSession() {
   return await getServerSession(authOptions as any);
@@ -7,7 +8,7 @@ export async function getSession() {
 
 export async function requireRole(
   sessionPromise: Promise<any>,
-  roles: string[] | string,
+  roles: UserRole[] | UserRole,
 ) {
   const session = await sessionPromise;
   if (!session) throw { status: 401, message: "Unauthorized" };
