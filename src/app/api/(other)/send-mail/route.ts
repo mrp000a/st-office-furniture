@@ -1,7 +1,5 @@
 import { coreInfo } from "@/components/data/core";
 import {
-  orderConfirmationEmail,
-  sendMessageSnipet,
   sendMessageSnipetAdmin,
   sendMessageSnipetClient,
 } from "../../../../components/uiComponent/order-confirm-email";
