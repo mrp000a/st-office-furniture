@@ -53,15 +53,7 @@ import { IconType } from "react-icons/lib";
 import { TbCategoryPlus } from "react-icons/tb";
 import { OrderStatus } from "@/generated/prisma";
 
-export const coreInfo: {
-  name: string;
-  image: string | StaticImageData;
-  imageDark: string | StaticImageData;
-  logo: string | StaticImageData;
-  banner: string | StaticImageData;
-  images: string[] | StaticImageData[];
-  description: string;
-} = {
+export const coreInfo = {
   name: "ST Office Furniture",
   description:
     "Shop stylish and comfortable modern sofas, accent chairs, and sectional sets designed to elevate your living room and office. Find your perfect fit today!",
@@ -69,6 +61,9 @@ export const coreInfo: {
   imageDark: StOfficeLogoDark,
   logo: StOfficeLogoMain,
   banner: StOfficeBanner,
+  email: "info@stofficefurniture.com",
+  // email2: "stofficefurniture@gmail.com",
+  email2: "mrp000a@gmail.com",
   images: [
     SlideImageD,
     SlideImageA2,
@@ -246,7 +241,7 @@ export const CategoriesNav = [
   { label: "Chair Accessories", href: "/products?category=chair-accessories" },
   { label: "Sofa", href: "/products?category=sofa" },
   // testing
-  { label: "Test Page", href: "/test" },
+  // { label: "Test Page", href: "/test" },
 ];
 
 export const termsText = [
@@ -362,30 +357,66 @@ export type ProductItemType = {
 
 export const faq = [
   {
-    value: "intro",
-    label: "What is your name?",
+    value: "furnituretype",
+    label: "What types of furniture do you sell?",
     content: [
-      "My name is rakib.",
-      "I live in natoreI live in natoreI live in natore",
-      "I am a student.",
+      "We offer a wide range of furniture, including sofas, chairs, tables, beds, wardrobes, cabinets, office furniture, dining furniture, and more.",
     ],
   },
   {
-    value: "about",
-    label: "What is your pashion?",
+    value: "howtoplace",
+    label: "How can I place an order?",
     content: [
-      "My name is rakib.",
-      "I live in natore",
-      "I am a studentI live in natore.",
+      "Simply browse our products, select the item you want, add it to your cart, and proceed to checkout. Provide your delivery information and confirm your order.",
     ],
   },
   {
-    value: "contact",
-    label: "What is your address?",
+    value: "deliveryoption",
+    label: "Do you offer home delivery?",
     content: [
-      "My name isI live in natore rakib.",
-      "I live in natore",
-      "I am a student.",
+      "Yes, we offer home delivery. Delivery availability and charges may vary depending on your location and order size.",
+    ],
+  },
+  {
+    value: "deliveryperiod",
+    label: "How long does delivery take?",
+    content: [
+      "Delivery time depends on your location and the availability of the product. Estimated delivery information will be provided during the ordering process.",
+    ],
+  },
+  {
+    value: "cancellorder",
+    label: "Can I cancel my order?",
+    content: [
+      "You may be able to cancel your order before it is shipped. Please contact our customer support as soon as possible if you want to cancel an order.",
+    ],
+  },
+  {
+    value: "returnproduct",
+    label: "Can I return or exchange a product?",
+    content: [
+      "Yes, eligible products can be returned or exchanged according to our return and exchange policy. Products must generally be unused and in their original condition.",
+    ],
+  },
+  {
+    value: "paymentmethod",
+    label: "What payment methods do you accept?",
+    content: [
+      "We accept the payment methods available at checkout, which may include cash on delivery and online payment options.",
+    ],
+  },
+  {
+    value: "fixedprices",
+    label: "Are the product prices fixed?",
+    content: [
+      "The prices displayed on our website are the current selling prices. Promotional discounts may be available on selected products from time to time.",
+    ],
+  },
+  {
+    value: "checkorder",
+    label: "How can I check my order status?",
+    content: [
+      "After placing an order, you can check its status from your account's order section. You may also receive order updates through your registered contact information.",
     ],
   },
 ];

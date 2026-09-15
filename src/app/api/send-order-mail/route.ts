@@ -1,4 +1,4 @@
-import { orderConfirmationEmail } from "@/components/uiComponent/order-confirm-email";
+import { orderConfirmationEmail } from "../../../components/uiComponent/order-confirm-email";
 import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);

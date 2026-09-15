@@ -29,7 +29,6 @@ const Footer = () => {
         fill
         sizes="100vw"
         className="object-cover object-center z-0 dark:hidden"
-        // unoptimized
       />
       <Image
         src={backgroundImageDark}
@@ -39,7 +38,6 @@ const Footer = () => {
         fill
         sizes="100vw"
         className="object-cover object-center z-0 hidden dark:block"
-        // unoptimized
       />
       <div
         className={` w-full relative  z-20 border border-gray-primary pb-16  text-xs text-gray-primary ${pathname.startsWith("/dashboard") ? "hidden" : ""}`}
@@ -80,7 +78,6 @@ const Footer = () => {
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   fill
                   className="object-contain object-center dark:hidden "
-                  unoptimized
                   quality={100}
                 />
                 <Image
@@ -89,7 +86,6 @@ const Footer = () => {
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   fill
                   className="object-contain object-center hidden dark:block "
-                  unoptimized
                   quality={100}
                 />
               </Link>
@@ -185,15 +181,17 @@ const Footer = () => {
             </div>
           </div>
         </div>
-      <div className="absolute flex items-center flex-wrap gap-4 text-sm text-center text-gray-500 -translate-x-1/2 bottom-6 left-1/2 dark:text-gray-400">
-        <div>
-          &copy; {new Date().getFullYear()} - {coreInfo.name}
+        <div className="absolute flex items-center flex-wrap gap-4 text-sm text-center text-gray-500 -translate-x-1/2 bottom-6 left-1/2 dark:text-gray-400">
+          <div>
+            &copy; {new Date().getFullYear()} - {coreInfo.name}
+          </div>
+          <div>
+            Designed and Developed By{" "}
+            <Link target="_blank" href={"https://mrp-dev.vercel.app/"}>
+              Muhammad Rakib
+            </Link>
+          </div>
         </div>
-        <div>
-          Designed and Developed By{" "}
-          <Link target="_blank" href={"https://mrp-dev.vercel.app/"}>Muhammad Rakib</Link>
-        </div>
-      </div>
       </div>
     </footer>
   );

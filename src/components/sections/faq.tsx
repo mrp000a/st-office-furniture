@@ -11,7 +11,8 @@ import { faq } from "../data/core";
 
 const FaqQuestion = () => {
   return (
-    <div className="">
+    <div className="h-full w-full">
+      <h3 className=" text-center font-bold">Frequently Asked Questions</h3>
       <Accordion
         defaultValue={faq[0].value}
         type="single"

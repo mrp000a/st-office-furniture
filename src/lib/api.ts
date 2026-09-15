@@ -729,10 +729,12 @@ export async function deleteMessages({
 // send email
 export async function sendEmail({
   to,
+  name,
   subject,
   message,
 }: {
   to: string;
+  name: string;
   subject: string;
   message: string;
 }) {
@@ -743,6 +745,7 @@ export async function sendEmail({
     },
     body: JSON.stringify({
       to,
+      name,
       subject,
       message,
     }),

@@ -1,10 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { Order, OrderItem, OrderStatus, Product } from "@/generated/prisma";
-import { DeliveryAreas, orderStatuses, orderStatuses2 } from "@/components/data/core";
+import {
+  DeliveryAreas,
+  orderStatuses,
+  orderStatuses2,
+} from "@/components/data/core";
 import { getSession, requireRole } from "@/lib/serverAuth";
 import { useId } from "react";
-import { orderConfirmationEmail } from "@/components/uiComponent/order-confirm-email";
+import { orderConfirmationEmail } from "../../../components/uiComponent/order-confirm-email";
 import { Resend } from "resend";
 
 // const resend = new Resend(process.env.RESEND_API_KEY);

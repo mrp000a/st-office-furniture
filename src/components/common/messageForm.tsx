@@ -46,10 +46,10 @@ const MessageForm = () => {
         body: JSON.stringify(raw),
         redirect: "follow",
       });
-      if (!data.ok) {
-        toast.error("Fetch failed not ok");
-        return;
-      }
+      // if (!data.ok) {
+      //   toast.error("Fetch failed not ok");
+      //   return;
+      // }
       const res = await data.json();
       if (res.success) {
         toast.success("Message Sent Successful.", {
@@ -65,7 +65,7 @@ const MessageForm = () => {
   };
 
   return (
-    <div className=" ">
+    <div className=" h-full w-full">
       <div className="w-full max-w-384 mx-auto p-4  rounded-md bg-background border-red/30 border">
         <form
           onSubmit={handleSubmit(onSubmit)}

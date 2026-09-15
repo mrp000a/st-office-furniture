@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { Category, Message } from "@/generated/prisma";
+import { Message } from "@/generated/prisma";
 import { getSession, requireRole } from "@/lib/serverAuth";
 import { sendEmail } from "@/lib/api";
+import { coreInfo } from "@/components/data/core";
 
 export async function GET() {
   try {
@@ -30,6 +31,8 @@ export async function POST(req: Request) {
 
     const body = await req.json();
     const { name, email, subject, message } = body as Message;
+    // console.log({ name, email, subject, message });
+    // return;
 
     if (!name || !email || !subject || !message)
       return NextResponse.json(
@@ -50,11 +53,12 @@ export async function POST(req: Request) {
     });
 
     if (createMessage) {
-      await sendEmail({ to: email, subject, message });
+      sendEmail({ to: email, subject, message, name });
     }
 
     return NextResponse.json({ success: true, result: createMessage });
   } catch (err: any) {
+    console.log(err);
     const message = err?.message ?? String(err);
     return NextResponse.json(
       { success: false, message: message },

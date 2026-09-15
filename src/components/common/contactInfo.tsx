@@ -40,7 +40,9 @@ const ContactInfoClient = () => {
             <Button
               onClick={async () => {
                 try {
-                  await navigator.clipboard.writeText("info@stofficefurniture.com");
+                  await navigator.clipboard.writeText(
+                    "info@stofficefurniture.com",
+                  );
                 } catch (error) {
                   console.log(error);
                 }
@@ -97,7 +99,6 @@ const ContactInfoClient = () => {
                 fill
                 sizes="50vw"
                 className="object-cover object-center "
-                // unoptimized
               />
             </div>
             <Link href="tel:+01835632990" className="break-all">

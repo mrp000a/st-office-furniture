@@ -76,7 +76,6 @@ const HomeNav = () => {
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   fill
                   className="object-contain object-center dark:hidden "
-                  unoptimized
                   quality={100}
                 />
                 <Image
@@ -85,7 +84,6 @@ const HomeNav = () => {
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   fill
                   className="object-contain object-center hidden dark:block "
-                  unoptimized
                   quality={100}
                 />
               </Link>
@@ -99,7 +97,6 @@ const HomeNav = () => {
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   fill
                   className="object-cover object-center "
-                  unoptimized
                   quality={100}
                 />
               </Link>
