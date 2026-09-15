@@ -407,10 +407,17 @@ export function orderConfirmationEmail({
 `;
 }
 
-export function sendMessageSnipetClient({ name }: { name: string }) {
+export function sendMessageSnipetClient({
+  name,
+  message,
+}: {
+  name: string;
+  message: string;
+}) {
   return `
   
   <!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>Thank You for Contacting Us</title> </head> <body style=" margin: 0; padding: 0; background-color: #f4f4f5; font-family: Arial, Helvetica, sans-serif; color: #18181b; "> <div style=" max-width: 600px; margin: 40px auto; padding: 0 16px; "> <div style=" background-color: #ffffff; border: 1px solid #e4e4e7; border-radius: 14px; overflow: hidden; "> <!-- Header --> <div style=" padding: 28px 24px; background-color: #18181b; color: #ffffff; "> <h1 style=" margin: 0; font-size: 22px; font-weight: 600; "> Thank You for Contacting Us </h1> <p style=" margin: 8px 0 0; font-size: 14px; color: #d4d4d8; "> We have received your message. </p> </div> <!-- Content --> <div style="padding: 28px 24px;"> <p style=" margin: 0 0 16px; font-size: 16px; line-height: 1.6; "> Hello <strong>${name}</strong>, </p> <p style=" margin: 0 0 20px; font-size: 15px; line-height: 1.7; color: #52525b; "> Thank you for getting in touch with us. We have received your message and our team will get back to you as soon as possible. </p> <!-- Message summary --> <div style=" padding: 16px; background-color: #f4f4f5; border: 1px solid #e4e4e7; border-radius: 10px; margin-bottom: 24px; ">
+  <p style=" margin: 0 0 8px; font-size: 12px; font-weight: 600; color: #71717a; text-transform: uppercase; "> Your Message </p> <p style=" margin: 0; font-size: 14px; line-height: 1.7; color: #3f3f46; white-space: pre-wrap; word-break: break-word; ">${message}</p>
   
  </div> <p style=" margin: 0; font-size: 15px; line-height: 1.7; color: #52525b; "> If you have any additional questions, simply reply to this email and we'll be happy to assist you. </p> </div> <!-- Footer --> <div style=" padding: 20px 24px; background-color: #fafafa; border-top: 1px solid #e4e4e7; text-align: center; "> <p style=" margin: 0 0 6px; font-size: 13px; font-weight: 600; "> ${coreInfo.name} </p> <p style=" margin: 0; font-size: 12px; color: #71717a; "> Thank you for choosing us. </p> </div> </div> </div> </body> </html>`;
 }

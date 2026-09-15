@@ -21,12 +21,13 @@ import {
   DeleteIcon,
   Trash2,
 } from "lucide-react";
-import { coreInfo } from "@/components/data/core";
+import { coreInfo, HeroSectionSlides } from "@/components/data/core";
 import { useState } from "react";
 import styles from "./home.module.css";
+import { useRouter } from "next/navigation";
 
 const HeroSectionA = () => {
-  const session = useSession();
+  const router = useRouter();
   const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -37,9 +38,6 @@ const HeroSectionA = () => {
         <div className=" rounded-md  overflow-hidden w-full max-w-384 max-[600]:max-h-full    mx-auto aspect-[1376/680] bg-background shadow-2xl relative flex-center">
           <Swiper
             onSwiper={setSwiperInstance}
-            onSlideChange={(swiper) => {
-              setActiveIndex(() => swiper.realIndex);
-            }}
             modules={[Navigation, Pagination, Autoplay]}
             spaceBetween={10}
             slidesPerView={1}
@@ -48,25 +46,53 @@ const HeroSectionA = () => {
             autoplay={{ delay: 4000 }}
             className="h-full rounded-lg"
           >
-            {coreInfo.images.map((item, index) => (
-              <SwiperSlide
-                key={index}
-                className={`flex relative w-full h-full items-center justify-center text-2xl font-bold `}
-              >
-                <div
-                  className={` relative  h-full w-full  overflow-hidden text-shadow-2xs text-shadow-blue-primary `}
+            {HeroSectionSlides.map(
+              ({ image, title, subtitle, description }, index) => (
+                <SwiperSlide
+                  key={index}
+                  className={`flex relative w-full h-full items-center justify-center text-2xl font-bold `}
                 >
-                  <Image
-                    fill
-                    className={`object-cover object-center overflow-hidden `}
-                    sizes="80vw"
-                    src={item}
-                    alt={"Hero images"}
-                    loading={"eager"}
-                  />
-                </div>
-              </SwiperSlide>
-            ))}
+                  <div
+                    className={` relative  h-full w-full  overflow-hidden text-shadow-2xs text-shadow-blue-primary `}
+                  >
+                    <Image
+                      fill
+                      className={`object-cover object-center overflow-hidden hero-image`}
+                      sizes="80vw"
+                      src={image}
+                      priority={index === 0}
+                      alt={"Hero images"}
+                      loading={"eager"}
+                    />
+                  </div>
+
+                  {/* Text */}
+                  <div className="absolute inset-0 flex items-center w-full h-full bg-foreground/30 dark:bg-background/30">
+                    <div className="hero-text flex flex-col items-end justify-end mx-auto w-full max-w-7xl px-6 ">
+
+                      <p className="hero-subtitle mb-3 text-[10px] sm:text-base md:text-lg lg:text-xl font-medium uppercase text-end tracking-widest text-white">
+                        {subtitle}
+                      </p>
+
+                      <h1 className="hero-title max-w-2xl text-xl sm:text-2xl lg:text-5xl font-bold text-white md:text-6xl text-end">
+                        {title}
+                      </h1>
+
+                      <p className="hero-description mt-4 max-w-xl text-xs sm:text-sm md:text-base lg:text-lg text-white/90  text-end">
+                        {description}
+                      </p>
+
+                      <button
+                        onClick={() => router.push("/products")}
+                        className="hero-button mt-6 rounded-md text-end text-sm lg:text-2xl bg-white px-3 py-1 md:px-6 md:py-3 font-semibold hover:bg-white/70 text-black"
+                      >
+                        Shop Now
+                      </button>
+                    </div>
+                  </div>
+                </SwiperSlide>
+              ),
+            )}
           </Swiper>
 
           {/* change button  */}

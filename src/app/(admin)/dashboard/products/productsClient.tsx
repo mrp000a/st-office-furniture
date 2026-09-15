@@ -70,12 +70,12 @@ const ProductsPageTest = ({
       </div>
       <hr className="py-1 inline-block w-full" />
 
-      <div>
-        <div className="flex flex-wrap items-stretch gap-3">
+      <div className="flex-center">
+        <div className="flex flex-wrap items-stretch gap-2 max-sm:flex-center w-full ">
           {products &&
             products.length > 0 &&
             products.map((item, index) => (
-              <div key={index} className="w-60 max-w-60 flex">
+              <div key={index} className="w-full max-w-58 max-sm:max-w-65 flex">
                 <ProductAdmin item={item} />
               </div>
             ))}

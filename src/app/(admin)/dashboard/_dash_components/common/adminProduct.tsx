@@ -66,73 +66,96 @@ const ProductAdmin = ({ item }: { item: AdminProductItem }) => {
         </span>
       </Link>
 
-      <div className="flex flex-col w-full">
-        <Link
-          href={`/products/${item.productCode.toLowerCase()}`}
-          className="line-clamp-2 font-semibold  text-justify"
-        >
-          {item.title}
-        </Link>
-        <Link
-          href={`/products?category=${item.category?.name?.toLowerCase() ?? ""}`}
-          className="font-semibold text-gray-secondary text-[10px]"
-        >
-          Category: {item.category?.name ?? "N/A"}
-        </Link>
-        <div className=" font-bold flex flex-wrap justify-between items-center">
-          <div className="space-x-2">
-            <span className="text-gray-primary">Price:</span>{" "}
-            <span className="font-semibold">
-              ৳
-              {Number(item.discount)
-                ? Number(item.discountPrice).toFixed(2)
-                : Number(item.price).toFixed(2)}
-            </span>
-            <span
-              className={`text-xs text-gray-primary line-through px-1 ${item.discount ? "" : "hidden"}`}
-            >
-              ৳{Number(item.price).toFixed(2)}
-            </span>
-          </div>
+      <div className="flex w-full flex-col gap-0">
+        {/* Product title + category */}
+        <div className="space-y-0">
+          <Link
+            href={`/products/${item.productCode.toLowerCase()}`}
+            className="line-clamp-2 text-sm font-semibold leading-5 transition-colors hover:text-primary sm:text-base"
+          >
+            {item.title}
+          </Link>
+
+          <Link
+            href={`/products?category=${item.category?.name?.toLowerCase() ?? ""}`}
+            className="inline-flex text-xs font-medium text-gray-secondary transition-colors hover:text-primary"
+          >
+            {item.category?.name ?? "N/A"}
+          </Link>
         </div>
-        <div className=" font-bold flex flex-wrap justify-between items-center w-full">
-          {/* stock an dicrount */}
-          <div className=" flex justify-between gap-3 flex-wrap w-full">
-            <div>
-              <span className="text-gray-primary">Discount:</span>{" "}
-              <span className="font-semibold">{Number(item.discount)} % </span>
-            </div>
-            <div>
-              <span className="text-gray-primary">Stock:</span>{" "}
-              <span className="font-semibold">{Number(item.stock)}</span>
-            </div>
-          </div>
-          {/* brand and code */}
-          <div className=" flex justify-between gap-3 flex-wrap w-full">
-            <div>
-              <span className="text-gray-primary">Code:</span>{" "}
-              <span className="font-semibold">{item.productCode}</span>
-            </div>
-            <div>
-              <span className="text-gray-primary">Brand:</span>{" "}
-              <span className="font-semibold">{item.brand}</span>
+
+        {/* Price */}
+        <div className="flex items-end justify-between gap-1 border-y ">
+          <div className="flex flex-col">
+            <span className="text-[10px] font-medium uppercase tracking-wide text-gray-secondary">
+              Price
+            </span>
+
+            <div className="flex flex-wrap items-baseline gap-2">
+              <span className="text-lg font-bold text-gray-primary sm:text-xl">
+                ৳
+                {Number(item.discount)
+                  ? Number(item.discountPrice).toFixed(2)
+                  : Number(item.price).toFixed(2)}
+              </span>
+
+              {Number(item.discount) > 0 && (
+                <span className="text-xs font-medium text-gray-secondary line-through">
+                  ৳{Number(item.price).toFixed(2)}
+                </span>
+              )}
             </div>
           </div>
 
-          {/* create and update */}
-          <div className=" flex flex-col flex-wrap w-full">
-            <div>
-              <span className="text-gray-primary">Created At:</span>{" "}
-              <span className="font-semibold">
-                {new Date(item.createdAt).toDateString()}
-              </span>
-            </div>
-            <div>
-              <span className="text-gray-primary">Updated At:</span>{" "}
-              <span className="font-semibold">
-                {new Date(item.updatedAt).toDateString()}
-              </span>
-            </div>
+          {/* Discount badge */}
+          {Number(item.discount) > 0 && (
+            <span className="shrink-0 rounded-full bg-red-500/10 px-2.5  text-xs font-bold text-red-500">
+              -{Number(item.discount)}%
+            </span>
+          )}
+        </div>
+
+        {/* Product details */}
+        <div className="grid grid-cols-2 gap-x-2  text-xs sm:text-sm">
+          <div className="flex min-w-0 items-center justify-between ">
+            <span className="text-gray-secondary">Stock</span>
+            <span className="truncate font-semibold">{Number(item.stock)}</span>
+          </div>
+
+          <div className="flex min-w-0 items-center justify-between">
+            <span className="text-gray-secondary">Brand</span>
+            <span className="truncate font-semibold">
+              {item.brand || "N/A"}
+            </span>
+          </div>
+
+          <div className="flex min-w-0 items-center justify-between">
+            <span className="text-gray-secondary">Code</span>
+            <span className="truncate font-semibold">{item.productCode}</span>
+          </div>
+
+          <div className="flex min-w-0 items-center justify-between">
+            <span className="text-gray-secondary">Category</span>
+            <span className="truncate font-semibold">
+              {item.category?.name ?? "N/A"}
+            </span>
+          </div>
+        </div>
+
+        {/* Dates */}
+        <div className=" border-t  text-[11px] text-gray-secondary">
+          <div className="flex justify-between gap-3">
+            <span>Created</span>
+            <span className="font-medium text-gray-primary">
+              {new Date(item.createdAt).toDateString()}
+            </span>
+          </div>
+
+          <div className="flex justify-between gap-3">
+            <span>Updated</span>
+            <span className="font-medium text-gray-primary">
+              {new Date(item.updatedAt).toDateString()}
+            </span>
           </div>
         </div>
       </div>

@@ -7,7 +7,7 @@ const PathOptions = ({ forceShow = false }: { forceShow?: boolean }) => {
   const pathname = usePathname();
   const pathnamesArray: string[] = pathname.split("/").filter(Boolean);
   if (pathname === "/") {
-    return;
+    return <></>;
   }
   return (
     <div

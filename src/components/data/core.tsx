@@ -64,15 +64,50 @@ export const coreInfo = {
   email: "info@stofficefurniture.com",
   // email2: "stofficefurniture@gmail.com",
   email2: "mrp000a@gmail.com",
-  images: [
-    SlideImageD,
-    SlideImageA2,
-    SlideImageC,
-    SlideImageB,
-    SlideImageA,
-    SlideImageE,
-  ],
 };
+
+export const HeroSectionSlides = [
+  {
+    image: SlideImageD,
+    subtitle: "Premium Furniture",
+    title: "Make Your Home Beautiful",
+    description: "Discover elegant furniture designed for modern living.",
+  },
+  {
+    image: SlideImageA2,
+    subtitle: "New Collection",
+    title: "Comfort Meets Style",
+    description: "Upgrade your space with our latest collection.",
+  },
+  {
+    image: SlideImageC,
+    subtitle: "Elevate Your Space",
+    title: "Furniture That Feels Like Home",
+    description:
+      "Bring timeless style, lasting comfort, and a touch of elegance to every corner of your home.",
+  },
+  {
+    image: SlideImageB,
+    subtitle: "Made to Last",
+    title: "Quality You Can See. Comfort You Can Feel.",
+    description:
+      "Choose furniture built with quality materials, thoughtful design, and everyday comfort in mind.",
+  },
+  {
+    image: SlideImageA,
+    subtitle: "Upgrade Your Home",
+    title: "A Better Space Starts Here",
+    description:
+      "Explore our collection of stylish, comfortable, and thoughtfully designed furniture for every room.",
+  },
+  {
+    image: SlideImageE,
+    subtitle: "Live Beautifully",
+    title: "Style Your Space.",
+    description:
+      "Furniture designed to match your taste, your lifestyle, and the way you love to live.",
+  },
+];
 
 export const LoginAndRegisterPageImages = {
   login: LogInImage,

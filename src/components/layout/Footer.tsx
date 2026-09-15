@@ -181,13 +181,18 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="absolute flex items-center flex-wrap gap-4 text-sm text-center text-gray-500 -translate-x-1/2 bottom-6 left-1/2 dark:text-gray-400">
+
+        <div className="  text-sm text-center text-gray-500 flex flex-wrap items-center justify-center gap-x-3   dark:text-gray-400">
           <div>
-            &copy; {new Date().getFullYear()} - {coreInfo.name}
+            &copy; Copyright {new Date().getFullYear()} - {coreInfo.name}
           </div>
           <div>
             Designed and Developed By{" "}
-            <Link target="_blank" href={"https://mrp-dev.vercel.app/"}>
+            <Link
+              target="_blank"
+              href={"https://mrp-dev.vercel.app/"}
+              className="text-blue-primary text-shadow-2xs text-shadow-background font-bold"
+            >
               Muhammad Rakib
             </Link>
           </div>

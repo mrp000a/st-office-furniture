@@ -10,21 +10,21 @@ export async function POST(req: Request) {
   try {
     const { to, subject, message, name } = await req.json();
 
-    const adminEmail = await resend.emails.send({
-      from: "ST Office Furniture <info@stofficefurniture.com>",
-      to: [coreInfo.email2],
-      subject,
-      html: sendMessageSnipetAdmin({ name, message, subject, email: to }),
-    });
+    // const adminEmail = await resend.emails.send({
+    //   from: "ST Office Furniture <info@stofficefurniture.com>",
+    //   to: [coreInfo.email2],
+    //   subject,
+    //   html: sendMessageSnipetAdmin({ name, message, subject, email: to }),
+    // });
 
     const clientEmail = await resend.emails.send({
       from: "ST Office Furniture <info@stofficefurniture.com>",
       to: [to],
       subject,
-      html: sendMessageSnipetClient({ name }),
+      html: sendMessageSnipetClient({ name, message }),
     });
 
-    if (!adminEmail && !clientEmail) {
+    if (!clientEmail) {
       return Response.json(
         { success: false, error: "something went wrong" },
         { status: 400 },
