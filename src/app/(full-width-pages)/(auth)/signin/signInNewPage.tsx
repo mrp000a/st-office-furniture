@@ -1,5 +1,6 @@
 "use client";
 
+import GridShape from "@/components/common/GridShape";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
@@ -63,8 +64,8 @@ export default function SignInForm() {
   };
 
   return (
-    <div className="flex flex-col flex-1 lg:w-1/2 w-full overflow-y-auto no-scrollbar">
-      <div className="w-full max-w-md sm:pt-10 mx-auto">
+    <div className="flex flex-col flex-1 lg:w-1/2 w-full overflow-y-auto no-scrollbar relative z-20">
+      <div className="w-full max-w-lg sm:pt-10 mx-auto">
         <Link
           href="/"
           className="inline-flex items-center text-sm text-gray-500 transition-colors hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
@@ -73,7 +74,8 @@ export default function SignInForm() {
           Back to home
         </Link>
       </div>
-      <div className="flex flex-col justify-center flex-1 w-full max-w-md mx-auto ">
+        {/* <GridShape /> */}
+      <div className="flex flex-col justify-center flex-1 w-full max-w-lg mx-auto ">
         <div>
           <div className="">
             <h1 className="mb-2 font-semibold text-gray-800 text-title-sm dark:text-white/90 sm:text-title-md">

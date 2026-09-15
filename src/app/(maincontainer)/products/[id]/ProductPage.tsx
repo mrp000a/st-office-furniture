@@ -23,7 +23,7 @@ import { Button } from "@/components/ui/button";
 import { useParams, useRouter } from "next/navigation";
 import React, { useCallback, useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
-import { ProductDefaultImage } from "@/components/data/core";
+import { ProductDefaultImage, ProductItemType } from "@/components/data/core";
 import NotFound from "@/app/not-found";
 import { Category, Product, ProductDescription } from "@/generated/prisma";
 import { useDispatch } from "react-redux";
@@ -31,7 +31,7 @@ import ProductLoadinglayout from "./loading";
 
 // import { useRouter } from "next/navigation";
 
-type ProductCombo = Product & {
+type ProductCombo = ProductItemType & {
   descriptions: ProductDescription[];
   category: Category;
 };
@@ -47,6 +47,9 @@ const AProductPage = () => {
   const params = useParams();
   const [productInfo, setProductInfo] = useState<ProductCombo | null>(null);
   const productCode = params.id?.toString();
+  const [sevenDaysAgo] = useState(
+    () => new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
+  );
   const [zoomStyle, setZoomStyle] = useState({
     transformOrigin: "center center",
   });
@@ -118,7 +121,7 @@ const AProductPage = () => {
               <div className="flex flex-col md:flex-row gap-1 md:gap-4 bg-background p-1 md:p-2  rounded-md border">
                 {/* Left side images and something */}
                 <div className="space-y-3 max-w-125 mx-auto w-full md:m-0">
-                  <div className=" rounded-md  overflow-hidden w-full   lg:max-w-125 mx-auto aspect-video bg-background shadow-2xl relative flex-center">
+                  <div className=" rounded-md  overflow-hidden w-full   lg:max-w-125 mx-auto aspect-5/4 bg-white shadow-2xl relative flex-center">
                     <span
                       className={`bg-red-primary dark:text-foreground flex-center flex-col  text-background rounded-md text-xl ring-2 ring-gray-secondary px-2 py-1  absolute right-0 top-0 z-20 ${productInfo.discount ? "" : "hidden"}`}
                     >
@@ -128,12 +131,18 @@ const AProductPage = () => {
                       <span className="text-xs">Off</span>
                     </span>
 
+                    <span
+                      className={`bg-red-primary flex-center flex-col  text-background dark:text-foreground  text-xs ring-2 ring-gray-secondary px-5 py-1  absolute -left-[18px]  -rotate-45 top-0 z-20 ${new Date(productInfo.createdAt) > sevenDaysAgo ? "" : "hidden"}`}
+                    >
+                      New
+                    </span>
+
                     {productInfo.images.length > 1 && (
                       <>
                         <Button
                           size={"icon-lg"}
                           onClick={() => swiperInstance?.slidePrev()}
-                          className="showPrevSlide absolute left-0 z-20"
+                          className="showPrevSlide absolute left-0 z-20 bg-background/20 backdrop-blur-md"
                           variant={"secondary"}
                         >
                           <ArrowLeft />
@@ -143,7 +152,7 @@ const AProductPage = () => {
                           onClick={() => {
                             swiperInstance?.slideNext();
                           }}
-                          className="showNextSlide absolute right-0 z-20"
+                          className="showNextSlide absolute right-0 z-20 bg-background/20 backdrop-blur-md"
                           variant={"secondary"}
                         >
                           <ArrowRight />
@@ -182,8 +191,9 @@ const AProductPage = () => {
                                 <Image
                                   fill
                                   style={zoomStyle}
-                                  className={`object-contain object-center overflow-hidden  relative w-200 h-300 transition-transform duration-150 ease-out group-hover:scale-170`}
-                                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                  className={`object-contain object-center overflow-hidden transition-transform duration-150 ease-out group-hover:scale-170`}
+                                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
+                                  // sizes="100vw"
                                   src={`${process.env.NEXT_PUBLIC_URL_R2}/${item ? item : ProductDefaultImage}`}
                                   alt={item}
                                 />
@@ -194,12 +204,12 @@ const AProductPage = () => {
                       </Swiper>
                     ) : (
                       <div
-                        className={` relative  h-full w-full aspect-video min-w-full  overflow-hidden text-shadow-2xs text-shadow-blue-primary`}
+                        className={` relative  h-full w-full  min-w-full  overflow-hidden text-shadow-2xs text-shadow-blue-primary`}
                       >
                         <Image
                           fill
                           className={`object-contain object-center overflow-hidden  relative w-200 h-300 `}
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
                           src={`${process.env.NEXT_PUBLIC_URL_R2}/${ProductDefaultImage}`}
                           alt={"default image"}
                         />
@@ -213,7 +223,7 @@ const AProductPage = () => {
                         key={index}
                         onMouseEnter={() => handleThumbnailClick(index)}
                         onClick={() => handleThumbnailClick(index)}
-                        className={`h-10 w-10 relative overflow-hidden rounded-lg border-2 transition-all duration-200 ${
+                        className={` w-10 bg-background aspect-square relative overflow-hidden rounded-lg border-2 transition-all duration-200 ${
                           activeIndex === index
                             ? "border-blue-500 scale-105"
                             : "border-transparent opacity-60 hover:opacity-100"
@@ -221,8 +231,8 @@ const AProductPage = () => {
                       >
                         <Image
                           fill
-                          className={`object-contain object-center overflow-hidden  relative w-200 h-300 `}
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          className={`object-contain object-center overflow-hidden   `}
+                          sizes="10vw"
                           src={`${process.env.NEXT_PUBLIC_URL_R2}/${item ? item : ProductDefaultImage}`}
                           alt={item}
                         />
@@ -394,7 +404,7 @@ const AProductPage = () => {
                             });
 
                             const time = setTimeout(() => {
-                              router.push("/order");
+                              router.push("/checkout");
                             }, 1000);
 
                             return;
@@ -411,7 +421,7 @@ const AProductPage = () => {
                           if (!res) {
                             return;
                           }
-                          router.push("/order");
+                          router.push("/checkout");
                         }}
                         disabled={productInfo.stock < 1}
                         type="button"

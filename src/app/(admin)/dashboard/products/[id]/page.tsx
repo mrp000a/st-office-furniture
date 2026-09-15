@@ -6,13 +6,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-import {
-  deleteFile,
-  FindProductExists,
-  getCategories,
-  uploadFile,
-} from "@/lib/api";
-import { CirclePlus, Delete, Info, Loader } from "lucide-react";
+import { deleteFile, getCategories, uploadFile } from "@/lib/api";
+import { CirclePlus, Info, Loader } from "lucide-react";
 import { useForm, Controller, useFieldArray, useWatch } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -33,7 +28,7 @@ import {
   ComboboxItem,
   ComboboxList,
 } from "@/components/ui/combobox";
-import { ProductFormData, ProductTypeAdmin } from "@/lib/formDataTypes";
+import { ProductFormData, AdminProductItem } from "@/lib/formDataTypes";
 import { useCallback, useEffect, useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import Image from "next/image";
@@ -42,6 +37,7 @@ import { IoReload } from "react-icons/io5";
 import Link from "next/link";
 import { MdOutlineSave } from "react-icons/md";
 import { allowedTypes } from "@/components/data/core";
+import { ProductDescription } from "@/generated/prisma";
 
 const PageEditProduct = ({
   // productCode,
@@ -55,7 +51,9 @@ const PageEditProduct = ({
   const [productCode, setProductCode] = useState<string | string[] | null>(
     id ?? null,
   );
-  const [item, setItem] = useState<ProductTypeAdmin | null>(null);
+  const [item, setItem] = useState<
+    (AdminProductItem & { descriptions: ProductDescription[] }) | null
+  >(null);
   const [initialValueofItem, setInitialValueofItem] = useState<any>(null);
   const [allCategories, setAllCategories] = useState([]);
 
@@ -66,7 +64,6 @@ const PageEditProduct = ({
     reset,
     getValues,
     setValue,
-    watch,
     formState: { errors, isSubmitting },
   } = useForm<
     ProductFormData & { oldImages: string[]; deletedImageKeys: string[] }
@@ -313,11 +310,11 @@ const PageEditProduct = ({
       if (deletedImageKeys && deletedImageKeys.length > 0) {
         for (const e of deletedImageKeys) {
           if (!e) return;
-          const deleteItem = await deleteFile(e);
+          await deleteFile(e);
         }
       }
       toast.success("Your Product updated successfully!", {
-        description: "Now you can view the product.",
+        description: new Date().toDateString(),
         action: {
           label: "View now!",
           onClick: () => {
@@ -326,7 +323,12 @@ const PageEditProduct = ({
         },
       });
 
-      router.back();
+      // router.push("/dashboard/products");
+      router.refresh();
+      const timer = setTimeout(() => {
+        router.back();
+        clearTimeout(timer);
+      }, 500);
     } else {
       toast.error(UpdateProduct.message ?? "Error on product adding!");
     }

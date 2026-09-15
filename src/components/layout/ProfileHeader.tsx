@@ -14,10 +14,12 @@ const ProfileHeader = ({
   children,
   profileTab,
   setProfileTab,
+  setEditProfile,
 }: {
   children: React.ReactNode;
   profileTab: string;
   setProfileTab: React.Dispatch<React.SetStateAction<string | null>>;
+  setEditProfile: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const session = useSession();
   const user = session.data?.user;
@@ -25,9 +27,6 @@ const ProfileHeader = ({
 
   return (
     <div className="max-w-384 mx-auto space-y-2 px-1">
-      {/* <div className="min-[400px]:hidden">
-        <h2 className="text-2xl font-bold">Profile</h2>
-      </div> */}
       {/* user profile header */}
       <div className="flex justify-between items-center px-2 py-1 box-border rounded-md border border-gray-secondary shadow-xl bg-background">
         <div className=" flex justify-between w-full flex-wrap items-center gap-2 bg-background rounded-lg p-2 ">
@@ -50,7 +49,11 @@ const ProfileHeader = ({
           </div>
           {/* more button */}
           <div className="flex  gap-1 flex-wrap ">
-            <Button variant={"default"} className="cursor-pointer">
+            <Button
+              onClick={() => setEditProfile((e) => !e)}
+              variant={"default"}
+              className="cursor-pointer"
+            >
               Edit Profile
             </Button>
             <Button
@@ -70,7 +73,7 @@ const ProfileHeader = ({
         </div>
       </div>
 
-      <div className="flex gap-2 flex-wrap flex-col min-[500px]:flex-row">
+      <div className="flex gap-2  flex-col sm:flex-row">
         {/* profile navigarion buttons */}
         <div
           className={`px-1 py-1 border border-gray-secondary rounded-md bg-background w-fit`}
@@ -114,11 +117,7 @@ const ProfileHeader = ({
         </div>
 
         {/* profile content page */}
-        <div className="flex-1 bg-background border border-gray-secondary shadow-lg rounded-md p-2">
-          {/* <div className="flex justify-between items-center">
-            <h2 className="text-lg font-bold">Profile</h2>
-            <div>amajd</div>
-          </div> */}
+        <div className="flex-1 w-full bg-background border border-gray-secondary shadow-lg rounded-md p-2">
           {children}
         </div>
       </div>

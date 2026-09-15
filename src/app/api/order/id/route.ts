@@ -14,17 +14,19 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const orders = await prisma.order.findUniqueOrThrow({
+    const orders = await prisma.order.findUnique({
       where: { id: Number(id) },
       include: {
         _count: true,
         items: {
           include: { product: { select: { images: true, productCode: true } } },
         },
-        logs: true,
+        logs: { orderBy: { createdAt: "asc" } },
         user: true,
       },
     });
+
+    // console.log(orders);
 
     if (!orders) {
       return NextResponse.json({

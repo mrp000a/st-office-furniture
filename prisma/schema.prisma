@@ -35,8 +35,25 @@ model User {
   cart   Cart?
   orders Order[]
 
+  emailVerified Boolean @default(false)
+
+  verificationTokens VerificationToken[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model VerificationToken {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique
+  userId    Int
+  expiresAt DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@index([userId])
 }
 
 enum UserRole {

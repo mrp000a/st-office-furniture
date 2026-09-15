@@ -1,6 +1,7 @@
 "use client";
 import {
   InputErrorMessage,
+  NoItemsFound,
   SpeacialOrderButton,
 } from "@/components/uiComponent/uiCom";
 import { Input } from "@/components/ui/input";
@@ -8,7 +9,7 @@ import { Handbag, Loader, Truck, Wallet } from "lucide-react";
 import { GrRadialSelected } from "react-icons/gr";
 import { useSession } from "next-auth/react";
 
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useForm, useWatch } from "react-hook-form";
 import { toast } from "sonner";
 import { Textarea } from "@/components/ui/textarea";
 import { useDispatch, useSelector } from "react-redux";
@@ -30,8 +31,10 @@ import {
 import { useRouter } from "next/navigation";
 import { clearCart } from "@/redux/features/cart/cartSlice";
 import { useAlertDialog } from "@/components/hooks/use-alert-dialog";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import CouponForm from "@/components/common/coupon";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const Page = () => {
   const session = useSession();
@@ -39,7 +42,8 @@ const Page = () => {
   const user = session.data?.user;
   const cart = useSelector((state: RootState) => state.cart.cart);
   const dispatch = useDispatch();
-  const { alert, confirm } = useAlertDialog();
+  const { confirm } = useAlertDialog();
+  // const [deliveryCharge, setDeliveryCharge] = useState<number>(0);
 
   const {
     register,
@@ -54,8 +58,18 @@ const Page = () => {
       address: user?.address ?? "",
       receiverEmail: user?.email ?? "",
       customerNote: "",
+      deliveryArea: "",
     },
   });
+
+  const deliveryArea = useWatch({
+    control: control,
+    name: "deliveryArea",
+  });
+
+  const deliveryCharge =
+    DeliveryAreas.find((item) => item.value === deliveryArea)?.charge ?? 0;
+
   useEffect(() => {
     reset({
       receiverName: user?.name ?? "",
@@ -66,14 +80,7 @@ const Page = () => {
     });
   }, [user, reset]);
 
-  const handleSubmitData = async (data: {
-    receiverName: string;
-    receiverPhone: string;
-    deliveryArea: "INSIDE_DHAKA" | "OUTSIDE_DHAKA";
-    address: string;
-    receiverEmail: string | null;
-    customerNote: string | null;
-  }) => {
+  const handleSubmitData = async (data: OrderFormData) => {
     // await new Promise((resolve) => setTimeout(resolve, 2000));
 
     // type NewOrderInput = {
@@ -114,7 +121,7 @@ const Page = () => {
     if (CreateOrder.success) {
       console.log({ CreateOrder });
       toast.success(CreateOrder.message ?? "Your Order added successfully!", {
-        description: "Now you can view the order.",
+        description: new Date().toDateString(),
         action: {
           label: "View now!",
           onClick: () => {
@@ -255,25 +262,28 @@ const Page = () => {
                   <label htmlFor="address">{"Delivery Area:*"} </label>
                   <Controller
                     control={control}
-                    {...register("deliveryArea", {
-                      required: {
-                        value: true,
-                        message: "Delivery Area is required!",
-                      },
-                    })}
+                    name="deliveryArea"
+                    rules={{
+                      required: "Delivery Area is required!",
+                    }}
                     render={({ field }) => (
                       <Select
+                        value={field.value ?? ""}
                         onValueChange={field.onChange}
-                        defaultValue={field.value}
                       >
-                        <SelectTrigger className="w-full ">
+                        <SelectTrigger className="w-full !h-10">
                           <SelectValue placeholder="Select Delivery Area" />
                         </SelectTrigger>
-                        <SelectContent className="">
+
+                        <SelectContent>
                           <SelectGroup>
                             <SelectLabel>Delivery Areas</SelectLabel>
-                            {DeliveryAreas.map((item, index) => (
-                              <SelectItem key={index} value={item.value}>
+
+                            {DeliveryAreas.map((item) => (
+                              <SelectItem
+                                key={item.value}
+                                value={item.value ?? ""}
+                              >
                                 {item.label}
                               </SelectItem>
                             ))}
@@ -413,9 +423,12 @@ const Page = () => {
                 </div>
               ))
             ) : (
-              <span className="text-center p-3 rounded-md outline-2 outline-gray-secondary box-border">
-                No Items Found
-              </span>
+              <>
+                <NoItemsFound />
+                <Button asChild className="w-fit mx-auto">
+                  <Link href={"/products"}>Continue Shopping</Link>
+                </Button>
+              </>
             )}
           </div>
           <CouponForm />
@@ -431,15 +444,17 @@ const Page = () => {
                 </span>
                 <span className="text-gray-primary font-bold">
                   ৳
-                  {cart?.items.reduce(
-                    (total, item) =>
-                      total +
-                      (item.product.discount && item.product.discountPrice
-                        ? item.product?.discountPrice
-                        : item.price) *
-                        item.qty,
-                    0,
-                  )}
+                  {cart?.items.length
+                    ? cart?.items.reduce(
+                        (total, item) =>
+                          total +
+                          (item.product.discount && item.product.discountPrice
+                            ? item.product?.discountPrice
+                            : item.price) *
+                            item.qty,
+                        0,
+                      )
+                    : 0}
                 </span>
               </div>
               {/* Delivery */}
@@ -447,7 +462,9 @@ const Page = () => {
                 <span className="text-gray-secondary font-semibold">
                   Delivery Charge
                 </span>
-                <span className="text-gray-primary font-bold">৳{0}</span>
+                <span className="text-gray-primary font-bold">
+                  ৳{deliveryCharge}
+                </span>
               </div>
 
               <hr className="w-full bg-foreground text-foreground" />
@@ -456,7 +473,7 @@ const Page = () => {
                 <span className=" font-bold">Grand Total</span>
                 <span className="font-bold">
                   ৳
-                  {cart?.items.reduce(
+                  {(cart?.items.reduce(
                     (total, item) =>
                       total +
                       (item.product.discount && item.product.discountPrice
@@ -464,7 +481,7 @@ const Page = () => {
                         : item.price) *
                         item.qty,
                     0,
-                  )}
+                  ) ?? 0) + deliveryCharge}
                 </span>
               </div>
             </div>

@@ -1,9 +1,9 @@
 "use client";
-import { InputErrorMessage} from "@/components/uiComponent/uiCom";
+import { InputErrorMessage } from "@/components/uiComponent/uiCom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { deleteFile, FindCategoryExists, uploadFile } from "@/lib/api";
-import {  Info, Loader } from "lucide-react";
+import { Info, Loader } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { CategoryFormData } from "@/lib/formDataTypes";
 import { toast } from "sonner";
@@ -17,9 +17,9 @@ import {
 
 import { Textarea } from "@/components/ui/textarea";
 import { allowedTypes } from "@/components/data/core";
+import { useRouter } from "next/navigation";
 
 const PageAddCategory = ({
-  load,
   setOpenAddCategory,
   saveButtonText = "Save",
   id,
@@ -28,7 +28,6 @@ const PageAddCategory = ({
   oldImage = "",
   isEdit = false,
 }: {
-  load?: () => Promise<void>;
   setOpenAddCategory: React.Dispatch<React.SetStateAction<boolean>>;
   saveButtonText?: string;
   id?: number;
@@ -37,6 +36,7 @@ const PageAddCategory = ({
   oldImage?: string;
   isEdit?: boolean;
 }) => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -84,9 +84,11 @@ const PageAddCategory = ({
       message: string;
     } = await res.json();
     if (createCategory.success) {
-      toast.success("Category add success fully!");
+      toast.success("Category add success fully!", {
+        description: new Date().toDateString(),
+      });
       reset();
-      if (load) load();
+      router.refresh();
       setOpenAddCategory(false);
     }
   };
@@ -131,11 +133,13 @@ const PageAddCategory = ({
     } = await res.json();
 
     if (createCategory.success) {
-      toast.success("Category add success fully!");
+      toast.success("Category add success fully!", {
+        description: new Date().toDateString(),
+      });
       if (fileData?.key) await deleteFile(oldImage);
 
       reset();
-      if (load) load();
+      router.refresh();
       setOpenAddCategory(false);
     }
   };
@@ -237,8 +241,6 @@ const PageAddCategory = ({
                         acceptedFormats: (files) => {
                           const file = files?.[0];
                           if (!file) return true;
-
-                          
 
                           return (
                             allowedTypes.includes(file.type) ||

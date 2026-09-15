@@ -136,10 +136,10 @@ const PageRegisterForm = () => {
     const createUser: { success: boolean; result?: object; message: string } =
       await res.json();
     if (createUser.success) {
-      toast.info("Message", {
-        description: "Now you can Log In!",
+      toast.success("User Created Successful!", {
+        description: new Date().toDateString(),
         action: {
-          label: "Log In",
+          label: "Log In Now",
           onClick() {
             router.push("/signin");
           },

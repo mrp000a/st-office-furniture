@@ -1,6 +1,7 @@
 import type { Metadata, ResolvingMetadata } from "next";
 import AProductPage from "./ProductPage";
 import { coreInfo, ProductDefaultImage } from "@/components/data/core";
+import { Product } from "@/generated/prisma";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -19,7 +20,7 @@ export async function generateMetadata(
     `${process.env.NEXT_PUBLIC_URL_SITE}/api/products/product?productCode=${id}`,
   ).then((res) => res.json());
 
-  const product = data.result;
+  const product: Product = data.result;
 
   if (!product) {
     return { title: "Product Not Found | ST Office Furniture" };
@@ -30,15 +31,15 @@ export async function generateMetadata(
   // optionally access and extend (rather than replace) parent metadata
   const previousImages = (await parent).openGraph?.images || [];
 
-  const cleanDescription = product.keyFeatures.join(", ").substring(0, 160);
+  const cleanDescription = product.keyFeatures.join(", ").substring(0, 155);
 
-  const pageUrl = `${process.env.NEXT_PUBLIC_URL_SITE}/products/{id}`;
+  const pageUrl = `${process.env.NEXT_PUBLIC_URL_SITE}/products/${id}`;
   return {
     title: `${product.title} | ${coreInfo.name}`,
     description: cleanDescription,
     keywords: [
       product.title,
-      product.brand,
+      product.brand ?? "St office furniture",
       "office furniture",
       "buy office chair",
       "ST office",
@@ -55,7 +56,7 @@ export async function generateMetadata(
       images: [
         {
           url: productImage,
-          width: 1200,
+          width: 800,
           height: 630,
           alt: product.title,
         },
@@ -72,7 +73,7 @@ export async function generateMetadata(
   };
 }
 
-export default function Page({ params, searchParams }: Props) {
+export default function Page() {
   return (
     <>
       <AProductPage />

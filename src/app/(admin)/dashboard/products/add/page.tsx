@@ -170,7 +170,7 @@ const PageAddProduct = () => {
     const CreateProduct = await res.json();
     if (CreateProduct.success) {
       toast.success("Your Product added successfully!", {
-        description: "Now you can view the product.",
+        description: new Date().toDateString(),
         action: {
           label: "View now!",
           onClick: () => {

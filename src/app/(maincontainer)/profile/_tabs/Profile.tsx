@@ -1,12 +1,50 @@
 "use client";
+import PageEditUserClient from "@/components/common/pageEditUserClient";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { User } from "@/generated/prisma";
+import { getUser } from "@/lib/api";
 import { useSession } from "next-auth/react";
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
-const Profile = () => {
+const Profile = ({
+  setOpenEditUser,
+  openEditUser,
+}: {
+  setOpenEditUser: React.Dispatch<React.SetStateAction<boolean>>;
+  openEditUser: boolean;
+}) => {
   const session = useSession();
+
   const user = session.data?.user;
+  // const [openEditUser, setOpenEditUser] = useState(false);
+  const [userData, setUserData] = useState<
+    (User & { _count: { orders: number } }) | null
+  >(null);
+
+  const loadUser = useCallback(async () => {
+    if (!session?.data?.user?.id) return;
+    const res = await getUser({
+      id: Number(session?.data?.user?.id),
+    });
+    if (!res.success) return;
+
+    setUserData(res.result);
+  }, [session]);
+
+  useEffect(() => {
+    function Load() {
+      loadUser();
+    }
+    Load();
+  }, [loadUser]);
 
   return (
     <div>
@@ -22,7 +60,7 @@ const Profile = () => {
               <Input
                 className="min-h-10 flex-1   bg-gray-secondary/40 text-foreground"
                 disabled
-                value={user?.name ?? ""}
+                value={userData?.name ?? ""}
               />
             </div>
             <div className="flex flex-1 flex-col items-start justify-start">
@@ -30,7 +68,7 @@ const Profile = () => {
               <Input
                 className="min-h-10 flex-1   bg-gray-secondary/40 text-foreground"
                 disabled
-                value={user?.name ?? ""}
+                value={userData?.name ?? ""}
               />
             </div>
           </div>
@@ -40,7 +78,7 @@ const Profile = () => {
               <Input
                 className="min-h-10 flex-1   bg-gray-secondary/40 text-foreground"
                 disabled
-                value={user?.address ?? ""}
+                value={userData?.address ?? ""}
               />
             </div>
             <div className="flex flex-1 flex-col items-start justify-start">
@@ -48,7 +86,25 @@ const Profile = () => {
               <Input
                 className="min-h-10 flex-1 capitalize    bg-gray-secondary/40 text-foreground"
                 disabled
-                value={user?.role.toLocaleLowerCase() ?? ""}
+                value={userData?.role.toLocaleLowerCase() ?? ""}
+              />
+            </div>
+          </div>
+          <div className="flex flex-wrap items-center gap-2">
+            <div className="flex flex-1 flex-col items-start justify-start">
+              <span className="text-[10px]">Gender</span>
+              <Input
+                className="min-h-10 flex-1   bg-gray-secondary/40 text-foreground"
+                disabled
+                value={userData?.gender ?? ""}
+              />
+            </div>
+            <div className="flex flex-1 flex-col items-start justify-start">
+              <span className="text-[10px]">Created At</span>
+              <Input
+                className="min-h-10 flex-1 capitalize    bg-gray-secondary/40 text-foreground"
+                disabled
+                value={new Date(userData?.createdAt ?? "").toDateString()}
               />
             </div>
           </div>
@@ -58,7 +114,7 @@ const Profile = () => {
               <Input
                 className="min-h-10 flex-1   bg-gray-secondary/40 text-foreground"
                 disabled
-                value={user?.email ?? ""}
+                value={userData?.email ?? ""}
               />
             </div>
             <div className="flex flex-1 flex-col items-start justify-start">
@@ -66,7 +122,7 @@ const Profile = () => {
               <Input
                 className="min-h-10 flex-1   bg-gray-secondary/40 text-foreground"
                 disabled
-                value={user?.phone ?? ""}
+                value={userData?.phone ?? ""}
               />
             </div>
           </div>
@@ -80,13 +136,61 @@ const Profile = () => {
                   disabled
                   value={"password"}
                 />
-                <Button className="h-10" variant={"destructive"}>Change</Button>
+                <Button
+                  onClick={() => setOpenEditUser((e) => !e)}
+                  className="h-10"
+                  variant={"destructive"}
+                >
+                  Change
+                </Button>
               </div>
             </div>
-            <div className="flex  flex-1 flex-col items-start justify-start"></div>
+            <div className="flex  flex-1 flex-col items-start justify-start">
+              <span className="text-[10px]">Total Order</span>
+              <div className="flex-1 w-full flex items-center flex-wrap gap-2 box-border">
+                <Input
+                  // type="password"
+                  className="min-h-10 w-full flex-1   bg-gray-secondary/40 text-foreground"
+                  disabled
+                  value={userData?._count.orders.toString() ?? ""}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
+      {/* drawars */}
+      <>
+        {/* edit category dialog */}
+        <Dialog
+          open={openEditUser}
+          onOpenChange={setOpenEditUser}
+          // modal={false}
+        >
+          <DialogContent className="sm:max-w-lg  max-h-screen overflow-auto">
+            <DialogHeader>
+              <DialogTitle>Edit User</DialogTitle>
+              <DialogDescription>
+                Make changes to your user here. Click save when you&apos;re
+                done.
+              </DialogDescription>
+            </DialogHeader>
+            <div>
+              <PageEditUserClient
+                name={userData?.name ?? ""}
+                email={userData?.email ?? ""}
+                phone={userData?.phone ?? ""}
+                address={userData?.address ?? ""}
+                gender={userData?.gender ?? "MALE"}
+                id={userData?.id}
+                image={userData?.image ?? ""}
+                role={userData?.role ?? "USER"}
+                setOpen={setOpenEditUser}
+              />
+            </div>
+          </DialogContent>
+        </Dialog>
+      </>
     </div>
   );
 };

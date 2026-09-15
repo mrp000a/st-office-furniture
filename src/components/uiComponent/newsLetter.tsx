@@ -10,8 +10,8 @@ const NewsLetter = () => {
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(email);
-    toast.success("Subscribed to Newsletter!", {
-      description: "Thank You for Submit Your Email.",
+    toast.success("Subscribed to Newsletter! Thank You", {
+      description: new Date().toDateString(),
     });
     setEmail("");
     return;

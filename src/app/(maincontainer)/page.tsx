@@ -1,6 +1,7 @@
+import AccessoriesProducts from "@/components/sections/ChairAccessories";
 import FeaturedProducts from "@/components/sections/FeaturedProducts";
 import HeroSectionA from "@/components/sections/HeroSectionA";
-import SpecialCategoriesPage from "@/components/sections/SpecialCategories";
+import SpecialCategories from "@/components/sections/SpecialCategories";
 import VisitorsChair from "@/components/sections/VisitorsChair";
 import React from "react";
 
@@ -10,8 +11,9 @@ const Home = () => {
       <HeroSectionA />
       <FeaturedProducts />
       <VisitorsChair />
-      <SpecialCategoriesPage />
-      <FeaturedProducts />
+      <SpecialCategories />
+      <AccessoriesProducts />
+      {/* <FeaturedProducts /> */}
     </div>
   );
 };

@@ -65,7 +65,7 @@ const Page = () => {
   }, [loadOrder]);
 
   return (
-    <div className="">
+    <div className="w-full">
       {/* header */}
       <div className="flex justify-between items-center flex-wrap relative">
         <h2 className="text-2xl font-bold font-mono">Orders</h2>
@@ -120,115 +120,116 @@ const Page = () => {
               {item}
             </Button>
           ))}
-
-        {/* main data table */}
       </div>
-      {orders && orders.length > 0 ? (
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Order Id</TableHead>
-              {/* <TableHead>Order Id</TableHead> */}
-              <TableHead>Customer</TableHead>
-              <TableHead>User Email</TableHead>
-              <TableHead>Address</TableHead>
-              <TableHead>Items</TableHead>
-              <TableHead>Total</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Date</TableHead>
-              <TableHead>Buttons</TableHead>
-            </TableRow>
-          </TableHeader>
+      {/* main data table */}
+      <div className="w-full overflow-auto">
+        {orders && orders.length > 0 ? (
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Order Id</TableHead>
+                {/* <TableHead>Order Id</TableHead> */}
+                <TableHead>Customer</TableHead>
+                <TableHead>User Email</TableHead>
+                <TableHead>Address</TableHead>
+                <TableHead>Items</TableHead>
+                <TableHead>Total</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Date</TableHead>
+                <TableHead>Buttons</TableHead>
+              </TableRow>
+            </TableHeader>
 
-          <TableBody className="">
-            {orders.map(
-              (
-                {
-                  id,
-                  receiverName,
-                  receiverEmail,
-                  receiverPhone,
-                  address,
-                  user,
-                  paymentStatus,
-                  status,
-                  total,
-                  _count,
-                  createdAt,
-                },
-                index,
-              ) => (
-                <TableRow key={index} className="">
-                  <TableCell className="font-medium">#{id}</TableCell>
+            <TableBody className="">
+              {orders.map(
+                (
+                  {
+                    id,
+                    receiverName,
+                    receiverEmail,
+                    receiverPhone,
+                    address,
+                    user,
+                    paymentStatus,
+                    status,
+                    total,
+                    _count,
+                    createdAt,
+                  },
+                  index,
+                ) => (
+                  <TableRow key={index} className="">
+                    <TableCell className="font-medium">#{id}</TableCell>
 
-                  <TableCell>
-                    <div className="flex items-center justify-start  gap-1">
-                      <span className="min-w-6 max-w-6  min-h-6 max-h-6 relative z-10 inline-block rounded-full  overflow-hidden">
-                        {user?.image ? (
-                          <Image
-                            src={`${process.env.NEXT_PUBLIC_URL_R2}/${user.image ? user.image : ProductDefaultImage}`}
-                            alt={user.email}
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                            fill
-                            className="object-cover w-full h-full"
-                          />
-                        ) : (
-                          <FaUserCircle className="h-full w-full" />
-                        )}
-                      </span>
-                      <div>
-                        <p className="font-medium">{receiverName}</p>
-                        <div className="text-[10px] flex flex-wrap items-center gap-x-2">
-                          <p className=" text-muted-foreground">
-                            {receiverEmail}
-                          </p>
-                          <p className=" text-muted-foreground">
-                            {receiverPhone}
-                          </p>
+                    <TableCell>
+                      <div className="flex items-center justify-start  gap-1">
+                        <span className="min-w-6 max-w-6  min-h-6 max-h-6 relative z-10 inline-block rounded-full  overflow-hidden">
+                          {user?.image ? (
+                            <Image
+                              src={`${process.env.NEXT_PUBLIC_URL_R2}/${user.image ? user.image : ProductDefaultImage}`}
+                              alt={user.email}
+                              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                              fill
+                              className="object-cover w-full h-full"
+                            />
+                          ) : (
+                            <FaUserCircle className="h-full w-full" />
+                          )}
+                        </span>
+                        <div>
+                          <p className="font-medium">{receiverName}</p>
+                          <div className="text-[10px] flex flex-wrap items-center gap-x-2">
+                            <p className=" text-muted-foreground">
+                              {receiverEmail}
+                            </p>
+                            <p className=" text-muted-foreground">
+                              {receiverPhone}
+                            </p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </TableCell>
+                    </TableCell>
 
-                  <TableCell>{user?.email ?? "N/A"}</TableCell>
-                  <TableCell>
-                    <p className="">{address ?? "N/A"}</p>
-                  </TableCell>
-                  <TableCell>{Number(_count.items)}</TableCell>
+                    <TableCell>{user?.email ?? "N/A"}</TableCell>
+                    <TableCell>
+                      <p className="">{address ?? "N/A"}</p>
+                    </TableCell>
+                    <TableCell>{Number(_count.items)}</TableCell>
 
-                  <TableCell>৳{Number(total).toLocaleString()}</TableCell>
+                    <TableCell>৳{Number(total).toLocaleString()}</TableCell>
 
-                  <TableCell>
-                    <Badge
-                      variant={
-                        (status === "PENDING" && "default") ||
-                        (status === "CANCELLED" && "destructive") ||
-                        "default"
-                      }
-                      className={`${status === "PENDING" ? "bg-red-primary" : ""}`}
-                    >
-                      {status}
-                    </Badge>
-                  </TableCell>
+                    <TableCell>
+                      <Badge
+                        variant={
+                          (status === "PENDING" && "default") ||
+                          (status === "CANCELLED" && "destructive") ||
+                          "default"
+                        }
+                        className={`${status === "PENDING" ? "bg-red-primary" : ""}`}
+                      >
+                        {status}
+                      </Badge>
+                    </TableCell>
 
-                  <TableCell>
-                    {new Date(createdAt).toLocaleDateString()}
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex items-center gap-2">
-                      <Button className="" asChild>
-                        <Link href={`/order/${id}`}>View</Link>
-                      </Button>
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ),
-            )}
-          </TableBody>
-        </Table>
-      ) : (
-        <NoItemsFound />
-      )}
+                    <TableCell>
+                      {new Date(createdAt).toLocaleDateString()}
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex items-center gap-2">
+                        <Button className="" asChild>
+                          <Link href={`/order/${id}`}>View</Link>
+                        </Button>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ),
+              )}
+            </TableBody>
+          </Table>
+        ) : (
+          <NoItemsFound />
+        )}
+      </div>
     </div>
   );
 };

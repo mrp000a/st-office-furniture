@@ -1,3 +1,4 @@
+import { ProductItemType } from "@/components/data/core";
 import { OrderStatus, Product } from "@/generated/prisma";
 import { addItem, removeItem, setCart } from "@/redux/features/cart/cartSlice";
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
@@ -50,10 +51,13 @@ export async function FindProductExists({
 }: {
   productCode: string;
 }) {
-  const res = await fetch(`/api/products/check?productCode=${productCode}`, {
-    method: "GET",
-    redirect: "follow",
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_URL_SITE}/api/products/check?productCode=${productCode}`,
+    {
+      method: "GET",
+      redirect: "follow",
+    },
+  );
   const data = await res.json();
   return data;
 }
@@ -72,7 +76,7 @@ export async function getProducts({
 }) {
   try {
     const res = await fetch(
-      `/api/products?search=${searchString}&category=${category}&limit=${limit}&order=${order}`,
+      `${process.env.NEXT_PUBLIC_URL_SITE}/api/products?search=${searchString}&category=${category}&limit=${limit}&order=${order}`,
       {
         method: "GET",
         redirect: "follow",
@@ -102,7 +106,7 @@ export async function deleteProduct({
 }) {
   try {
     const res = await fetch(
-      `/api/products?id=${id}&productCode=${productCode}`,
+      `${process.env.NEXT_PUBLIC_URL_SITE}/api/products?id=${id}&productCode=${productCode}`,
       {
         method: "DELETE",
         redirect: "follow",
@@ -130,19 +134,41 @@ export async function FindCategoryExists({
   name: string;
   id?: number;
 }) {
-  const res = await fetch(`/api/categories/check?name=${name}&id=${id}`, {
-    method: "GET",
-    redirect: "follow",
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_URL_SITE}/api/categories/check?name=${name}&id=${id}`,
+    {
+      method: "GET",
+      redirect: "follow",
+    },
+  );
   const data = await res.json();
   return data;
 }
 
 export async function getCategories() {
-  const res = await fetch(`/api/categories`, {
-    method: "GET",
-    redirect: "follow",
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_URL_SITE}/api/categories`,
+    {
+      method: "GET",
+      redirect: "follow",
+    },
+  );
+  if (!res.ok) {
+    return { success: false, message: "Server Error-" };
+  }
+  const data = await res.json();
+  return data;
+}
+
+export async function getCategoriesClient() {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_URL_SITE}/api/categories`,
+    {
+      method: "GET",
+      redirect: "follow",
+      next: { revalidate: 600 },
+    },
+  );
   if (!res.ok) {
     return { success: false, message: "Server Error-" };
   }
@@ -157,10 +183,13 @@ export async function deleteCategories({
   id: number;
   name: string;
 }) {
-  const res = await fetch(`/api/categories?id=${id}&name=${name}`, {
-    method: "DELETE",
-    redirect: "follow",
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_URL_SITE}/api/categories?id=${id}&name=${name}`,
+    {
+      method: "DELETE",
+      redirect: "follow",
+    },
+  );
   if (!res.ok) {
     toast.error("Server Error-", {
       description: "The item deleted unsuccessful!",
@@ -174,8 +203,8 @@ export async function deleteCategories({
     });
     return;
   }
-  toast.success("Item deleted!", {
-    description: "The item deleted successful!",
+  toast.success("Item deleted successful!", {
+    description: new Date().toDateString(),
   });
   return;
 }
@@ -191,10 +220,13 @@ export async function editCategories({
   description?: string;
   image?: string;
 }) {
-  const res = await fetch(`/api/categories`, {
-    method: "PUT",
-    redirect: "follow",
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_URL_SITE}/api/categories`,
+    {
+      method: "PUT",
+      redirect: "follow",
+    },
+  );
   if (!res.ok) {
     return { success: false, message: "Server Error-" };
   }
@@ -215,7 +247,21 @@ export async function getUsers({
   limit?: number;
 }) {
   const res = await fetch(
-    `/api/users?email=${email}&phone=${phone}&name=${name}&limit=${limit}`,
+    `${process.env.NEXT_PUBLIC_URL_SITE}/api/users?email=${email}&phone=${phone}&name=${name}&limit=${limit}`,
+    {
+      method: "GET",
+      redirect: "follow",
+    },
+  );
+
+  const data: { success: boolean; message: null | string; result: any } =
+    await res.json();
+  return data;
+}
+export async function getUser({ id }: { id?: number }) {
+  if (!id) return { success: false, message: "Id is required", result: null };
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_URL_SITE}/api/users/user?id=${id}`,
     {
       method: "GET",
       redirect: "follow",
@@ -234,10 +280,13 @@ export async function FindUserExists({
   email: string;
   phone: string;
 }) {
-  const res = await fetch(`/api/users/check?email=${email}&phone=${phone}`, {
-    method: "GET",
-    redirect: "follow",
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_URL_SITE}/api/users/check?email=${email}&phone=${phone}`,
+    {
+      method: "GET",
+      redirect: "follow",
+    },
+  );
   const data = await res.json();
   return data;
 }
@@ -251,10 +300,13 @@ export async function deleteUser({
   image?: string;
   email?: string;
 }) {
-  const res = await fetch(`/api/users?id=${id}&email=${email}`, {
-    method: "DELETE",
-    redirect: "follow",
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_URL_SITE}/api/users?id=${id}&email=${email}`,
+    {
+      method: "DELETE",
+      redirect: "follow",
+    },
+  );
   const data = await res.json();
 
   if (data.success) {
@@ -272,10 +324,13 @@ export async function deleteUser({
 // Cart related -------------------------------------------------------------------------------------------------------
 
 export async function getCart({ userId }: { userId: number }) {
-  const res = await fetch(`/api/cart?userId=${userId}`, {
-    method: "GET",
-    redirect: "follow",
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_URL_SITE}/api/cart?userId=${userId}`,
+    {
+      method: "GET",
+      redirect: "follow",
+    },
+  );
 
   if (!res.ok) {
     return { success: false, message: "Server Error-" };
@@ -286,10 +341,13 @@ export async function getCart({ userId }: { userId: number }) {
 }
 
 export async function deleteCart({ userId }: { userId: number }) {
-  const res = await fetch(`/api/cart?userId=${userId}`, {
-    method: "PUT",
-    redirect: "follow",
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_URL_SITE}/api/cart?userId=${userId}`,
+    {
+      method: "PUT",
+      redirect: "follow",
+    },
+  );
 
   if (!res.ok) {
     return { success: false, message: "Server Error-" };
@@ -364,10 +422,13 @@ export const handleDeleteCartItem = async ({
     dispatch(removeItem(itemId));
     return;
   }
-  const data = await fetch(`/api/cart?itemId=${itemId}`, {
-    method: "DELETE",
-    redirect: "follow",
-  });
+  const data = await fetch(
+    `${process.env.NEXT_PUBLIC_URL_SITE}/api/cart?itemId=${itemId}`,
+    {
+      method: "DELETE",
+      redirect: "follow",
+    },
+  );
 
   if (!data.ok) {
     toast.error("Something went wrong");
@@ -382,7 +443,9 @@ export const handleDeleteCartItem = async ({
     if (session && session.data?.user?.id) {
       loadCart({ userId: Number(session.data?.user.id), dispatch });
     }
-    toast.success("Cart item deleted");
+    toast.success("Cart item deleted", {
+      description: new Date().toDateString(),
+    });
   }
 };
 
@@ -416,7 +479,9 @@ export const HandleAddToCart = async ({
     return null;
   }
   console.log(res.message);
-  toast.success(res.message ?? "Product added to cart!");
+  toast.success(res.message ?? "Product added to cart!", {
+    description: new Date().toDateString(),
+  });
   loadCart({ userId, dispatch });
 
   return true;
@@ -433,7 +498,10 @@ export const HandleAddToLocalCart = ({
   qty,
   //--
   dispatch,
-}: Product & { qty: number; dispatch: Dispatch }) => {
+}: ProductItemType & {
+  qty: number;
+  dispatch: Dispatch;
+}) => {
   const product = {
     images,
     discount: discount ? Number(discount) : null,
@@ -461,7 +529,9 @@ export const HandleAddToLocalCart = ({
     }),
   );
 
-  toast.success("Item added to Cart!");
+  toast.success("Item added to Cart!", {
+    description: new Date().toDateString(),
+  });
 };
 
 // order related --------------------------------------------------------------------------------------------
@@ -479,7 +549,7 @@ export async function getOrders({
   userId?: number;
 }) {
   const res = await fetch(
-    `/api/order?userId=${userId}&email=${email}&status=${status}&name=${name}&limit=${limit}`,
+    `${process.env.NEXT_PUBLIC_URL_SITE}/api/order?userId=${userId}&email=${email}&status=${status}&name=${name}&limit=${limit}`,
     {
       method: "GET",
       redirect: "follow",
@@ -502,7 +572,7 @@ export async function getUsersOrders({
   userId: number;
 }) {
   const res = await fetch(
-    `/api/order/userOrders?userId=${userId}&status=${status}&name=${name}&limit=${limit}`,
+    `${process.env.NEXT_PUBLIC_URL_SITE}/api/order/userOrders?userId=${userId}&status=${status}&name=${name}&limit=${limit}`,
     {
       method: "GET",
       redirect: "follow",
@@ -516,10 +586,13 @@ export async function getUsersOrders({
 export async function getSingleOrder({ orderId }: { orderId?: number }) {
   if (!orderId)
     return { success: false, message: "order id is required", result: null }; //toast.error("Order Id is required!");
-  const res = await fetch(`/api/order/id?orderId=${orderId}`, {
-    method: "GET",
-    redirect: "follow",
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_URL_SITE}/api/order/id?orderId=${orderId}`,
+    {
+      method: "GET",
+      redirect: "follow",
+    },
+  );
 
   const data: { success: boolean; message: null | string; result: any } =
     await res.json();
@@ -535,7 +608,7 @@ export async function checkSingleOrder({
   if (!orderId || !phone)
     return { success: false, message: "order id is required", result: null }; //toast.error("Order Id is required!");
   const res = await fetch(
-    `/api/order/check?orderId=${orderId}&phone=${phone}`,
+    `${process.env.NEXT_PUBLIC_URL_SITE}/api/order/check?orderId=${orderId}&phone=${phone}`,
     {
       method: "GET",
       redirect: "follow",
@@ -548,10 +621,13 @@ export async function checkSingleOrder({
 }
 
 export async function deleteOrder({ id }: { id: number }) {
-  const res = await fetch(`/api/order?id=${id}`, {
-    method: "DELETE",
-    redirect: "follow",
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_URL_SITE}/api/order?id=${id}`,
+    {
+      method: "DELETE",
+      redirect: "follow",
+    },
+  );
   const data = await res.json();
 
   if (data.success) {
@@ -559,8 +635,112 @@ export async function deleteOrder({ id }: { id: number }) {
       description: `${new Date().toISOString()}`,
     });
   } else {
-    toast.error("Order Not Deleted!", {
-      description: `${new Date().toISOString()}`,
+    toast.error("Order Not Deleted!");
+  }
+}
+
+// message =========================================================================================
+
+export async function editMessages({
+  id,
+  isRead,
+}: {
+  id: number;
+  isRead: boolean;
+}) {
+  try {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_URL_SITE}/api/messages`,
+      {
+        method: "PUT",
+        headers: myHeaders,
+        body: JSON.stringify({ id, isRead }),
+        redirect: "follow",
+      },
+    );
+
+    if (!res.ok) {
+      toast.error("Server Error!");
+      return { success: false, message: "Server Error-" };
+    }
+    const data = await res.json();
+
+    if (data.success) {
+      toast.success(data.message ?? "Item Deleted!", {
+        description: new Date().toDateString(),
+      });
+    } else {
+      toast.error(data.message ?? "Item Not Deleted!", {
+        description: new Date().toDateString(),
+      });
+    }
+    return data;
+  } catch (error: any) {
+    toast.error(error.message ?? "Item Not Deleted!", {
+      description: new Date().toDateString(),
     });
   }
+}
+
+export async function deleteMessages({
+  id,
+  name,
+}: {
+  id: number;
+  name: string;
+}) {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_URL_SITE}/api/messages?id=${id}&name=${name}`,
+    {
+      method: "DELETE",
+      redirect: "follow",
+    },
+  );
+  if (!res.ok) {
+    toast.error("Server Error-", {
+      description: "The item deleted unsuccessful!",
+    });
+    return;
+  }
+  const data = await res.json();
+  if (!data.success) {
+    toast.error("Server Error-", {
+      description: "The item deleted unsuccessful!",
+    });
+    return;
+  }
+  toast.success("Item deleted successful!", {
+    description: new Date().toDateString(),
+  });
+  return;
+}
+
+// send email
+export async function sendEmail({
+  to,
+  subject,
+  message,
+}: {
+  to: string;
+  subject: string;
+  message: string;
+}) {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_URL_SITE}/api/send-mail`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      to,
+      subject,
+      message,
+    }),
+  });
+
+  const data = await res.json();
+
+  return data;
 }

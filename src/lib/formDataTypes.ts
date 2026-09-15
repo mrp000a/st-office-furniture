@@ -65,7 +65,7 @@ export type OrderFormData = {
   customerNote: string;
   receiverEmail: string;
 
-  deliveryArea: DeliveryAreas;
+  deliveryArea: string;
   shippingCost: number;
 
   paymentMethod: PaymentMethods;
@@ -87,14 +87,32 @@ export type MessageFormData = {
   message: string;
 };
 
-
-export type ProductTypeAdmin = Product & {
-  category: Category;
-  descriptions: ProductDescription[];
+export type AdminProductItem = {
+  price: number;
+  discountPrice: number | null;
+  discount: number | null;
+  category: {
+    name: string;
+    id: number;
+    createdAt: Date;
+    updatedAt: Date;
+    image: string | null;
+    description: string | null;
+  } | null;
   _count: {
     descriptions: number;
     reviews: number;
     orderItems: number;
     cartItems: number;
   };
+  id: number;
+  title: string;
+  productCode: string;
+  images: string[];
+  brand: string | null;
+  keyFeatures: string[];
+  stock: number;
+  categoryId: number | null;
+  createdAt: Date;
+  updatedAt: Date;
 };

@@ -58,18 +58,11 @@ const HeroSectionA = () => {
                 >
                   <Image
                     fill
-                    // quality={100}
-                    unoptimized
-                    className={`object-cover object-center overflow-hidden  relative w-200 h-300 `}
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    src={
-                      typeof item === "string"
-                        ? item.startsWith("r2upload/")
-                          ? `${process.env.NEXT_PUBLIC_URL_R2}/${item}`
-                          : item
-                        : item
-                    }
-                    alt={typeof item === "string" ? item : "image of product"}
+                    className={`object-cover object-center overflow-hidden `}
+                    sizes="80vw"
+                    src={item}
+                    alt={"Hero images"}
+                    loading={"eager"}
                   />
                 </div>
               </SwiperSlide>

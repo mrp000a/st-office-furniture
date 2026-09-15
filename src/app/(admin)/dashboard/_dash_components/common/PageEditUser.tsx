@@ -27,6 +27,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 
 const PageEditUserAdmin = ({
   id,
@@ -38,7 +40,6 @@ const PageEditUserAdmin = ({
   role,
   address,
   setOpen,
-  load,
 }: {
   id?: number;
   name?: string;
@@ -48,11 +49,11 @@ const PageEditUserAdmin = ({
   image?: string;
   role?: UserRole;
   address?: string;
-  load?: () => Promise<void>;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const [showPass, setShowPass] = useState<boolean>(false);
   const oldImage = image;
+  const router = useRouter();
 
   const {
     register,
@@ -146,17 +147,17 @@ const PageEditUserAdmin = ({
         await res.json();
       if (updateUser.success) {
         toast.success("User Updated!", {
-          description: "User updated successful!!",
+          description: new Date().toDateString(),
         });
-        if (load) await load();
+        router.refresh();
         setOpen(false);
       } else {
         toast.success(updateUser.message ?? "User Not Updated", {
-          description: "User not updated successful!!",
+          description: new Date().toDateString(),
         });
       }
     } catch (error: any) {
-      toast.success(error.message ?? "User Not Updated", {
+      toast.error(error.message ?? "User Not Updated", {
         description: "User not updated successful--server--err!",
       });
     }
@@ -403,38 +404,39 @@ const PageEditUserAdmin = ({
               <div className="flex items-start justify-between gap-4 flex-col sm:flex-row">
                 <div className="grid grid-cols-1 space-y-1 flex-1 w-full">
                   <label htmlFor="password">Password:</label>
-                  <Input
-                    id="password"
-                    type={showPass ? "text" : "password"}
-                    placeholder="Enter Your Password"
-                    {...register("password", {
-                      required: {
-                        value: false,
-                        message: "Password is Required!",
-                      },
-                      maxLength: {
-                        value: 15,
-                        message: "Max 15 character allowed!",
-                      },
-                      minLength: { value: 8, message: "At least 8 character!" },
-                    })}
-                  />
+                  <div className="relative flex-center">
+                    <Input
+                      id="password"
+                      type={showPass ? "text" : "password"}
+                      placeholder="Enter Your Password"
+                      {...register("password", {
+                        required: {
+                          value: false,
+                          message: "Password is Required!",
+                        },
+                        maxLength: {
+                          value: 15,
+                          message: "Max 15 character allowed!",
+                        },
+                        minLength: {
+                          value: 8,
+                          message: "At least 8 character!",
+                        },
+                      })}
+                    />
+                    <button
+                      onClick={() => setShowPass((e) => !e)}
+                      className="absolute right-2 cursor-pointer"
+                      type="button"
+                    >
+                      {showPass ? <FaEye /> : <FaEyeSlash />}
+                    </button>
+                  </div>
                   {errors?.password && (
                     <InputErrorMessage>
                       {errors.password.message}
                     </InputErrorMessage>
                   )}
-                  <div className="flex items-center w-fit gap-2 text-xs text-gray-secondary">
-                    <input
-                      name="showPass"
-                      type="checkbox"
-                      id="showPass"
-                      onChange={(e) => setShowPass(() => e.target.checked)}
-                    />
-                    <label htmlFor="showPass" className="text-nowrap ">
-                      Show Password
-                    </label>
-                  </div>
                 </div>
                 <div className="grid grid-cols-1 space-y-1 flex-1 w-full">
                   <label htmlFor="confirmPassword">Confirm Password:</label>

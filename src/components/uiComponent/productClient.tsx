@@ -1,38 +1,29 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
-import { ProductDefaultImage } from "../data/core";
+import React, { useState } from "react";
+import { ProductDefaultImage, ProductItemType } from "../data/core";
 import { HandleAddToCart, HandleAddToLocalCart } from "@/lib/api";
 import { Button } from "../ui/button";
 import { useSession } from "next-auth/react";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 import { Banknote, CirclePlus } from "lucide-react";
-import { Category, Product } from "@/generated/prisma";
 
-const ProductClient = ({
-  item,
-}: {
-  item: Product & {
-    category: Category;
-    _count: {
-      descriptions: number;
-      reviews: number;
-      orderItems: number;
-      cartItems: number;
-    };
-  };
-}) => {
+const ProductClient = ({ item }: { item: ProductItemType }) => {
   const session = useSession();
   const dispatch = useDispatch();
   const router = useRouter();
+  const [sevenDaysAgo] = useState(
+    () => new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
+  );
 
   return (
     <div className="hover:shadow-2xl bg-background dark:bg-background hover:translate-y-1 shadow-blue-primary/40 hover:ring-3 hover:ring-blue-primary transition-all flex flex-col max-w-full box-border w-full justify-start items-start gap-2 ring-2 ring-red-primary p-1 rounded-sm relative">
       {/* main image and discont red  */}
       <Link
         href={`/products/${item.productCode.toLowerCase()}`}
-        className="  w-full aspect-square relative border box-border border-gray-secondary rounded-md overflow-hidden"
+        className="bg-white  w-full aspect-square relative border box-border border-gray-secondary rounded-md overflow-hidden"
       >
         <Image
           src={`${process.env.NEXT_PUBLIC_URL_R2}/${item.images[0] ?? ProductDefaultImage}`}
@@ -46,6 +37,11 @@ const ProductClient = ({
         >
           <span className="font-bold">{Number(item.discount)}%</span>
           <span className="text-xs">Off</span>
+        </span>
+        <span
+          className={`bg-red-primary flex-center flex-col  text-background dark:text-foreground  text-xs ring-2 ring-gray-secondary px-5 py-1  absolute -left-[18px]  -rotate-45 top-0 z-20 ${new Date(item.createdAt) > sevenDaysAgo ? "" : "hidden"}`}
+        >
+          New
         </span>
       </Link>
 
@@ -143,7 +139,8 @@ const ProductClient = ({
                 });
 
                 const time = setTimeout(() => {
-                  router.push("/order");
+                  router.push("/checkout");
+                  clearTimeout(time);
                 }, 1000);
 
                 return;
@@ -160,7 +157,7 @@ const ProductClient = ({
               if (!res) {
                 return;
               }
-              router.push("/order");
+              router.push("/checkout");
             }}
             disabled={item.stock < 1}
             type="button"

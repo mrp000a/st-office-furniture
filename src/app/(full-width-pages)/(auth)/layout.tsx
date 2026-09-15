@@ -15,13 +15,13 @@ export default function AuthLayout({
   return (
     <div className="relative p-6 bg-white z-1 dark:bg-gray-900 sm:p-0">
       <ThemeProvider>
-        <div className="relative flex lg:flex-row w-full h-screen justify-center flex-col  dark:bg-gray-900 sm:p-0">
+        <div className="relative z-10 flex lg:flex-row w-full h-screen justify-center flex-col   sm:p-0">
           {children}
-          <div className="lg:w-1/2 w-full h-full bg-brand-950 dark:bg-white/5 lg:grid items-center hidden">
-            <div className="relative items-center justify-center  flex z-1">
-              {/* <!-- ===== Common Grid Shape Start ===== --> */}
-              <GridShape />
-              <div className="flex flex-col items-center max-w-lg">
+          {/* <!-- ===== Common Grid Shape Start ===== --> */}
+          <GridShape />
+          <div className="lg:w-1/2 w-full h-full bg-brand-950  lg:grid items-center hidden">
+            <div className=" items-center justify-center h-full   flex ">
+              <div className=" ">
                 <Link href="/" className="flex items-center  gap-2">
                   <div className="block h-20 w-20 mb-4 rounded-full overflow-hidden relative">
                     <Image
@@ -31,7 +31,9 @@ export default function AuthLayout({
                       className="object-contain object-center"
                     />
                   </div>
-                  <h2 className="text-xl font-bold font-mono line-clamp-1">{coreInfo.name}</h2>
+                  <h2 className="text-xl font-bold font-mono line-clamp-1">
+                    {coreInfo.name}
+                  </h2>
                 </Link>
 
                 <p className="text-center text-gray-400 dark:text-white/60 ">

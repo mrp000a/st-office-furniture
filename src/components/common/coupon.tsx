@@ -22,7 +22,7 @@ const CouponForm = () => {
               description: "Please make sure the coupon is valid.",
             })
           }
-          className="px-1  py-1 line-clamp-1 w-fit bg-blue-secondary cursor-pointer box-border text-background dark:text-foreground"
+          className="px-1 active:bg-gray-primary/50 transition-all  py-2 h-full line-clamp-1 w-fit bg-gray-primary cursor-pointer box-border text-background dark:text-foreground"
         >
           Apply Coupon
         </button>

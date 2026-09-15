@@ -142,7 +142,7 @@
   --sidebar-ring: oklch(0.553 0.013 58.071);
 
   /* custom colors  */
-  
+
   /* custom colors  */
   --magnet-primary: #1c0f0f;
   --gray-primary: #aa9f9f;
@@ -201,3 +201,4 @@
     }
   }
 }
+

@@ -4,6 +4,10 @@ import { Order, OrderItem, OrderStatus, Product } from "@/generated/prisma";
 import { DeliveryAreas, orderStatuses } from "@/components/data/core";
 import { getSession, requireRole } from "@/lib/serverAuth";
 import { useId } from "react";
+import { orderConfirmationEmail } from "@/components/uiComponent/order-confirm-email";
+import { Resend } from "resend";
+
+// const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function GET(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams;
@@ -16,7 +20,6 @@ export async function GET(req: NextRequest) {
 
   const status: OrderStatus =
     statusGet && orderStatuses.includes(statusGet) ? statusGet : "PENDING";
-
 
   try {
     const orders = await prisma.order.findMany({
@@ -86,6 +89,9 @@ export async function POST(req: Request) {
         { status: 403 },
       );
     }
+
+    const resend = new Resend(process.env.RESEND_API_KEY);
+
     const subTotalPrice: number = items.reduce(
       (total, item) =>
         total +
@@ -142,6 +148,27 @@ export async function POST(req: Request) {
         message: "Error on order load",
       });
 
+    if (receiverEmail && createOrder) {
+      const { data, error } = await resend.emails.send({
+        from: "ST Office Furniture <orders@stofficefurniture.com>",
+        to: [receiverEmail],
+        subject: "Your Order Placed Successfully",
+        html: orderConfirmationEmail({
+          customerName: "Muhammad Rakib",
+          orderId: createOrder.id,
+          subtotal: subTotalPrice,
+          total: totalPrice,
+          deliveryCharge: deliveryCharge,
+          orderUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/order/${createOrder.id}`,
+          status: "PENDING",
+          items: sanitizedItems.map((item, index) => {
+            return { title: item.title, price: item.price, quantity: item.qty };
+          }),
+        }),
+      });
+
+      if (error) console.log({ orderMail: error });
+    }
     return NextResponse.json({
       success: true,
       message: "Ordered Successful!",

@@ -8,7 +8,7 @@ export async function GET(req: NextRequest) {
   try {
     const searchParams = req.nextUrl.searchParams;
     // const email = searchParams.get("email");
-    const searchString = searchParams.get("name");
+    const searchString = searchParams.get("name") ?? "";
     const limit = Number(searchParams.get("limit")) ?? 100;
     // const phone = searchParams.get("phone");
 
@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
         ? { name: { contains: searchString, mode: "insensitive" } }
         : {},
 
-      include: { _count: true },
+      include: { _count: true, },
       orderBy: { createdAt: "desc" },
     });
 

@@ -3,7 +3,9 @@
 // https://chatgpt.com/s/t_6a8c7b9a15a881919178fdfa19367d46 home layout page
 
 import { StaticImageData } from "next/image";
-import StOfficeLogo from "@/components/images/Home/LogoStOfficeFur.jpg";
+import StOfficeLogo from "@/components/images/Home/St-Office-Logo-Light.png";
+import StOfficeLogoDark from "@/components/images/Home/St-Office-Logo-Dark.png";
+import StOfficeLogoMain from "@/components/images/Home/LogoStOfficeFur.jpg";
 import StOfficeBanner from "@/components/images/Home/IMG-20260816-WA0001.jpg";
 // slide images
 import SlideImageA from "@/components/images/Home/1788804085077.jpg.jpeg";
@@ -17,7 +19,14 @@ import RegisterImage from "@/components/images/Office/francesco-liotti-3HP6_D9hx
 import LogInImage from "@/components/images/Office/kam-idris-_HqHX3LBN18-unsplash.jpg";
 
 import { FaFacebook, FaInstagram, FaWhatsapp, FaYoutube } from "react-icons/fa";
-import { FaLocationDot, FaPhone } from "react-icons/fa6";
+import {
+  FaLocationDot,
+  FaPhone,
+  FaRegStar,
+  FaRegStarHalf,
+  FaRegStarHalfStroke,
+  FaStar,
+} from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
 import {
   CreditCardIcon,
@@ -42,6 +51,8 @@ import { OrderStatus } from "@/generated/prisma";
 export const coreInfo: {
   name: string;
   image: string | StaticImageData;
+  imageDark: string | StaticImageData;
+  logo: string | StaticImageData;
   banner: string | StaticImageData;
   images: string[] | StaticImageData[];
   description: string;
@@ -50,6 +61,8 @@ export const coreInfo: {
   description:
     "Shop stylish and comfortable modern sofas, accent chairs, and sectional sets designed to elevate your living room and office. Find your perfect fit today!",
   image: StOfficeLogo,
+  imageDark: StOfficeLogoDark,
+  logo: StOfficeLogoMain,
   banner: StOfficeBanner,
   images: [
     SlideImageD,
@@ -79,10 +92,22 @@ export const navItems: {
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
-  { label: "Order", href: "/order" },
+  { label: "Checkout", href: "/checkout" },
   { label: "Track Order", href: "/track-order" },
   { label: "Products", href: "/products" },
   { label: "Profile", href: "/profile" },
+];
+
+export const navItemShort: {
+  label: string;
+  href: string;
+}[] = [
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
+  { label: "Checkout", href: "checkout" },
+  { label: "Track Order", href: "/track-order" },
+  { label: "Products", href: "/products" },
 ];
 
 export const MobNavItems: {
@@ -93,7 +118,7 @@ export const MobNavItems: {
   { label: "Products", href: "/products", Logo: Boxes },
   { label: "Track Order", href: "/track-order", Logo: ShoppingCart },
   { label: "Home", href: "/", Logo: Home },
-  { label: "Order", href: "/order", Logo: ShoppingCart },
+  { label: "Checkout", href: "/checkout", Logo: ShoppingCart },
   { label: "Profile", href: "/profile", Logo: CircleUserRound },
 ];
 
@@ -119,8 +144,16 @@ export const SocialLinks = [
     icon: FaFacebook,
   },
   { label: "WhatsApp", href: "https://wa.me/+8801521120706", icon: FaWhatsapp },
-  { label: "YouTube", href: "#", icon: FaYoutube },
-  { label: "Instagram", href: "#", icon: FaInstagram },
+  {
+    label: "YouTube",
+    href: "https://youtube.com/@stofficefurniture?si=u_SAKzxEu3wAyUEp",
+    icon: FaYoutube,
+  },
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/stofficefurniture",
+    icon: FaInstagram,
+  },
 ];
 
 export const ContactInfoFooter = [
@@ -144,8 +177,8 @@ export const ContactInfoFooter = [
   },
   {
     name: "Email",
-    label: "stofficefurniture@gmail.com",
-    href: "mailto:stofficefurniture@gmail.com",
+    label: "info@stofficefurniture.com",
+    href: "mailto:info@stofficefurniture.com",
     icon: MdEmail,
   },
 ];
@@ -171,8 +204,8 @@ export const ContactInfoFloating = [
   },
   {
     name: "Email",
-    label: "stofficefurniture@gmail.com",
-    href: "mailto:stofficefurniture@gmail.com",
+    label: "info@stofficefurniture.com",
+    href: "mailto:info@stofficefurniture.com",
     icon: MdEmail,
   },
 ];
@@ -191,8 +224,8 @@ export const firstFooterItems = [
 export const quickLinks = [
   { label: "About Us", icon: FileText, href: "/about" },
   { label: "Contact Us", icon: RefreshCcw, href: "/contact" },
-  // { label: "Delivery Policy", icon: Truck, href: "#" },
   { label: "Our Services", icon: UserShield, href: "/services" },
+  { label: "Products", icon: Truck, href: "/products" },
 ];
 
 export const CategoriesNav = [
@@ -202,10 +235,13 @@ export const CategoriesNav = [
   { label: "Boss Chair", href: "/products?category=boss-chair" },
   { label: "Visitors Chair", href: "/products?category=visitors-chair" },
   { label: "Wooden Chair", href: "/products?category=wooden-chair" },
-  { label: "All Kinds of Sofa", href: "/products?category=all-kinds-of-sofa" },
+  { label: "Waiting Chair", href: "/products?category=waiting-chair" },
+  { label: "Event Chair", href: "/products?category=even-chair" },
+  { label: "Stool", href: "/products?category=stool" },
   { label: "Chair Accessories", href: "/products?category=chair-accessories" },
+  { label: "Sofa", href: "/products?category=sofa" },
   // testing
-  // { label: "Test Page", href: "/test" },
+  { label: "Test Page", href: "/test" },
 ];
 
 export const termsText = [
@@ -269,3 +305,39 @@ export const orderStatuses: OrderStatus[] = [
   "DELIVERED",
   "CANCELLED",
 ];
+
+export const stars = {
+  empty: FaRegStar,
+  fill: FaStar,
+  half: FaRegStarHalfStroke,
+};
+
+export type ProductItemType = {
+  price: number;
+  discountPrice: number | null;
+  discount: number | null;
+  category?: {
+    name: string;
+    id: number;
+    createdAt: Date;
+    updatedAt: Date;
+    image: string | null;
+    description: string | null;
+  } | null;
+  _count?: {
+    descriptions: number;
+    reviews: number;
+    orderItems: number;
+    cartItems: number;
+  };
+  id: number;
+  title: string;
+  productCode: string;
+  images: string[];
+  brand: string | null;
+  keyFeatures: string[];
+  stock: number;
+  categoryId: number | null;
+  createdAt: Date;
+  updatedAt: Date;
+};

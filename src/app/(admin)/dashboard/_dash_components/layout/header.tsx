@@ -17,8 +17,7 @@ import { useDashboardDrawer } from "@/context/SidebarContext";
 const DashHeader = () => {
   const session = useSession();
   const user = session.data?.user;
-  const { setSidebarOpen, setSidebarOpenMob } =
-    useDashboardDrawer();
+  const { setSidebarOpen, setSidebarOpenMob } = useDashboardDrawer();
 
   return (
     <div className="flex sticky top-0 z-50 justify-between gap-1 md:gap-4 items-center bg-gray-secondary/20 backdrop-blur-sm px-2  rounded-sm border border-gray-secondary">
@@ -41,7 +40,7 @@ const DashHeader = () => {
           className="w-12 h-12 relative z-10 inline-block rounded-full border border-gray-primary overflow-hidden"
         >
           <Image
-            src={coreInfo.image}
+            src={coreInfo.logo}
             alt={coreInfo.name}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             fill

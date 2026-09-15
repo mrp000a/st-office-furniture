@@ -7,17 +7,13 @@ import { deleteProduct } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Edit } from "lucide-react";
 import { useAlertDialog } from "@/components/hooks/use-alert-dialog";
-import { ProductTypeAdmin } from "@/lib/formDataTypes";
+import { AdminProductItem } from "@/lib/formDataTypes";
 import { RiDeleteBinFill } from "react-icons/ri";
+import { useRouter } from "next/navigation";
 
-const ProductAdmin = ({
-  item,
-  load,
-}: {
-  item: ProductTypeAdmin;
-  load?: () => Promise<void>;
-}) => {
+const ProductAdmin = ({ item }: { item: AdminProductItem }) => {
   const { confirm } = useAlertDialog();
+  const router = useRouter();
 
   return (
     <div className="hover:shadow-2xl text-xs bg-background hover:translate-y-1 shadow-blue-primary/40 hover:ring-3 hover:ring-blue-primary transition-all flex flex-col max-w-full box-border w-full justify-start items-start gap-2 ring-2 ring-red-primary p-1 rounded-sm relative">
@@ -42,7 +38,7 @@ const ProductAdmin = ({
             });
             if (!isConfirm) return;
             await deleteProduct({ id: item.id, productCode: item.productCode });
-            if (load) load();
+            router.refresh();
           }}
           variant={"default"}
           className="bg-red-primary dark:text-foreground cursor-pointer"

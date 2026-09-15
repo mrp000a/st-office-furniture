@@ -4,22 +4,31 @@ import React from "react";
 
 const Page = () => {
   return (
-    <div>
-      <div className="flex-center flex-col max-w-384 mx-auto p-2">
+    <div className="p-2">
+      <div className="flex-center flex-col max-w-384 mx-auto p-2 shadow-background dark:shadow-foreground/69 bg-background shadow-md rounded-md">
         <span className="text-lg font-bold">About Us</span>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum, ea
-          aut? Necessitatibus error beatae enim sit quaerat tenetur suscipit
-          laboriosam minus perspiciatis nulla consectetur debitis ab mollitia
-          veniam recusandae dolorem velit cum ratione odio, deserunt sunt id in.
-          Delectus neque qui pariatur tenetur, libero tempore quae voluptatibus
-          eos quam ea sequi adipisci eveniet fuga atque id voluptas quaerat
-          culpa, nemo ex aspernatur alias cupiditate, fugit quod ipsum! Tempore
-          porro reiciendis autem, dolor ab adipisci sunt dolores quas, velit
-          laborum aperiam eum iure nisi inventore culpa quo voluptas dolorem
-          incidunt ipsum! A alias tempora eos hic harum, ipsam explicabo dolorum
-          atque.
-        </p>
+        <div className="w-full text-justify space-y-2">
+          <h3>Welcome to ST Office Furniture.</h3>
+          <p>
+            ST Office Furniture is a company with extensive experience in
+            furniture manufacturing. We produce chairs, sofas, and various
+            furniture items in our own factory using skilled craftsmen, and we
+            supply them on a wholesale basis across Bangladesh with a commitment
+            to integrity. We bring seven years of experience to the table.
+            Please contact us to furnish your office, workstation, or home.
+          </p>
+          <p>
+            Our primary goal is to provide highly durable furniture featuring
+            modern designs, allowing you to decorate your space without worrying
+            about product longevity.
+          </p>
+          <p>
+            As the world and {"people's"} tastes evolve over time, we continuously
+            introduce new collections to ensure customers can find products that
+            match their preferences.
+          </p>
+          <p>Thanks.</p>
+        </div>
       </div>
     </div>
   );
