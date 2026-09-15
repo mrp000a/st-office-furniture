@@ -106,6 +106,7 @@ const Page = () => {
 
       items: cart?.items,
       userId: session.data?.user?.id ? Number(session.data?.user?.id) : null,
+      userEmail: session.data?.user?.email ?? null,
     });
 
     // return;
@@ -364,7 +365,7 @@ const Page = () => {
           {/* order button */}
           <div className={`w-full flex-center flex-col gap-2 flex md:hidden`}>
             <button
-              className="w-full "
+              className="w-full disabled:invert-25"
               disabled={isSubmitting || cart?.items.length === 0 || !cart}
               type="submit"
               onClick={() => console.log("object")}
@@ -380,9 +381,9 @@ const Page = () => {
                 </div>
               </SpeacialOrderButton>
             </button>
-            {cart?.items.length === 0 && (
+            {(!cart || cart?.items.length === 0) && (
               <InputErrorMessage>
-                At least one item is required!
+                Please Add Item to Your Cart
               </InputErrorMessage>
             )}
             <span className="flex items-center text-gray-secondary text-sm">
@@ -489,7 +490,7 @@ const Page = () => {
           {/* order button */}
           <div className={`w-full flex-center flex-col gap-2 hidden md:flex`}>
             <button
-              className="w-full "
+              className="w-full disabled:invert-25"
               disabled={isSubmitting || cart?.items.length === 0 || !cart}
               type="submit"
               onClick={() => console.log("object")}
@@ -505,9 +506,9 @@ const Page = () => {
                 </div>
               </SpeacialOrderButton>
             </button>
-            {cart?.items.length === 0 && (
+            {(!cart || cart?.items.length === 0) && (
               <InputErrorMessage>
-                At least one item is required!
+                Please Add Item to Your Cart
               </InputErrorMessage>
             )}
             <span className="flex items-center text-gray-secondary text-sm">

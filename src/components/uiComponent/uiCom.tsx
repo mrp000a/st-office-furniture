@@ -119,7 +119,7 @@ export const SpeacialOrderButton = ({
   return (
     <div
       // onClick={}
-      className="px-4 py-3 flex-center hover:bg-blue-secondary active:bg-foreground hover:-translate-y-0.5 border cursor-pointer transition-all  rounded-md bg-red-primary text-background dark:text-foreground text-center w-full font-bold"
+      className="px-4 py-3 flex-center hover:bg-red-primary/60 active:bg-foreground hover:-translate-y-0.5 border cursor-pointer transition-all  rounded-md bg-red-primary text-background dark:text-foreground text-center w-full font-bold"
     >
       {children}
     </div>

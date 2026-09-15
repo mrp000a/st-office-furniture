@@ -35,7 +35,8 @@ model User {
   cart   Cart?
   orders Order[]
 
-  emailVerified Boolean @default(false)
+  emailVerified Boolean  @default(false)
+  varifiedAt    DateTime?
 
   verificationTokens VerificationToken[]
 

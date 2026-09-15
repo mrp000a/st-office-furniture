@@ -25,10 +25,13 @@ export const authOptions: NextAuthOptions = {
             ],
           },
         });
-        if (!user) throw new Error("Email not found!");
+        if (!user) throw new Error("Email or Phone not found!");
 
         const valid = await compare(credentials.password, user.password);
         if (!valid) throw new Error("Incorrect password!");
+        
+        if (!user.emailVerified)
+          throw new Error("Please verify your email before logging in.");
 
         // return a minimal user object for session
         return {

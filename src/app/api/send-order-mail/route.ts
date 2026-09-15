@@ -8,7 +8,7 @@ export async function POST(req: Request) {
     const { to, subject, message } = await req.json();
 
     const { data, error } = await resend.emails.send({
-      from: "ST Office Furniture <order@stofficefurniture.com>",
+      from: "ST Office Furniture <info@stofficefurniture.com>",
       to: [to],
       subject,
       html: orderConfirmationEmail({

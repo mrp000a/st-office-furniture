@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
+import { Resend } from "resend";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 import { Gender, User, UserRole } from "@/generated/prisma";
 import { getSession, requireRole } from "@/lib/serverAuth";
+import crypto from "crypto";
 
 export async function GET(req: NextRequest) {
   try {
@@ -18,7 +20,7 @@ export async function GET(req: NextRequest) {
         ? { name: { contains: searchString, mode: "insensitive" } }
         : {},
 
-      include: { _count: true, },
+      include: { _count: true },
       orderBy: { createdAt: "desc" },
     });
 
@@ -70,6 +72,66 @@ export async function POST(req: Request) {
         password: hashed,
       },
     });
+
+    if (user) {
+      const resend = new Resend(process.env.RESEND_API_KEY);
+      const token = crypto.randomBytes(32).toString("hex");
+
+      await prisma.verificationToken.create({
+        data: {
+          token,
+          userId: user.id,
+
+          expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24),
+        },
+      });
+
+      const verificationUrl = `${process.env.NEXT_PUBLIC_URL_SITE}/verify-email?token=${token}&userId${user.id}`;
+
+      await resend.emails.send({
+        from: "ST Office Furniture <info@stofficefurniture.com>",
+        to: user.email,
+        subject: "Verify your ST Office Furniture account",
+
+        html: `
+          <h2>Welcome to ST Office Furniture!</h2>
+
+          <p>Hi ${user.name ?? "there"},</p>
+
+          <p>
+            Thank you for creating an account.
+            Please verify your email address by clicking the button below.
+          </p>
+
+          <p>
+            <a
+              href="${verificationUrl}"
+              style="
+                display:inline-block;
+                padding:12px 20px;
+                background:#000;
+                color:#fff;
+                text-decoration:none;
+                border-radius:6px;
+              "
+            >
+              Verify Email
+            </a>
+          </p>
+
+          <p>This link will expire in 24 hours.</p>
+
+          <p>
+            If you did not create this account, you can safely ignore this email.
+          </p>
+
+          <p>
+            Regards,<br/>
+            ST Office Furniture
+          </p>
+        `,
+      });
+    }
 
     const { password: _p, ...rest } = user as User;
 

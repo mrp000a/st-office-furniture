@@ -21,16 +21,16 @@ import Link from "next/link";
 import Image from "next/image";
 
 import { FaUserCircle } from "react-icons/fa";
-import {
-  allowedTypes,
-} from "@/components/data/core";
+import { allowedTypes } from "@/components/data/core";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
+import { useAlertDialog } from "@/components/hooks/use-alert-dialog";
 
 const PageRegisterForm = () => {
   const [showPass, setShowPass] = useState<boolean>(false);
   const [callbackUrl, setCallbackUrl] = useState<string>("/");
   const searchParams = useSearchParams();
   const router = useRouter();
+  const { confirm } = useAlertDialog();
   const { status } = useSession();
 
   useEffect(() => {
@@ -137,20 +137,26 @@ const PageRegisterForm = () => {
       await res.json();
     if (createUser.success) {
       toast.success("User Created Successful!", {
-        description: new Date().toDateString(),
+        description: "Please check your email inbox to verify your email.",
         action: {
           label: "Log In Now",
           onClick() {
             router.push("/signin");
           },
         },
-        actionButtonStyle: { borderRadius: "22px" },
+      });
+
+      await confirm({
+        title: "Please check your email inbox for verify your email.",
+        description:
+          "If you can't find the email at the inbox. Please check in your spam email.",
+        confirmText: "Okey",
       });
 
       const redTimeout = setTimeout(() => {
         router.push("/signin");
         clearTimeout(redTimeout);
-      }, 2000);
+      }, 5000);
     }
   };
 
@@ -255,7 +261,7 @@ const PageRegisterForm = () => {
                     <label htmlFor="email">Email:</label>
                     <Input
                       id="email"
-                      type="text"
+                      type="email"
                       placeholder="Enter Your Email"
                       {...register("email", {
                         required: {

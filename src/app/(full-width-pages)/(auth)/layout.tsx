@@ -22,22 +22,32 @@ export default function AuthLayout({
           <div className="lg:w-1/2 w-full h-full bg-brand-950  lg:grid items-center hidden">
             <div className=" items-center justify-center h-full   flex ">
               <div className=" ">
-                <Link href="/" className="flex items-center  gap-2">
-                  <div className="block h-20 w-20 mb-4 rounded-full overflow-hidden relative">
-                    <Image
-                      fill
-                      src={coreInfo.image}
-                      alt="Logo"
-                      className="object-contain object-center"
-                    />
-                  </div>
-                  <h2 className="text-xl font-bold font-mono line-clamp-1">
-                    {coreInfo.name}
-                  </h2>
+                <Link
+                  href={"/#"}
+                  className="h-20 w-60  relative z-30  rounded-sm overflow-hidden block max-[500px]:hidden"
+                >
+                  <Image
+                    src={coreInfo.image}
+                    alt={coreInfo.name}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    fill
+                    className="object-contain object-center dark:hidden "
+                    unoptimized
+                    quality={100}
+                  />
+                  <Image
+                    src={coreInfo.imageDark}
+                    alt={coreInfo.name}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    fill
+                    className="object-contain object-center hidden dark:block "
+                    unoptimized
+                    quality={100}
+                  />
                 </Link>
 
                 <p className="text-center text-gray-400 dark:text-white/60 ">
-                  Log in to your account! Get access to many protectial offer.
+                  Log in to your account! Get access to many protential offer.
                 </p>
               </div>
             </div>

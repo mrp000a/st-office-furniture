@@ -6,7 +6,6 @@ import { IoReload } from "react-icons/io5";
 import { getUsersOrders } from "@/lib/api";
 import { Order, OrderStatus } from "@/generated/prisma";
 
-import { useAlertDialog } from "@/components/hooks/use-alert-dialog";
 import { orderStatuses, ProductDefaultImage } from "@/components/data/core";
 
 import { NoItemsFound } from "@/components/uiComponent/uiCom";
@@ -23,14 +22,12 @@ import {
 import Image from "next/image";
 import { FaUserCircle } from "react-icons/fa";
 import { Badge } from "@/components/ui/badge";
-import { RiDeleteBin6Fill } from "react-icons/ri";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 
 const Page = () => {
   const session = useSession();
 
-  const { confirm } = useAlertDialog();
   const [orders, setOrders] = useState<
     | (Order & {
         _count: { items: number };
@@ -38,7 +35,7 @@ const Page = () => {
       })[]
     | null
   >(null);
-  const [orderStatusTab, setOrderStatusTab] = useState<OrderStatus>("PENDING");
+  const [orderStatusTab, setOrderStatusTab] = useState<string>("PENDING");
 
   const [openSearchBar, setOpenSearchBar] = useState<boolean>(false);
   const [orderLoadLimit, setOrderLoadLimit] = useState<number>(100);
@@ -49,7 +46,7 @@ const Page = () => {
     const res = await getUsersOrders({
       name: searchUserString,
       limit: orderLoadLimit,
-      status: orderStatusTab,
+      status: orderStatusTab as OrderStatus,
       userId: Number(session?.data?.user?.id),
     });
     if (!res.success) return;
@@ -107,17 +104,18 @@ const Page = () => {
       <hr className=" inline-block w-full" />
       <div className="w-full flex flex-wrap gap-1 md:gap-2 items-center justify-start pb-2">
         {orderStatuses &&
-          orderStatuses.map((item, index) => (
+          orderStatuses.map(({ value, label }, index) => (
             <Button
               key={index}
               className=""
               onClick={() => {
-                setOrderStatusTab(item);
+                setOrderStatusTab(value);
+
                 // router.push(`/dashboard/orders?statusTab=${item}`);
               }}
-              variant={item === orderStatusTab ? "default" : "outline"}
+              variant={value === orderStatusTab ? "default" : "outline"}
             >
-              {item}
+              {label}
             </Button>
           ))}
       </div>
@@ -150,7 +148,6 @@ const Page = () => {
                     receiverPhone,
                     address,
                     user,
-                    paymentStatus,
                     status,
                     total,
                     _count,

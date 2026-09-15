@@ -116,29 +116,18 @@ const PageOrders = ({
       </div>
       <hr className=" inline-block w-full" />
       <div className="w-full flex flex-wrap gap-1 md:gap-2 items-center justify-start pb-2">
-        <Button
-          key={2932}
-          className=""
-          onClick={() => {
-            handleSearchStatus("");
-            // router.push(`/dashboard/orders?statusTab=${item}`);
-          }}
-          variant={!orderStatusTab ? "default" : "outline"}
-        >
-          {"All Items"}
-        </Button>
         {orderStatuses &&
-          orderStatuses.map((item, index) => (
+          orderStatuses.map(({ value, label }, index) => (
             <Button
               key={index}
               className=""
               onClick={() => {
-                handleSearchStatus(item);
+                handleSearchStatus(value);
                 // router.push(`/dashboard/orders?statusTab=${item}`);
               }}
-              variant={item === orderStatusTab ? "default" : "outline"}
+              variant={value === orderStatusTab ? "default" : "outline"}
             >
-              {item}
+              {label}
             </Button>
           ))}
       </div>

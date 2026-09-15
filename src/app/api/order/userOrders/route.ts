@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { OrderStatus } from "@/generated/prisma";
-import { orderStatuses } from "@/components/data/core";
+import { orderStatuses, orderStatuses2 } from "@/components/data/core";
 
 export async function GET(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams;
@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
   const statusGet = searchParams.get("status") as OrderStatus | null;
 
   const status: OrderStatus =
-    statusGet && orderStatuses.includes(statusGet) ? statusGet : "PENDING";
+    statusGet && orderStatuses2.includes(statusGet) ? statusGet : "PENDING";
 
   if (!userId) {
     return NextResponse.json({

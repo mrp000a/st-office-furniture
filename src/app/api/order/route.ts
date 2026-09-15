@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { Order, OrderItem, OrderStatus, Product } from "@/generated/prisma";
-import { DeliveryAreas, orderStatuses } from "@/components/data/core";
+import { DeliveryAreas, orderStatuses, orderStatuses2 } from "@/components/data/core";
 import { getSession, requireRole } from "@/lib/serverAuth";
 import { useId } from "react";
 import { orderConfirmationEmail } from "@/components/uiComponent/order-confirm-email";
@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
   const statusGet = searchParams.get("status") as OrderStatus | null;
 
   const status: OrderStatus =
-    statusGet && orderStatuses.includes(statusGet) ? statusGet : "PENDING";
+    statusGet && orderStatuses2.includes(statusGet) ? statusGet : "PENDING";
 
   try {
     const orders = await prisma.order.findMany({
@@ -69,9 +69,11 @@ export async function POST(req: Request) {
       address,
       items,
       userId,
+      userEmail,
       customerNote,
     } = body as Order & {
       items: Array<OrderItem & { product: Product }>;
+      userEmail: string;
     };
 
     if (
@@ -148,10 +150,10 @@ export async function POST(req: Request) {
         message: "Error on order load",
       });
 
-    if (receiverEmail && createOrder) {
-      const { data, error } = await resend.emails.send({
-        from: "ST Office Furniture <orders@stofficefurniture.com>",
-        to: [receiverEmail],
+    if ((receiverEmail || userEmail) && createOrder) {
+      const { error } = await resend.emails.send({
+        from: "ST Office Furniture <info@stofficefurniture.com>",
+        to: [receiverEmail ?? userEmail],
         subject: "Your Order Placed Successfully",
         html: orderConfirmationEmail({
           customerName: "Muhammad Rakib",
@@ -159,7 +161,7 @@ export async function POST(req: Request) {
           subtotal: subTotalPrice,
           total: totalPrice,
           deliveryCharge: deliveryCharge,
-          orderUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/order/${createOrder.id}`,
+          orderUrl: `${process.env.NEXT_PUBLIC_URL_SITE}/order/${createOrder.id}`,
           status: "PENDING",
           items: sanitizedItems.map((item, index) => {
             return { title: item.title, price: item.price, quantity: item.qty };

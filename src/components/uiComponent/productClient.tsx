@@ -9,6 +9,7 @@ import { useSession } from "next-auth/react";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 import { Banknote, CirclePlus } from "lucide-react";
+import RatingStars from "./ratingstars";
 
 const ProductClient = ({ item }: { item: ProductItemType }) => {
   const session = useSession();
@@ -58,6 +59,12 @@ const ProductClient = ({ item }: { item: ProductItemType }) => {
         >
           {item.category?.name ?? "N/A"}
         </Link>
+        {/* ratings  */}
+        <div>
+          <span className="flex items-center">
+            <RatingStars rating={0} />({0})
+          </span>
+        </div>
         <div className=" font-bold flex flex-wrap justify-between items-center">
           <div className="space-x-2">
             <span className="text-gray-primary">Price:</span>{" "}
@@ -106,6 +113,7 @@ const ProductClient = ({ item }: { item: ProductItemType }) => {
                 price: Number(item.price),
                 qty: 1,
                 productId: item.id,
+                router: router,
               });
             }}
             disabled={item.stock < 1}

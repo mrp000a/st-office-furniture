@@ -18,6 +18,7 @@ import { toast } from "sonner";
 export default function SignInForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+  const [varifyEmail, setVarifyEmail] = useState(false);
   const router = useRouter();
 
   const {
@@ -40,18 +41,23 @@ export default function SignInForm() {
     });
 
     if (!result || result?.error) {
-      if (result?.error === "Email not found!") {
+      if (result?.error == "Email or Phone not found!") {
         toast.error(result?.error);
         setError("email", {
           type: "manual",
-          message: "Email not found!",
+          message: result.error,
         });
       } else if (result?.error === "Incorrect password!") {
         toast.error(result?.error);
         setError("password", {
           type: "manual",
-          message: "Invalid password!",
+          message: result.error,
         });
+      } else if (
+        result?.error === "Please verify your email before logging in."
+      ) {
+        toast.error(result?.error);
+        setVarifyEmail(true);
       } else {
         toast.error("Server Error or db error!");
         return;
@@ -61,6 +67,33 @@ export default function SignInForm() {
     } else {
       toast.error("Something Went Wrong!");
     }
+  };
+  const resendVarification = async (data: { email: string }) => {
+    const { email } = data;
+
+    // resend email vari
+    console.log({ email: email, code: "w9823948" });
+
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const res = await fetch("/api/auth/resend-verification", {
+      method: "POST",
+      headers: myHeaders,
+      body: JSON.stringify({
+        email,
+      }),
+      redirect: "follow",
+    });
+
+    const varification: { success: boolean; result?: any; message: string } =
+      await res.json();
+    if (!varification.success) {
+      toast.error(varification.message ?? "something went wrong!");
+      return;
+    }
+    toast.success(varification.message ?? "Check your email inbox or spam!");
+    setVarifyEmail(false);
   };
 
   return (
@@ -74,7 +107,7 @@ export default function SignInForm() {
           Back to home
         </Link>
       </div>
-        {/* <GridShape /> */}
+      {/* <GridShape /> */}
       <div className="flex flex-col justify-center flex-1 w-full max-w-lg mx-auto ">
         <div>
           <div className="">
@@ -234,6 +267,22 @@ export default function SignInForm() {
                     )}
                     Log In
                   </Button>
+                </div>
+                <div>
+                  {varifyEmail && (
+                    <span className="w-full flex items-center justify-between flex-wrap">
+                      <InputErrorMessage>
+                        Please varify your email first!
+                      </InputErrorMessage>
+                      <Button
+                        variant={"link"}
+                        type="button"
+                        onClick={handleSubmit(resendVarification)}
+                      >
+                        Resend Email
+                      </Button>
+                    </span>
+                  )}
                 </div>
               </div>
             </form>

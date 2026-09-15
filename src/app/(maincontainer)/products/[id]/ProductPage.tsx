@@ -28,6 +28,8 @@ import NotFound from "@/app/not-found";
 import { Category, Product, ProductDescription } from "@/generated/prisma";
 import { useDispatch } from "react-redux";
 import ProductLoadinglayout from "./loading";
+import RatingStars from "@/components/uiComponent/ratingstars";
+import { MdReviews } from "react-icons/md";
 
 // import { useRouter } from "next/navigation";
 
@@ -304,6 +306,10 @@ const AProductPage = () => {
                       </span>
                     </div>
                     {/* KEY FEATURES */}
+
+                    <span className="flex items-center text-base">
+                      <RatingStars rating={0} size={20} />({0})
+                    </span>
                     <div>
                       <h4 className="text-lg font-semibold">Key Features</h4>
                       <div className="flex flex-col items-start justify-start gap-1  ">
@@ -372,6 +378,7 @@ const AProductPage = () => {
                             price: Number(productInfo.price),
                             qty: itemQty,
                             productId: productInfo.id,
+                            router: router,
                           });
                         }}
                         disabled={productInfo.stock < 1}
@@ -426,7 +433,7 @@ const AProductPage = () => {
                         disabled={productInfo.stock < 1}
                         type="button"
                         size={"lg"}
-                        className="bg-red-primary text-background dark:text-foreground sm:text-base cursor-pointer"
+                        className="bg-red-primary text-background dark:text-foreground text-base cursor-pointer"
                       >
                         <Banknote /> Order Now
                       </Button>
@@ -460,6 +467,23 @@ const AProductPage = () => {
                         </div>
                       ),
                     )}
+                  </div>
+                </div>
+              </div>
+
+              <div className="max-w-200 w-full rounded-md bg-background p-2 shadow-md ">
+                <div className="flex items-center justify-between">
+                  <h4 className=" font-semibold">Customer Reviews</h4>
+                  <Button>Put a Review</Button>
+                </div>
+                <hr />
+                <div>
+                  <div className="flex-center p-3">
+                    <MdReviews className="size-20 fill-amber-500" />
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <span>No review yet...</span>
+                    <span className="font-medium">Be the first one to write a review</span>
                   </div>
                 </div>
               </div>

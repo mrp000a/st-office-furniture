@@ -457,6 +457,7 @@ export const HandleAddToCart = async ({
   userId,
   dispatch,
   // setShakeCart,
+  router,
 }: {
   title: string;
   price: number;
@@ -464,6 +465,7 @@ export const HandleAddToCart = async ({
   productId: number;
   userId: number;
   dispatch: Dispatch;
+  router?: any;
   // setShakeCart: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const res = await AddToCart({
@@ -481,6 +483,12 @@ export const HandleAddToCart = async ({
   console.log(res.message);
   toast.success(res.message ?? "Product added to cart!", {
     description: new Date().toDateString(),
+    action: {
+      label: "View now!",
+      onClick: () => {
+        if (router) router.push("/checkout");
+      },
+    },
   });
   loadCart({ userId, dispatch });
 

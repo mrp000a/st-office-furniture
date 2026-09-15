@@ -15,6 +15,11 @@ import SlideImageC from "@/components/images/Home/1788806442172.jpg.jpeg";
 import SlideImageD from "@/components/images/Home/1788806591614.jpg.jpeg";
 import SlideImageE from "@/components/images/Home/1788806975340.jpg.jpeg";
 
+import officeImage1 from "@/components/images/Office/modern sofas.webp";
+import officeImage2 from "@/components/images/Office/vecteezy_ai-generated-abstract-blurred-background-of-modern-office_41713016.jpg";
+import officeImage3 from "@/components/images/Office/vecteezy_christmas-background-christmas-wallpaper-modern-office_73067174.jpg";
+import officeImage4 from "@/components/images/Office/imageoffice4.jpg";
+
 import RegisterImage from "@/components/images/Office/francesco-liotti-3HP6_D9hxFY-unsplash.jpg";
 import LogInImage from "@/components/images/Office/kam-idris-_HqHX3LBN18-unsplash.jpg";
 
@@ -294,7 +299,7 @@ export const allowedTypes = [
   "image/webp",
 ];
 
-export const orderStatuses: OrderStatus[] = [
+export const orderStatuses2: OrderStatus[] = [
   "PENDING",
   "CONFIRMED",
   "PACKAGED",
@@ -304,6 +309,19 @@ export const orderStatuses: OrderStatus[] = [
   "FAILED_DELIVERY",
   "DELIVERED",
   "CANCELLED",
+];
+
+export const orderStatuses = [
+  { label: "All Items", value: "" },
+  { label: "Pending", value: "PENDING" },
+  { label: "Pending", value: "CONFIRMED" },
+  { label: "Pending", value: "PACKAGED" },
+  { label: "On Hold", value: "ON_HOLD" },
+  { label: "Shipped", value: "SHIPPED" },
+  { label: "Returned", value: "RETURNED" },
+  { label: "Failed Delivery", value: "FAILED_DELIVERY" },
+  { label: "Delivered", value: "DELIVERED" },
+  { label: "Cancelled", value: "CANCELLED" },
 ];
 
 export const stars = {
@@ -341,3 +359,64 @@ export type ProductItemType = {
   createdAt: Date;
   updatedAt: Date;
 };
+
+export const faq = [
+  {
+    value: "intro",
+    label: "What is your name?",
+    content: [
+      "My name is rakib.",
+      "I live in natoreI live in natoreI live in natore",
+      "I am a student.",
+    ],
+  },
+  {
+    value: "about",
+    label: "What is your pashion?",
+    content: [
+      "My name is rakib.",
+      "I live in natore",
+      "I am a studentI live in natore.",
+    ],
+  },
+  {
+    value: "contact",
+    label: "What is your address?",
+    content: [
+      "My name isI live in natore rakib.",
+      "I live in natore",
+      "I am a student.",
+    ],
+  },
+];
+
+export const OfficeImages = [
+  {
+    title: "Premium Office Chairs",
+    description:
+      "Comfortable and stylish chairs designed for productive workdays.",
+    href: "#",
+    image: officeImage2,
+  },
+  {
+    title: "Modern Sofas",
+    description:
+      "Elegant sofas that bring comfort and sophistication to any space.",
+    href: "#",
+    image: officeImage1,
+  },
+  {
+    title: "Chair Accessories",
+    description:
+      "Quality accessories and essential parts to improve your seating experience.",
+    href: "#",
+    image: officeImage3,
+  },
+  {
+    title: "Comfort Meets Quality",
+    description:
+      "Reliable furniture built with comfort, durability, and modern design in mind.",
+    href: "#",
+    image: officeImage4,
+  },
+];
