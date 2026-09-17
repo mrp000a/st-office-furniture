@@ -23,7 +23,6 @@ const Profile = ({
 }) => {
   const session = useSession();
 
-  const user = session.data?.user;
   // const [openEditUser, setOpenEditUser] = useState(false);
   const [userData, setUserData] = useState<
     (User & { _count: { orders: number } }) | null
@@ -167,7 +166,7 @@ const Profile = ({
           onOpenChange={setOpenEditUser}
           // modal={false}
         >
-          <DialogContent className="sm:max-w-lg  max-h-screen overflow-auto">
+          <DialogContent className="sm:max-w-lg  max-h-screen overflow-auto z-999">
             <DialogHeader>
               <DialogTitle>Edit User</DialogTitle>
               <DialogDescription>
@@ -175,7 +174,7 @@ const Profile = ({
                 done.
               </DialogDescription>
             </DialogHeader>
-            <div>
+            <div className=" h-full">
               <PageEditUserClient
                 name={userData?.name ?? ""}
                 email={userData?.email ?? ""}

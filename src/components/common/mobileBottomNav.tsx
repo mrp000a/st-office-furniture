@@ -8,7 +8,7 @@ const MobileBottomNav = () => {
   const pathname = usePathname();
 
   return (
-    <div className="md:hidden fixed bottom-0 min-w-full bg-background/80 z-9999 backdrop-blur-md border border-gray-600 box-border p-1 ">
+    <div className="md:hidden fixed bottom-0 min-w-full bg-background/80 z-50 backdrop-blur-md border border-gray-600 box-border p-1 ">
       <div className="flex w-full justify-between gap-2 overflow-visible">
         {MobNavItems.map(({ href, label, Logo: Logo }, index) => (
           <button

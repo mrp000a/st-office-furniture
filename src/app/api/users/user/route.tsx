@@ -28,14 +28,67 @@ export async function GET(req: NextRequest) {
   }
 }
 
+// create user by anyperson
+export async function POST(req: Request) {
+  try {
+    // const sessionPromise = getSession();
+    // await requireRole(sessionPromise, "ADMIN");
+
+    const body = await req.json();
+    const { role, name, email, phone, gender, image, address, password } =
+      body as User;
+
+    if (!name || !email || !phone || !password)
+      return NextResponse.json(
+        {
+          success: false,
+          message: "name,email,password, and phone are required!",
+        },
+        { status: 400 },
+      );
+
+    const hashed = await bcrypt.hash(password, 10);
+
+    const user = await prisma.user.create({
+      data: {
+        name,
+        email,
+        phone,
+        address,
+        role: role ?? "USER",
+
+        image,
+        gender,
+
+        password: hashed,
+      },
+    });
+
+    if (!user)
+      return NextResponse.json(
+        { success: false, message: "Something went wrong!" },
+        { status: 500 },
+      );
+
+    const { password: _p, ...rest } = user as User;
+
+    return NextResponse.json({ success: true, result: rest });
+  } catch (err: any) {
+    const message = err?.message ?? String(err);
+    return NextResponse.json(
+      { success: false, message: message },
+      { status: err?.status ?? 500 },
+    );
+  }
+}
+
 export async function PUT(req: Request) {
   try {
     const sessionPromise = getSession();
     await requireRole(sessionPromise, "USER");
 
     const body = await req.json();
-    const { id, name, email, phone, gender, image, address, password } =
-      body as User;
+    const { id, name, phone, gender, image, address, password } = body as User;
 
     if (!id || !name || !phone)
       return NextResponse.json(
@@ -48,7 +101,6 @@ export async function PUT(req: Request) {
 
     const updateData: {
       name: string;
-      email: string;
       phone: string;
       role: UserRole;
       gender: Gender;
@@ -57,7 +109,6 @@ export async function PUT(req: Request) {
       password?: string;
     } = {
       name,
-      email,
       phone,
       role: "USER",
       gender: gender ?? "MALE",

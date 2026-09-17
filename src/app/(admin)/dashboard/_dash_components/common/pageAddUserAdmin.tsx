@@ -2,7 +2,7 @@
 import { InputErrorMessage } from "@/components/uiComponent/uiCom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { uploadFile } from "@/lib/api";
+import { FindUserExists, uploadFile } from "@/lib/api";
 import { Info, Loader, SaveAllIcon } from "lucide-react";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -86,6 +86,17 @@ const PageAddUserAdmin = ({
       }
     }
 
+    const userExists = await FindUserExists({ email, phone });
+
+    if (!userExists.success) {
+      if (userExists.message.includes("Phone"))
+        setError("phone", { message: "Phone already exists!" });
+      if (userExists.message.includes("Email"))
+        setError("email", { message: "Email already exists!" });
+
+      return;
+    }
+
     let fileData = null;
 
     if (image && image[0] !== undefined) {
@@ -97,7 +108,7 @@ const PageAddUserAdmin = ({
 
     const raw = JSON.stringify({
       name,
-      email,
+      email: email.toLocaleLowerCase(),
       phone,
       role,
 
@@ -108,7 +119,7 @@ const PageAddUserAdmin = ({
       password,
     });
 
-    const res = await fetch("/api/users", {
+    const res = await fetch("/api/users/user", {
       method: "POST",
       headers: myHeaders,
       body: raw,
@@ -170,7 +181,7 @@ const PageAddUserAdmin = ({
                   <label htmlFor="email">Email:</label>
                   <Input
                     id="email"
-                    type="text"
+                    type="email"
                     placeholder="Enter Your Email"
                     {...register("email", {
                       required: { value: true, message: "Email is Required!" },

@@ -53,7 +53,7 @@ export async function POST(req: Request) {
     });
 
     if (createMessage) {
-      sendEmail({ to: email, subject, message, name });
+      sendEmail({ to: email.toLowerCase(), subject, message, name });
     }
 
     return NextResponse.json({ success: true, result: createMessage });

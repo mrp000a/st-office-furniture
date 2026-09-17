@@ -10,9 +10,6 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/ui/sonner";
 import Providers from "@/lib/providers";
-import HomeNav from "@/components/layout/homeNav";
-import Footer from "@/components/layout/Footer";
-import PathOptions from "@/components/layout/PathOptions";
 import { coreInfo } from "@/components/data/core";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });

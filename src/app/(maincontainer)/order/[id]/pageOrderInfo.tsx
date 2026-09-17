@@ -1,7 +1,6 @@
 "use client";
-import React, { useCallback, useEffect, useState } from "react";
+import React from "react";
 import { Button } from "@/components/ui/button";
-import { IoReload } from "react-icons/io5";
 import {
   Timeline,
   TimelineContent,
@@ -13,12 +12,11 @@ import {
   TimelineTitle,
 } from "@/components/reui/timeline";
 
-import { getSingleOrder } from "@/lib/api";
 import { Order, OrderItem, OrderLog, User } from "@/generated/prisma";
 
 import { NoItemsFound } from "@/components/uiComponent/uiCom";
-import { CheckIcon, Search } from "lucide-react";
-import { useParams, useRouter } from "next/navigation";
+import { CheckIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 import {
   Table,
   TableBody,
@@ -29,7 +27,6 @@ import {
 } from "@/components/ui/table";
 import Image from "next/image";
 import { FaUserCircle } from "react-icons/fa";
-import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { OrderStatusBadge } from "@/components/uiComponent/order-status-badge";
 
@@ -103,19 +100,20 @@ const PageOrderInfo = ({
                   <div className="flex items-center justify-between">
                     <span className="text-gray-primary">Sub total:</span>
                     <span className="font-semibold">
-                      {Number(order.subtotal).toFixed(2)}
+                      ৳{Number(order.subtotal).toFixed(2)}
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-gray-primary">Shipping Cost:</span>
                     <span className="font-semibold">
-                      {Number(order.shippingCost).toFixed(2)}
+                      ৳{Number(order.shippingCost).toFixed(2)}
                     </span>
                   </div>
                   <div className="bg-red-primary h-[0.3px]"></div>
                   <div className="flex items-center justify-between">
                     <span className="text-gray-primary">Total:</span>
                     <span className="font-semibold">
+                      ৳
                       {(
                         Number(order.total) + Number(order.shippingCost)
                       ).toFixed(2)}
@@ -124,19 +122,20 @@ const PageOrderInfo = ({
                   <div className="flex items-center justify-between">
                     <span className="text-gray-primary">Paid:</span>
                     <span className="font-semibold">
-                      -{Number(order.paidAmount).toFixed(2)}
+                      -৳{Number(order.paidAmount).toFixed(2)}
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-gray-primary">Discount:</span>
                     <span className="font-semibold text-gray-primary">
-                      -{Number(order.discountAmount).toFixed(2)}
+                      -৳{Number(order.discountAmount).toFixed(2)}
                     </span>
                   </div>
                   <div className="bg-red-primary h-[0.3px]"></div>
                   <div className="flex items-center justify-between">
                     <span className="text-gray-primary">Due:</span>
                     <span className="font-semibold text-red-primary dark:bg-foreground bg-background px-2  rounded-sm">
+                      ৳
                       {(
                         Number(order.total) - Number(order.discountAmount)
                       ).toFixed(2)}
@@ -190,11 +189,10 @@ const PageOrderInfo = ({
                                 </span>
 
                                 {/* Product title */}
-                                <div className="min-w-0 flex-1">
-                                  <p className="font-medium break-words whitespace-normal">
-                                    {title}
-                                  </p>
-                                </div>
+
+                                <p className="max-w-60 min-w-38 w-full whitespace-normal wrap-break-word">
+                                  {title ?? "Title"}
+                                </p>
                               </Link>
                             </TableCell>
 
@@ -232,43 +230,38 @@ const PageOrderInfo = ({
           {/* log container */}
           <div className="md:max-w-100 flex-1  bg-background rounded-sm shadow shadow-foreground p-2 px-4 space-y-3 h-fit ">
             <Timeline defaultValue={3} className="w-full max-w-md">
-              {order.logs.map(
-                (
-                  { status, orderId, updatedAt, createdAt, note, id },
-                  index,
-                ) => (
-                  <TimelineItem
-                    key={index}
-                    step={id}
-                    className="group-data-[orientation=vertical]/timeline:ms-10"
-                  >
-                    <TimelineHeader>
-                      <TimelineSeparator className="group-data-[orientation=vertical]/timeline:-left-7 group-data-[orientation=vertical]/timeline:h-[calc(100%-1.5rem-0.25rem)] group-data-[orientation=vertical]/timeline:translate-y-6.5" />
-                      <TimelineDate>
-                        {new Date(createdAt).toDateString()}
-                      </TimelineDate>
-                      <TimelineTitle>{status}</TimelineTitle>
-                      <TimelineIndicator className="group-data-completed/timeline-item:bg-primary group-data-completed/timeline-item:text-primary-foreground flex size-6 items-center justify-center group-data-completed/timeline-item:border-none group-data-[orientation=vertical]/timeline:-left-7">
-                        {index === order.logs.length - 1 &&
-                        status !== "CANCELLED" &&
-                        status !== "DELIVERED" &&
-                        status !== "RETURNED" ? (
-                          <>
-                            <span className="bg-gray-primary h-full w-full rounded-full"></span>
-                            <span className="bg-gray-primary h-full w-full rounded-full animate-ping absolute "></span>
-                          </>
-                        ) : (
-                          <>
-                            <CheckIcon className="size-4 " />
-                            {/* <CheckIcon className="size-4 animate-ping" /> */}
-                          </>
-                        )}
-                      </TimelineIndicator>
-                    </TimelineHeader>
-                    <TimelineContent>{note}</TimelineContent>
-                  </TimelineItem>
-                ),
-              )}
+              {order.logs.map(({ status, createdAt, note, id }, index) => (
+                <TimelineItem
+                  key={index}
+                  step={id}
+                  className="group-data-[orientation=vertical]/timeline:ms-10"
+                >
+                  <TimelineHeader>
+                    <TimelineSeparator className="group-data-[orientation=vertical]/timeline:-left-7 group-data-[orientation=vertical]/timeline:h-[calc(100%-1.5rem-0.25rem)] group-data-[orientation=vertical]/timeline:translate-y-6.5" />
+                    <TimelineDate>
+                      {new Date(createdAt).toDateString()}
+                    </TimelineDate>
+                    <TimelineTitle>{status}</TimelineTitle>
+                    <TimelineIndicator className="group-data-completed/timeline-item:bg-primary group-data-completed/timeline-item:text-primary-foreground flex size-6 items-center justify-center group-data-completed/timeline-item:border-none group-data-[orientation=vertical]/timeline:-left-7">
+                      {index === order.logs.length - 1 &&
+                      status !== "CANCELLED" &&
+                      status !== "DELIVERED" &&
+                      status !== "RETURNED" ? (
+                        <>
+                          <span className="bg-gray-primary h-full w-full rounded-full"></span>
+                          <span className="bg-gray-primary h-full w-full rounded-full animate-ping absolute "></span>
+                        </>
+                      ) : (
+                        <>
+                          <CheckIcon className="size-4 " />
+                          {/* <CheckIcon className="size-4 animate-ping" /> */}
+                        </>
+                      )}
+                    </TimelineIndicator>
+                  </TimelineHeader>
+                  <TimelineContent>{note}</TimelineContent>
+                </TimelineItem>
+              ))}
             </Timeline>
           </div>
         </div>

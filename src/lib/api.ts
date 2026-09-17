@@ -1,5 +1,5 @@
 import { ProductItemType } from "@/components/data/core";
-import { OrderStatus, Product } from "@/generated/prisma";
+import { OrderStatus } from "@/generated/prisma";
 import { addItem, removeItem, setCart } from "@/redux/features/cart/cartSlice";
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { SessionContextValue } from "next-auth/react";
@@ -312,7 +312,7 @@ export async function deleteUser({
   if (data.success) {
     if (image) await deleteFile(image);
     toast.success("User Deleted Successfully!", {
-      description: `${new Date().toISOString()}`,
+      description: `${new Date().toISOString()}. Deleted: ${email}`,
     });
   } else {
     toast.error("User Not Deleted!", {

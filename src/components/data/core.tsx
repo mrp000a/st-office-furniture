@@ -344,8 +344,8 @@ export const orderStatuses2: OrderStatus[] = [
 export const orderStatuses = [
   { label: "All Items", value: "" },
   { label: "Pending", value: "PENDING" },
-  { label: "Pending", value: "CONFIRMED" },
-  { label: "Pending", value: "PACKAGED" },
+  { label: "Confirmed", value: "CONFIRMED" },
+  { label: "Packaged", value: "PACKAGED" },
   { label: "On Hold", value: "ON_HOLD" },
   { label: "Shipped", value: "SHIPPED" },
   { label: "Returned", value: "RETURNED" },

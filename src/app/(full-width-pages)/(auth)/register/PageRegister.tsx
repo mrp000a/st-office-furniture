@@ -87,7 +87,10 @@ const PageRegisterForm = () => {
       }
     }
 
-    const userExists = await FindUserExists({ email, phone });
+    const userExists = await FindUserExists({
+      email: email.toLocaleLowerCase(),
+      phone,
+    });
 
     if (!userExists.success) {
       if (userExists.message.includes("Phone"))
@@ -116,7 +119,7 @@ const PageRegisterForm = () => {
 
     const raw = JSON.stringify({
       name,
-      email,
+      email: email.toLocaleLowerCase(),
       phone,
 
       gender,

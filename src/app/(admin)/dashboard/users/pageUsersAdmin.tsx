@@ -30,6 +30,7 @@ import { toast } from "sonner";
 import SearchLayout from "@/components/common/searchLayout";
 import { useRouter } from "next/navigation";
 import PaginationLayout from "@/components/common/paginationLayout";
+import { deleteUser } from "@/lib/api";
 
 const PageUsersAdmin = ({
   users,
@@ -180,9 +181,17 @@ const PageUsersAdmin = ({
                               confirmText: "Delete",
                             });
                             if (!isConfirm) return;
-                            toast.error("User can't be deleted!", {
-                              description: new Date().toDateString(),
+                            await deleteUser({
+                              id,
+                              email,
+                              image: image ?? undefined,
                             });
+
+                            // toast.error("User can't be deleted!", {
+                            //   description: new Date().toDateString(),
+                            // });
+
+                            router.refresh();
                           }}
                           className="bg-red-primary"
                         >

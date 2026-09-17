@@ -65,6 +65,7 @@ const ProfileHeader = ({
             </Button>
             <Button
               variant={"default"}
+              disabled
               className="cursor-pointer bg-red-primary"
             >
               Delete Account

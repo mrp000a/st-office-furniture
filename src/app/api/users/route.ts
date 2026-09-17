@@ -93,43 +93,154 @@ export async function POST(req: Request) {
         to: user.email,
         subject: "Verify your ST Office Furniture account",
 
+        text: `
+          Hi ${user.name ?? "there"},
+
+          Thank you for creating an account with ST Office Furniture.
+
+          Please verify your email address using the link below:
+
+          ${verificationUrl}
+
+          This link will expire in 24 hours.
+
+          If you did not create this account, you can safely ignore this email.
+
+          Regards,
+          ST Office Furniture
+          stofficefurniture.com
+          `,
+
         html: `
-          <h2>Welcome to ST Office Furniture!</h2>
+          <!DOCTYPE html>
+          <html>
+            <body style="margin:0; padding:0; background:#f5f5f5;">
+              <table
+                width="100%"
+                cellpadding="0"
+                cellspacing="0"
+                border="0"
+                style="background:#f5f5f5; padding:40px 0;"
+              >
+                <tr>
+                  <td align="center">
 
-          <p>Hi ${user.name ?? "there"},</p>
+                    <table
+                      width="100%"
+                      cellpadding="0"
+                      cellspacing="0"
+                      border="0"
+                      style="
+                        max-width:600px;
+                        background:#ffffff;
+                        border-radius:10px;
+                        overflow:hidden;
+                        font-family:Arial,Helvetica,sans-serif;
+                      "
+                    >
 
-          <p>
-            Thank you for creating an account.
-            Please verify your email address by clicking the button below.
-          </p>
+                      <!-- Header -->
+                      <tr>
+                        <td
+                          style="
+                            background:#000000;
+                            padding:25px;
+                            text-align:center;
+                          "
+                        >
+                          <h1
+                            style="
+                              margin:0;
+                              color:#ffffff;
+                              font-size:24px;
+                            "
+                          >
+                            ST Office Furniture
+                          </h1>
+                        </td>
+                      </tr>
 
-          <p>
-            <a
-              href="${verificationUrl}"
-              style="
-                display:inline-block;
-                padding:12px 20px;
-                background:#000;
-                color:#fff;
-                text-decoration:none;
-                border-radius:6px;
-              "
-            >
-              Verify Email
-            </a>
-          </p>
+                      <!-- Content -->
+                      <tr>
+                        <td style="padding:35px 30px; color:#333333;">
 
-          <p>This link will expire in 24 hours.</p>
+                          <h2
+                            style="
+                              margin-top:0;
+                              font-size:22px;
+                              color:#111111;
+                            "
+                          >
+                            Welcome to ST Office Furniture!
+                          </h2>
 
-          <p>
-            If you did not create this account, you can safely ignore this email.
-          </p>
+                          <p>
+                            Hi ${user.name ?? "there"},
+                          </p>
 
-          <p>
-            Regards,<br/>
-            ST Office Furniture
-          </p>
-        `,
+                          <p style="line-height:1.6;">
+                            Thank you for creating an account with us.
+                            Please verify your email address by clicking the
+                            button below.
+                          </p>
+
+                          <div style="text-align:center; margin:30px 0;">
+                            <a
+                              href="${verificationUrl}"
+                              style="
+                                display:inline-block;
+                                padding:13px 24px;
+                                background:#000000;
+                                color:#ffffff;
+                                text-decoration:none;
+                                border-radius:6px;
+                                font-weight:bold;
+                              "
+                            >
+                              Verify Email
+                            </a>
+                          </div>
+
+                          <p style="font-size:14px; color:#666666;">
+                            This verification link will expire in 24 hours.
+                          </p>
+
+                          <p style="font-size:14px; color:#666666;">
+                            If you did not create this account, you can safely
+                            ignore this email.
+                          </p>
+
+                          <p style="margin-top:30px;">
+                            Regards,<br />
+                            <strong>ST Office Furniture</strong>
+                          </p>
+
+                        </td>
+                      </tr>
+
+                      <!-- Footer -->
+                      <tr>
+                        <td
+                          style="
+                            padding:20px;
+                            background:#f8f8f8;
+                            text-align:center;
+                            font-size:12px;
+                            color:#777777;
+                          "
+                        >
+                          © ${new Date().getFullYear()} ST Office Furniture
+                        </td>
+                      </tr>
+
+                    </table>
+
+                  </td>
+                </tr>
+              </table>
+            </body>
+          </html>
+          `,
       });
     }
 
@@ -145,6 +256,7 @@ export async function POST(req: Request) {
   }
 }
 
+// only superadmin update update field
 export async function PUT(req: Request) {
   try {
     const sessionPromise = getSession();
@@ -204,9 +316,11 @@ export async function PUT(req: Request) {
 
 export async function DELETE(req: NextRequest) {
   try {
+    const sessionPromise = getSession();
+    await requireRole(sessionPromise, "SUPER_ADMIN");
     const searchParams = req.nextUrl.searchParams;
     const id = searchParams.get("id");
-    const email = searchParams.get("email");
+    // const email = searchParams.get("email");
 
     if (!id) {
       return NextResponse.json({
@@ -214,8 +328,6 @@ export async function DELETE(req: NextRequest) {
         message: "User Not Deleted.",
       });
     }
-    const sessionPromise = getSession();
-    await requireRole(sessionPromise, "SUPER_ADMIN");
 
     const users = await prisma.user.delete({
       where: { id: Number(id) },

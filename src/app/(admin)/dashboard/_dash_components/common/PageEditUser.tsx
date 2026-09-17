@@ -2,7 +2,7 @@
 import { InputErrorMessage } from "@/components/uiComponent/uiCom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { uploadFile } from "@/lib/api";
+import { deleteFile, uploadFile } from "@/lib/api";
 import { Info, Loader, SaveAllIcon } from "lucide-react";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -125,7 +125,7 @@ const PageEditUserAdmin = ({
       const raw = JSON.stringify({
         id: id,
         name,
-        email,
+        email: email.toLocaleLowerCase(),
         phone,
         role,
 
@@ -152,7 +152,10 @@ const PageEditUserAdmin = ({
         router.refresh();
         setOpen(false);
       } else {
-        toast.success(updateUser.message ?? "User Not Updated", {
+        // console.log(updateUser.message)
+        if (fileData && fileData.key) await deleteFile(fileData.key);
+
+        toast.error(updateUser.message ?? "User Not Updated", {
           description: new Date().toDateString(),
         });
       }
@@ -203,7 +206,7 @@ const PageEditUserAdmin = ({
                   <label htmlFor="email">Email:</label>
                   <Input
                     id="email"
-                    type="text"
+                    type="email"
                     placeholder="Enter Your Email"
                     {...register("email", {
                       required: { value: true, message: "Email is Required!" },

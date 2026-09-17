@@ -150,7 +150,7 @@ const PageEditUserClient = ({
         setOpen(false);
         await update({
           name: temporaryRaw.name,
-          email: temporaryRaw.email,
+          // email: temporaryRaw.email,
           phone: temporaryRaw.phone,
           //   role: temporaryRaw.role,
           gender: temporaryRaw.gender,
@@ -158,7 +158,7 @@ const PageEditUserClient = ({
           address: temporaryRaw.address,
         });
       } else {
-        toast.success(updateUser.message ?? "User Not Updated", {
+        toast.error(updateUser.message ?? "User Not Updated", {
           description: new Date().toDateString(),
         });
       }
@@ -209,7 +209,8 @@ const PageEditUserClient = ({
                   <label htmlFor="email">Email:</label>
                   <Input
                     id="email"
-                    type="text"
+                    type="email"
+                    disabled
                     placeholder="Enter Your Email"
                     {...register("email", {
                       required: { value: true, message: "Email is Required!" },

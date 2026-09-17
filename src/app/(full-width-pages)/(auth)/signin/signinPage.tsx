@@ -44,7 +44,7 @@ const PageLogin = () => {
     const { email, password } = data;
 
     const result = await signIn("credentials", {
-      email,
+      email: email.toLowerCase(),
       password,
       redirect: false,
     });
@@ -189,7 +189,11 @@ const PageLogin = () => {
           </div>
           <div className="text-gray-secondary">
             {"Don't"} have an account?
-            <Button variant={"link"} className="text-blue-primary text-sm" asChild>
+            <Button
+              variant={"link"}
+              className="text-blue-primary text-sm"
+              asChild
+            >
               <Link href={`/register?callbackUrl=${callbackUrl}`} className="">
                 Register Now
               </Link>

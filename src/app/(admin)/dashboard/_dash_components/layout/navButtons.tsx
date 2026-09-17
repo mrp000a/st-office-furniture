@@ -12,14 +12,13 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@/components/ui/drawer";
-import { coreInfo, navItems } from "@/components/data/core";
 import { SquareArrowLeft } from "lucide-react";
 import { useDashboardDrawer } from "@/context/SidebarContext";
 
 const DashNavButtons = () => {
   const pathname = usePathname();
   const router = useRouter();
-  const { setSidebarOpenMob, setSidebarOpen, sidebarOpen, sidebarOpenMob } =
+  const { setSidebarOpenMob, sidebarOpen, sidebarOpenMob } =
     useDashboardDrawer();
 
   return (
@@ -29,7 +28,9 @@ const DashNavButtons = () => {
       >
         <div className="flex flex-col  justify-start gap-2 ">
           <Button
-            onClick={() => router.push("/dashboard")}
+            onClick={() => {
+              router.push("/dashboard");
+            }}
             className={"flex justify-between items-center"}
             variant={
               pathname.toLowerCase() == "/dashboard" ? "default" : "outline"
@@ -89,7 +90,13 @@ const DashNavButtons = () => {
             </DrawerHeader>
             <div className="flex flex-col  justify-start gap-2 ">
               <Button
-                onClick={() => router.push("/dashboard")}
+                onClick={() => {
+                  router.push("/dashboard");
+                  const time = setTimeout(() => {
+                    setSidebarOpenMob(false);
+                    clearTimeout(time);
+                  }, 500);
+                }}
                 className={"flex justify-between items-center"}
                 variant={
                   pathname.toLowerCase() == "/dashboard" ? "default" : "outline"

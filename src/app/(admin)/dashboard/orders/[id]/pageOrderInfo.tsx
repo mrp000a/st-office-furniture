@@ -1,7 +1,6 @@
 "use client";
-import React, { useCallback, useEffect, useState } from "react";
+import React from "react";
 import { Button } from "@/components/ui/button";
-import { IoReload } from "react-icons/io5";
 import {
   Timeline,
   TimelineContent,
@@ -13,12 +12,11 @@ import {
   TimelineTitle,
 } from "@/components/reui/timeline";
 
-import { getSingleOrder } from "@/lib/api";
 import { Order, OrderItem, OrderLog, User } from "@/generated/prisma";
 
 import { NoItemsFound } from "@/components/uiComponent/uiCom";
-import { CheckIcon, Search } from "lucide-react";
-import { useParams, useRouter } from "next/navigation";
+import { CheckIcon } from "lucide-react";
+import {  useRouter } from "next/navigation";
 import {
   Table,
   TableBody,
@@ -29,7 +27,6 @@ import {
 } from "@/components/ui/table";
 import Image from "next/image";
 import { FaUserCircle } from "react-icons/fa";
-import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { OrderStatusBadge } from "@/components/uiComponent/order-status-badge";
 
@@ -103,20 +100,20 @@ const PageOrderInfo = ({
                   <div className="flex items-center justify-between">
                     <span className="text-gray-primary">Sub total:</span>
                     <span className="font-semibold">
-                      {Number(order.subtotal).toFixed(2)}
+                      ৳{Number(order.subtotal).toFixed(2)}
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-gray-primary">Shipping Cost:</span>
                     <span className="font-semibold">
-                      {Number(order.shippingCost).toFixed(2)}
+                      ৳{Number(order.shippingCost).toFixed(2)}
                     </span>
                   </div>
                   <div className="bg-red-primary h-[0.3px]"></div>
                   <div className="flex items-center justify-between">
                     <span className="text-gray-primary">Total:</span>
                     <span className="font-semibold">
-                      {(
+                      ৳{(
                         Number(order.total) + Number(order.shippingCost)
                       ).toFixed(2)}
                     </span>
@@ -124,20 +121,20 @@ const PageOrderInfo = ({
                   <div className="flex items-center justify-between">
                     <span className="text-gray-primary">Paid:</span>
                     <span className="font-semibold">
-                      -{Number(order.paidAmount).toFixed(2)}
+                      -৳{Number(order.paidAmount).toFixed(2)}
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-gray-primary">Discount:</span>
                     <span className="font-semibold text-gray-primary">
-                      -{Number(order.discountAmount).toFixed(2)}
+                      -৳{Number(order.discountAmount).toFixed(2)}
                     </span>
                   </div>
                   <div className="bg-red-primary h-[0.3px]"></div>
                   <div className="flex items-center justify-between">
                     <span className="text-gray-primary">Due:</span>
                     <span className="font-semibold text-red-primary dark:bg-foreground bg-background px-2  rounded-sm">
-                      {(
+                      ৳{(
                         Number(order.total) - Number(order.discountAmount)
                       ).toFixed(2)}
                     </span>
@@ -190,11 +187,10 @@ const PageOrderInfo = ({
                                 </span>
 
                                 {/* Product title */}
-                                <div className="min-w-0 flex-1">
-                                  <p className="font-medium break-words whitespace-normal">
-                                    {title}
-                                  </p>
-                                </div>
+
+                                <p className="max-w-60 min-w-38 w-full whitespace-normal wrap-break-word">
+                                  {title ?? "Title"}
+                                </p>
                               </Link>
                             </TableCell>
 
@@ -234,7 +230,7 @@ const PageOrderInfo = ({
             <Timeline defaultValue={3} className="w-full max-w-md">
               {order.logs.map(
                 (
-                  { status, orderId, updatedAt, createdAt, note, id },
+                  { status, createdAt, note, id },
                   index,
                 ) => (
                   <TimelineItem

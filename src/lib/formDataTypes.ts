@@ -1,10 +1,6 @@
 import {
-  Category,
-  DeliveryAreas,
   Gender,
   PaymentMethods,
-  Product,
-  ProductDescription,
 } from "@/generated/prisma";
 import { PiMoneyWavyFill } from "react-icons/pi";
 

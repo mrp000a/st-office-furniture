@@ -1,6 +1,7 @@
 "use client";
 
 import GridShape from "@/components/common/GridShape";
+import { useAlertDialog } from "@/components/hooks/use-alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
@@ -20,6 +21,7 @@ export default function SignInForm() {
   const [isChecked, setIsChecked] = useState(false);
   const [varifyEmail, setVarifyEmail] = useState(false);
   const router = useRouter();
+  const { alert } = useAlertDialog();
 
   const {
     register,
@@ -71,9 +73,7 @@ export default function SignInForm() {
   const resendVarification = async (data: { email: string }) => {
     const { email } = data;
 
-    // resend email vari
-    console.log({ email: email, code: "w9823948" });
-
+    // return
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -81,7 +81,7 @@ export default function SignInForm() {
       method: "POST",
       headers: myHeaders,
       body: JSON.stringify({
-        email,
+        email: email.toLowerCase(),
       }),
       redirect: "follow",
     });
@@ -92,7 +92,14 @@ export default function SignInForm() {
       toast.error(varification.message ?? "something went wrong!");
       return;
     }
-    toast.success(varification.message ?? "Check your email inbox or spam!");
+
+    await alert({
+      title: "A varification Email sent to your Email.",
+      description:
+        "Please check your email inbox. If not there check your email spam messages.",
+    });
+
+    // toast.success(varification.message ?? "Check your email inbox or spam!");
     setVarifyEmail(false);
   };
 
@@ -277,6 +284,7 @@ export default function SignInForm() {
                       <Button
                         variant={"link"}
                         type="button"
+                        // disabled={isSubmitted}
                         onClick={handleSubmit(resendVarification)}
                       >
                         Resend Email

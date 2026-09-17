@@ -222,7 +222,7 @@ const PageOrders = ({
                   </TableCell>
 
                   <TableCell>
-                    {new Date(createdAt).toLocaleDateString()}
+                    {new Date(createdAt).toISOString().split(".")[0]}
                   </TableCell>
                   <TableCell>
                     <div className="flex items-center gap-2">

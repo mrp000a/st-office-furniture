@@ -1,11 +1,10 @@
 "use client";
-import React, { useState } from "react";
+
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { VscLoading } from "react-icons/vsc";
-import { Toaster } from "../ui/sonner";
+
 import { toast } from "sonner";
 import { InputErrorMessage } from "../uiComponent/uiCom";
 import { FiLoader } from "react-icons/fi";
@@ -72,11 +71,14 @@ const MessageForm = () => {
           className="space-y-4 flex-center flex-col reveal"
         >
           <h3 className=" text-center font-bold">Feel Free To Reach Out</h3>
-          
+
           <div className="space-y-4 w-full">
-            <div className="grid grid-cols-2 content-start space-x-2">
-              <div className="grid grid-cols-1 space-y-2">
-                <label htmlFor="name">Name</label>
+            {/* name and email section  */}
+            <div className="flex flex-col md:flex-row items-start justify-between w-full gap-3">
+              <div className="grid grid-cols-1 space-y-2 w-full flex-1">
+                <label htmlFor="name" className="text-sm font-light">
+                  Name
+                </label>
                 <Input
                   id="name"
                   type="text"
@@ -89,8 +91,10 @@ const MessageForm = () => {
                   <InputErrorMessage>{errors.name.message}</InputErrorMessage>
                 )}
               </div>
-              <div className="grid grid-cols-1 space-y-2">
-                <label htmlFor="email">Email</label>
+              <div className="grid grid-cols-1 space-y-2 w-full flex-1">
+                <label htmlFor="email" className="text-sm font-light">
+                  Email
+                </label>
                 <Input
                   id="email"
                   type="email"
@@ -108,8 +112,11 @@ const MessageForm = () => {
                 )}
               </div>
             </div>
+            {/* subject */}
             <div className="grid grid-cols-1 space-y-2">
-              <label htmlFor="subject">Subject</label>
+              <label htmlFor="subject" className="text-sm font-light">
+                Subject
+              </label>
               <Input
                 id="subject"
                 type="text"
@@ -123,7 +130,9 @@ const MessageForm = () => {
               )}
             </div>
             <div className="grid grid-cols-1 space-y-2">
-              <label htmlFor="message">Message</label>
+              <label htmlFor="message" className="text-sm font-light">
+                Message
+              </label>
               <Textarea
                 id="message"
                 placeholder="Write a message"

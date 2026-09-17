@@ -227,6 +227,7 @@ const Page = () => {
                   <Input
                     className="h-10 text-lg"
                     id="email"
+                    type="email"
                     placeholder="Enter Receiver Email"
                     {...register("receiverEmail", {})}
                   />

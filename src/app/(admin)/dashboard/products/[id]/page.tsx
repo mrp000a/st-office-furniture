@@ -390,6 +390,12 @@ const PageEditProduct = ({
                         value: true,
                         message: "Product Code is Required!",
                       },
+                      pattern: {
+                        // RegEx strictly allowing letters, numbers, and hyphens
+                        value: /^[a-zA-Z0-9-_]+$/,
+                        message:
+                          "Only letters, numbers, and hyphens are allowed",
+                      },
                     })}
                   />
                   {errors?.productCode && (
