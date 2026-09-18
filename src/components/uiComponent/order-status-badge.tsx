@@ -5,13 +5,14 @@ type OrderStatus = keyof typeof orderStatusConfig;
 
 interface OrderStatusBadgeProps {
   status: OrderStatus;
+  className?: string;
 }
 
-export function OrderStatusBadge({ status }: OrderStatusBadgeProps) {
+export function OrderStatusBadge({ status, className }: OrderStatusBadgeProps) {
   const config = orderStatusConfig[status];
 
   return (
-    <Badge variant="outline" className={`${config.className} text-base font-semibold px-2 py-1` }>
+    <Badge variant="outline" className={`${config.className}  ${className}`}>
       {config.label}
     </Badge>
   );

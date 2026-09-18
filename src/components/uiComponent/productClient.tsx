@@ -11,7 +11,11 @@ import { useRouter } from "next/navigation";
 import { Banknote, CirclePlus } from "lucide-react";
 import RatingStars from "./ratingstars";
 
-const ProductClient = ({ item }: { item: ProductItemType }) => {
+const ProductClient = ({
+  item,
+}: {
+  item: ProductItemType & { averageRating: number };
+}) => {
   const session = useSession();
   const dispatch = useDispatch();
   const router = useRouter();
@@ -62,7 +66,7 @@ const ProductClient = ({ item }: { item: ProductItemType }) => {
         {/* ratings  */}
         <div>
           <span className="flex items-center">
-            <RatingStars rating={0} />({0})
+            <RatingStars rating={item.averageRating} />({item._count?.reviews})
           </span>
         </div>
         <div className=" font-bold flex flex-wrap justify-between items-center">
@@ -103,6 +107,7 @@ const ProductClient = ({ item }: { item: ProductItemType }) => {
                   discountPrice: item.discountPrice,
                   qty: 1,
                   dispatch,
+                  router
                 });
                 return;
               }
@@ -144,6 +149,7 @@ const ProductClient = ({ item }: { item: ProductItemType }) => {
                   discount: item.discount,
                   discountPrice: item.discountPrice,
                   qty: 1,
+                  router,
                 });
 
                 const time = setTimeout(() => {

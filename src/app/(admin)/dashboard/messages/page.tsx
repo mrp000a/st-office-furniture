@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { Metadata } from "next";
 import { coreInfo } from "@/components/data/core";
 import PageCategoriesAdmin from "./pageMessagesAdmin";
+import MessagesPage from "./messagesClient";
 // import PageCategoriesAdmin from "./pageCategories";
 
 type Props = {
@@ -17,7 +18,7 @@ export default async function CategoriesPage({ searchParams }: Props) {
   const params = await searchParams;
 
   const search = params.search ?? "";
-  const status = params.status === "read" ? true : false;
+  const status = params.status ?? "";
   const page = Number(params.page ?? 1);
 
   const totalProducts = await prisma.message.count({
@@ -32,13 +33,19 @@ export default async function CategoriesPage({ searchParams }: Props) {
         : {}),
       ...(status
         ? {
-            isRead: status,
+            isRead: status === "read" ? true : false,
           }
         : {}),
     },
   });
 
-  const ITEMS_PER_PAGE = 10;
+  const totalUnread = await prisma.message.count({
+    where: {
+      isRead: false,
+    },
+  });
+
+  const ITEMS_PER_PAGE = 12;
 
   const totalPages = Math.ceil(totalProducts / ITEMS_PER_PAGE);
 
@@ -52,6 +59,11 @@ export default async function CategoriesPage({ searchParams }: Props) {
             },
           }
         : {}),
+      ...(status
+        ? {
+            isRead: status === "read" ? true : false,
+          }
+        : {}),
     },
 
     skip: (page - 1) * ITEMS_PER_PAGE,
@@ -63,11 +75,19 @@ export default async function CategoriesPage({ searchParams }: Props) {
   });
 
   return (
-    <PageCategoriesAdmin
+    <>
+      {/* <PageCategoriesAdmin
       categories={categories}
       currentPage={page}
       totalPages={totalPages}
-    />
+    /> */}
+      <MessagesPage
+        messages={categories}
+        unreadMessage={totalUnread}
+        currentPage={page}
+        totalPages={totalPages}
+      />
+    </>
   );
 }
 

@@ -1,7 +1,17 @@
 import type { Metadata, ResolvingMetadata } from "next";
 import AProductPage from "./ProductPage";
-import { coreInfo, ProductDefaultImage } from "@/components/data/core";
-import { Product } from "@/generated/prisma";
+import {
+  coreInfo,
+  ProductDefaultImage,
+  ProductItemType,
+} from "@/components/data/core";
+import { Category, Product, ProductDescription } from "@/generated/prisma";
+import { prisma } from "@/lib/prisma";
+
+type ProductCombo = ProductItemType & {
+  descriptions: ProductDescription[];
+  category: Category;
+};
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -73,10 +83,68 @@ export async function generateMetadata(
   };
 }
 
-export default function Page() {
+export default async function Page({ params }: Props) {
+  const { id } = await params;
+
+  // fetch data
+  // const data = await fetch(
+  //   `${process.env.NEXT_PUBLIC_URL_SITE}/api/products/product?productCode=${id}`,
+  // ).then((res) => res.json());
+
+  // const product: ProductCombo = data.result;
+
+  // if (!product) {
+  //   return <></>;
+  // }
+  // console.log(product);
+
+  const product = await prisma.product.findUnique({
+    where: {
+      productCode: id,
+    },
+
+    include: {
+      category: true,
+      descriptions: true,
+      reviews: {
+        take: 15,
+        include: { user: { select: { name: true, image: true, email: true } } },
+        orderBy: { createdAt: "desc" },
+      },
+      _count: true,
+    },
+  });
+
+  if (!product) {
+    return null;
+  }
+
+  const reviewStats = await prisma.proReview.aggregate({
+    where: {
+      productId: product.id,
+    },
+
+    _avg: {
+      rating: true,
+    },
+
+    _count: {
+      rating: true,
+    },
+  });
+
+  const productWithRating = {
+    ...product,
+    price: Number(product.price),
+    discount: Number(product.discount),
+    discountPrice: Number(product.discountPrice),
+    averageRating: reviewStats._avg.rating ?? 0,
+    reviewCount: reviewStats._count.rating,
+  };
+
   return (
     <>
-      <AProductPage />
+      <AProductPage product={productWithRating} />
     </>
   );
 }

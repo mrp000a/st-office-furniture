@@ -139,6 +139,7 @@ const MessageForm = () => {
                 {...register("message", {
                   required: { value: true, message: "Message is required!" },
                 })}
+                className="max-h-40 overflow-auto"
               />
               {errors.message && (
                 <InputErrorMessage>{errors.message.message}</InputErrorMessage>

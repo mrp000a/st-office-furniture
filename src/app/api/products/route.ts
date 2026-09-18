@@ -43,11 +43,40 @@ export async function GET(req: NextRequest) {
       },
     });
 
+    const productIds = products.map((product) => product.id);
+
+    const reviewAverages = await prisma.proReview.groupBy({
+      by: ["productId"],
+      where: {
+        productId: {
+          in: productIds,
+        },
+      },
+      _avg: {
+        rating: true,
+      },
+    });
+
+    const averageMap = new Map(
+      reviewAverages.map((item) => [item.productId, item._avg.rating ?? 0]),
+    );
+
+    const productsWithRating = products.map((product) => ({
+      ...product,
+      averageRating: averageMap.get(product.id) ?? 0,
+      price: Number(product.price),
+      discountPrice: product.discountPrice
+        ? Number(product.discountPrice)
+        : null,
+      discount: product.discount ? Number(product.discount) : null,
+    }));
+
     return NextResponse.json({
       success: true,
       message: "All Products loaded.",
-      result: products,
+      result: productsWithRating,
     });
+    
   } catch (err: any) {
     return NextResponse.json(
       { success: false, message: err?.message ?? "Db Error-" },

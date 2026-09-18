@@ -16,7 +16,7 @@ import { Order, OrderItem, OrderLog, User } from "@/generated/prisma";
 
 import { NoItemsFound } from "@/components/uiComponent/uiCom";
 import { CheckIcon } from "lucide-react";
-import {  useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import {
   Table,
   TableBody,
@@ -29,6 +29,7 @@ import Image from "next/image";
 import { FaUserCircle } from "react-icons/fa";
 import Link from "next/link";
 import { OrderStatusBadge } from "@/components/uiComponent/order-status-badge";
+import OrderLogForm from "../../_dash_components/common/logForm";
 
 const PageOrderInfo = ({
   order,
@@ -58,7 +59,10 @@ const PageOrderInfo = ({
               </h2>
             </div>
             <div className="flex-center">
-              <OrderStatusBadge status={order.status} />
+              <OrderStatusBadge
+                status={order.status}
+                className="font-semibold text-base px-3 py-2"
+              />
             </div>
 
             {/* billing info and price */}
@@ -113,7 +117,8 @@ const PageOrderInfo = ({
                   <div className="flex items-center justify-between">
                     <span className="text-gray-primary">Total:</span>
                     <span className="font-semibold">
-                      ৳{(
+                      ৳
+                      {(
                         Number(order.total) + Number(order.shippingCost)
                       ).toFixed(2)}
                     </span>
@@ -134,7 +139,8 @@ const PageOrderInfo = ({
                   <div className="flex items-center justify-between">
                     <span className="text-gray-primary">Due:</span>
                     <span className="font-semibold text-red-primary dark:bg-foreground bg-background px-2  rounded-sm">
-                      ৳{(
+                      ৳
+                      {(
                         Number(order.total) - Number(order.discountAmount)
                       ).toFixed(2)}
                     </span>
@@ -227,12 +233,13 @@ const PageOrderInfo = ({
           </div>
           {/* log container */}
           <div className="md:max-w-100 flex-1  bg-background rounded-sm shadow shadow-foreground p-2 px-4 space-y-3 h-fit ">
-            <Timeline defaultValue={3} className="w-full max-w-md">
-              {order.logs.map(
-                (
-                  { status, createdAt, note, id },
-                  index,
-                ) => (
+            {/* log form */}
+            <OrderLogForm orderId={order.id} />
+            <hr />
+            <Timeline defaultValue={3} className="w-full max-w-md ">
+              {order.logs
+                .toReversed()
+                .map(({ status, createdAt, note, id }, index) => (
                   <TimelineItem
                     key={index}
                     step={id}
@@ -241,11 +248,14 @@ const PageOrderInfo = ({
                     <TimelineHeader>
                       <TimelineSeparator className="group-data-[orientation=vertical]/timeline:-left-7 group-data-[orientation=vertical]/timeline:h-[calc(100%-1.5rem-0.25rem)] group-data-[orientation=vertical]/timeline:translate-y-6.5" />
                       <TimelineDate>
-                        {new Date(createdAt).toDateString()}
+                        <span>{new Date(createdAt).toDateString()}-</span>
+                        <span>
+                          {new Date(createdAt).toTimeString().split("GMT")[0]}
+                        </span>
                       </TimelineDate>
                       <TimelineTitle>{status}</TimelineTitle>
                       <TimelineIndicator className="group-data-completed/timeline-item:bg-primary group-data-completed/timeline-item:text-primary-foreground flex size-6 items-center justify-center group-data-completed/timeline-item:border-none group-data-[orientation=vertical]/timeline:-left-7">
-                        {index === order.logs.length - 1 &&
+                        {index === 0 &&
                         status !== "CANCELLED" &&
                         status !== "DELIVERED" &&
                         status !== "RETURNED" ? (
@@ -261,12 +271,17 @@ const PageOrderInfo = ({
                         )}
                       </TimelineIndicator>
                     </TimelineHeader>
-                    <TimelineContent>{note}</TimelineContent>
+                    <TimelineContent
+                      className="whitespace-pre-line"
+                      dangerouslySetInnerHTML={{
+                        __html: note ?? "",
+                      }}
+                    />
                   </TimelineItem>
-                ),
-              )}
+                ))}
             </Timeline>
           </div>
+          
         </div>
       ) : (
         <NoItemsFound />

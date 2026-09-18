@@ -24,6 +24,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
+import SearchShowClient from "@/components/common/searchShowClient";
 
 const Page = () => {
   const session = useSession();
@@ -102,6 +103,7 @@ const Page = () => {
         </div>
       </div>
       <hr className=" inline-block w-full" />
+      {/* <SearchShowClient pathnameSend="/profile?tab=order" /> */}
       <div className="w-full flex flex-wrap gap-1 md:gap-2 items-center justify-start pb-2">
         {orderStatuses &&
           orderStatuses.map(({ value, label }, index) => (

@@ -3,16 +3,6 @@ import { getSession } from "@/lib/serverAuth";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
-  // const reqFrom = req.url;
-  // const sessionPromise = getSession();
-  // const session = await sessionPromise;
-  // if (!session) {
-  //   NextResponse.json(
-  //     { success: false, message: "Signed in is required" },
-  //     { status: 400 },
-  //   );
-  //   // return NextResponse.redirect(`/signin?callbackUrl=${reqFrom}`);
-  // }
   const searchParams = req.nextUrl.searchParams;
   const productCode = searchParams.get("productCode")?.toLowerCase();
 

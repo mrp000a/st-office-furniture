@@ -24,10 +24,18 @@ export default async function ProductsPage({ searchParams }: Props) {
     where: {
       ...(search
         ? {
-            receiverName: {
-              contains: search,
-              mode: "insensitive",
-            },
+            OR: [
+              {
+                receiverName: {
+                  contains: search,
+                  mode: "insensitive",
+                },
+              },
+            ],
+            // receiverName: {
+            //   contains: search,
+            //   mode: "insensitive",
+            // },
           }
         : {}),
 
@@ -47,10 +55,23 @@ export default async function ProductsPage({ searchParams }: Props) {
     where: {
       ...(search
         ? {
-            receiverName: {
-              contains: search,
-              mode: "insensitive",
-            },
+            OR: [
+              {
+                receiverName: {
+                  contains: search,
+                  mode: "insensitive",
+                },
+              },
+              ...(!isNaN(Number(search))
+                ? [
+                    {
+                      id: {
+                        equals: Number(search),
+                      },
+                    },
+                  ]
+                : []),
+            ],
           }
         : {}),
 

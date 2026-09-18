@@ -4,6 +4,7 @@ import { addItem, removeItem, setCart } from "@/redux/features/cart/cartSlice";
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { SessionContextValue } from "next-auth/react";
 import { toast } from "sonner";
+import { getSession, getUserId } from "./serverAuth";
 
 interface UploadReturnType {
   success: boolean;
@@ -151,6 +152,7 @@ export async function getCategories() {
     {
       method: "GET",
       redirect: "follow",
+      next: { revalidate: 300 },
     },
   );
   if (!res.ok) {
@@ -484,7 +486,7 @@ export const HandleAddToCart = async ({
   toast.success(res.message ?? "Product added to cart!", {
     description: new Date().toDateString(),
     action: {
-      label: "View now!",
+      label: "Checkout",
       onClick: () => {
         if (router) router.push("/checkout");
       },
@@ -506,9 +508,11 @@ export const HandleAddToLocalCart = ({
   qty,
   //--
   dispatch,
+  router,
 }: ProductItemType & {
   qty: number;
   dispatch: Dispatch;
+  router?: any;
 }) => {
   const product = {
     images,
@@ -539,6 +543,12 @@ export const HandleAddToLocalCart = ({
 
   toast.success("Item added to Cart!", {
     description: new Date().toDateString(),
+    action: {
+      label: "Checkout",
+      onClick: () => {
+        if (router) router.push("/checkout");
+      },
+    },
   });
 };
 
@@ -647,6 +657,44 @@ export async function deleteOrder({ id }: { id: number }) {
   }
 }
 
+export async function OrderLogAdd({
+  orderId,
+  note,
+  status,
+}: {
+  orderId: number;
+  status: OrderStatus;
+  note?: string;
+}) {
+  try {
+    if (!orderId || !status)
+      throw new Error("Please do enter the field properly");
+
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const raw = JSON.stringify({
+      orderId,
+      status,
+      note,
+    });
+
+    const data = await fetch("/api/order/log", {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    });
+
+    const res: { success: boolean; result: any; message: string } =
+      await data.json();
+
+    return res;
+  } catch (error: any) {
+    return { success: false, message: "Something went wrong!" };
+  }
+}
+
 // message =========================================================================================
 
 export async function editMessages({
@@ -677,17 +725,17 @@ export async function editMessages({
     const data = await res.json();
 
     if (data.success) {
-      toast.success(data.message ?? "Item Deleted!", {
+      toast.success(!isRead ? "Marked as Unread" : "Marked as Read", {
         description: new Date().toDateString(),
       });
     } else {
-      toast.error(data.message ?? "Item Not Deleted!", {
+      toast.error(data.message ?? "Item Not Edited!", {
         description: new Date().toDateString(),
       });
     }
     return data;
   } catch (error: any) {
-    toast.error(error.message ?? "Item Not Deleted!", {
+    toast.error(error.message ?? "Item Not Edited!", {
       description: new Date().toDateString(),
     });
   }
@@ -754,4 +802,50 @@ export async function sendEmail({
   const data = await res.json();
 
   return data;
+}
+
+export async function AddProductReview({
+  productId,
+  note,
+  rating,
+  userId,
+}: {
+  productId: number;
+  note?: string;
+  rating: number;
+  userId: number;
+}) {
+  try {
+    if (!userId || !rating || !productId)
+      throw new Error("Please do enter the field properly");
+
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const raw = JSON.stringify({
+      productId,
+      note,
+      rating,
+      userId,
+    });
+
+    const data = await fetch("/api/product/review", {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    });
+
+    const res: { success: boolean; result: any; message: string } =
+      await data.json();
+
+    if (res.success)
+      toast.success(res.message ?? "Thanks for Reviewed", {
+        description: new Date().toDateString(),
+      });
+    return res;
+  } catch (error: any) {
+    toast.error(error.message ?? "Something went wrong!");
+    return { success: false, message: "Something went wrong!" };
+  }
 }

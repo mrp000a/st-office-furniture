@@ -13,7 +13,11 @@ import {
 } from "@/generated/prisma";
 
 import { useAlertDialog } from "@/components/hooks/use-alert-dialog";
-import { orderStatuses, ProductDefaultImage } from "@/components/data/core";
+import {
+  orderStatuses,
+  ProductDefaultImage,
+  ProfileDefaultImage,
+} from "@/components/data/core";
 
 import { NoItemsFound } from "@/components/uiComponent/uiCom";
 import { Edit3Icon } from "lucide-react";
@@ -34,6 +38,9 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import OrdersSearch from "./searchBox";
 import PaginationLayout from "@/components/common/paginationLayout";
+import SearchShowClient from "@/components/common/searchShowClient";
+import { OrderStatusBadge } from "@/components/uiComponent/order-status-badge";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 type ordersType = {
   subtotal: number;
@@ -115,6 +122,7 @@ const PageOrders = ({
         </div>
       </div>
       <hr className=" inline-block w-full" />
+      <SearchShowClient />
       <div className="w-full flex flex-wrap gap-1 md:gap-2 items-center justify-start pb-2">
         {orderStatuses &&
           orderStatuses.map(({ value, label }, index) => (
@@ -139,7 +147,7 @@ const PageOrders = ({
               <TableHead>Order Id</TableHead>
               {/* <TableHead>Order Id</TableHead> */}
               <TableHead>Customer</TableHead>
-              <TableHead>User Email</TableHead>
+              {/* <TableHead>User Email</TableHead> */}
               <TableHead>Address</TableHead>
               <TableHead>Items</TableHead>
               <TableHead>Total</TableHead>
@@ -172,17 +180,14 @@ const PageOrders = ({
                   <TableCell>
                     <div className="flex items-center justify-start  gap-1">
                       <span className="min-w-6 max-w-6  min-h-6 max-h-6 relative z-10 inline-block rounded-full  overflow-hidden">
-                        {user?.image ? (
-                          <Image
-                            src={`${process.env.NEXT_PUBLIC_URL_R2}/${user.image ? user.image : ProductDefaultImage}`}
-                            alt={user.email}
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                            fill
-                            className="object-cover w-full h-full"
+                        <Avatar className="size-6">
+                          <AvatarImage
+                            src={`${process.env.NEXT_PUBLIC_URL_R2}/${user?.image}`}
                           />
-                        ) : (
-                          <FaUserCircle className="h-full w-full" />
-                        )}
+                          <AvatarFallback>
+                            {receiverName?.charAt(0).toUpperCase() ?? "U"}
+                          </AvatarFallback>
+                        </Avatar>
                       </span>
                       <div>
                         <p className="font-medium">{receiverName}</p>
@@ -198,7 +203,7 @@ const PageOrders = ({
                     </div>
                   </TableCell>
 
-                  <TableCell>{user?.email ?? "N/A"}</TableCell>
+                  {/* <TableCell>{user?.email ?? "N/A"}</TableCell> */}
                   <TableCell>
                     <p className="max-w-60 min-w-48 whitespace-normal wrap-break-word">
                       {address ?? "N/A"}
@@ -209,16 +214,7 @@ const PageOrders = ({
                   <TableCell>৳{Number(total).toLocaleString()}</TableCell>
 
                   <TableCell>
-                    <Badge
-                      variant={
-                        (status === "PENDING" && "default") ||
-                        (status === "CANCELLED" && "destructive") ||
-                        "default"
-                      }
-                      className={`${status === "PENDING" ? "bg-red-primary" : ""}`}
-                    >
-                      {status}
-                    </Badge>
+                    <OrderStatusBadge status={status} />
                   </TableCell>
 
                   <TableCell>

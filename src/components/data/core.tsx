@@ -32,6 +32,7 @@ import {
   FaRegStarHalfStroke,
   FaStar,
 } from "react-icons/fa6";
+import { LuMails } from "react-icons/lu";
 import { MdEmail } from "react-icons/md";
 import {
   CreditCardIcon,
@@ -52,6 +53,7 @@ import {
 import { IconType } from "react-icons/lib";
 import { TbCategoryPlus } from "react-icons/tb";
 import { OrderStatus } from "@/generated/prisma";
+import { IoMailOpenOutline, IoMailUnreadOutline } from "react-icons/io5";
 
 export const coreInfo = {
   name: "ST Office Furniture",
@@ -386,6 +388,7 @@ export type ProductItemType = {
   keyFeatures: string[];
   stock: number;
   categoryId: number | null;
+  // averageRating: number;
   createdAt: Date;
   updatedAt: Date;
 };
@@ -485,4 +488,10 @@ export const OfficeImages = [
     href: "#",
     image: officeImage4,
   },
+];
+
+export const messagesFilter = [
+  { label: "All", icon: LuMails, value: "" },
+  { label: "Unread", icon: IoMailUnreadOutline, value: "unread" },
+  { label: "Read", icon: IoMailOpenOutline, value: "read" },
 ];

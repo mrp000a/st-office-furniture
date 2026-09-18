@@ -8,6 +8,7 @@ import Link from "next/link";
 import { IoReload } from "react-icons/io5";
 import ProductAdmin from "../_dash_components/common/adminProduct";
 import PaginationLayout from "@/components/common/paginationLayout";
+import SearchShowClient from "@/components/common/searchShowClient";
 // import { getProducts } from "@/lib/api";
 
 type serializedProductsType = {
@@ -57,7 +58,9 @@ const ProductsPageTest = ({
       <div className="flex justify-between items-center flex-wrap box-border relative">
         <h2 className="text-2xl font-bold font-mono">Products</h2>
         <div className="gap-1 flex items-center flex-wrap ">
-          <SearchLayout />
+          <div className=" flex-1">
+            <SearchLayout />
+          </div>
           <Button variant={"default"} asChild>
             <Link href={"/dashboard/products/add"}>
               <CirclePlus /> <span>Add </span>
@@ -69,7 +72,7 @@ const ProductsPageTest = ({
         </div>
       </div>
       <hr className="py-1 inline-block w-full" />
-
+      <SearchShowClient />
       <div className="flex-center">
         <div className="flex flex-wrap items-stretch gap-2 max-sm:flex-center w-full ">
           {products &&

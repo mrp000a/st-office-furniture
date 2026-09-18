@@ -6,6 +6,14 @@ export async function getSession() {
   return await getServerSession(authOptions as any);
 }
 
+export async function getUserId(sessionPromise: Promise<any>) {
+  const session = await sessionPromise;
+  if (!session) throw { status: 401, message: "Unauthorized, Please Log In" };
+  const id = session.user?.id;
+  return id;
+}
+
+
 export async function requireRole(
   sessionPromise: Promise<any>,
   roles: UserRole[] | UserRole,

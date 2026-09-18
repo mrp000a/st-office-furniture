@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import ProductClient from "@/components/uiComponent/productClient";
 import ProductPagination from "./paginationCom";
 import SearchLayout from "@/components/common/searchLayout";
+import SearchShowClient from "@/components/common/searchShowClient";
+import { useRouter } from "next/navigation";
 // import { getProducts } from "@/lib/api";
 
 type serializedProductsType = {
@@ -34,6 +36,7 @@ type serializedProductsType = {
   keyFeatures: string[];
   stock: number;
   categoryId: number | null;
+  averageRating: number;
   createdAt: Date;
   updatedAt: Date;
 }[];
@@ -47,52 +50,32 @@ const ProductsPageTest = ({
   totalPages: number;
   currentPage: number;
 }) => {
+  const router = useRouter();
   return (
     <div className=" w-full space-y-1">
       <div className="py-2 px-3 relative w-full flex box-border border bg-background rounded-md  justify-between border-b border-b-gray-secondary/50 items-center flex-wrap max-w-384 mx-auto ">
         <div>
           <h2 className="text-2xl font-bold">Products</h2>
         </div>
-        <div className="flex-center box-border relative gap-2 flex-wrap max-w-full">
-          <SearchLayout />
+        <div className="gap-1 flex items-center flex-wrap">
+          <div className=" flex-1">
+            <SearchLayout />
+          </div>
           {/* buttons  */}
 
           <Button
             variant={"outline"}
             size={"icon-lg"}
-            onClick={async () => console.log("object")}
+            onClick={async () => router.refresh()}
           >
             <RotateCcw />
           </Button>
         </div>
       </div>
-      {/* search details client */}
-      {/* <div
-        className={`max-w-384 w-full mx-auto rounded-md gap-2 flex flex-wrap text-gray-primary/80 `}
-      >
-        <span className={`${searchProductString.length > 0 ? "" : "hidden"}`}>
-          Showing result for {`"${searchProductString}"`}
-        </span>
-        <span>
-          {searchProductString.length > 0 &&
-            searchCategoryString.length > 0 &&
-            "In"}
-        </span>
-        <span className={`${searchCategoryString.length > 0 ? "" : "hidden"}`}>
-          Category : {`"${searchCategoryString}"`}
-        </span>
-        <Button
-          onClick={() => {
-            setSearchCategoryString("");
-            setSearchProductString("");
-            router.push("/products");
-          }}
-          className={`${searchCategoryString.length > 0 || searchProductString.length > 0 ? "" : "hidden"}`}
-          variant={"destructive"}
-        >
-          <X />
-        </Button>
-      </div> */}
+
+      <div className="w-full max-w-382 mx-auto">
+        <SearchShowClient pathnameSend="/products" />
+      </div>
 
       <div className="max-w-384 flex-center w-full mx-auto ">
         {/* <Button onClick={loadProduct}>Set product</Button> */}

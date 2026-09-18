@@ -29,7 +29,7 @@ import { useRouter } from "next/navigation";
 const HeroSectionA = () => {
   const router = useRouter();
   const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
+  // const [activeIndex, setActiveIndex] = useState(0);
 
   return (
     <div>
@@ -84,7 +84,7 @@ const HeroSectionA = () => {
 
                       <button
                         onClick={() => router.push("/products")}
-                        className="hero-button mt-6 rounded-md text-end text-sm lg:text-2xl bg-white px-3 py-1 md:px-6 md:py-3 font-semibold hover:bg-white/70 text-black"
+                        className="hero-button mt-6 cursor-pointer rounded-md text-end text-sm lg:text-2xl bg-white px-3 py-1 md:px-6 md:py-3 font-semibold hover:bg-red-primary/60 hover:text-white transition-all duration-200 active:-translate-y-1 text-black"
                       >
                         Shop Now
                       </button>

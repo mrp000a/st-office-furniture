@@ -26,6 +26,7 @@ import SearchLayout from "@/components/common/searchLayout";
 import { FaReadme } from "react-icons/fa";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
+import SearchShowClient from "@/components/common/searchShowClient";
 
 const PageMessagesAdmin = ({
   categories,
@@ -57,7 +58,9 @@ const PageMessagesAdmin = ({
       <div className="flex justify-between items-center flex-wrap">
         <h2 className="text-2xl font-bold font-mono">Messages</h2>
         <div className="gap-1 flex items-center flex-wrap">
-          <SearchLayout />
+          <div className=" flex-1">
+            <SearchLayout />
+          </div>
           <Button
             onClick={() => setOpenAddCategory((e) => !e)}
             variant={"outline"}
@@ -70,6 +73,7 @@ const PageMessagesAdmin = ({
         </div>
       </div>
       <hr className="py-1 inline-block w-full" />
+      <SearchShowClient />
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2 ">
         {categories &&
           categories.length > 0 &&

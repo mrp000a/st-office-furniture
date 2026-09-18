@@ -25,6 +25,7 @@ const ProductsSections = ({
 }: {
   products: (Product & {
     category: Category;
+    averageRating: number;
     _count: {
       descriptions: number;
       reviews: number;
@@ -58,7 +59,7 @@ const ProductsSections = ({
           <span className="flex items-center gap-2">
             <div className="relative text-red-primary">
               <Icon className="animate-ping absolute opacity-50 h-8 w-8" />
-              <Icon className="h-8 w-8"/>
+              <Icon className="h-8 w-8" />
             </div>
             <h2 className="font-bold text-lg">{title ?? "Products"}</h2>
           </span>

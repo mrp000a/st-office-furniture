@@ -74,7 +74,7 @@ const ProfileHeader = ({
         </div>
       </div>
 
-      <div className="flex gap-2  flex-col sm:flex-row">
+      <div className="flex gap-2 items-start  flex-col sm:flex-row">
         {/* profile navigarion buttons */}
         <div
           className={`px-1 py-1 border border-gray-secondary rounded-md bg-background w-fit`}

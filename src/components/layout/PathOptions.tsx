@@ -7,9 +7,12 @@ const PathOptions = ({ forceShow = false }: { forceShow?: boolean }) => {
   const pathname = usePathname();
   const pathnamesArray: string[] = pathname.split("/").filter(Boolean);
 
+  if (pathnamesArray?.length === 0) {
+    return <></>;
+  }
   return (
     <div
-      className={` w-full mx-auto px-3  box-border text-gray-secondary font-semibold relative z-30 ${pathname.startsWith("/dashboard") ? "py-1 text-sm" : "max-w-384 py-2 text-xs md:text-sm"}`}
+      className={` w-full mx-auto px-3  box-border text-gray-secondary font-semibold relative z-30 `}
     >
       <div className="flex items-center gap-2 md:gap-3 xl:gap-4 scroll-auto scrollbar-thin scrollbar-thumb-gray-secondary/20 overflow-auto overflow-y-hidden">
         <Link href={"/"}>home</Link>

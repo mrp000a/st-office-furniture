@@ -17,7 +17,9 @@ export default function MainLayout({
   return (
     <>
       <HomeNav />
-      <PathOptions />
+      <div className="max-w-384 mx-auto w-full text-sm">
+        <PathOptions />
+      </div>
       <main className="flex-1 pb-12">{children}</main>
       <Footer />
     </>

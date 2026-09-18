@@ -12,7 +12,7 @@ const AccessoriesProducts = async () => {
   // fetch data
   const data = await fetch(
     `${process.env.NEXT_PUBLIC_URL_SITE}/api/products?limit=${filterOption.limit}&order=${filterOption.order}&category=${filterOption.category}`,
-    { next: { revalidate: 1 } },
+    { next: { revalidate: 600 } },
   ).then((res) => res.json());
 
   const featuredProducts = data.result;

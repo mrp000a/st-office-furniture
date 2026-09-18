@@ -21,6 +21,7 @@ import { ProductDefaultImage } from "@/components/data/core";
 import { useRouter } from "next/navigation";
 import PaginationLayout from "@/components/common/paginationLayout";
 import SearchLayout from "@/components/common/searchLayout";
+import SearchShowClient from "@/components/common/searchShowClient";
 
 const PageCategoriesAdmin = ({
   categories,
@@ -48,7 +49,9 @@ const PageCategoriesAdmin = ({
       <div className="flex justify-between items-center flex-wrap">
         <h2 className="text-2xl font-bold font-mono">Categories</h2>
         <div className="gap-1 flex items-center flex-wrap">
-          <SearchLayout />
+          <div className="flex-1">
+            <SearchLayout />
+          </div>
           <Button
             onClick={() => setOpenAddCategory((e) => !e)}
             variant={"outline"}
@@ -61,6 +64,7 @@ const PageCategoriesAdmin = ({
         </div>
       </div>
       <hr className="py-1 inline-block w-full" />
+      <SearchShowClient />
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2 ">
         {categories &&
           categories.length > 0 &&

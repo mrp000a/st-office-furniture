@@ -29,6 +29,7 @@ import Image from "next/image";
 import { FaUserCircle } from "react-icons/fa";
 import Link from "next/link";
 import { OrderStatusBadge } from "@/components/uiComponent/order-status-badge";
+import { HtmlProps } from "next/dist/shared/lib/html-context.shared-runtime";
 
 const PageOrderInfo = ({
   order,
@@ -58,7 +59,10 @@ const PageOrderInfo = ({
               </h2>
             </div>
             <div className="flex-center">
-              <OrderStatusBadge status={order.status} />
+              <OrderStatusBadge
+                status={order.status}
+                className="font-semibold text-base px-3 py-2"
+              />
             </div>
 
             {/* billing info and price */}
@@ -230,38 +234,48 @@ const PageOrderInfo = ({
           {/* log container */}
           <div className="md:max-w-100 flex-1  bg-background rounded-sm shadow shadow-foreground p-2 px-4 space-y-3 h-fit ">
             <Timeline defaultValue={3} className="w-full max-w-md">
-              {order.logs.map(({ status, createdAt, note, id }, index) => (
-                <TimelineItem
-                  key={index}
-                  step={id}
-                  className="group-data-[orientation=vertical]/timeline:ms-10"
-                >
-                  <TimelineHeader>
-                    <TimelineSeparator className="group-data-[orientation=vertical]/timeline:-left-7 group-data-[orientation=vertical]/timeline:h-[calc(100%-1.5rem-0.25rem)] group-data-[orientation=vertical]/timeline:translate-y-6.5" />
-                    <TimelineDate>
-                      {new Date(createdAt).toDateString()}
-                    </TimelineDate>
-                    <TimelineTitle>{status}</TimelineTitle>
-                    <TimelineIndicator className="group-data-completed/timeline-item:bg-primary group-data-completed/timeline-item:text-primary-foreground flex size-6 items-center justify-center group-data-completed/timeline-item:border-none group-data-[orientation=vertical]/timeline:-left-7">
-                      {index === order.logs.length - 1 &&
-                      status !== "CANCELLED" &&
-                      status !== "DELIVERED" &&
-                      status !== "RETURNED" ? (
-                        <>
-                          <span className="bg-gray-primary h-full w-full rounded-full"></span>
-                          <span className="bg-gray-primary h-full w-full rounded-full animate-ping absolute "></span>
-                        </>
-                      ) : (
-                        <>
-                          <CheckIcon className="size-4 " />
-                          {/* <CheckIcon className="size-4 animate-ping" /> */}
-                        </>
-                      )}
-                    </TimelineIndicator>
-                  </TimelineHeader>
-                  <TimelineContent>{note}</TimelineContent>
-                </TimelineItem>
-              ))}
+              {order.logs
+                .toReversed()
+                .map(({ status, createdAt, note, id }, index) => (
+                  <TimelineItem
+                    key={index}
+                    step={id}
+                    className="group-data-[orientation=vertical]/timeline:ms-10"
+                  >
+                    <TimelineHeader>
+                      <TimelineSeparator className="group-data-[orientation=vertical]/timeline:-left-7 group-data-[orientation=vertical]/timeline:h-[calc(100%-1.5rem-0.25rem)] group-data-[orientation=vertical]/timeline:translate-y-6.5" />
+                      <TimelineDate>
+                        <span>{new Date(createdAt).toDateString()}-</span>
+                        <span>
+                          {new Date(createdAt).toTimeString().split("GMT")[0]}
+                        </span>
+                      </TimelineDate>
+                      <TimelineTitle>{status}</TimelineTitle>
+                      <TimelineIndicator className="group-data-completed/timeline-item:bg-primary group-data-completed/timeline-item:text-primary-foreground flex size-6 items-center justify-center group-data-completed/timeline-item:border-none group-data-[orientation=vertical]/timeline:-left-7">
+                        {index === 0 &&
+                        status !== "CANCELLED" &&
+                        status !== "DELIVERED" &&
+                        status !== "RETURNED" ? (
+                          <>
+                            <span className="bg-gray-primary h-full w-full rounded-full"></span>
+                            <span className="bg-gray-primary h-full w-full rounded-full animate-ping absolute "></span>
+                          </>
+                        ) : (
+                          <>
+                            <CheckIcon className="size-4 " />
+                            {/* <CheckIcon className="size-4 animate-ping" /> */}
+                          </>
+                        )}
+                      </TimelineIndicator>
+                    </TimelineHeader>
+                    <TimelineContent
+                      className="whitespace-pre-line"
+                      dangerouslySetInnerHTML={{
+                        __html: note ?? "",
+                      }}
+                    />
+                  </TimelineItem>
+                ))}
             </Timeline>
           </div>
         </div>

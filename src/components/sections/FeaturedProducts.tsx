@@ -21,7 +21,7 @@ const FeaturedProducts = async () => {
   return (
     <ProductsSections
       products={featuredProducts}
-      title="Featured Products"
+      title="New Products"
       href={`/products?category=${filterOption.category}`}
       icon="star"
     />

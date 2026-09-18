@@ -31,6 +31,8 @@ import SearchLayout from "@/components/common/searchLayout";
 import { useRouter } from "next/navigation";
 import PaginationLayout from "@/components/common/paginationLayout";
 import { deleteUser } from "@/lib/api";
+import SearchShowClient from "@/components/common/searchShowClient";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const PageUsersAdmin = ({
   users,
@@ -59,10 +61,13 @@ const PageUsersAdmin = ({
 
   return (
     <div className="w-full">
+      {/* header */}
       <div className="flex justify-between items-center flex-wrap relative w-full">
         <h2 className="text-2xl font-bold font-mono">Users</h2>
         <div className="gap-1 flex items-center flex-wrap">
-          <SearchLayout />
+          <div className=" flex-1">
+            <SearchLayout />
+          </div>
           <Button onClick={() => setOpenAddUser((e) => !e)} variant={"default"}>
             <CirclePlus />
             Add
@@ -73,6 +78,7 @@ const PageUsersAdmin = ({
         </div>
       </div>
       <hr className="py-1 inline-block w-full" />
+      <SearchShowClient />
       {users && users.length > 0 ? (
         <div className="w-full">
           <Table className="">
@@ -113,17 +119,14 @@ const PageUsersAdmin = ({
                     <TableCell>
                       <div className="flex items-center justify-start  gap-1">
                         <span className="min-w-6 max-w-6  min-h-6 max-h-6 relative z-10 inline-block rounded-full  overflow-hidden">
-                          {image ? (
-                            <Image
-                              src={`${process.env.NEXT_PUBLIC_URL_R2}/${image ? image : ProductDefaultImage}`}
-                              alt={email}
-                              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                              fill
-                              className="object-cover w-full h-full"
+                          <Avatar className="size-6">
+                            <AvatarImage
+                              src={`${process.env.NEXT_PUBLIC_URL_R2}/${image}`}
                             />
-                          ) : (
-                            <FaUserCircle className="h-full w-full" />
-                          )}
+                            <AvatarFallback>
+                              {name?.charAt(0).toUpperCase() ?? "U"}
+                            </AvatarFallback>
+                          </Avatar>
                         </span>
                         <div>
                           <p className="font-medium">{name}</p>

@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { Metadata } from "next";
 import { coreInfo } from "@/components/data/core";
 import PageCategoriesAdmin from "./pageCategories";
+import CategoriesPageClient from "./categoriesClient";
 
 type Props = {
   searchParams: Promise<{
@@ -17,7 +18,8 @@ export default async function CategoriesPage({ searchParams }: Props) {
   const search = params.search ?? "";
   const page = Number(params.page ?? 1);
 
-  const totalProducts = await prisma.category.count({
+  const allItems = await prisma.category.count({});
+  const totalItems = await prisma.category.count({
     where: {
       ...(search
         ? {
@@ -32,7 +34,7 @@ export default async function CategoriesPage({ searchParams }: Props) {
 
   const ITEMS_PER_PAGE = 10;
 
-  const totalPages = Math.ceil(totalProducts / ITEMS_PER_PAGE);
+  const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
 
   const categories = await prisma.category.findMany({
     where: {
@@ -63,10 +65,17 @@ export default async function CategoriesPage({ searchParams }: Props) {
   });
 
   return (
-    <PageCategoriesAdmin
-      categories={categories}
-      currentPage={page}
+    // <PageCategoriesAdmin
+    //   categories={categories}
+    //   currentPage={page}
+    //   totalPages={totalPages}
+    // />
+    <CategoriesPageClient
+      key={11}
+      totalItems={allItems}
       totalPages={totalPages}
+      currentPage={page}
+      categories={categories}
     />
   );
 }
