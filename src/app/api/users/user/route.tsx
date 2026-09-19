@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 import { Gender, User, UserRole } from "@/generated/prisma";
-import { getSession, requireRole } from "@/lib/serverAuth";
+import { getRole, getSession, requireRole } from "@/lib/serverAuth";
 
 export async function GET(req: NextRequest) {
   try {
@@ -85,12 +85,13 @@ export async function POST(req: Request) {
 export async function PUT(req: Request) {
   try {
     const sessionPromise = getSession();
-    await requireRole(sessionPromise, "USER");
+    // await requireRole(sessionPromise, "USER");
+    const role = await getRole(sessionPromise);
 
     const body = await req.json();
     const { id, name, phone, gender, image, address, password } = body as User;
 
-    if (!id || !name || !phone)
+    if (!id || !name || !phone || !role)
       return NextResponse.json(
         {
           success: false,
@@ -103,19 +104,19 @@ export async function PUT(req: Request) {
       name: string;
       phone: string;
       role: UserRole;
-      gender: Gender;
+      gender: Gender | null;
       image?: string;
       address: string;
       password?: string;
     } = {
       name,
       phone,
-      role: "USER",
-      gender: gender ?? "MALE",
+      role: role,
+      gender: gender,
       image: image ?? "",
       address: address ?? "",
     };
-    if (password && password.length > 5) {
+    if (password && password.length > 7) {
       const hashed = await bcrypt.hash(password, 10);
       updateData.password = hashed;
     }

@@ -29,7 +29,7 @@ export const authOptions: NextAuthOptions = {
 
         const valid = await compare(credentials.password, user.password);
         if (!valid) throw new Error("Incorrect password!");
-        
+
         if (!user.emailVerified)
           throw new Error("Please verify your email before logging in.");
 
@@ -73,7 +73,7 @@ export const authOptions: NextAuthOptions = {
         token.name = session.name;
         token.email = session.email;
         token.phone = session.phone;
-        token.role = "USER";
+        token.role = session.role;
         token.gender = session.gender;
         token.image = session.image;
         token.address = session.address;

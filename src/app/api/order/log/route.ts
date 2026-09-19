@@ -27,6 +27,13 @@ export async function POST(req: Request) {
       include: { order: true },
     });
 
+    await prisma.order.update({
+      where: { id: Number(orderId) },
+      data: {
+        status: status,
+      },
+    });
+
     if (!createOrderLog)
       return NextResponse.json({
         success: false,

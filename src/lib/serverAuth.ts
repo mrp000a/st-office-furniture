@@ -13,6 +13,12 @@ export async function getUserId(sessionPromise: Promise<any>) {
   return id;
 }
 
+export async function getRole(sessionPromise: Promise<any>) {
+  const session = await sessionPromise;
+  if (!session) throw { status: 401, message: "Unauthorized, Please Log In" };
+  const role = session.user?.role;
+  return role;
+}
 
 export async function requireRole(
   sessionPromise: Promise<any>,

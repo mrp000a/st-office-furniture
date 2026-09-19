@@ -49,7 +49,7 @@ const CartDrawar = ({
   return (
     <div>
       <Drawer open={openCart} direction="right" onOpenChange={setOpenCart}>
-        <DrawerContent className="z-9999 px-3 py-2 ">
+        <DrawerContent className="z-9999 px-3 py-2 min-[400px]:min-w-sm md:min-w-md lg:min-w-lg max-w-[100vw]">
           <DrawerHeader className="border-b border-b-gray-secondary">
             <DrawerTitle>
               <div className="flex justify-between items-center">

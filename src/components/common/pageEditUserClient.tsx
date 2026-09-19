@@ -68,7 +68,7 @@ const PageEditUserClient = ({
     },
   });
 
-  const handleSubmitData = async (data: UserFormData & { role: UserRole }) => {
+  const handleSubmitData = async (data: UserFormData) => {
     const {
       name,
       email,
@@ -76,7 +76,6 @@ const PageEditUserClient = ({
       gender,
       image,
       address,
-      role,
 
       password,
       confirmPassword,
@@ -110,7 +109,6 @@ const PageEditUserClient = ({
       let fileData = null;
 
       if (image && image[0] !== undefined) {
-        // console.log("Error LIne")
         fileData = await uploadFile(image[0], "r2upload/users/images");
       }
 
@@ -147,14 +145,15 @@ const PageEditUserClient = ({
           description: new Date().toDateString(),
         });
         if (load) await load();
+
         setOpen(false);
         await update({
+          ...session.data?.user,
           name: temporaryRaw.name,
-          // email: temporaryRaw.email,
           phone: temporaryRaw.phone,
-          //   role: temporaryRaw.role,
           gender: temporaryRaw.gender,
           image: temporaryRaw.image,
+          role: session.data?.user.role,
           address: temporaryRaw.address,
         });
       } else {
