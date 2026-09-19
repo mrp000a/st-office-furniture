@@ -4,11 +4,7 @@ import { Message } from "@/generated/prisma";
 import { deleteMessages, editMessages } from "@/lib/api";
 import {
   Check,
-  DotSquare,
-  Eye,
-  Mail,
   MailOpen,
-  Search,
   Trash2,
 } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -16,7 +12,6 @@ import { useState } from "react";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -27,11 +22,7 @@ import { RiDeleteBin5Fill } from "react-icons/ri";
 import { useAlertDialog } from "@/components/hooks/use-alert-dialog";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
-import {
-  IoMailOpenOutline,
-  IoMailUnreadOutline,
-  IoReload,
-} from "react-icons/io5";
+import { IoReload } from "react-icons/io5";
 import { messagesFilter } from "@/components/data/core";
 import SearchLayout from "@/components/common/searchLayout";
 import PaginationLayout from "@/components/common/paginationLayout";
@@ -309,7 +300,7 @@ export default function MessagesPage({
               <div
                 key={id}
                 className={`rounded-xl border bg-card p-4 ${
-                  !isRead ? "border-primary/30 bg-violet-primary/[0.09]" : ""
+                  !isRead ? "border-primary/30 bg-violet-primary/9" : ""
                 }`}
               >
                 {/* Top */}

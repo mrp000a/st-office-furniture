@@ -36,7 +36,7 @@ import ProductLoadinglayout from "./loading";
 import RatingStars from "@/components/uiComponent/ratingstars";
 import { MdReviews } from "react-icons/md";
 import ProductReviewForm from "@/components/common/reviewForm";
-import { ReviewCard } from "@/components/common/reviewCart";
+import { ReviewCard } from "@/components/common/reviewCard";
 
 // import { useRouter } from "next/navigation";
 
