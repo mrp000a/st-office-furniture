@@ -41,47 +41,14 @@ import PaginationLayout from "@/components/common/paginationLayout";
 import SearchShowClient from "@/components/common/searchShowClient";
 import { OrderStatusBadge } from "@/components/uiComponent/order-status-badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-
-type ordersType = {
-  subtotal: number;
-  discountAmount: number | null;
-  total: number | null;
-  shippingCost: number | null;
-  user: {
-    id: number;
-    name: string;
-    role: UserRole;
-    phone: string | null;
-    email: string;
-    password: string;
-    image: string | null;
-    gender: Gender | null;
-    address: string | null;
-    createdAt: Date;
-    updatedAt: Date;
-  } | null;
-  _count: {
-    items: number;
-  };
-  id: number;
-  status: OrderStatus;
-  receiverName: string;
-  receiverEmail: string | null;
-  receiverPhone: string;
-  address: string;
-  createdAt: Date;
-  updatedAt: Date;
-  userId: number | null;
-  paymentStatus: PaymentStatus;
-  paymentMethod: PaymentMethods;
-}[];
+import { ordersType } from "@/components/data/types";
 
 const PageOrders = ({
   orders,
   currentPage,
   totalPages,
 }: {
-  orders: ordersType;
+  orders: ordersType[];
   currentPage: number;
   totalPages: number;
 }) => {
@@ -249,7 +216,7 @@ const PageOrders = ({
                         }}
                         size={"icon"}
                         variant={"default"}
-                        className="bg-red-primary cursor-pointer"
+                        className="bg-green-primary cursor-pointer"
                       >
                         <RiDeleteBin6Fill />
                       </Button>

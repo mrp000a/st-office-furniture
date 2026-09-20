@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { Product, ProductDescription } from "@/generated/prisma";
-import { getSession, requireRole } from "@/lib/serverAuth";
+import { getSession, getUserId, requireRole } from "@/lib/serverAuth";
+import { createActivity } from "@/lib/activity-log";
 
 export async function GET(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams;
@@ -76,7 +77,6 @@ export async function GET(req: NextRequest) {
       message: "All Products loaded.",
       result: productsWithRating,
     });
-    
   } catch (err: any) {
     return NextResponse.json(
       { success: false, message: err?.message ?? "Db Error-" },
@@ -89,6 +89,7 @@ export async function POST(req: Request) {
   try {
     const sessionPromise = getSession();
     await requireRole(sessionPromise, ["ADMIN", "SUPER_ADMIN"]);
+    const adminId = await getUserId(sessionPromise);
 
     const body = await req.json();
     const {
@@ -120,7 +121,7 @@ export async function POST(req: Request) {
     const cleanedDiscountPrice = discountPrice ? Number(discountPrice) : null;
     const cleanedDiscount = discount ? Number(discount) : null;
 
-    const category = await prisma.product.create({
+    const productCreate = await prisma.product.create({
       data: {
         title,
         productCode: productCode.toLowerCase(),
@@ -141,7 +142,24 @@ export async function POST(req: Request) {
       include: { descriptions: true, category: true },
     });
 
-    return NextResponse.json({ success: true, result: category });
+    await createActivity({
+      type: "PRODUCT",
+      action: "CREATE",
+
+      title: `A New Product Added. Product Code - ${productCode}`,
+
+      description: `Admin id ${adminId} created a product.`,
+
+      userId: adminId,
+
+      entityId: productCreate.id.toString(),
+      entityType: "user",
+    });
+
+    return NextResponse.json({
+      success: true,
+      message: "Product Created Successful",
+    });
   } catch (err: any) {
     const message = err?.message ?? String(err);
     return NextResponse.json(
@@ -155,6 +173,7 @@ export async function PUT(req: Request) {
   try {
     const sessionPromise = getSession();
     await requireRole(sessionPromise, ["ADMIN", "SUPER_ADMIN"]);
+    const adminId = await getUserId(sessionPromise);
 
     const body = await req.json();
     const {
@@ -188,28 +207,7 @@ export async function PUT(req: Request) {
     const cleanedDiscountPrice = discountPrice ? Number(discountPrice) : null;
     const cleanedDiscount = discount ? Number(discount) : null;
 
-    // const category = await prisma.product.create({
-    //   data: {
-    //     title,
-    //     productCode: productCode.toLowerCase(),
-    //     images,
-
-    //     keyFeatures,
-
-    //     brand,
-
-    //     price: Number(price),
-    //     discountPrice: cleanedDiscountPrice,
-    //     discount: cleanedDiscount,
-
-    //     stock: Number(stock),
-    //     descriptions: { createMany: { data: descriptions } },
-    //     category: categoryId ? { connect: { id: categoryId } } : undefined,
-    //   },
-    //   include: { descriptions: true, category: true },
-    // });
-
-    const category = await prisma.product.update({
+    const productUpdate = await prisma.product.update({
       where: {
         id: Number(id),
         // productCode,
@@ -236,7 +234,24 @@ export async function PUT(req: Request) {
       include: { descriptions: true, category: true },
     });
 
-    return NextResponse.json({ success: true, result: category });
+    await createActivity({
+      type: "PRODUCT",
+      action: "UPDATE",
+
+      title: `A Product Updated. Product Code - ${productCode}`,
+
+      description: `Admin id ${adminId} updated a product.`,
+
+      userId: adminId,
+
+      entityId: productUpdate.id.toString(),
+      entityType: "product",
+    });
+
+    return NextResponse.json({
+      success: true,
+      message: "Product Updated Successful",
+    });
   } catch (err: any) {
     const message = err?.message ?? String(err);
     return NextResponse.json(
@@ -247,16 +262,38 @@ export async function PUT(req: Request) {
 }
 
 export async function DELETE(req: NextRequest) {
-  const searchParams = req.nextUrl.searchParams;
-  const id = searchParams.get("id");
-  const productCode = searchParams.get("productCode");
-
   // return;
   try {
+    const searchParams = req.nextUrl.searchParams;
+    const id = searchParams.get("id");
+    const productCode = searchParams.get("productCode");
+
     const sessionPromise = getSession();
     await requireRole(sessionPromise, ["ADMIN", "SUPER_ADMIN"]);
+    const adminId = await getUserId(sessionPromise);
+
+    if (!id)
+      return NextResponse.json(
+        { success: false, message: "Id is required!" },
+        { status: 400 },
+      );
+
     const products = await prisma.product.delete({
       where: { id: Number(id) },
+    });
+
+    await createActivity({
+      type: "PRODUCT",
+      action: "DELETE",
+
+      title: `A Product Deleted. Product Code - ${productCode}`,
+
+      description: `Admin id ${adminId} created a product.`,
+
+      userId: adminId,
+
+      entityId: id.toString(),
+      entityType: "user",
     });
 
     return NextResponse.json({

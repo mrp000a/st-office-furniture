@@ -29,7 +29,7 @@ export function DropdownMenuNotification() {
           <span className="relative rounded-full hover:outline outline-gray-primary/50 transition-all  py-1 hover:bg-background/80">
             <MdNotifications className="h-8 w-8 text-gray-primary" />
             <span className="absolute top-0 right-1">
-              <GoDotFill className="rounded-full text-red-primary" />
+              <GoDotFill className="rounded-full text-green-primary" />
             </span>
           </span>
         </button>

@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 import { Gender, User, UserRole } from "@/generated/prisma";
-import { getRole, getSession, requireRole } from "@/lib/serverAuth";
+import { getRole, getSession, getUserId, requireRole } from "@/lib/serverAuth";
+import { createActivity } from "@/lib/activity-log";
 
 export async function GET(req: NextRequest) {
   try {
@@ -28,11 +29,12 @@ export async function GET(req: NextRequest) {
   }
 }
 
-// create user by anyperson
+// create user by super admin
 export async function POST(req: Request) {
   try {
-    // const sessionPromise = getSession();
-    // await requireRole(sessionPromise, "ADMIN");
+    const sessionPromise = getSession();
+    await requireRole(sessionPromise, "SUPER_ADMIN");
+    const adminId = await getUserId(sessionPromise);
 
     const body = await req.json();
     const { role, name, email, phone, gender, image, address, password } =
@@ -70,6 +72,20 @@ export async function POST(req: Request) {
         { status: 500 },
       );
 
+    await createActivity({
+      type: "USER",
+      action: "REGISTER",
+
+      title: "A New User Registered",
+
+      description: `Admin id ${adminId} created an user account`,
+
+      userId: adminId,
+
+      entityId: user.id.toString(),
+      entityType: "user",
+    });
+
     const { password: _p, ...rest } = user as User;
 
     return NextResponse.json({ success: true, result: rest });
@@ -82,16 +98,19 @@ export async function POST(req: Request) {
   }
 }
 
+
+// anyone can update himself
 export async function PUT(req: Request) {
   try {
     const sessionPromise = getSession();
     // await requireRole(sessionPromise, "USER");
     const role = await getRole(sessionPromise);
+    const userId = await getUserId(sessionPromise);
 
     const body = await req.json();
     const { id, name, phone, gender, image, address, password } = body as User;
 
-    if (!id || !name || !phone || !role)
+    if (!userId || !name || !phone || !role)
       return NextResponse.json(
         {
           success: false,
@@ -121,8 +140,22 @@ export async function PUT(req: Request) {
       updateData.password = hashed;
     }
     const user = await prisma.user.update({
-      where: { id: Number(id) },
+      where: { id: Number(userId) },
       data: updateData,
+    });
+
+    await createActivity({
+      type: "USER",
+      action: "REGISTER",
+
+      title: "A New User Registered",
+
+      description: `${user.name} updated his profile`,
+
+      userId: userId,
+
+      entityId: user.id.toString(),
+      entityType: "user",
     });
 
     const { password: _p, ...rest } = user as User;

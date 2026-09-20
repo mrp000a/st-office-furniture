@@ -2,11 +2,7 @@
 
 import { Message } from "@/generated/prisma";
 import { deleteMessages, editMessages } from "@/lib/api";
-import {
-  Check,
-  MailOpen,
-  Trash2,
-} from "lucide-react";
+import { Check, MailOpen, Trash2 } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import {
@@ -319,7 +315,7 @@ export default function MessagesPage({
                   </div>
 
                   {!isRead && (
-                    <span className="size-2 shrink-0 rounded-full bg-red-primary" />
+                    <span className="size-2 shrink-0 rounded-full bg-green-primary" />
                   )}
                 </div>
 
@@ -435,7 +431,7 @@ export default function MessagesPage({
                   className={`absolute top-2 right-2 ${editCategoryData?.isRead ? "hidden" : ""}`}
                 >
                   <Badge variant={"outline"}>
-                    <GoDotFill className="fill-red-primary size-4" />
+                    <GoDotFill className="fill-green-primary size-4" />
                     <span>Unread</span>
                   </Badge>
                 </span>

@@ -15,6 +15,7 @@ const ProductsLoadinglayout = () => {
             <Skeleton className="max-w-full box-border w-2/4 h-5"></Skeleton>
             <div className="flex items-center gap-2">
               <Skeleton className="max-w-full box-border w-2/5 h-7"></Skeleton>
+              <Skeleton className="max-w-full box-border w-2/5 h-7"></Skeleton>
             </div>
             <div className="flex items-center gap-2">
               <Skeleton className="max-w-full box-border w-full h-10"></Skeleton>

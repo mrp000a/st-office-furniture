@@ -10,6 +10,9 @@ import { ProReviewAdd } from "../actions/ProReviewAdd";
 import { InputErrorMessage } from "../uiComponent/uiCom";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { useAlertDialog } from "../hooks/use-alert-dialog";
+import { title } from "process";
 type ReviewFormData = {
   rating: number;
   note: string;
@@ -17,10 +20,13 @@ type ReviewFormData = {
 
 type ReviewFormProps = {
   productId: number;
+  productCode: string;
 };
 
-const ReviewForm = ({ productId }: ReviewFormProps) => {
+const ReviewForm = ({ productId, productCode }: ReviewFormProps) => {
+  const session = useSession();
   const router = useRouter();
+  const { confirm } = useAlertDialog();
   const {
     register,
     control,
@@ -35,11 +41,16 @@ const ReviewForm = ({ productId }: ReviewFormProps) => {
   });
 
   const onSubmit = async (data: ReviewFormData) => {
-    console.log({
-      productId,
-      ...data,
-    });
+    if (!session?.data) {
+      const logIn = await confirm({
+        title: "Please Log In to put a review!",
+        description: "Your mush have to be logged in.",
+        confirmText: "Log In"
+      });
 
+      if (logIn) router.push(`/signin?callbackUrl=products/${productCode}`);
+      return;
+    }
     const result = await ProReviewAdd({
       productId,
       rating: data.rating,
@@ -47,7 +58,7 @@ const ReviewForm = ({ productId }: ReviewFormProps) => {
     });
 
     if (result.success) {
-      toast.success("Thank for your feedback!", {
+      toast.success("Thanks for your feedback!", {
         description: new Date().toDateString(),
       });
       const time = setTimeout(() => {

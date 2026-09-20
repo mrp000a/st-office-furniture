@@ -204,7 +204,7 @@ const Page = () => {
                           (status === "CANCELLED" && "destructive") ||
                           "default"
                         }
-                        className={`${status === "PENDING" ? "bg-red-primary" : ""}`}
+                        className={`${status === "PENDING" ? "bg-green-primary" : ""}`}
                       >
                         {status}
                       </Badge>

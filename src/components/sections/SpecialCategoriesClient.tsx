@@ -1,6 +1,11 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { ArrowBigRight, ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  ArrowBigRight,
+  ArrowRight,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Category } from "@/generated/prisma";
 import { getCategoriesClient } from "@/lib/api";
@@ -30,18 +35,21 @@ const SpecialCategoriesClient = ({
 
   return (
     <section>
-      <div className=" relative  max-w-384 mx-auto w-full rounded-md p-2 bg-background border ">
+      <div className=" relative  max-w-384 mx-auto w-full rounded-md p-2 bg-background/30 border ">
         <div className="flex items-center justify-between flex-wrap gap-2  ">
           <span className="flex items-center gap-2">
-            <div className="relative text-red-primary">
-              <BiCategory className="animate-ping absolute opacity-50 h-8 w-8" />
-              <BiCategory className="h-8 w-8" />
+            <div className="relative text-green-primary">
+              <BiCategory
+                name="category"
+                className="animate-ping absolute fill-yellow-400 opacity-50 h-8 w-8"
+              />
+              <BiCategory name="category" className="h-8 w-8 fill-yellow-400" />
             </div>
-            <h2 className="font-bold text-lg">Top Categories</h2>
+            <h2 className="font-bold text-lg">Shop By Categories</h2>
           </span>
           <span>
             <Button variant={"destructive"} asChild>
-              <Link href={"/products"}>
+              <Link href={"/categories"}>
                 <span>See All</span>
                 <ArrowBigRight />
               </Link>
@@ -50,19 +58,19 @@ const SpecialCategoriesClient = ({
         </div>
         <div
           ref={scrollContainerRef}
-          className="relative flex items-stretch p-2 h-70  gap-3 w-full   overflow-x-auto overflow-y-hidden"
+          className="relative flex items-stretch p-2 h-100  gap-3 w-full   overflow-x-auto overflow-y-hidden"
         >
           {categories &&
             categories.length > 0 &&
             categories.map(({ name, description, image }, index) => (
               <div
                 key={index}
-                className="min-w-50 w-50 flex  rounded-md ring-2 ring-red-primary hover:ring-blue-primary p-2 box-border transition-all hover:-translate-y-0.5"
+                className="min-w-68 w-68 hover:shadow-lg  flex group  rounded-md ring-2 ring-green-primary hover:ring-gray-secondary hover:ring-4 p-2 box-border transition-all hover:-translate-y-0.5"
               >
                 <div className="flex flex-col w-full h-full  gap-2">
                   <Link
                     href={`/products?category=${name}`}
-                    className="w-full box-border min-h-35 h-35 relative z-10 inline-block rounded-md border border-gray-primary overflow-hidden"
+                    className="w-full box-border min-h-60 h-60 relative z-10 inline-block rounded-md border border-gray-primary overflow-hidden"
                   >
                     {image ? (
                       <Image
@@ -70,10 +78,13 @@ const SpecialCategoriesClient = ({
                         alt={name}
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         fill
-                        className="object-cover object-center w-full h-full cursor-pointer hover:scale-120 transition-all duration-500"
+                        className="object-cover group-hover:scale-115 object-center w-full h-full cursor-pointer  transition-all duration-500"
                       />
                     ) : (
-                      <TbCategoryPlus className="h-full w-full" />
+                      <TbCategoryPlus
+                        name="category Icon"
+                        className="h-full w-full"
+                      />
                     )}
                   </Link>
                   <div className="flex flex-col flex-1 items-start">
@@ -84,7 +95,7 @@ const SpecialCategoriesClient = ({
                       {name}
                     </Link>
                     {description && (
-                      <span className="line-clamp-3 text-[10px] ">
+                      <span className="line-clamp-2 text-[10px] ">
                         Description:{description}
                       </span>
                     )}
@@ -95,6 +106,9 @@ const SpecialCategoriesClient = ({
                       className="text-base font-bold line-clamp-2 cursor-pointer"
                     >
                       View Now
+                      <span className="size-5  bg-gray-secondary/60 flex-center group-hover:rotate-0 transition-all -rotate-45 rounded-full text-blue-primary">
+                        <ArrowRight size={3.3} className="" />
+                      </span>
                     </Link>
                   </Button>
                 </div>

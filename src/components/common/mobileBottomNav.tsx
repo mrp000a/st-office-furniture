@@ -16,11 +16,11 @@ const MobileBottomNav = () => {
               router.push(href);
             }}
             key={index}
-            className={` ${label.toLowerCase() == "home" ? "relative z-30 rounded-full bg-red-primary text-background  p-1 px-2  ring ring-gray-primary shadow-lg shadow-yellow-500 -translate-y-4" : `px-2 py-1 text-foreground flex-center flex-col flex-1 rounded-sm hover:bg-background active:bg-violet-primary transition-all hover:outline hover:outline-gray-primary/40 border border-gray-primary  cursor-pointer ${pathname.startsWith(href) ? "bg-blue-secondary text-background" : " bg-background"} `}`}
+            className={` ${label.toLowerCase() == "home" ? "relative z-30 rounded-full bg-green-primary text-background  p-1 px-2  ring ring-gray-primary shadow-lg shadow-yellow-500 -translate-y-4" : `px-2 py-1 text-foreground flex-center flex-col flex-1 rounded-sm hover:bg-background active:bg-violet-primary transition-all hover:outline hover:outline-gray-primary/40 border border-gray-primary  cursor-pointer ${pathname.startsWith(href) ? "bg-blue-secondary text-background" : " bg-background"} `}`}
           >
             {Logo && (
               <Logo
-                className={`font-bold ${label.toLowerCase() == "home" ? "text-background dark:text-foreground w-8 h-8 " : "text-red-primary w-6 h-6 "}`}
+                className={`font-bold ${label.toLowerCase() == "home" ? "text-background dark:text-foreground w-8 h-8 " : "text-green-primary w-6 h-6 "}`}
               />
             )}
             <span

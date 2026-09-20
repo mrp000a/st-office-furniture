@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { coreInfo } from "@/components/data/core";
-import ProfileHeader from "@/components/layout/ProfileHeader";
+
 import { Suspense } from "react";
+import ProfileHeader from "./_components/navButtons";
 
 export const metadata: Metadata = {
   title: `Profile | ${coreInfo.name}`,
@@ -15,7 +16,15 @@ export default function RootLayout({
 }>) {
   return (
     <>
-      <Suspense>{children}</Suspense>
+      <Suspense>
+        <div className="flex flex-col gap-2 md:flex-row items-start justify-start max-w-384 mx-auto">
+          <ProfileHeader />
+          <div className="flex-1 bg-background rounded-md border w-full">
+
+          {children}
+          </div>
+        </div>
+      </Suspense>
     </>
   );
 }

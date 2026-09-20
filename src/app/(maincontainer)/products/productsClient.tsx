@@ -4,10 +4,11 @@ import { RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 import ProductClient from "@/components/uiComponent/productClient";
-import ProductPagination from "./paginationCom";
+// import ProductPagination from "./paginationCom";
 import SearchLayout from "@/components/common/searchLayout";
 import SearchShowClient from "@/components/common/searchShowClient";
 import { useRouter } from "next/navigation";
+import PaginationLayout from "@/components/common/paginationLayout";
 // import { getProducts } from "@/lib/api";
 
 type serializedProductsType = {
@@ -94,7 +95,7 @@ const ProductsPageTest = ({
           </div>
         )}{" "}
       </div>
-      <ProductPagination currentPage={currentPage} totalPages={totalPages} />
+      <PaginationLayout currentPage={currentPage} totalPages={totalPages} />
     </div>
   );
 };

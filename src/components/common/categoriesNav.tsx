@@ -17,12 +17,10 @@ import Link from "next/link";
 import { Button } from "../ui/button";
 
 const CategoriesNavBar = () => {
-
   const [categoriesShow, setCategoriesShow] = useState(false);
 
-
   return (
-    <div className="w-full bg-red-primary  text-xs md:text-xs lg:text-sm">
+    <div className="w-full bg-green-primary  text-xs md:text-xs lg:text-sm">
       <div className=" max-w-384 mx-auto px-2 flex justify-start items-center gap-3">
         <div
           onMouseEnter={() => setCategoriesShow(true)}

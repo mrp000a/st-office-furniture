@@ -1,6 +1,6 @@
 "use client";
 
-import { CirclePlus } from "lucide-react";
+import { ChevronRight, CirclePlus, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import SearchLayout from "@/components/common/searchLayout";
@@ -9,6 +9,7 @@ import { IoReload } from "react-icons/io5";
 import ProductAdmin from "../_dash_components/common/adminProduct";
 import PaginationLayout from "@/components/common/paginationLayout";
 import SearchShowClient from "@/components/common/searchShowClient";
+import { Badge } from "@/components/ui/badge";
 // import { getProducts } from "@/lib/api";
 
 type serializedProductsType = {
@@ -55,9 +56,29 @@ const ProductsPageTest = ({
   return (
     <div className="box-border">
       {/* header  */}
+
+      <section>
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <div className="mb-2 flex items-center gap-2 text-sm text-muted-foreground">
+              <Settings className="h-4 w-4" />
+              <span>Administration</span>
+              <ChevronRight className="h-4 w-4" />
+              <span>Products</span>
+            </div>
+
+            <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
+              Admin Products
+            </h1>
+
+            <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
+              Manage your products from one place.
+            </p>
+          </div>
+        </div>
+      </section>
       <div className="flex justify-between items-center flex-wrap box-border relative">
-        <h2 className="text-2xl font-bold font-mono">Products</h2>
-        <div className="gap-1 flex items-center flex-wrap ">
+        <div className="gap-1 flex items-center flex-wrap w-full ">
           <div className=" flex-1">
             <SearchLayout />
           </div>
@@ -73,18 +94,20 @@ const ProductsPageTest = ({
       </div>
       <hr className="py-1 inline-block w-full" />
       <SearchShowClient />
+
+      {/* main  */}
       <div className="flex-center">
-        <div className="flex flex-wrap items-stretch gap-2 max-sm:flex-center w-full ">
+        <div className="flex flex-wrap  items-stretch gap-4 max-sm:flex-center w-full ">
           {products &&
             products.length > 0 &&
             products.map((item, index) => (
-              <div key={index} className="w-full max-w-58 max-sm:max-w-65 flex">
+              <div key={index} className="w-full max-w-64 max-sm:max-w-65 flex">
                 <ProductAdmin item={item} />
               </div>
             ))}
         </div>
-        <PaginationLayout currentPage={currentPage} totalPages={totalPages} />
       </div>
+      <PaginationLayout currentPage={currentPage} totalPages={totalPages} />
     </div>
   );
 };

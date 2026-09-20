@@ -37,7 +37,7 @@ const DashNavButtons = () => {
             }
           >
             <span className="flex items-center gap-2">
-              <MdOutlineSpaceDashboard className="text-red-primary" />
+              <MdOutlineSpaceDashboard className="text-green-primary" />
               <span className={`${sidebarOpen ? "hidden" : ""}`}>
                 Dashboard
               </span>
@@ -53,7 +53,7 @@ const DashNavButtons = () => {
               size={"lg"}
             >
               <span className="flex items-center gap-2">
-                <Icon className="text-red-primary" />
+                <Icon className="text-green-primary" />
                 <span className={`${sidebarOpen ? "hidden" : ""}`}>
                   {label}
                 </span>
@@ -63,7 +63,7 @@ const DashNavButtons = () => {
           ))}
         </div>
       </div>
-      <div className={`sm:hidden ${sidebarOpenMob ? "" : "bg-red-primary"} `}>
+      <div className={`sm:hidden ${sidebarOpenMob ? "" : "bg-green-primary"} `}>
         <Drawer
           open={sidebarOpenMob}
           direction="left"
@@ -103,7 +103,7 @@ const DashNavButtons = () => {
                 }
               >
                 <span className="flex items-center gap-2">
-                  <MdOutlineSpaceDashboard className="text-red-primary" />
+                  <MdOutlineSpaceDashboard className="text-green-primary" />
                   <span className={``}>Dashboard</span>
                 </span>
                 <span></span>
@@ -123,7 +123,7 @@ const DashNavButtons = () => {
                   size={"lg"}
                 >
                   <span className="flex items-center gap-2">
-                    <Icon className="text-red-primary" />
+                    <Icon className="text-green-primary" />
                     <span>{label}</span>
                   </span>
                   <IoIosArrowForward />

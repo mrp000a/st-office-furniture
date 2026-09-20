@@ -73,18 +73,18 @@ const HomeNav = () => {
                 <Image
                   src={coreInfo.image}
                   alt={coreInfo.name}
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  // loading="eager"
+                  sizes="(max-width: 768px) 40vw, (max-width: 1200px) 30vw, 33vw"
                   fill
                   className="object-contain object-center dark:hidden "
-                  quality={100}
                 />
                 <Image
                   src={coreInfo.imageDark}
                   alt={coreInfo.name}
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  // loading="eager"
+                  sizes="(max-width: 768px) 40vw, (max-width: 1200px) 30vw, 33vw"
                   fill
                   className="object-contain object-center hidden dark:block "
-                  quality={100}
                 />
               </Link>
               <Link
@@ -97,7 +97,6 @@ const HomeNav = () => {
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   fill
                   className="object-cover object-center "
-                  quality={100}
                 />
               </Link>
             </div>
@@ -118,7 +117,7 @@ const HomeNav = () => {
               <ThemeToggleButton />
               {status === "unauthenticated" || status === "loading" ? (
                 <>
-                  <Button asChild className="bg-red-primary">
+                  <Button asChild className="bg-green-primary">
                     <Link
                       href="/signin"
                       className="md:text-background text-background dark:md:text-foreground dark:text-foreground"
@@ -155,7 +154,7 @@ const HomeNav = () => {
                 }}
                 className={` flex-center ${shakeCart ? "animate-cart-shake shadow-2xl bg-blue-primary/40 shadow-blue-primary " : ""}relative flex-col flex-1 rounded-md p-1 px-2 hover:bg-background bg-background/50 transition-all hover:outline hover:outline-gray-primary/40 border border-gray-primary cursor-pointer `}
               >
-                <span className="absolute -top-2 -right-2 text-xs dark:text-foreground font-semibold text-background bg-red-primary rounded-full px-1 outline-2 outline-gray-secondary">
+                <span className="absolute -top-2 -right-2 text-xs dark:text-foreground font-semibold text-background bg-green-primary rounded-full px-1 outline-2 outline-gray-secondary">
                   {cart && cart.items.length > 0 ? cart.items.length : 0}
                 </span>
                 <ShoppingCart className="w-6 h-6" />

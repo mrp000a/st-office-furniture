@@ -1,10 +1,15 @@
 // FeaturedProducts.tsx - Server Component
+import { filterProductType } from "../data/core";
 import ProductsSections from "./productsSection";
 
 // import { getProducts } from "@/lib/api";
 
 const VisitorsProducts = async () => {
-  const filterOption = { limit: 10, order: "desc", category: "visitors-chair" };
+  const filterOption: filterProductType = {
+    limit: 10,
+    order: "desc",
+    category: "visitors-chair",
+  };
   // fetch data
   const data = await fetch(
     `${process.env.NEXT_PUBLIC_URL_SITE}/api/products?limit=${filterOption.limit}&order=${filterOption.order}&category=${filterOption.category}`,

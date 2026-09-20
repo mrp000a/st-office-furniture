@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { coreInfo } from "@/components/data/core";
 import { getSingleOrder } from "@/lib/api";
 import PageOrderInfo from "./pageOrderInfo";
+import OrderNotFound from "@/components/uiComponent/orderNotFound";
 
 type Props = {
   params: Promise<{
@@ -14,7 +15,11 @@ export default async function ProductsPage({ params }: Props) {
   const orderId = Number(id);
 
   if (!orderId) {
-    return <>{orderId}</>;
+    return (
+      <>
+        <OrderNotFound />
+      </>
+    );
   }
 
   const order = await getSingleOrder({ orderId });
@@ -26,7 +31,11 @@ export default async function ProductsPage({ params }: Props) {
       </div>
     );
 
-  return <>{orderId}</>;
+  return (
+    <div>
+      <OrderNotFound />
+    </div>
+  );
 }
 
 export const metadata: Metadata = {

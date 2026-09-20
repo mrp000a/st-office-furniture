@@ -108,8 +108,12 @@ export default async function Page({ params }: Props) {
       descriptions: true,
       reviews: {
         take: 15,
-        include: { user: { select: { name: true, image: true, email: true } } },
-        orderBy: { createdAt: "desc" },
+        include: {
+          user: {
+            select: { name: true, image: true, email: true },
+          },
+        },
+        orderBy: [{ updatedAt: "desc" }, { rating: "desc" }],
       },
       _count: true,
     },

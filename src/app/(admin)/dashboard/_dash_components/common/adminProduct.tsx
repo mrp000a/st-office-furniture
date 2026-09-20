@@ -16,15 +16,9 @@ const ProductAdmin = ({ item }: { item: AdminProductItem }) => {
   const router = useRouter();
 
   return (
-    <div className="hover:shadow-2xl text-xs bg-background hover:translate-y-1 shadow-blue-primary/40 hover:ring-3 hover:ring-blue-primary transition-all flex flex-col max-w-full box-border w-full justify-start items-start gap-2 ring-2 ring-red-primary p-1 rounded-sm relative">
+    <div className="hover:shadow-2xl text-xs bg-violet-primary/5 hover:translate-y-1 shadow-blue-primary/40 hover:ring-3 hover:ring-gray-secondary transition-all flex flex-col max-w-full box-border w-full justify-start items-start gap-2 ring-2 ring-green-primary p-1 rounded-sm relative">
       <div className="w-full flex justify-end flex-wrap gap-2">
-        <Button
-          // onClick={() => {
-          //   router.push(`/dashboard/products/${item.productCode}`);
-          // }}
-          variant={"destructive"}
-          asChild
-        >
+        <Button variant={"destructive"} asChild>
           <Link href={`/dashboard/products/${item.productCode}`}>
             <Edit /> <span>Edit</span>
           </Link>
@@ -41,7 +35,7 @@ const ProductAdmin = ({ item }: { item: AdminProductItem }) => {
             router.refresh();
           }}
           variant={"default"}
-          className="bg-red-primary dark:text-foreground cursor-pointer"
+          className="bg-green-primary dark:text-foreground cursor-pointer"
         >
           <RiDeleteBinFill /> <span>Delete</span>
         </Button>
@@ -59,7 +53,7 @@ const ProductAdmin = ({ item }: { item: AdminProductItem }) => {
           className="object-contain hover:scale-120 active:sca1e-120 transition-all duration-500 ease-in-out"
         />
         <span
-          className={`bg-red-primary flex-center flex-col  text-background dark:text-foreground rounded-md text-xs ring-2 ring-gray-secondary px-2 py-1  absolute right-0 top-0 z-20 ${item.discount ? "" : "hidden"}`}
+          className={`bg-green-primary flex-center flex-col  text-background dark:text-foreground rounded-md text-xs ring-2 ring-gray-secondary px-2 py-1  absolute right-0 top-0 z-20 ${item.discount ? "" : "hidden"}`}
         >
           <span className="font-bold">{Number(item.discount)}%</span>
           <span className="text-xs">Off</span>

@@ -3,8 +3,9 @@ import { Resend } from "resend";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 import { Gender, User, UserRole } from "@/generated/prisma";
-import { getSession, requireRole } from "@/lib/serverAuth";
+import { getSession, getUserId, requireRole } from "@/lib/serverAuth";
 import crypto from "crypto";
+import { createActivity } from "@/lib/activity-log";
 
 export async function GET(req: NextRequest) {
   try {
@@ -71,6 +72,20 @@ export async function POST(req: Request) {
 
         password: hashed,
       },
+    });
+
+    await createActivity({
+      type: "USER",
+      action: "REGISTER",
+
+      title: "A New User Registered",
+
+      description: `User ${user.name} created an account`,
+
+      userId: user.id,
+
+      entityId: user.id.toString(),
+      entityType: "Order",
     });
 
     if (user) {
@@ -261,6 +276,7 @@ export async function PUT(req: Request) {
   try {
     const sessionPromise = getSession();
     await requireRole(sessionPromise, "SUPER_ADMIN");
+    const adminId = await getUserId(sessionPromise);
 
     const body = await req.json();
     const { id, name, email, phone, role, gender, image, address, password } =
@@ -302,6 +318,20 @@ export async function PUT(req: Request) {
       data: updateData,
     });
 
+    await createActivity({
+      type: "USER",
+      action: "UPDATE",
+
+      title: "Admin Updated a users Profile.",
+
+      description: `Admin id ${adminId} updated a users profile.`,
+
+      userId: adminId,
+
+      entityId: user.id.toString(),
+      entityType: "User",
+    });
+
     const { password: _p, ...rest } = user as User;
 
     return NextResponse.json({ success: true, result: rest });
@@ -318,6 +348,8 @@ export async function DELETE(req: NextRequest) {
   try {
     const sessionPromise = getSession();
     await requireRole(sessionPromise, "SUPER_ADMIN");
+    const adminId = await getUserId(sessionPromise);
+
     const searchParams = req.nextUrl.searchParams;
     const id = searchParams.get("id");
     // const email = searchParams.get("email");
@@ -329,13 +361,26 @@ export async function DELETE(req: NextRequest) {
       });
     }
 
-    const users = await prisma.user.delete({
+    const user = await prisma.user.delete({
       where: { id: Number(id) },
+    });
+
+    await createActivity({
+      type: "USER",
+      action: "DELETE",
+
+      title: "A User profile Deleted.",
+
+      description: `User ${user.name} deleted by admin or he/her`,
+
+      userId: adminId,
+
+      entityId: user.id.toString(),
+      entityType: "User",
     });
 
     return NextResponse.json({
       success: true,
-      result: users,
       message: "User Deleted.",
     });
   } catch (err: any) {

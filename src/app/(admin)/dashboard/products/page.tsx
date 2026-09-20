@@ -18,6 +18,7 @@ export default async function ProductsPage({ searchParams }: Props) {
   const search = params.search ?? "";
   const category = params.category ?? "";
   const page = Number(params.page ?? 1);
+  const PRODUCTS_PER_PAGE = 10;
 
   const totalProducts = await prisma.product.count({
     where: {
@@ -37,8 +38,6 @@ export default async function ProductsPage({ searchParams }: Props) {
         : {}),
     },
   });
-
-  const PRODUCTS_PER_PAGE = 25;
 
   const totalPages = Math.ceil(totalProducts / PRODUCTS_PER_PAGE);
 

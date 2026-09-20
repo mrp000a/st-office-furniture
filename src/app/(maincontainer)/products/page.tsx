@@ -38,7 +38,7 @@ export default async function ProductsPage({ searchParams }: Props) {
     },
   });
 
-  const PRODUCTS_PER_PAGE = 30;
+  const PRODUCTS_PER_PAGE = 15;
 
   const totalPages = Math.ceil(totalProducts / PRODUCTS_PER_PAGE);
 

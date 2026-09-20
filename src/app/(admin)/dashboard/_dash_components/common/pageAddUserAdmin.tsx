@@ -149,7 +149,7 @@ const PageAddUserAdmin = ({
             <div className="mt-3 flex flex-col gap-2">
               {/* <div>
                 <h2 className="text-2xl font-bold flex items-center gap-3">
-                  <FaUserCircle className="text-red-primary" />
+                  <FaUserCircle className="text-green-primary" />
                   <span>Edit User!</span>
                 </h2>
                 <span className="text-center text-gray-secondary">

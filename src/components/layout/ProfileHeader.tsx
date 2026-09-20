@@ -66,7 +66,7 @@ const ProfileHeader = ({
             <Button
               variant={"default"}
               disabled
-              className="cursor-pointer bg-red-primary"
+              className="cursor-pointer bg-green-primary"
             >
               Delete Account
             </Button>
@@ -91,7 +91,7 @@ const ProfileHeader = ({
               }
             >
               <span className="flex items-center gap-2">
-                <FaUserCircle className="text-red-primary" />
+                <FaUserCircle className="text-green-primary" />
                 <span>Profile</span>
               </span>
               <span></span>
@@ -108,7 +108,7 @@ const ProfileHeader = ({
                 size={"lg"}
               >
                 <span className="flex items-center gap-2">
-                  <Icon className="text-red-primary" />
+                  <Icon className="text-green-primary" />
                   <span>{label}</span>
                 </span>
                 <IoIosArrowForward className={``} />

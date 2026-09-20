@@ -116,7 +116,7 @@ export const CartProductItem = ({
           }}
           variant={"outline"}
         >
-          <Trash2 className="w-5 h-5 text-red-primary" />
+          <Trash2 className="w-5 h-5 text-green-primary" />
         </Button>
       </div>
     </div>
@@ -229,7 +229,7 @@ export const CartProductItemOrder = ({
           type="button"
           variant={"outline"}
         >
-          <Trash2 className="w-5 h-5 text-red-primary" />
+          <Trash2 className="w-5 h-5 text-green-primary" />
         </Button>
       </div>
     </div>

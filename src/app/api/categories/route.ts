@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { Category } from "@/generated/prisma";
-import { getSession, requireRole } from "@/lib/serverAuth";
+import { getSession, getUserId, requireRole } from "@/lib/serverAuth";
+import { createActivity } from "@/lib/activity-log";
 
 export async function GET() {
   try {
@@ -27,6 +28,7 @@ export async function POST(req: Request) {
   try {
     const sessionPromise = getSession();
     await requireRole(sessionPromise, ["ADMIN", "SUPER_ADMIN"]);
+    const adminId = await getUserId(sessionPromise);
 
     const body = await req.json();
     const { name, image, description } = body as Category;
@@ -48,6 +50,20 @@ export async function POST(req: Request) {
       },
     });
 
+    await createActivity({
+      type: "CATEGORY",
+      action: "CREATE",
+
+      title: `A New Category '${name}' Added. Category id - ${category.id}`,
+
+      description: `Admin id ${adminId} created a category.`,
+
+      userId: adminId,
+
+      entityId: category.id.toString(),
+      entityType: "category",
+    });
+
     return NextResponse.json({ success: true, result: category });
   } catch (err: any) {
     const message = err?.message ?? String(err);
@@ -61,6 +77,7 @@ export async function PUT(req: Request) {
   try {
     const sessionPromise = getSession();
     await requireRole(sessionPromise, ["ADMIN", "SUPER_ADMIN"]);
+    const adminId = await getUserId(sessionPromise);
 
     const body = await req.json();
     const { id, name, image, description } = body as Category;
@@ -77,6 +94,20 @@ export async function PUT(req: Request) {
     const category = await prisma.category.update({
       where: { id },
       data: { name: name.toLowerCase(), description, image },
+    });
+
+    await createActivity({
+      type: "CATEGORY",
+      action: "UPDATE",
+
+      title: `Category '${name}' Updated. Category id - ${category.id}`,
+
+      description: `Admin id ${adminId} created a category.`,
+
+      userId: adminId,
+
+      entityId: category.id.toString(),
+      entityType: "category",
     });
 
     return NextResponse.json({ success: true, result: category });
@@ -96,9 +127,24 @@ export async function DELETE(req: NextRequest) {
   try {
     const sessionPromise = getSession();
     await requireRole(sessionPromise, ["ADMIN", "SUPER_ADMIN"]);
+    const adminId = await getUserId(sessionPromise);
 
     const categories = await prisma.category.delete({
       where: { id: Number(id) },
+    });
+
+    await createActivity({
+      type: "CATEGORY",
+      action: "DELETE",
+
+      title: `A Category '${categories.name}' Added. Category id - ${categories.id}`,
+
+      description: `Admin id ${adminId} created a category.`,
+
+      userId: adminId,
+
+      entityId: categories.id.toString(),
+      entityType: "category",
     });
 
     return NextResponse.json({

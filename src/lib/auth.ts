@@ -4,6 +4,7 @@ import type { NextAuthOptions } from "next-auth";
 import { prisma } from "./prisma";
 import { compare } from "bcryptjs";
 import { ProfileDefaultImage } from "@/components/data/core";
+import { createActivity } from "./activity-log";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -33,6 +34,21 @@ export const authOptions: NextAuthOptions = {
         if (!user.emailVerified)
           throw new Error("Please verify your email before logging in.");
 
+        // login log for users
+
+        await createActivity({
+          type: "AUTH",
+          action: "LOGIN",
+
+          title: "A User Logged in to his/her account",
+
+          description: `${user.name} logged in to his/her acount with email or phone - ${credentials.email}`,
+
+          userId: user.id,
+
+          entityId: user.id.toString(),
+          entityType: "User",
+        });
         // return a minimal user object for session
         return {
           id: user.id.toString(),

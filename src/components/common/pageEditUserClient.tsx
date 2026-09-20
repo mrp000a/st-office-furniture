@@ -21,6 +21,7 @@ import { Gender, UserRole } from "@/generated/prisma";
 
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const PageEditUserClient = ({
   id,
@@ -48,6 +49,7 @@ const PageEditUserClient = ({
   const [showPass, setShowPass] = useState<boolean>(false);
   const oldImage = image;
   const session = useSession();
+  const router = useRouter();
   const { update } = useSession();
 
   const {
@@ -144,9 +146,12 @@ const PageEditUserClient = ({
         toast.success("User Updated!", {
           description: new Date().toDateString(),
         });
-        if (load) await load();
+        const time = setTimeout(() => {
+          setOpen(false);
+          clearTimeout(time);
+        }, 500);
+        router.refresh();
 
-        setOpen(false);
         await update({
           ...session.data?.user,
           name: temporaryRaw.name,
@@ -176,7 +181,7 @@ const PageEditUserClient = ({
             <div className="mt-3 flex flex-col gap-2">
               {/* <div>
                 <h2 className="text-2xl font-bold flex items-center gap-3">
-                  <FaUserCircle className="text-red-primary" />
+                  <FaUserCircle className="text-green-primary" />
                   <span>Edit User!</span>
                 </h2>
                 <span className="text-center text-gray-secondary">

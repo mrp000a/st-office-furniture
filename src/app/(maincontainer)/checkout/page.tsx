@@ -137,6 +137,8 @@ const Page = () => {
           userId: Number(session.data.user.id),
           dispatch: dispatch,
         });
+      } else {
+        localStorage.removeItem("stcart");
         dispatch(clearCart());
       }
       dispatch(clearCart());
@@ -165,7 +167,7 @@ const Page = () => {
             <div className="gap-3 flex flex-col">
               <div className="py-3 gap-2 border-b border-b-gray-secondary">
                 <h2 className="text-xl text-blue-secondary dark:text-gray-primary font-bold flex items-center gap-2">
-                  <Truck className="text-red-primary" />
+                  <Truck className="text-green-primary" />
                   <span>Shipping and Billing Information</span>
                 </h2>
               </div>
@@ -312,6 +314,7 @@ const Page = () => {
                         message: "Max 200 characters!",
                       },
                     })}
+                    className="max-h-16"
                   />
                   {errors?.customerNote && (
                     <InputErrorMessage>
@@ -328,7 +331,7 @@ const Page = () => {
             <div className="gap-3 flex flex-col">
               <div className="py-3 gap-2 border-b border-b-gray-secondary">
                 <h2 className="text-xl text-blue-secondary dark:text-gray-primary font-bold flex items-center gap-2">
-                  <Wallet className="text-red-primary" />
+                  <Wallet className="text-green-primary" />
                   <span>Select Payment Method</span>
                 </h2>
               </div>
@@ -340,7 +343,7 @@ const Page = () => {
                       key={index}
                       type="button"
                       onClick={() => console.log(value)}
-                      className="flex bg-violet-primary/20 justify-between cursor-pointer items-center border-2 px-3 py-1 rounded-md  border-red-primary"
+                      className="flex bg-violet-primary/20 justify-between cursor-pointer items-center border-2 px-3 py-1 rounded-md  border-green-primary"
                     >
                       <div className="flex items-center justify-start gap-2">
                         <span className="text-4xl">
@@ -400,7 +403,7 @@ const Page = () => {
             <div>
               <div className="flex justify-between items-center text-blue-secondary dark:text-gray-primary">
                 <span className="text-xl py-3 font-bold flex items-center gap-2">
-                  <Handbag className="text-red-primary " />
+                  <Handbag className="text-green-primary " />
                   <span>Order Summery</span>
                 </span>
                 <div></div>

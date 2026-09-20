@@ -16,7 +16,7 @@ import { ProductDefaultImage } from "@/components/data/core";
 import { FaUserCircle } from "react-icons/fa";
 import PageEditUserAdmin from "../_dash_components/common/PageEditUser";
 import { NoItemsFound } from "@/components/uiComponent/uiCom";
-import { CirclePlus } from "lucide-react";
+import { ChevronRight, CirclePlus, Settings } from "lucide-react";
 import PageAddUserAdmin from "../_dash_components/common/pageAddUserAdmin";
 import {
   Table,
@@ -62,21 +62,43 @@ const PageUsersAdmin = ({
   return (
     <div className="w-full">
       {/* header */}
-      <div className="flex justify-between items-center flex-wrap relative w-full">
-        <h2 className="text-2xl font-bold font-mono">Users</h2>
-        <div className="gap-1 flex items-center flex-wrap">
-          <div className=" flex-1">
-            <SearchLayout />
+      <section className="w-full">
+        <div className="flex  w-full gap-1  items-center justify-between">
+          <div>
+            <div className="mb-2 flex items-center gap-2 text-sm text-muted-foreground">
+              <Settings className="h-4 w-4" />
+              <span>Administration</span>
+              <ChevronRight className="h-4 w-4" />
+              <span>Users</span>
+            </div>
+
+            <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
+              Users
+            </h1>
+
+            <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
+              Manage your users from one place.
+            </p>
           </div>
-          <Button onClick={() => setOpenAddUser((e) => !e)} variant={"default"}>
-            <CirclePlus />
-            Add
-          </Button>
-          <Button onClick={() => router.refresh()} variant={"outline"}>
-            <IoReload />
-          </Button>
+          <div className="flex justify-between items-center  relative ">
+            <div className="gap-1 flex items-center max-[400px]:flex-wrap">
+              <div className=" flex-1">
+                <SearchLayout />
+              </div>
+              <Button
+                onClick={() => setOpenAddUser((e) => !e)}
+                variant={"default"}
+              >
+                <CirclePlus />
+                Add
+              </Button>
+              <Button onClick={() => router.refresh()} variant={"outline"}>
+                <IoReload />
+              </Button>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
       <hr className="py-1 inline-block w-full" />
       <SearchShowClient />
       {users && users.length > 0 ? (
@@ -196,7 +218,7 @@ const PageUsersAdmin = ({
 
                             router.refresh();
                           }}
-                          className="bg-red-primary"
+                          className="bg-green-primary"
                         >
                           Delete
                         </Button>

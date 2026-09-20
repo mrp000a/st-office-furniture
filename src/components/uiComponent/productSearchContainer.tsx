@@ -74,7 +74,7 @@ const ProductSearchContainer = ({
               }}
               className="flex hover:-translate-y-0.5 cursor-pointer hover:bg-violet-primary/30 min-h-14 justify-start items-center gap-2 overflow-hidden px-2 py-1 rounded-md border box-border border-gray-secondary "
             >
-              <div className=" relative h-10 w-10 min-h-10 min-w-10 overflow-hidden rounded-sm border border-red-primary">
+              <div className=" relative h-10 w-10 min-h-10 min-w-10 overflow-hidden rounded-sm border border-green-primary">
                 <Image
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

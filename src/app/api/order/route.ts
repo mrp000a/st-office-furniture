@@ -6,10 +6,11 @@ import {
   orderStatuses,
   orderStatuses2,
 } from "@/components/data/core";
-import { getSession, requireRole } from "@/lib/serverAuth";
+import { getSession, getUserId, requireRole } from "@/lib/serverAuth";
 import { useId } from "react";
 import { orderConfirmationEmail } from "../../../components/uiComponent/order-confirm-email";
 import { Resend } from "resend";
+import { createActivity } from "@/lib/activity-log";
 
 // const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -148,6 +149,26 @@ export async function POST(req: Request) {
       include: { user: true, items: true, logs: true },
     });
 
+    await createActivity({
+      type: "ORDER",
+      action: "PLACE_ORDER",
+
+      title: "New order placed",
+
+      description: `${createOrder?.user?.name ?? "A customer"} placed order #${createOrder?.id}`,
+
+      userId: createOrder?.user?.id,
+
+      entityId: createOrder?.id.toString(),
+      entityType: "Order",
+
+      metadata: {
+        orderCode: createOrder?.id,
+        total: createOrder?.total,
+        itemCount: createOrder?.items?.length,
+      },
+    });
+
     if (!createOrder)
       return NextResponse.json({
         success: false,
@@ -264,14 +285,28 @@ export async function DELETE(req: NextRequest) {
     }
     const sessionPromise = getSession();
     await requireRole(sessionPromise, ["ADMIN", "SUPER_ADMIN"]);
+    const userId = await getUserId(sessionPromise);
 
-    const users = await prisma.order.delete({
+    const order = await prisma.order.delete({
       where: { id: Number(id) },
+    });
+
+    await createActivity({
+      type: "ORDER",
+      action: "DELETE",
+
+      title: "An Order Deleted",
+
+      description: `Admin id${userId} deleted a order #${order.id}`,
+
+      userId: userId,
+
+      entityId: order.id.toString(),
+      entityType: "Order",
     });
 
     return NextResponse.json({
       success: true,
-      result: users,
       message: "Order Deleted.",
     });
   } catch (err: any) {

@@ -67,7 +67,7 @@ const PageTrackOrder = () => {
           <form onSubmit={handleSubmit(handleSubmitData)} className="space-y-8">
             <div className=" gap-2">
               <h2 className="text-2xl font-bold flex items-center gap-3 ">
-                <MdVerifiedUser className="text-red-primary" />{" "}
+                <MdVerifiedUser className="text-green-primary" />{" "}
                 <span>Track Order!</span>
               </h2>
               <span className="text-center text-gray-secondary">
@@ -125,7 +125,7 @@ const PageTrackOrder = () => {
                 size={"lg"}
                 variant={"default"}
                 type="submit"
-                className="w-full bg-red-primary"
+                className="w-full bg-green-primary"
               >
                 {isSubmitting && (
                   <span className="animate-spin">

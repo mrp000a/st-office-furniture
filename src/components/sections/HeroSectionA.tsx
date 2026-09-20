@@ -35,7 +35,7 @@ const HeroSectionA = () => {
     <div>
       {/* hero section  */}
       <section className="py-2">
-        <div className=" rounded-md  overflow-hidden w-full max-w-384 max-[600]:max-h-full    mx-auto aspect-[1376/680] bg-background shadow-2xl relative flex-center">
+        <div className=" rounded-md  overflow-hidden w-full max-w-384 max-[600]:max-h-full    mx-auto  bg-background shadow-2xl relative flex-center">
           <Swiper
             onSwiper={setSwiperInstance}
             modules={[Navigation, Pagination, Autoplay]}
@@ -44,13 +44,13 @@ const HeroSectionA = () => {
             loop={true}
             pagination={{ clickable: true }}
             autoplay={{ delay: 4000 }}
-            className="h-full rounded-lg"
+            className="w-full aspect-[1376/680] rounded-lg"
           >
             {HeroSectionSlides.map(
               ({ image, title, subtitle, description }, index) => (
                 <SwiperSlide
                   key={index}
-                  className={`flex relative w-full h-full items-center justify-center text-2xl font-bold `}
+                  className={`flex relative w-full   items-center justify-center text-2xl font-bold `}
                 >
                   <div
                     className={` relative  h-full w-full  overflow-hidden text-shadow-2xs text-shadow-blue-primary `}
@@ -69,7 +69,6 @@ const HeroSectionA = () => {
                   {/* Text */}
                   <div className="absolute inset-0 flex items-center w-full h-full bg-foreground/30 dark:bg-background/30">
                     <div className="hero-text flex flex-col items-end justify-end mx-auto w-full max-w-7xl px-6 ">
-
                       <p className="hero-subtitle mb-3 text-[10px] sm:text-base md:text-lg lg:text-xl font-medium uppercase text-end tracking-widest text-white">
                         {subtitle}
                       </p>
@@ -84,7 +83,7 @@ const HeroSectionA = () => {
 
                       <button
                         onClick={() => router.push("/products")}
-                        className="hero-button mt-6 cursor-pointer rounded-md text-end text-sm lg:text-2xl bg-white px-3 py-1 md:px-6 md:py-3 font-semibold hover:bg-red-primary/60 hover:text-white transition-all duration-200 active:-translate-y-1 text-black"
+                        className="hero-button mt-6 cursor-pointer rounded-md text-end text-sm lg:text-2xl bg-white px-3 py-1 md:px-6 md:py-3 font-semibold hover:bg-green-primary/60 hover:text-white transition-all duration-200 active:-translate-y-1 text-black"
                       >
                         Shop Now
                       </button>

@@ -1,69 +1,68 @@
-"use client";
-import { ProfileDefaultImage } from "@/components/data/core";
-import HomeNav from "@/components/layout/homeNav";
-import ProfileHeader from "@/components/layout/ProfileHeader";
-import { SignOut } from "@/components/sec_lib/Sessions";
-import { Button } from "@/components/ui/button";
-import { useSession } from "next-auth/react";
-import Image from "next/image";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import Profile from "./_tabs/Profile";
-import Settings from "./_tabs/Settings";
-import CartItems from "./_tabs/CartItems";
-import Orders from "./_tabs/orders";
-import Helps from "./_tabs/help";
-import Gifts from "./_tabs/Gifts";
+import React from "react";
+import ProfileHome from "./PageProduct";
+import { prisma } from "@/lib/prisma";
+import { getSession, getUserId } from "@/lib/serverAuth";
 
-const Home = () => {
-  const searchParams = useSearchParams();
-  const [editProfile, setEditProfile] = useState(false);
-  const [profileTab, setProfileTab] = useState<string | null>(
-    searchParams.get("tab") ?? null,
-  );
+const page = async () => {
+  const sessionPromise = getSession();
+  const getuserid = await getUserId(sessionPromise);
 
-  const session = useSession();
-  useEffect(() => {
-    const a = () => {
-      setProfileTab(searchParams.get("tab") ?? null);
+  const userId = Number(getuserid);
+
+  const userData = await prisma.user.findUnique({
+    where: { id: userId },
+    include: {
+      cart: { select: { _count: true } },
+      orders: { take: 7, orderBy: { createdAt: "desc" } },
+      _count: { select: { orders: true, proReviews: true } },
+    },
+  });
+
+  const completedOrders = await prisma.order.count({
+    where: { userId: userId, status: "DELIVERED" },
+  });
+  const pendingOrders = await prisma.order.count({
+    where: {
+      userId: userId,
+      status: { notIn: ["CANCELLED", "DELIVERED", "RETURNED"] },
+    },
+  });
+
+  const sanitizedOrders = userData?.orders.map((item) => {
+    return {
+      id: item.id,
+      status: item.status,
+      createdAt: item.createdAt,
+      total: Number(item.total),
     };
-    a();
-  }, [searchParams]);
+  });
 
   return (
-    <>
-      <ProfileHeader
-        profileTab={profileTab ?? ""}
-        setProfileTab={setProfileTab}
-        setEditProfile={setEditProfile}
-      >
-        <span
-          className={`${!(!profileTab || profileTab === "profile") ? "hidden" : ""}`}
-        >
-          <Profile
-            setOpenEditUser={setEditProfile}
-            openEditUser={editProfile}
-          />
-        </span>
-
-        <span className={`${!(profileTab === "orders") ? "hidden" : ""}`}>
-          <Orders />
-        </span>
-        <span className={`${!(profileTab === "cartitems") ? "hidden" : ""}`}>
-          <CartItems />
-        </span>
-        <span className={`${!(profileTab === "settings") ? "hidden" : ""}`}>
-          <Settings />
-        </span>
-        <span className={`${!(profileTab === "gifts") ? "hidden" : ""}`}>
-          <Gifts />
-        </span>
-        <span className={`${!(profileTab === "help") ? "hidden" : ""}`}>
-          <Helps />
-        </span>
-      </ProfileHeader>
-    </>
+    <div>
+      <ProfileHome
+        stats={{
+          completedOrders: completedOrders,
+          orders: userData?._count?.orders,
+          pendingOrders: pendingOrders,
+          wishlist: userData?.cart?._count?.items,
+        }}
+        user={{
+          name: userData?.name,
+          address: userData?.address,
+          email: userData?.email,
+          createdAt: userData?.createdAt,
+          gender: userData?.gender,
+          id: userData?.id,
+          image: userData?.image,
+          phone: userData?.phone,
+          role: userData?.role,
+          verified: userData?.emailVerified,
+        }}
+        recentOrders={sanitizedOrders ?? []}
+        // recentOrders={[{id, status, createdAt, orderNumber, total}]}
+      />
+    </div>
   );
 };
 
-export default Home;
+export default page;

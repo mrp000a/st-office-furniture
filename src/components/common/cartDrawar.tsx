@@ -9,7 +9,7 @@ import {
 } from "../ui/drawer";
 import { Button } from "../ui/button";
 import { useSession } from "next-auth/react";
-import { handleDeleteCartItem, loadCart } from "@/lib/api";
+import { handleDeleteCartItem, loadCart, loadCartLocal } from "@/lib/api";
 import { useDispatch, useSelector } from "react-redux";
 import { RotateCcw, SquareArrowRight } from "lucide-react";
 import { RootState } from "@/redux/store";
@@ -40,11 +40,19 @@ const CartDrawar = ({
           dispatch: dispatch,
         });
       } else {
-        console.log("Session is required for fetch cart items!");
+        if (!session?.data) loadCartLocal({ dispatch });
       }
     };
     a();
   }, [dispatch, session]);
+
+  useEffect(() => {
+    if (cart && !session?.data) {
+      const cartString = JSON.stringify(cart);
+      localStorage.setItem("stcart", cartString);
+    }
+    // console.log("set cart local")
+  }, [cart, session]);
 
   return (
     <div>

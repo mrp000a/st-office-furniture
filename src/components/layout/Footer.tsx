@@ -25,34 +25,32 @@ const Footer = () => {
         src={backgroundImage}
         alt="Background"
         placeholder="blur"
-        quality={80}
         fill
-        sizes="100vw"
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 60vw"
         className="object-cover object-center z-0 dark:hidden"
       />
       <Image
         src={backgroundImageDark}
         alt="Background"
         placeholder="blur"
-        quality={80}
         fill
-        sizes="100vw"
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 60vw"
         className="object-cover object-center z-0 hidden dark:block"
       />
       <div
         className={` w-full relative  z-20 border border-gray-primary pb-16  text-xs text-gray-primary ${pathname.startsWith("/dashboard") ? "hidden" : ""}`}
       >
         {/* first footer line */}
-        <div className="w-full bg-red-primary/10 backdrop-blur-sm border box-border border-gray-secondary px-2 py-2 text-gray-primary">
+        <div className="w-full bg-green-primary/10 backdrop-blur-sm border box-border border-gray-secondary px-2 py-2 text-gray-primary">
           <div className="flex flex-wrap w-full max-w-384 mx-auto justify-between items-center gap-4 py-3">
             {firstFooterItems && firstFooterItems.length > 0 ? (
               firstFooterItems.map(({ label, href, icon: Icon }, index) => (
                 <Link
                   href={href}
                   key={index}
-                  className="flex-center gap-3 font-semibold hover:gap-1 hover:pl-2 hover:text-red-primary hover:scale-105 transition-all"
+                  className="flex-center gap-3 font-semibold hover:gap-1 hover:pl-2 hover:text-green-primary hover:scale-105 transition-all"
                 >
-                  <Icon className="text-red-primary" />
+                  <Icon className="text-green-primary" />
                   <span className=" line-clamp-1">{label}</span>
                 </Link>
               ))
@@ -78,7 +76,6 @@ const Footer = () => {
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   fill
                   className="object-contain object-center dark:hidden "
-                  quality={100}
                 />
                 <Image
                   src={coreInfo.imageDark}
@@ -86,11 +83,11 @@ const Footer = () => {
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   fill
                   className="object-contain object-center hidden dark:block "
-                  quality={100}
                 />
               </Link>
 
               {/* text  */}
+              <span>Better Seating Better Working</span>
               <span>{coreInfo.description}</span>
             </div>
 
@@ -131,7 +128,7 @@ const Footer = () => {
               <div className="flex flex-col justify-stretch gap-2">
                 <Link
                   href={"#"}
-                  className="ring ring-red-primary p-1 px-2 rounded-md flex w-fit items-center gap-2 hover:bg-red-primary transition-all hover:-translate-y-0.5"
+                  className="ring ring-green-primary hover:text-white p-1 px-2 rounded-md flex w-fit items-center gap-2 hover:bg-green-primary transition-all hover:-translate-y-0.5"
                 >
                   <FaGooglePlay className="text-3xl" />
                   <div className="flex flex-col">
@@ -141,7 +138,7 @@ const Footer = () => {
                 </Link>
                 <Link
                   href={"#"}
-                  className="ring ring-red-primary p-1 px-2 rounded-md flex w-fit items-center gap-2 hover:bg-red-primary transition-all  hover:-translate-y-0.5"
+                  className="ring ring-green-primary hover:text-white p-1 px-2 rounded-md flex w-fit items-center gap-2 hover:bg-green-primary transition-all  hover:-translate-y-0.5"
                 >
                   <FaApple className="text-3xl" />
                   <div className="flex flex-col">
@@ -166,7 +163,7 @@ const Footer = () => {
                     key={index}
                     className="flex items-center gap-2"
                   >
-                    <div className="text-lg p-2 hover:-translate-y-0.5 font-semibold rounded-md border border-red-primary bg-gray-secondary/30 hover:bg-red-primary transition-all text-gray-primary w-fit">
+                    <div className="text-lg p-2 hover:-translate-y-0.5 font-semibold rounded-md border border-green-primary bg-gray-secondary/30 hover:bg-green-primary transition-all text-gray-primary w-fit">
                       <Icon />
                     </div>
                     <div className="flex flex-col justify-between">

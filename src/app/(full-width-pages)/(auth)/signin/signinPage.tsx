@@ -97,7 +97,7 @@ const PageLogin = () => {
           <form onSubmit={handleSubmit(handleSubmitData)}>
             <div className=" gap-2">
               <h2 className="text-2xl font-bold flex items-center gap-3 ">
-                <MdVerifiedUser className="text-red-primary" />{" "}
+                <MdVerifiedUser className="text-green-primary" />{" "}
                 <span>Log In!</span>
               </h2>
               <span className="text-center text-gray-secondary">

@@ -378,7 +378,7 @@ const PageAddProduct = () => {
                         <Button
                           type="button"
                           onClick={() => removeImageField(index)}
-                          className="flex items-center gap-1 bg-red-primary"
+                          className="flex items-center gap-1 bg-green-primary"
                         >
                           <RiDeleteBinFill />
                         </Button>
@@ -425,7 +425,7 @@ const PageAddProduct = () => {
                         <Button
                           type="button"
                           onClick={() => removekeyFeaturesField(index)}
-                          className="flex items-center gap-1 bg-red-primary"
+                          className="flex items-center gap-1 bg-green-primary"
                         >
                           <RiDeleteBinFill />
                         </Button>
@@ -504,7 +504,7 @@ const PageAddProduct = () => {
                       <Button
                         type="button"
                         onClick={() => removeDescriptionsField(index)}
-                        className="flex items-center gap-1 bg-red-primary"
+                        className="flex items-center gap-1 bg-green-primary"
                       >
                         <RiDeleteBinFill />
                       </Button>

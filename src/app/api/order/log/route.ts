@@ -1,10 +1,15 @@
 import { OrderLog } from "@/generated/prisma";
+import { createActivity } from "@/lib/activity-log";
 import { prisma } from "@/lib/prisma";
+import { getSession, getUserId } from "@/lib/serverAuth";
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
 export async function POST(req: Request) {
   try {
+    const sessionPromise = getSession();
+    const userId = await getUserId(sessionPromise);
+
     const body = await req.json();
     const { orderId, status, note } = body as OrderLog;
 
@@ -32,6 +37,20 @@ export async function POST(req: Request) {
       data: {
         status: status,
       },
+    });
+
+    await createActivity({
+      type: "ORDER",
+      action: "UPDATE",
+
+      title: `An Order ${status}`,
+
+      description: `Admin id${userId} updated a order #${orderId}`,
+
+      userId: userId,
+
+      entityId: orderId.toString(),
+      entityType: "Order",
     });
 
     if (!createOrderLog)

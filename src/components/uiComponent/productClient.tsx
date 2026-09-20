@@ -24,27 +24,43 @@ const ProductClient = ({
   );
 
   return (
-    <div className="hover:shadow-2xl bg-background dark:bg-background hover:translate-y-1 shadow-blue-primary/40 hover:ring-3 hover:ring-blue-primary transition-all flex flex-col max-w-full box-border w-full justify-start items-start gap-2 ring-2 ring-red-primary p-1 rounded-sm relative">
+    <div className="hover:shadow-2xl group bg-background dark:bg-background hover:translate-y-1 shadow-blue-primary/40 hover:ring-3 hover:ring-gray-secondary  transition-all flex flex-col max-w-full box-border w-full justify-start items-start gap-2 ring-2 ring-green-primary p-1 rounded-sm relative">
       {/* main image and discont red  */}
       <Link
         href={`/products/${item.productCode.toLowerCase()}`}
-        className="bg-white  w-full aspect-square relative border box-border border-gray-secondary rounded-md overflow-hidden"
+        className="
+    relative
+    block
+    w-full
+    aspect-square
+    overflow-hidden
+    rounded-md
+    border
+    border-gray-secondary
+    bg-white
+  "
       >
         <Image
-          src={`${process.env.NEXT_PUBLIC_URL_R2}/${item.images[0] ?? ProductDefaultImage}`}
+          src={`${process.env.NEXT_PUBLIC_URL_R2}/${item.images?.[0] ?? ProductDefaultImage}`}
           alt={item.title}
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           fill
-          className="object-contain hover:scale-120 active:sca1e-120 transition-all duration-500 ease-in-out"
+          sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1200px) 25vw, 20vw"
+          className="
+          object-contain
+          transition-transform
+          duration-500
+          ease-in-out
+          group-hover:scale-110
+        "
         />
         <span
-          className={`bg-red-primary flex-center flex-col  text-background dark:text-foreground rounded-md text-xs ring-2 ring-gray-secondary px-2 py-1  absolute right-0 top-0 z-20 ${item.discount ? "" : "hidden"}`}
+          className={`bg-red-primary flex-center flex-col font-bold  text-background dark:text-foreground rounded-md text-xs ring-2 ring-gray-secondary px-2 py-1  absolute right-0 top-0 z-20 ${item.discount ? "" : "hidden"}`}
         >
           <span className="font-bold">{Number(item.discount)}%</span>
           <span className="text-xs">Off</span>
         </span>
         <span
-          className={`bg-red-primary flex-center flex-col  text-background dark:text-foreground  text-xs ring-2 ring-gray-secondary px-5 py-1  absolute -left-[18px]  -rotate-45 top-0 z-20 ${new Date(item.createdAt) > sevenDaysAgo ? "" : "hidden"}`}
+          className={`bg-red-primary flex-center flex-col  font-bold text-background dark:text-foreground  text-xs ring-2 ring-gray-secondary px-5 py-1  absolute -left-[18px]  -rotate-45 top-0 z-20 ${new Date(item.createdAt) > sevenDaysAgo ? "" : "hidden"}`}
         >
           New
         </span>
@@ -107,7 +123,7 @@ const ProductClient = ({
                   discountPrice: item.discountPrice,
                   qty: 1,
                   dispatch,
-                  router
+                  router,
                 });
                 return;
               }
@@ -126,7 +142,7 @@ const ProductClient = ({
             size={"lg"}
             variant={"secondary"}
 
-            // className="text-lg px-3 py-1 disabled:bg-gray-secondary/50 disabled:text-background rounded-lg bg-gray-secondary/20 hover:bg-red-primary hover:ring-2 active:bg-red-primary/50 hover:text-background transition-all border-gray-secondary border flex-center gap-2 "
+            // className="text-lg px-3 py-1 disabled:bg-gray-secondary/50 disabled:text-background rounded-lg bg-gray-secondary/20 hover:bg-green-primary hover:ring-2 active:bg-green-primary/50 hover:text-background transition-all border-gray-secondary border flex-center gap-2 "
           >
             <CirclePlus /> Add to Cart
           </Button>
@@ -177,7 +193,7 @@ const ProductClient = ({
             type="button"
             size={"lg"}
             variant={"default"}
-            // className="text-lg px-3 disabled:bg-red-primary/50 py-1 rounded-lg  bg-red-primary hover:bg-red-primary/80 hover:ring-2 active:bg-red-primary/50 text-background transition-all border-gray-secondary border flex-center gap-2 "
+            // className="text-lg px-3 disabled:bg-green-primary/50 py-1 rounded-lg  bg-green-primary hover:bg-green-primary/80 hover:ring-2 active:bg-green-primary/50 text-background transition-all border-gray-secondary border flex-center gap-2 "
           >
             <Banknote /> Order Now
           </Button>

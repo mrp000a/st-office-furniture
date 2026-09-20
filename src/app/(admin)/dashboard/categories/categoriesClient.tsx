@@ -2,11 +2,13 @@
 
 import Image from "next/image";
 import {
+  ChevronRight,
   Edit,
   FolderOpen,
   MoreHorizontal,
   Plus,
   Search,
+  Settings,
   Trash2,
 } from "lucide-react";
 import {
@@ -107,6 +109,12 @@ export default function CategoriesPageClient({
       {/* Header */}
       <div className="flex gap-4 flex-wrap items-center justify-between w-full">
         <div>
+          <div className="mb-2 flex items-center gap-2 text-sm text-muted-foreground">
+            <Settings className="h-4 w-4" />
+            <span>Administration</span>
+            <ChevronRight className="h-4 w-4" />
+            <span>Categories</span>
+          </div>
           <div className="flex items-center gap-2">
             <h1 className="text-2xl font-bold tracking-tight">Categories</h1>
 
@@ -156,7 +164,7 @@ export default function CategoriesPageClient({
           ({ id, name, description, _count, createdAt, image, updatedAt }) => (
             <div
               key={id}
-              className="group overflow-hidden rounded-xl border bg-card transition-all hover:-translate-y-0.5 hover:shadow-md"
+              className="group overflow-hidden rounded-xl bg-violet-primary/5 border bg-card transition-all hover:-translate-y-0.5 hover:shadow-md"
             >
               {/* Image */}
               <div className="relative aspect-[16/10] w-full overflow-hidden bg-muted">

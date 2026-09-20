@@ -1,33 +1,44 @@
 import MessageForm from "@/components/common/messageForm";
-import AccessoriesProducts from "@/components/sections/ChairAccessories";
+import { FinalCTA } from "@/components/pri-sections/finalCTA";
+import { ReviewsSection } from "@/components/pri-sections/reviews";
+import { StatsSection } from "@/components/pri-sections/Stats";
+import { TrustStrip } from "@/components/pri-sections/TrustStrip";
+import { WhySTOfficeFurniture } from "@/components/pri-sections/WhyUs";
+import { WorkspaceSolutions } from "@/components/pri-sections/workspaceSol";
 import FaqQuestion from "@/components/sections/faq";
 import FeaturedProducts from "@/components/sections/FeaturedProducts";
 import HeroSectionA from "@/components/sections/HeroSectionA";
-import Imagegallery from "@/components/sections/imagegallery";
+import NewArivalsProducts from "@/components/sections/NewArrival";
 import SpecialCategories from "@/components/sections/SpecialCategories";
-import VisitorsChair from "@/components/sections/VisitorsChair";
+
 import React from "react";
 
-const Home = () => {
+const Page = () => {
   return (
-    <div className="flex flex-col gap-3 p-1 w-full">
+    <div className="w-full  mx-auto">
       <HeroSectionA />
       <FeaturedProducts />
-      <VisitorsChair />
       <SpecialCategories />
-      <AccessoriesProducts />
-      {/* <FeaturedProducts /> */}
-      <Imagegallery />
-      <div className="flex-1 flex items-stretch gap-2 max-w-384 bg-background w-full mx-auto flex-col lg:flex-row">
-        <div className="flex-1 h-full bg-background">
-          <FaqQuestion />
+      <TrustStrip />
+      <WhySTOfficeFurniture />
+      <StatsSection />
+      <WorkspaceSolutions />
+      <NewArivalsProducts />
+      <ReviewsSection />
+      <FaqQuestion />
+      <div className="max-w-5xl mx-auto p-4">
+        <div className="mb-4 flex items-center gap-3">
+          <span className="h-px w-9 bg-primary" />
+
+          <span className="text-xs font-semibold uppercase tracking-[0.25em] text-primary">
+            Any other queries
+          </span>
         </div>
-        <div className="flex-1 h-full ">
-          <MessageForm />
-        </div>
+        <MessageForm />
       </div>
+      <FinalCTA />
     </div>
   );
 };
 
-export default Home;
+export default Page;

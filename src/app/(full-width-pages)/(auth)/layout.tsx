@@ -32,7 +32,7 @@ export default function AuthLayout({
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     fill
                     className="object-contain object-center dark:hidden "
-                    quality={100}
+                   
                   />
                   <Image
                     src={coreInfo.imageDark}
@@ -40,7 +40,7 @@ export default function AuthLayout({
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     fill
                     className="object-contain object-center hidden dark:block "
-                    quality={100}
+                    
                   />
                 </Link>
 

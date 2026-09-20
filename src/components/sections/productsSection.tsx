@@ -20,6 +20,7 @@ const icons = {
 const ProductsSections = ({
   products,
   title,
+  subTitle,
   icon,
   href,
 }: {
@@ -34,6 +35,7 @@ const ProductsSections = ({
     };
   })[];
   title?: string;
+  subTitle?: string;
   icon?: keyof typeof icons;
   href?: string;
 }) => {
@@ -54,15 +56,20 @@ const ProductsSections = ({
 
   return (
     <section>
-      <div className=" relative  max-w-384 mx-auto w-full rounded-md p-2 bg-background border ">
+      <div className=" relative  max-w-384 mx-auto w-full rounded-md p-2 bg-background/30 border ">
         <div className="flex items-center justify-between flex-wrap gap-2  ">
-          <span className="flex items-center gap-2">
-            <div className="relative text-red-primary">
-              <Icon className="animate-ping absolute opacity-50 h-8 w-8" />
-              <Icon className="h-8 w-8" />
-            </div>
-            <h2 className="font-bold text-lg">{title ?? "Products"}</h2>
-          </span>
+          <div>
+            <span className="flex items-center gap-2">
+              <div className="relative text-green-primary">
+                <Icon className="animate-ping fill-yellow-500 absolute opacity-50 h-8 w-8" />
+                <Icon className="h-8 w-8 fill-yellow-400" />
+              </div>
+              <h2 className="font-bold text-lg">{title ?? "Products"}</h2>
+            </span>
+            <span className="text-gray-primary text-xs">
+              {subTitle ?? "Designed for better work."}
+            </span>
+          </div>
           <span>
             <Button variant={"destructive"} asChild>
               <Link href={href ?? "/products"}>
@@ -74,7 +81,7 @@ const ProductsSections = ({
         </div>
         <div
           ref={scrollContainerRef}
-          className="relative flex items-stretch p-2 h-100  gap-3 w-full   overflow-x-auto overflow-y-hidden"
+          className="relative flex items-stretch p-2 h-110  gap-3 w-full   overflow-x-auto scrollbar-none overflow-y-hidden"
         >
           {products &&
             products.length > 0 &&
@@ -86,7 +93,10 @@ const ProductsSections = ({
                 discount: Number(item.discount),
               };
               return (
-                <div key={index} className="min-w-65 w-65 flex h-full">
+                <div
+                  key={index}
+                  className="min-w-65 max-w-65  w-65 flex h-full"
+                >
                   <ProductClient item={sanitize} />
                 </div>
               );

@@ -1,10 +1,15 @@
 // FeaturedProducts.tsx - Server Component
+import { filterProductType } from "../data/core";
 import ProductsSections from "./productsSection";
 
 // import { getProducts } from "@/lib/api";
 
 const FeaturedProducts = async () => {
-  const filterOption = { limit: 10, order: "desc", category: "" };
+  const filterOption: filterProductType = {
+    limit: 10,
+    order: "desc",
+    category: "",
+  };
   // fetch data
   const data = await fetch(
     `${process.env.NEXT_PUBLIC_URL_SITE}/api/products?limit=${filterOption.limit}&order=${filterOption.order}&category=${filterOption.category}`,
@@ -19,12 +24,16 @@ const FeaturedProducts = async () => {
   }
 
   return (
+    <div className="w-full bg-violet-primary/10 py-2">
+
+   
     <ProductsSections
       products={featuredProducts}
-      title="New Products"
+      title="Featured Products"
+      subTitle="Designed for better work."
       href={`/products?category=${filterOption.category}`}
       icon="star"
-    />
+    /> </div>
   );
 };
 

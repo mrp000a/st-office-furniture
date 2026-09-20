@@ -131,7 +131,7 @@ const AProductPage = ({
               <div className="space-y-3 max-w-125 mx-auto w-full md:m-0">
                 <div className=" rounded-md  overflow-hidden w-full   lg:max-w-125 mx-auto aspect-5/4 bg-white shadow-2xl relative flex-center">
                   <span
-                    className={`bg-red-primary dark:text-foreground flex-center flex-col  text-background rounded-md text-xl ring-2 ring-gray-secondary px-2 py-1  absolute right-0 top-0 z-20 ${productInfo.discount ? "" : "hidden"}`}
+                    className={`bg-red-primary font-bold dark:text-foreground flex-center flex-col  text-background rounded-md text-xl ring-2 ring-gray-secondary px-2 py-1  absolute right-0 top-0 z-20 ${productInfo.discount ? "" : "hidden"}`}
                   >
                     <span className="font-bold">
                       {Number(productInfo.discount)}%
@@ -140,7 +140,7 @@ const AProductPage = ({
                   </span>
 
                   <span
-                    className={`bg-red-primary flex-center flex-col  text-background dark:text-foreground  text-xs ring-2 ring-gray-secondary px-5 py-1  absolute -left-[18px]  -rotate-45 top-0 z-20 ${new Date(productInfo.createdAt) > sevenDaysAgo ? "" : "hidden"}`}
+                    className={`bg-red-primary font-bold flex-center flex-col  text-background dark:text-foreground  text-xs ring-2 ring-gray-secondary px-5 py-1  absolute -left-[18px]  -rotate-45 top-0 z-20 ${new Date(productInfo.createdAt) > sevenDaysAgo ? "" : "hidden"}`}
                   >
                     New
                   </span>
@@ -293,7 +293,7 @@ const AProductPage = ({
                   </div>
 
                   {/* price */}
-                  <div className="text-2xl rounded-md p-2 border border-l-red-primary border-l-4 border-gray-secondary w-fit">
+                  <div className="text-2xl rounded-md p-2 border border-l-green-primary border-l-4 border-gray-secondary w-fit">
                     <span className="text-gray-primary">Price:</span>{" "}
                     <span className="font-semibold">
                       ৳
@@ -389,7 +389,7 @@ const AProductPage = ({
                       type="button"
                       size={"lg"}
                       variant={"secondary"}
-                      className="hover:bg-red-primary  hover:text-background dark:hover:text-foreground text-base cursor-pointer"
+                      className="hover:bg-green-primary  hover:text-background dark:hover:text-foreground text-base cursor-pointer"
                     >
                       <CirclePlus /> Add to Cart
                     </Button>
@@ -438,7 +438,7 @@ const AProductPage = ({
                       disabled={productInfo.stock < 1}
                       type="button"
                       size={"lg"}
-                      className="bg-red-primary text-background dark:text-foreground text-base cursor-pointer"
+                      className="bg-green-primary text-background dark:text-foreground text-base cursor-pointer"
                     >
                       <Banknote /> Order Now
                     </Button>
@@ -449,7 +449,7 @@ const AProductPage = ({
             {/* descriptions and more */}
             <div className="p-1 md:p-2 rounded-md border bg-background ">
               <div className="flex flex-col p-2 gap-3">
-                <h2 className="text-2xl font-bold border-l-4 border-l-red-primary px-3 rounded-md">
+                <h2 className="text-2xl font-bold border-l-4 border-l-green-primary px-3 rounded-md">
                   Descriptions
                 </h2>
                 <span className="text-gray-secondary font-semibold text-lg">
@@ -474,14 +474,17 @@ const AProductPage = ({
               </div>
             </div>
             <div className="flex items-start justify-start flex-col md:flex-row-reverse gap-2 px-1">
-              <ProductReviewForm productId={productInfo.id} />
+              <ProductReviewForm
+                productCode={productInfo.productCode}
+                productId={productInfo.id}
+              />
               <div className="max-w-200 w-full rounded-md bg-background p-2 shadow-md ">
                 <div className="flex items-center justify-between">
                   <h4 className=" font-semibold">Customer Reviews</h4>
                   {/* <Button>Put a Review</Button> */}
                 </div>
                 <hr />
-                <div>
+                <div className="p-1 border rounded-md">
                   {productInfo && productInfo.reviews.length > 0 ? (
                     productInfo.reviews.map((item, index) => (
                       <ReviewCard review={item} key={index} />

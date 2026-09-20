@@ -129,6 +129,7 @@ export const navItems: {
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
+  { label: "Categories", href: "/categories" },
   { label: "Checkout", href: "/checkout" },
   { label: "Track Order", href: "/track-order" },
   { label: "Products", href: "/products" },
@@ -165,7 +166,8 @@ export const allowedImage = {
 };
 
 export const ProductDefaultImage: string =
-  "r2upload/products/images/9d3ee168-12d5-486f-bff7-80b4656fe464.jpg";
+  "r2upload/products/images/8c0bfedf-1015-49a0-bf52-87b7595de03a.png";
+
 export const ProfileDefaultImage =
   "users/avatar/08f0b6a5-2a3b-43e0-b22e-a0a068a9995e.png";
 
@@ -278,7 +280,7 @@ export const CategoriesNav = [
   { label: "Chair Accessories", href: "/products?category=chair-accessories" },
   { label: "Sofa", href: "/products?category=sofa" },
   // testing
-  // { label: "Test Page", href: "/test" },
+  { label: "Test Page", href: "/test" },
 ];
 
 export const termsText = [
@@ -495,3 +497,9 @@ export const messagesFilter = [
   { label: "Unread", icon: IoMailUnreadOutline, value: "unread" },
   { label: "Read", icon: IoMailOpenOutline, value: "read" },
 ];
+
+export type filterProductType = {
+  limit: number;
+  order: "asc" | "desc";
+  category: string;
+};

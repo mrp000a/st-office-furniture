@@ -35,8 +35,8 @@ const NewsLetter = () => {
         />
         <Button
           type="submit"
-          className="bg-red-primary"
-          // className="px-2 py-1 active:translate-y-[0.5px] rounded-md bg-red-primary text-background font-semibold hover:ring-1 active:ring-2 ring-gray-primary ring hover:bg-red-primary/50 transition-all hover:outline hover:outline-gray-primary/40"
+          className="bg-green-primary"
+          // className="px-2 py-1 active:translate-y-[0.5px] rounded-md bg-green-primary text-background font-semibold hover:ring-1 active:ring-2 ring-gray-primary ring hover:bg-green-primary/50 transition-all hover:outline hover:outline-gray-primary/40"
         >
           Submit
         </Button>

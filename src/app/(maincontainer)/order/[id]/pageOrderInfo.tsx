@@ -52,7 +52,7 @@ const PageOrderInfo = ({
       {order ? (
         <div className="flex gap-3 w-full flex-col md:flex-row px-2">
           {/* info container */}
-          <div className="max-w-200 flex-1 w-full bg-background rounded-sm shadow shadow-foreground p-2 space-y-3 h-fit">
+          <div className="max-w-200 flex-1 w-full bg-violet-primary/5 rounded-sm shadow shadow-foreground p-2 space-y-3 h-fit">
             <div className="flex-center ">
               <h2 className="text-lg font-semibold">
                 Order Information #{order.id}
@@ -66,7 +66,7 @@ const PageOrderInfo = ({
             </div>
 
             {/* billing info and price */}
-            <div className="flex flex-wrap w-full sm:flex-row flex-col gap-2 p-2 bg-gray-secondary/40 rounded-sm text-sm">
+            <div className="flex flex-wrap w-full sm:flex-row flex-col gap-2 p-2 border bg-violet-primary/15 rounded-sm text-sm">
               {/* info */}
               <div className="space-y-3 p-2 rounded-sm flex-1">
                 <h3 className="text-sm font-semibold w-full text-center">
@@ -113,7 +113,7 @@ const PageOrderInfo = ({
                       ৳{Number(order.shippingCost).toFixed(2)}
                     </span>
                   </div>
-                  <div className="bg-red-primary h-[0.3px]"></div>
+                  <div className="bg-green-primary h-[0.3px]"></div>
                   <div className="flex items-center justify-between">
                     <span className="text-gray-primary">Total:</span>
                     <span className="font-semibold">
@@ -135,10 +135,10 @@ const PageOrderInfo = ({
                       -৳{Number(order.discountAmount).toFixed(2)}
                     </span>
                   </div>
-                  <div className="bg-red-primary h-[0.3px]"></div>
+                  <div className="bg-green-primary h-[0.3px]"></div>
                   <div className="flex items-center justify-between">
                     <span className="text-gray-primary">Due:</span>
-                    <span className="font-semibold text-red-primary dark:bg-foreground bg-background px-2  rounded-sm">
+                    <span className="font-semibold text-green-primary dark:bg-foreground bg-background px-2  rounded-sm">
                       ৳
                       {(
                         Number(order.total) - Number(order.discountAmount)
@@ -149,9 +149,9 @@ const PageOrderInfo = ({
               </div>
             </div>
 
-            <div className="p-1 w-full">
+            <div className="p-1 w-full space-y-2">
               <h3 className="text-sm font-semibold w-full">Products</h3>
-              <div className=" w-full min-w-0 overflow-x-auto">
+              <div className=" w-full min-w-0 rounded-md bg-violet-primary/10 border overflow-x-auto">
                 {order.items ? (
                   <Table className="">
                     <TableHeader>
@@ -167,7 +167,10 @@ const PageOrderInfo = ({
                     <TableBody className="">
                       {order.items.map(
                         ({ product, price, productId, qty, title }, index) => (
-                          <TableRow key={index} className="">
+                          <TableRow
+                            key={index}
+                            className="odd:bg-gray-secondary/25  even:bg-gray-secondary/10"
+                          >
                             <TableCell className="font-medium">
                               #{productId}
                             </TableCell>
@@ -232,7 +235,7 @@ const PageOrderInfo = ({
             </div>
           </div>
           {/* log container */}
-          <div className="md:max-w-100 flex-1  bg-background rounded-sm shadow shadow-foreground p-2 px-4 space-y-3 h-fit ">
+          <div className="md:max-w-100 flex-1  bg-violet-primary/5 rounded-sm shadow shadow-foreground p-2 px-4 space-y-3 h-fit ">
             <Timeline defaultValue={3} className="w-full max-w-md">
               {order.logs
                 .toReversed()

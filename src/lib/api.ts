@@ -375,6 +375,19 @@ export const loadCart = async ({
   }
 };
 
+export const loadCartLocal = async ({
+  dispatch,
+}: {
+  dispatch: Dispatch<UnknownAction>;
+}) => {
+  // if (!userId) throw new Error("User id Required");
+  const cartGet = localStorage.getItem("stcart");
+  const cartLoad: any = cartGet ? JSON.parse(cartGet) : null;
+
+  if (!cartLoad || !cartLoad?.items) return;
+  dispatch(setCart(cartLoad));
+};
+
 export async function AddToCart({
   title,
   price,

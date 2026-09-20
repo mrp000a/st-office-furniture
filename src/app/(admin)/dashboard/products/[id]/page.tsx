@@ -515,7 +515,7 @@ const PageEditProduct = ({
                             <Button
                               type="button"
                               onClick={() => removeExistingImage(index)}
-                              className="flex items-center gap-1 bg-red-primary"
+                              className="flex items-center gap-1 bg-green-primary"
                             >
                               <RiDeleteBinFill />
                               {/* <span>Delete</span> */}
@@ -564,7 +564,7 @@ const PageEditProduct = ({
                             type="button"
                             onClick={() => removeImageField(index)}
                             variant={"default"}
-                            className="bg-red-primary"
+                            className="bg-green-primary"
                           >
                             <RiDeleteBinFill />
                           </Button>
@@ -615,7 +615,7 @@ const PageEditProduct = ({
                             type="button"
                             onClick={() => removekeyFeaturesField(index)}
                             variant={"default"}
-                            className="bg-red-primary"
+                            className="bg-green-primary"
                           >
                             <RiDeleteBinFill />
                           </Button>
@@ -701,7 +701,7 @@ const PageEditProduct = ({
                           type="button"
                           onClick={() => removeDescriptionsField(index)}
                           variant={"default"}
-                          className="bg-red-primary max-sm:self-end"
+                          className="bg-green-primary max-sm:self-end"
                         >
                           <RiDeleteBinFill />
                         </Button>

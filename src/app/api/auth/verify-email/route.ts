@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { createActivity } from "@/lib/activity-log";
 
 export async function POST(req: NextRequest) {
   try {
@@ -49,7 +50,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Verify user
-    await prisma.user.update({
+    const varify = await prisma.user.update({
       where: {
         id: verificationToken.userId,
       },
@@ -57,6 +58,19 @@ export async function POST(req: NextRequest) {
         emailVerified: true,
         varifiedAt: new Date(),
       },
+    });
+
+    await createActivity({
+      type: "USER",
+      action: "UPDATE",
+
+      title: "User Varified",
+
+      description: `User ${verificationToken.userId} varified  `,
+
+      userId: verificationToken.userId,
+
+      entityType: "User",
     });
 
     // Delete token after successful verification
