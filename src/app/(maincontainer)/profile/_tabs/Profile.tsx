@@ -1,5 +1,5 @@
 "use client";
-import PageEditUserClient from "@/components/common/pageEditUserClient";
+import PageEditUserClient from "@/components/common/forms/pageEditUserClient";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,

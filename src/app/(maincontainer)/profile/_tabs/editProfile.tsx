@@ -8,7 +8,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Gender, UserRole } from "@/generated/prisma";
-import PageEditUserClient from "@/components/common/pageEditUserClient";
+import PageEditUserClient from "@/components/common/forms/pageEditUserClient";
 
 const EditProfile = ({
   openEditUser,

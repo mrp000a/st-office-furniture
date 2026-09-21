@@ -17,10 +17,10 @@ import ProductSearchContainer from "../uiComponent/productSearchContainer";
 import FloatingMessage from "../uiComponent/floatingMessage";
 import { ThemeToggleButton } from "../common/ThemeToggleButton";
 import MobileBottomNav from "../common/mobileBottomNav";
-import MobileNavDrawar from "../common/mobileNavDrawar";
-import CartDrawar from "../common/cartDrawar";
+import MobileNavDrawar from "../common/drawar/mobileNavDrawar";
+import CartDrawar from "../common/drawar/cartDrawar";
 import CategoriesNavBar from "../common/categoriesNav";
-import DesktopNavBar from "../common/desktopNav";
+import DesktopNavBar from "../common/drawar/desktopNav";
 
 const HomeNav = () => {
   const [openMobNav, setOpenMobNav] = useState<boolean>(false);

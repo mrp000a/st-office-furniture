@@ -21,22 +21,17 @@ import { SimpleBubble } from "@/components/uiComponent/uiCom";
 import { HandleAddToCart, HandleAddToLocalCart } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { useParams, useRouter } from "next/navigation";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSession } from "next-auth/react";
-import { ProductDefaultImage, ProductItemType } from "@/components/data/core";
+import { ProductDefaultImage } from "@/components/data/core";
 import NotFound from "@/app/not-found";
-import {
-  Category,
-  Product,
-  ProductDescription,
-  ProReview,
-} from "@/generated/prisma";
+import { Category, ProductDescription, ProReview } from "@/generated/prisma";
 import { useDispatch } from "react-redux";
-import ProductLoadinglayout from "./loading";
 import RatingStars from "@/components/uiComponent/ratingstars";
 import { MdReviews } from "react-icons/md";
-import ProductReviewForm from "@/components/common/reviewForm";
+import ProductReviewForm from "@/components/common/forms/reviewForm";
 import { ReviewCard } from "@/components/common/reviewCard";
+import Link from "next/link";
 
 // import { useRouter } from "next/navigation";
 
@@ -140,7 +135,7 @@ const AProductPage = ({
                   </span>
 
                   <span
-                    className={`bg-red-primary font-bold flex-center flex-col  text-background dark:text-foreground  text-xs ring-2 ring-gray-secondary px-5 py-1  absolute -left-[18px]  -rotate-45 top-0 z-20 ${new Date(productInfo.createdAt) > sevenDaysAgo ? "" : "hidden"}`}
+                    className={`bg-red-primary font-bold flex-center flex-col  text-background dark:text-foreground  text-xs ring-2 ring-gray-secondary px-5 py-1  absolute -left-4.5  -rotate-45 top-0 z-20 ${new Date(productInfo.createdAt) > sevenDaysAgo ? "" : "hidden"}`}
                   >
                     New
                   </span>
@@ -307,12 +302,23 @@ const AProductPage = ({
                       ৳{Number(productInfo.price).toFixed(2)}
                     </span>
                   </div>
+
+                  {/* ratings */}
+                  <span className="flex items-center text-base gap-1 flex-wrap">
+                    <div className="flex items-center gap-1">
+                      <RatingStars
+                        rating={productInfo.averageRating}
+                        size={20}
+                      />
+                      <span>{productInfo.averageRating.toFixed(1)}</span>
+                      <span>({productInfo._count?.reviews})</span>
+                    </div>
+                    <Button variant={"link"} asChild>
+                      <Link href={"#reviews"}>See Reviews</Link>
+                    </Button>
+                  </span>
                   {/* KEY FEATURES */}
 
-                  <span className="flex items-center text-base">
-                    <RatingStars rating={productInfo.averageRating} size={20} />
-                    ({productInfo._count.reviews})
-                  </span>
                   <div>
                     <h4 className="text-lg font-semibold">Key Features</h4>
                     <div className="flex flex-col items-start justify-start gap-1  ">
@@ -322,6 +328,9 @@ const AProductPage = ({
                         </span>
                       ))}
                     </div>
+                    <Button variant={"link"} asChild>
+                      <Link href={"#descriptions"}>More Description</Link>
+                    </Button>
                   </div>
 
                   {/* Buttons */}
@@ -417,6 +426,7 @@ const AProductPage = ({
 
                           const time = setTimeout(() => {
                             router.push("/checkout");
+                            clearTimeout(time);
                           }, 1000);
 
                           return;
@@ -447,7 +457,10 @@ const AProductPage = ({
               </div>
             </div>
             {/* descriptions and more */}
-            <div className="p-1 md:p-2 rounded-md border bg-background ">
+            <div
+              id="descriptions"
+              className="p-1 md:p-2 rounded-md border bg-background "
+            >
               <div className="flex flex-col p-2 gap-3">
                 <h2 className="text-2xl font-bold border-l-4 border-l-green-primary px-3 rounded-md">
                   Descriptions
@@ -473,7 +486,10 @@ const AProductPage = ({
                 </div>
               </div>
             </div>
-            <div className="flex items-start justify-start flex-col md:flex-row-reverse gap-2 px-1">
+            <div
+              id="reviews"
+              className="flex items-start justify-start flex-col md:flex-row-reverse gap-2 px-1"
+            >
               <ProductReviewForm
                 productCode={productInfo.productCode}
                 productId={productInfo.id}

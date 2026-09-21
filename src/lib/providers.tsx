@@ -5,11 +5,13 @@ import ReduxProvider from "@/redux/provider";
 import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "./themeProviders";
 import React from "react";
+import { ScrollToTop } from "@/components/sec_lib/scroll-to-top";
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <ReduxProvider>
+        {/* <ScrollToTop /> */}
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -17,9 +19,9 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
           disableTransitionOnChange
         >
           <TooltipProvider>
-              <SessionProvider>
-                <AlertDialogProvider>{children}</AlertDialogProvider>
-              </SessionProvider>
+            <SessionProvider>
+              <AlertDialogProvider>{children}</AlertDialogProvider>
+            </SessionProvider>
           </TooltipProvider>
         </ThemeProvider>
       </ReduxProvider>

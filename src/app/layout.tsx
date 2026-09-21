@@ -56,7 +56,7 @@ export default function RootLayout({
         geistMono.variable,
         siliGuri.variable,
         poppIns.variable,
-        "font-sans ",
+        "font-sans scroll-smooth",
         inter.variable,
       )}
       suppressHydrationWarning
@@ -64,7 +64,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col font-poppins  dark:bg-gray-900">
         <Providers>
           {children}
-          <Toaster richColors icons={{}}/>
+          <Toaster richColors icons={{}} />
         </Providers>
       </body>
     </html>

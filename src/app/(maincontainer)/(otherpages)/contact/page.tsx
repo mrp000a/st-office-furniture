@@ -1,5 +1,5 @@
 import ContactInfoClient from "@/components/common/contactInfo";
-import MessageForm from "@/components/common/messageForm";
+import MessageForm from "@/components/common/forms/messageForm";
 import { coreInfo } from "@/components/data/core";
 import { Metadata } from "next";
 import Image from "next/image";

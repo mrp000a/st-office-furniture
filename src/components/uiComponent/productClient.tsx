@@ -24,34 +24,18 @@ const ProductClient = ({
   );
 
   return (
-    <div className="hover:shadow-2xl group bg-background dark:bg-background hover:translate-y-1 shadow-blue-primary/40 hover:ring-3 hover:ring-gray-secondary  transition-all flex flex-col max-w-full box-border w-full justify-start items-start gap-2 ring-2 ring-green-primary p-1 rounded-sm relative">
-      {/* main image and discont red  */}
+    <div className="hover:shadow-2xl group bg-background dark:bg-background hover:translate-y-0.5 duration-300 shadow-blue-primary/40 hover:ring-3 hover:ring-gray-secondary  transition-all flex flex-col max-w-full box-border w-full justify-start items-start gap-2 ring-2 ring-green-primary p-1 rounded-sm relative">
+      {/* main image and discount red  */}
       <Link
         href={`/products/${item.productCode.toLowerCase()}`}
-        className="
-    relative
-    block
-    w-full
-    aspect-square
-    overflow-hidden
-    rounded-md
-    border
-    border-gray-secondary
-    bg-white
-  "
+        className=" relative block w-full aspect-square overflow-hidden rounded-md border border-gray-secondary bg-white"
       >
         <Image
           src={`${process.env.NEXT_PUBLIC_URL_R2}/${item.images?.[0] ?? ProductDefaultImage}`}
           alt={item.title}
           fill
           sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1200px) 25vw, 20vw"
-          className="
-          object-contain
-          transition-transform
-          duration-500
-          ease-in-out
-          group-hover:scale-110
-        "
+          className="   object-contain   transition-transform   duration-700   ease-in-out   group-hover:scale-110 "
         />
         <span
           className={`bg-red-primary flex-center flex-col font-bold  text-background dark:text-foreground rounded-md text-xs ring-2 ring-gray-secondary px-2 py-1  absolute right-0 top-0 z-20 ${item.discount ? "" : "hidden"}`}
@@ -81,8 +65,10 @@ const ProductClient = ({
         </Link>
         {/* ratings  */}
         <div>
-          <span className="flex items-center">
-            <RatingStars rating={item.averageRating} />({item._count?.reviews})
+          <span className="flex items-center gap-1">
+            <RatingStars rating={item.averageRating} />
+            <span>{item.averageRating.toFixed(1)}</span>
+            <span>({item._count?.reviews})</span>
           </span>
         </div>
         <div className=" font-bold flex flex-wrap justify-between items-center">

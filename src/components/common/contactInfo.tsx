@@ -10,7 +10,7 @@ import Link from "next/link";
 import { FaWhatsapp } from "react-icons/fa";
 import Image from "next/image";
 import imoIcon from "@/components/images/imoicon.png";
-import MessageForm from "./messageForm";
+import MessageForm from "./forms/messageForm";
 
 const ContactInfoClient = () => {
   return (

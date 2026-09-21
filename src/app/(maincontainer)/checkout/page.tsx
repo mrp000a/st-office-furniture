@@ -31,8 +31,8 @@ import {
 import { useRouter } from "next/navigation";
 import { clearCart } from "@/redux/features/cart/cartSlice";
 import { useAlertDialog } from "@/components/hooks/use-alert-dialog";
-import { useEffect, useState } from "react";
-import CouponForm from "@/components/common/coupon";
+import { useEffect } from "react";
+import CouponForm from "@/components/common/forms/coupon";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
@@ -82,16 +82,6 @@ const Page = () => {
 
   const handleSubmitData = async (data: OrderFormData) => {
     // await new Promise((resolve) => setTimeout(resolve, 2000));
-
-    // type NewOrderInput = {
-    //   receiverName: string;
-    //   receiverPhone: string;
-    //   address: string;
-    //   email: string | null;
-    //   customerNote: string | null;
-    //   items: CartItem[] | undefined;
-    //   userId: number | null;
-    // };
 
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -275,7 +265,7 @@ const Page = () => {
                         value={field.value ?? ""}
                         onValueChange={field.onChange}
                       >
-                        <SelectTrigger className="w-full !h-10">
+                        <SelectTrigger className="w-full h-10!">
                           <SelectValue placeholder="Select Delivery Area" />
                         </SelectTrigger>
 

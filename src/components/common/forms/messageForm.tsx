@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 import { toast } from "sonner";
-import { InputErrorMessage } from "../uiComponent/uiCom";
+import { InputErrorMessage } from "../../uiComponent/uiCom";
 import { FiLoader } from "react-icons/fi";
 
 type Inputs = {

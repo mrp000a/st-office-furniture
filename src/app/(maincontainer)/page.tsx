@@ -1,4 +1,4 @@
-import MessageForm from "@/components/common/messageForm";
+import MessageForm from "@/components/common/forms/messageForm";
 import { FinalCTA } from "@/components/pri-sections/finalCTA";
 import { ReviewsSection } from "@/components/pri-sections/reviews";
 import { StatsSection } from "@/components/pri-sections/Stats";

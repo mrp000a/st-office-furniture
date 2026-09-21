@@ -6,12 +6,12 @@ import { Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 
-import { ProReviewAdd } from "../actions/ProReviewAdd";
-import { InputErrorMessage } from "../uiComponent/uiCom";
+import { ProReviewAdd } from "../../actions/ProReviewAdd";
+import { InputErrorMessage } from "../../uiComponent/uiCom";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { useAlertDialog } from "../hooks/use-alert-dialog";
+import { useAlertDialog } from "../../hooks/use-alert-dialog";
 import { title } from "process";
 type ReviewFormData = {
   rating: number;
@@ -45,7 +45,7 @@ const ReviewForm = ({ productId, productCode }: ReviewFormProps) => {
       const logIn = await confirm({
         title: "Please Log In to put a review!",
         description: "Your mush have to be logged in.",
-        confirmText: "Log In"
+        confirmText: "Log In",
       });
 
       if (logIn) router.push(`/signin?callbackUrl=products/${productCode}`);

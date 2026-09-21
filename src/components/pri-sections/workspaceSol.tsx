@@ -1,7 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, ArrowRight } from "lucide-react";
-import WhyChooseImage from "@/components/images/Home/how-to-choose-furniture-for-a-new-home.webp";
+import WorkSpaceSol_1 from "@/components/images/Office/a-large-black-desk-with-a-black-chair-and-a-black-board-on-the-wall-photo.jpg";
+import WorkSpaceSol_2 from "@/components/images/Office/open-plan-work-space.jpg";
+import WorkSpaceSol_3 from "@/components/images/Office/modern sofas.webp";
 
 const workspaceSolutions = [
   {
@@ -9,7 +11,7 @@ const workspaceSolutions = [
     subtitle: "Work comfortably from home.",
     description:
       "Create a focused, comfortable workspace designed around the way you work.",
-    image: WhyChooseImage,
+    image: WorkSpaceSol_1,
     href: "/products?workspace=home-office",
     number: "01",
   },
@@ -18,7 +20,7 @@ const workspaceSolutions = [
     subtitle: "Build a productive workspace.",
     description:
       "Professional furniture solutions designed for productive teams and modern offices.",
-    image: WhyChooseImage,
+    image: WorkSpaceSol_2,
     href: "/products?workspace=corporate-office",
     number: "02",
   },
@@ -27,7 +29,7 @@ const workspaceSolutions = [
     subtitle: "Make a strong first impression.",
     description:
       "Create welcoming reception spaces that reflect your brand and professionalism.",
-    image: WhyChooseImage,
+    image: WorkSpaceSol_3,
     href: "/products?workspace=reception",
     number: "03",
   },

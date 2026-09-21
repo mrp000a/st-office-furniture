@@ -6,16 +6,16 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
-} from "../ui/drawer";
-import { Button } from "../ui/button";
+} from "../../ui/drawer";
+import { Button } from "../../ui/button";
 import { useSession } from "next-auth/react";
 import { handleDeleteCartItem, loadCart, loadCartLocal } from "@/lib/api";
 import { useDispatch, useSelector } from "react-redux";
 import { RotateCcw, SquareArrowRight } from "lucide-react";
 import { RootState } from "@/redux/store";
-import { CartProductItem } from "../uiComponent/CartRelated";
-import { ProductDefaultImage } from "../data/core";
-import { NoItemsFound } from "../uiComponent/uiCom";
+import { CartProductItem } from "../../uiComponent/CartRelated";
+import { ProductDefaultImage } from "../../data/core";
+import { NoItemsFound } from "../../uiComponent/uiCom";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 

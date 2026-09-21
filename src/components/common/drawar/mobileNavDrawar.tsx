@@ -6,9 +6,9 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
-} from "../ui/drawer";
-import { coreInfo, navItems } from "../data/core";
-import { Button } from "../ui/button";
+} from "@/components/ui/drawer";
+import { coreInfo, navItems } from "@/components/data/core";
+import { Button } from "@/components/ui/button";
 import { SquareArrowLeft } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 
