@@ -9,6 +9,7 @@ import { Dispatch } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 import { updateQuantity } from "@/redux/features/cart/cartSlice";
+import { getImageUrlProduct } from "@/lib/getImageUrl";
 
 export const CartProductItem = ({
   id,
@@ -51,7 +52,7 @@ export const CartProductItem = ({
         className="h-15 cursor-pointer w-15 relative border box-border border-gray-secondary rounded-md overflow-hidden"
       >
         <Image
-          src={`${process.env.NEXT_PUBLIC_URL_R2}/${image ?? ProductDefaultImage}`}
+          src={getImageUrlProduct(image)}
           alt={title}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           fill
@@ -163,7 +164,7 @@ export const CartProductItemOrder = ({
         className="h-15 cursor-pointer w-15 relative border box-border border-gray-secondary rounded-md overflow-hidden"
       >
         <Image
-          src={`${process.env.NEXT_PUBLIC_URL_R2}/${image ?? ProductDefaultImage}`}
+          src={getImageUrlProduct(image)}
           alt={title}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           fill

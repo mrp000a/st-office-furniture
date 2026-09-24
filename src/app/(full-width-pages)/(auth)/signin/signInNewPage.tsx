@@ -2,6 +2,8 @@
 
 import GridShape from "@/components/common/GridShape";
 import { useAlertDialog } from "@/components/hooks/use-alert-dialog";
+import GoogleButton from "@/components/sec_lib/cont-with-google";
+import GoogleLoginMessage from "@/components/sec_lib/google-signin-error";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
@@ -126,7 +128,10 @@ export default function SignInForm() {
             </p>
           </div>
           <div>
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-5">
+            <GoogleLoginMessage />
+            <div className="flex items-center justify-between gap-3 mt-5">
+              <GoogleButton />
+              {/*
               <button className="inline-flex items-center justify-center gap-3 py-3 text-sm font-normal text-gray-700 transition-colors bg-gray-100 rounded-lg px-7 hover:bg-gray-200 hover:text-gray-800 dark:bg-white/5 dark:text-white/90 dark:hover:bg-white/10">
                 <svg
                   width="20"
@@ -167,6 +172,7 @@ export default function SignInForm() {
                 </svg>
                 Sign in with X
               </button>
+              */}
             </div>
             <div className="relative py-3 sm:py-5">
               <div className="absolute inset-0 flex items-center">

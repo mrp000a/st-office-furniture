@@ -10,6 +10,7 @@ import { useAlertDialog } from "@/components/hooks/use-alert-dialog";
 import { AdminProductItem } from "@/lib/formDataTypes";
 import { RiDeleteBinFill } from "react-icons/ri";
 import { useRouter } from "next/navigation";
+import { getImageUrlProduct } from "@/lib/getImageUrl";
 
 const ProductAdmin = ({ item }: { item: AdminProductItem }) => {
   const { confirm } = useAlertDialog();
@@ -46,7 +47,7 @@ const ProductAdmin = ({ item }: { item: AdminProductItem }) => {
         className="  w-full aspect-video relative border box-border border-gray-secondary rounded-md overflow-hidden"
       >
         <Image
-          src={`${process.env.NEXT_PUBLIC_URL_R2}/${item.images[0] ?? ProductDefaultImage}`}
+          src={getImageUrlProduct(item.images[0])}
           alt={item.title}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           fill

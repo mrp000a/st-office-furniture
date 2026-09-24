@@ -24,6 +24,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { allowedTypes } from "@/components/data/core";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import { useAlertDialog } from "@/components/hooks/use-alert-dialog";
+import GoogleRegButton from "@/components/sec_lib/google-register-button";
 
 const PageRegisterForm = () => {
   const [showPass, setShowPass] = useState<boolean>(false);
@@ -139,15 +140,15 @@ const PageRegisterForm = () => {
     const createUser: { success: boolean; result?: object; message: string } =
       await res.json();
     if (createUser.success) {
-      toast.success("User Created Successful!", {
-        description: "Please check your email inbox to verify your email.",
-        action: {
-          label: "Log In Now",
-          onClick() {
-            router.push("/signin");
-          },
-        },
-      });
+      // toast.success("User Created Successful!", {
+      //   description: "Please check your email inbox to verify your email.",
+      //   action: {
+      //     label: "Log In Now",
+      //     onClick() {
+      //       router.push("/signin");
+      //     },
+      //   },
+      // });
 
       await confirm({
         title: "Please check your email inbox for verify your email.",
@@ -159,7 +160,7 @@ const PageRegisterForm = () => {
       const redTimeout = setTimeout(() => {
         router.push("/signin");
         clearTimeout(redTimeout);
-      }, 5000);
+      }, 1500);
     }
   };
 
@@ -185,7 +186,8 @@ const PageRegisterForm = () => {
             </p>
           </div>
           <div>
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-5">
+            {/* <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-5">
+              <GoogleRegButton />
               <button className="inline-flex items-center justify-center gap-3 py-3 text-sm font-normal text-gray-700 transition-colors bg-gray-100 rounded-lg px-7 hover:bg-gray-200 hover:text-gray-800 dark:bg-white/5 dark:text-white/90 dark:hover:bg-white/10">
                 <svg
                   width="20"
@@ -227,6 +229,7 @@ const PageRegisterForm = () => {
                 Sign up with X
               </button>
             </div>
+          
             <div className="relative py-3 sm:py-5">
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-gray-200 dark:border-gray-800"></div>
@@ -237,6 +240,7 @@ const PageRegisterForm = () => {
                 </span>
               </div>
             </div>
+             */}
             <form onSubmit={handleSubmit(handleSubmitData)}>
               <div className="space-y-1 w-full ">
                 {/* sec1  */}

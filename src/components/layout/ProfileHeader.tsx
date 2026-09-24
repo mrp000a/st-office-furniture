@@ -9,6 +9,7 @@ import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
 import { FaUserCircle } from "react-icons/fa";
 import { SignOut } from "../sec_lib/Sessions";
+import { getImageUrl } from "@/lib/getImageUrl";
 
 const ProfileHeader = ({
   children,
@@ -34,7 +35,7 @@ const ProfileHeader = ({
             <span className="flex flex-wrap justify-center gap-2 items-center">
               <span className="w-12 h-12 relative z-10 inline-block rounded-full border border-gray-primary overflow-hidden">
                 <Image
-                  src={`${process.env.NEXT_PUBLIC_URL_R2}/${user?.image ?? ProfileDefaultImage}`}
+                  src={getImageUrl(user?.image)}
                   alt={user?.name ?? ""}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   fill

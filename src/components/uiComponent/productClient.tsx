@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 import { Banknote, CirclePlus } from "lucide-react";
 import RatingStars from "./ratingstars";
+import { getImageUrlProduct } from "@/lib/getImageUrl";
 
 const ProductClient = ({
   item,
@@ -31,7 +32,7 @@ const ProductClient = ({
         className=" relative block w-full aspect-square overflow-hidden rounded-md border border-gray-secondary bg-white"
       >
         <Image
-          src={`${process.env.NEXT_PUBLIC_URL_R2}/${item.images?.[0] ?? ProductDefaultImage}`}
+          src={getImageUrlProduct(item.images[0])}
           alt={item.title}
           fill
           sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1200px) 25vw, 20vw"

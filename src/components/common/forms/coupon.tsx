@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { toast } from "sonner";
-import { Input } from "../ui/input";
+import { Input } from "@/components/ui/input";
 
 const CouponForm = () => {
   return (

@@ -38,6 +38,7 @@ import Link from "next/link";
 import { MdOutlineSave } from "react-icons/md";
 import { allowedTypes } from "@/components/data/core";
 import { ProductDescription } from "@/generated/prisma";
+import { getImageUrlProduct } from "@/lib/getImageUrl";
 
 const PageEditProduct = ({
   // productCode,
@@ -505,7 +506,7 @@ const PageEditProduct = ({
                             <div className="relative w-8 h-8">
                               <Image
                                 fill
-                                src={`${process.env.NEXT_PUBLIC_URL_R2}/${item}`}
+                                src={getImageUrlProduct(item)}
                                 alt=""
                                 className="object-cover"
                               />

@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Quote, Star, BadgeCheck } from "lucide-react";
 import { ProductDefaultImage, ProfileDefaultImage } from "../data/core";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { getImageUrl } from "@/lib/getImageUrl";
 
 const reviews = [
   {
@@ -147,13 +149,12 @@ export function ReviewsSection() {
               <div className="flex items-center gap-3">
                 {/* Avatar */}
                 <div className="relative size-11 shrink-0 overflow-hidden rounded-full bg-muted">
-                  <Image
-                    src={`${process.env.NEXT_PUBLIC_URL_R2}/${review.image}`}
-                    alt={review.name}
-                    fill
-                    className="object-cover"
-                    sizes="44px"
-                  />
+                  <Avatar className="size-full">
+                    <AvatarImage src={getImageUrl(review.image)} />
+                    <AvatarFallback>
+                      {review?.name?.charAt(0).toUpperCase() ?? "U"}
+                    </AvatarFallback>
+                  </Avatar>
                 </div>
 
                 {/* Details */}

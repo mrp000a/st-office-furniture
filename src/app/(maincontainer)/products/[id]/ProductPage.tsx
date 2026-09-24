@@ -32,6 +32,7 @@ import { MdReviews } from "react-icons/md";
 import ProductReviewForm from "@/components/common/forms/reviewForm";
 import { ReviewCard } from "@/components/common/reviewCard";
 import Link from "next/link";
+import { getImageUrlProduct } from "@/lib/getImageUrl";
 
 // import { useRouter } from "next/navigation";
 
@@ -196,8 +197,7 @@ const AProductPage = ({
                                 style={zoomStyle}
                                 className={`object-contain object-center overflow-hidden transition-transform duration-150 ease-out group-hover:scale-170`}
                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
-                                // sizes="100vw"
-                                src={`${process.env.NEXT_PUBLIC_URL_R2}/${item ? item : ProductDefaultImage}`}
+                                src={getImageUrlProduct(item)}
                                 alt={item}
                               />
                             </div>
@@ -213,7 +213,7 @@ const AProductPage = ({
                         fill
                         className={`object-contain object-center overflow-hidden  relative w-200 h-300 `}
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
-                        src={`${process.env.NEXT_PUBLIC_URL_R2}/${ProductDefaultImage}`}
+                        src={getImageUrlProduct(ProductDefaultImage)}
                         alt={"default image"}
                       />
                     </div>
@@ -236,7 +236,7 @@ const AProductPage = ({
                         fill
                         className={`object-contain object-center overflow-hidden   `}
                         sizes="10vw"
-                        src={`${process.env.NEXT_PUBLIC_URL_R2}/${item ? item : ProductDefaultImage}`}
+                        src={getImageUrlProduct(item)}
                         alt={item}
                       />
                     </button>

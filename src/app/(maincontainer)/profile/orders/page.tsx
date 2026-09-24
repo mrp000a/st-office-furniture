@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import { coreInfo } from "@/components/data/core";
 import { OrderStatus } from "@/generated/prisma";
 import PageProfileOrders from "./pageOrder";
+import { getSession, getUserId } from "@/lib/serverAuth";
 
 type Props = {
   searchParams: Promise<{
@@ -20,9 +21,13 @@ export default async function ProductsPage({ searchParams }: Props) {
   const status = params.status ?? "";
   const page = Number(params.page ?? 1);
 
+  const sessionPromise = getSession();
+  const serverId = await getUserId(sessionPromise);
+  const userId = Number(serverId);
+
   const totalProducts = await prisma.order.count({
     where: {
-        userId: 22,
+      userId: userId,
       ...(search
         ? {
             OR: [
@@ -54,7 +59,7 @@ export default async function ProductsPage({ searchParams }: Props) {
 
   const products = await prisma.order.findMany({
     where: {
-      userId: 22,
+      userId: userId,
       ...(search
         ? {
             OR: [

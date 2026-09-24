@@ -25,16 +25,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import {
-  ProductDefaultImage,
-  ProfileDefaultImage,
-} from "@/components/data/core";
+import { ProfileDefaultImage } from "@/components/data/core";
 import { OrderStatusBadge } from "@/components/uiComponent/order-status-badge";
 import { Gender, OrderStatus, UserRole } from "@/generated/prisma";
 import EditProfile from "./_tabs/editProfile";
 import { useState } from "react";
 import { SignOut } from "@/components/sec_lib/Sessions";
 import { IoMdLogOut } from "react-icons/io";
+import { getImageUrl } from "@/lib/getImageUrl";
 
 type ProfileHomeProps = {
   user: {
@@ -115,13 +113,13 @@ export default function ProfileHome({
           {/* Avatar */}
           <div className="-mt-12 flex flex-col gap-5 sm:-mt-16 sm:flex-row sm:items-end sm:justify-between">
             <div className="flex items-end gap-4">
-              <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-full border-4 border-background bg-muted shadow-lg sm:h-32 sm:w-32">
+              <div className="relative  h-24 w-24 shrink-0 overflow-hidden rounded-full border-4 border-background bg-muted shadow-lg sm:h-32 sm:w-32">
                 {user.image ? (
                   <Image
-                    src={`${process.env.NEXT_PUBLIC_URL_R2}/${user.image ?? ProfileDefaultImage}`}
+                    src={getImageUrl(user.image)}
                     alt={displayName}
                     fill
-                    sizes="128px"
+                    sizes="200px"
                     className="object-cover"
                   />
                 ) : (

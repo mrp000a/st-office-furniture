@@ -14,6 +14,7 @@ import { useSession } from "next-auth/react";
 import { dropdownAdminData, ProfileDefaultImage } from "@/components/data/core";
 import Link from "next/link";
 import { SignOut } from "@/components/sec_lib/Sessions";
+import { getImageUrl } from "@/lib/getImageUrl";
 
 export function DropdownMenuAdmin() {
   const { data } = useSession();
@@ -23,7 +24,7 @@ export function DropdownMenuAdmin() {
         <button>
           <span className="w-8 h-8 relative z-10 inline-block rounded-full border border-gray-primary overflow-hidden">
             <Image
-              src={`${process.env.NEXT_PUBLIC_URL_R2}/${data?.user?.image ?? ProfileDefaultImage}`}
+              src={getImageUrl(data?.user?.image)}
               alt={data?.user?.name ?? ""}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               fill

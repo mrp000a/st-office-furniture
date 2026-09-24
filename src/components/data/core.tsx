@@ -169,7 +169,7 @@ export const ProductDefaultImage: string =
   "r2upload/products/images/8c0bfedf-1015-49a0-bf52-87b7595de03a.png";
 
 export const ProfileDefaultImage =
-  "users/avatar/08f0b6a5-2a3b-43e0-b22e-a0a068a9995e.png";
+  "r2upload/users/images/1166a01f-3c23-4629-908e-9e63a9b9a3e0.png";
 
 export const DeliveryAreas = [
   { label: "Inside Dhaka", value: "INSIDE_DHAKA", charge: 0 },

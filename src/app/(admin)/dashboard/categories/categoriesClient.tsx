@@ -29,6 +29,7 @@ import { useAlertDialog } from "@/components/hooks/use-alert-dialog";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { IoReload } from "react-icons/io5";
+import { getImageUrlProduct } from "@/lib/getImageUrl";
 
 // const categories = [
 //   {
@@ -170,7 +171,7 @@ export default function CategoriesPageClient({
               <div className="relative aspect-[16/10] w-full overflow-hidden bg-muted">
                 {image ? (
                   <Image
-                    src={`${process.env.NEXT_PUBLIC_URL_R2}/${image}`}
+                    src={getImageUrlProduct(image)}
                     alt={image}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"

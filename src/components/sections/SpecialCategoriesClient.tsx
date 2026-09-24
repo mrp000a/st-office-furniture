@@ -14,6 +14,7 @@ import { BiCategory } from "react-icons/bi";
 import Image from "next/image";
 import { TbCategoryPlus } from "react-icons/tb";
 import { ProductDefaultImage } from "../data/core";
+import { getImageUrlProduct } from "@/lib/getImageUrl";
 
 const SpecialCategoriesClient = ({
   categories,
@@ -74,7 +75,7 @@ const SpecialCategoriesClient = ({
                   >
                     {image ? (
                       <Image
-                        src={`${process.env.NEXT_PUBLIC_URL_R2}/${image ? image : ProductDefaultImage}`}
+                        src={getImageUrlProduct(image)}
                         alt={name}
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         fill

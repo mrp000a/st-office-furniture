@@ -15,6 +15,7 @@ import { useRouter } from "next/navigation";
 import PaginationLayout from "@/components/common/paginationLayout";
 import SearchLayout from "@/components/common/searchLayout";
 import SearchShowClient from "@/components/common/searchShowClient";
+import { getImageUrlProduct } from "@/lib/getImageUrl";
 
 const PageCategoriesAdmin = ({
   categories,
@@ -56,7 +57,7 @@ const PageCategoriesAdmin = ({
                 <span className="w-14  h-14 relative z-10 inline-block rounded-md border border-gray-primary overflow-hidden">
                   {image ? (
                     <Image
-                      src={`${process.env.NEXT_PUBLIC_URL_R2}/${image ? image : ProductDefaultImage}`}
+                      src={getImageUrlProduct(image)}
                       alt={name}
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       fill

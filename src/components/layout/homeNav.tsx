@@ -21,6 +21,7 @@ import MobileNavDrawar from "../common/drawar/mobileNavDrawar";
 import CartDrawar from "../common/drawar/cartDrawar";
 import CategoriesNavBar from "../common/categoriesNav";
 import DesktopNavBar from "../common/drawar/desktopNav";
+import { getImageUrl } from "@/lib/getImageUrl";
 
 const HomeNav = () => {
   const [openMobNav, setOpenMobNav] = useState<boolean>(false);
@@ -136,7 +137,7 @@ const HomeNav = () => {
                       fill
                       className={`object-cover object-center overflow-hidden rounded-full relative w-200 h-300 ${user?.image ? "" : "mix-blend-darken"}`}
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      src={`${process.env.NEXT_PUBLIC_URL_R2}/${user?.image ?? ProfileDefaultImage}`}
+                      src={getImageUrl(user?.image)}
                       alt={user?.image ?? ProfileDefaultImage}
                     />
                   </div>

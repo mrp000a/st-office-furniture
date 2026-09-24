@@ -1,5 +1,6 @@
 import { Star } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { getImageUrl } from "@/lib/getImageUrl";
 
 type ReviewCardProps = {
   review: {
@@ -19,13 +20,7 @@ export function ReviewCard({ review }: ReviewCardProps) {
   return (
     <div className="flex gap-4 border-b py-4 rounded-md">
       <Avatar className="size-10">
-        <AvatarImage
-          src={
-            review.user.image
-              ? `${process.env.NEXT_PUBLIC_URL_R2}/${review.user.image}`
-              : undefined
-          }
-        />
+        <AvatarImage src={getImageUrl(review.user.image)} />
         <AvatarFallback>
           {review.user.name?.charAt(0).toUpperCase() ?? "U"}
         </AvatarFallback>

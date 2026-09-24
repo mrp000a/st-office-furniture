@@ -21,6 +21,7 @@ import { useState } from "react";
 import { IoReload } from "react-icons/io5";
 import { MdViewList } from "react-icons/md";
 import Link from "next/link";
+import { getImageUrlProduct } from "@/lib/getImageUrl";
 
 export default function CategoriesPageClient({
   categories,
@@ -80,7 +81,7 @@ export default function CategoriesPageClient({
               >
                 {image ? (
                   <Image
-                    src={`${process.env.NEXT_PUBLIC_URL_R2}/${image}`}
+                    src={getImageUrlProduct(image)}
                     alt={image}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"

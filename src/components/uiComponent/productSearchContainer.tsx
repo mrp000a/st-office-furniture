@@ -10,6 +10,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { NoItemsFound } from "./uiCom";
 import { ProductDefaultImage } from "../data/core";
+import { getImageUrlProduct } from "@/lib/getImageUrl";
 
 const ProductSearchContainer = ({
   focusRef,
@@ -79,7 +80,7 @@ const ProductSearchContainer = ({
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="overflow-hidden object-cover"
-                  src={`${process.env.NEXT_PUBLIC_URL_R2}/${item.images[0] ?? ProductDefaultImage}`}
+                  src={getImageUrlProduct(item.images[0])}
                   alt=""
                 />
               </div>

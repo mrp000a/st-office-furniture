@@ -42,6 +42,7 @@ import SearchShowClient from "@/components/common/searchShowClient";
 import { OrderStatusBadge } from "@/components/uiComponent/order-status-badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ordersType } from "@/components/data/types";
+import { getImageUrlProduct } from "@/lib/getImageUrl";
 
 const PageOrders = ({
   orders,
@@ -149,7 +150,7 @@ const PageOrders = ({
                       <span className="min-w-6 max-w-6  min-h-6 max-h-6 relative z-10 inline-block rounded-full  overflow-hidden">
                         <Avatar className="size-6">
                           <AvatarImage
-                            src={`${process.env.NEXT_PUBLIC_URL_R2}/${user?.image}`}
+                            src={getImageUrlProduct(user?.image)}
                           />
                           <AvatarFallback>
                             {receiverName?.charAt(0).toUpperCase() ?? "U"}

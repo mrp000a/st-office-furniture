@@ -30,6 +30,7 @@ import { ordersType } from "@/components/data/types";
 import PaginationLayout from "@/components/common/paginationLayout";
 import { useRouter, useSearchParams } from "next/navigation";
 import { OrderStatusBadge } from "@/components/uiComponent/order-status-badge";
+import { getImageUrl } from "@/lib/getImageUrl";
 
 const PageProfileOrders = ({
   orders,
@@ -148,7 +149,7 @@ const PageProfileOrders = ({
                         <span className="min-w-6 max-w-6  min-h-6 max-h-6 relative z-10 inline-block rounded-full  overflow-hidden">
                           {user?.image ? (
                             <Image
-                              src={`${process.env.NEXT_PUBLIC_URL_R2}/${user.image ? user.image : ProductDefaultImage}`}
+                              src={getImageUrl(user?.image)}
                               alt={user.email}
                               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                               fill

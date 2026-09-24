@@ -15,8 +15,7 @@ import { DropdownMenuNotification } from "../common/dropdownNotification";
 import { useDashboardDrawer } from "@/context/SidebarContext";
 
 const DashHeader = () => {
-  const session = useSession();
-  const user = session.data?.user;
+  
   const { setSidebarOpen, setSidebarOpenMob } = useDashboardDrawer();
 
   return (

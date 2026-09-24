@@ -33,6 +33,7 @@ import PaginationLayout from "@/components/common/paginationLayout";
 import { deleteUser } from "@/lib/api";
 import SearchShowClient from "@/components/common/searchShowClient";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { getImageUrlProduct } from "@/lib/getImageUrl";
 
 const PageUsersAdmin = ({
   users,
@@ -142,9 +143,7 @@ const PageUsersAdmin = ({
                       <div className="flex items-center justify-start  gap-1">
                         <span className="min-w-6 max-w-6  min-h-6 max-h-6 relative z-10 inline-block rounded-full  overflow-hidden">
                           <Avatar className="size-6">
-                            <AvatarImage
-                              src={`${process.env.NEXT_PUBLIC_URL_R2}/${image}`}
-                            />
+                            <AvatarImage src={getImageUrlProduct(image)} />
                             <AvatarFallback>
                               {name?.charAt(0).toUpperCase() ?? "U"}
                             </AvatarFallback>

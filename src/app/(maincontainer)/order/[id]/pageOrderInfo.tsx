@@ -30,6 +30,7 @@ import { FaUserCircle } from "react-icons/fa";
 import Link from "next/link";
 import { OrderStatusBadge } from "@/components/uiComponent/order-status-badge";
 import { HtmlProps } from "next/dist/shared/lib/html-context.shared-runtime";
+import { getImageUrlProduct } from "@/lib/getImageUrl";
 
 const PageOrderInfo = ({
   order,
@@ -182,17 +183,13 @@ const PageOrderInfo = ({
                               >
                                 {/* Product image */}
                                 <span className="min-w-10 max-w-10 min-h-10 max-h-10 relative z-10 inline-block rounded-sm border overflow-hidden">
-                                  {product?.images[0] ? (
-                                    <Image
-                                      src={`${process.env.NEXT_PUBLIC_URL_R2}/${product.images[0]}`}
-                                      alt={title}
-                                      sizes="40px"
-                                      fill
-                                      className="object-cover w-full h-full"
-                                    />
-                                  ) : (
-                                    <FaUserCircle className="h-full w-full" />
-                                  )}
+                                  <Image
+                                    src={getImageUrlProduct(product?.images[0])}
+                                    alt={title}
+                                    sizes="40px"
+                                    fill
+                                    className="object-cover w-full h-full"
+                                  />
                                 </span>
 
                                 {/* Product title */}

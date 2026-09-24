@@ -25,6 +25,7 @@ import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import SearchShowClient from "@/components/common/searchShowClient";
+import { getImageUrl } from "@/lib/getImageUrl";
 
 const Page = () => {
   const session = useSession();
@@ -165,7 +166,7 @@ const Page = () => {
                         <span className="min-w-6 max-w-6  min-h-6 max-h-6 relative z-10 inline-block rounded-full  overflow-hidden">
                           {user?.image ? (
                             <Image
-                              src={`${process.env.NEXT_PUBLIC_URL_R2}/${user.image ? user.image : ProductDefaultImage}`}
+                              src={getImageUrl(user?.image)}
                               alt={user.email}
                               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                               fill
