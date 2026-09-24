@@ -1,6 +1,6 @@
 "use client";
 
-import { LogOutIcon } from "lucide-react";
+// import { LogOutIcon } from "lucide-react";
 
 import {
   DropdownMenu,

@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 import { coreInfo, ProfileDefaultImage } from "../data/core";
 import { Button } from "../ui/button";
-import { Menu, Search, ShoppingCart } from "lucide-react";
+import { ArrowDown, Menu, Search, ShoppingCart } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
@@ -22,6 +22,7 @@ import CartDrawar from "../common/drawar/cartDrawar";
 import CategoriesNavBar from "../common/categoriesNav";
 import DesktopNavBar from "../common/drawar/desktopNav";
 import { getImageUrl } from "@/lib/getImageUrl";
+import { DropdownMenuHeader } from "../common/drawar/dropdownMenuHeader";
 
 const HomeNav = () => {
   const [openMobNav, setOpenMobNav] = useState<boolean>(false);
@@ -128,25 +129,29 @@ const HomeNav = () => {
                   </Button>
                 </>
               ) : (
-                <button
-                  className="flex-center flex-col gap-2 font-semibold cursor-pointer px-2 py-1"
-                  onClick={() => router.push("/profile")}
-                >
-                  <div className="relative w-12 h-12 aspect-video  rounded-full overflow-hidden outline-3 outline-gray-secondary">
-                    <Image
-                      fill
-                      className={`object-cover object-center overflow-hidden rounded-full relative w-200 h-300 ${user?.image ? "" : "mix-blend-darken"}`}
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      src={getImageUrl(user?.image)}
-                      alt={user?.image ?? ProfileDefaultImage}
-                    />
-                  </div>
-                  <span className="max-[450px]:hidden hidden text-[10px]">
-                    {user?.name?.length !== undefined && user?.name?.length > 15
-                      ? user?.name?.split(" ")[0]
-                      : `${user?.name?.split(" ")[0]} ${user?.name?.split(" ")[1]}`}
-                  </span>
-                </button>
+                <div className="flex items-center">
+                  {/* <button
+                    className="flex-center flex-col gap-2 font-semibold cursor-pointer px-2 py-1"
+                    onClick={() => router.push("/profile")}
+                  >
+                    <div className="relative w-12 h-12 aspect-video  rounded-full overflow-hidden outline-3 outline-gray-secondary">
+                      <Image
+                        fill
+                        className={`object-cover object-center overflow-hidden rounded-full relative w-200 h-300 ${user?.image ? "" : "mix-blend-darken"}`}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        src={getImageUrl(user?.image)}
+                        alt={user?.image ?? ProfileDefaultImage}
+                      />
+                    </div>
+                    <span className="max-[450px]:hidden hidden text-[10px]">
+                      {user?.name?.length !== undefined &&
+                      user?.name?.length > 15
+                        ? user?.name?.split(" ")[0]
+                        : `${user?.name?.split(" ")[0]} ${user?.name?.split(" ")[1]}`}
+                    </span>
+                  </button> */}
+                  <DropdownMenuHeader />
+                </div>
               )}
 
               <button
