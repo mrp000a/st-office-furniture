@@ -268,7 +268,7 @@ export const quickLinks = [
 ];
 
 export const CategoriesNav = [
-  { label: "All Categories", href: "/products" },
+  { label: "All Categories", href: "/categories" },
   { label: "Executive Chair", href: "/products?category=executive-chair" },
   { label: "Manager Chair", href: "/products?category=manager-chair" },
   { label: "Boss Chair", href: "/products?category=boss-chair" },
@@ -280,7 +280,7 @@ export const CategoriesNav = [
   { label: "Chair Accessories", href: "/products?category=chair-accessories" },
   { label: "Sofa", href: "/products?category=sofa" },
   // testing
-  // { label: "Test Page", href: "/test" },
+  { label: "Test Page", href: "/test" },
 ];
 
 export const termsText = [

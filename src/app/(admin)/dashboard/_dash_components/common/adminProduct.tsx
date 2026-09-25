@@ -72,7 +72,7 @@ const ProductAdmin = ({ item }: { item: AdminProductItem }) => {
           </Link>
 
           <Link
-            href={`/products?category=${item.category?.name?.toLowerCase() ?? ""}`}
+            href={`/categories/${item.category?.name?.toLowerCase() ?? ""}`}
             className="inline-flex text-xs font-medium text-gray-secondary transition-colors hover:text-primary"
           >
             {item.category?.name ?? "N/A"}

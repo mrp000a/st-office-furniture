@@ -59,7 +59,7 @@ const ProductClient = ({
           {item.title}
         </Link>
         <Link
-          href={`/products?category=${item.category?.name?.toLowerCase() ?? ""}`}
+          href={`/categories/${item.category?.name.trim() ?? ""}`}
           className="font-semibold text-gray-secondary text-[10px] w-fit"
         >
           {item.category?.name ?? "N/A"}

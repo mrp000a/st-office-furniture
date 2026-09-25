@@ -42,9 +42,11 @@ model User {
 
   googleId String? @unique
 
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
   activityLogs ActivityLog[]
+
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  pushSubscriptions PushSubscription[]
 }
 
 model VerificationToken {
@@ -132,7 +134,7 @@ model ProReview {
   note   String?
 
   userId Int
-  user   User @relation(fields: [userId], references: [id], onDelete: SetNull)
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId Int
@@ -360,4 +362,19 @@ model ActivityLog {
   @@index([entityType, entityId])
   @@index([createdAt])
   @@index([type, createdAt])
+}
+
+// notification
+model PushSubscription {
+  id        Int      @id @default(autoincrement())
+  userId    Int?
+  endpoint  String   @unique
+  p256dh    String
+  auth      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }

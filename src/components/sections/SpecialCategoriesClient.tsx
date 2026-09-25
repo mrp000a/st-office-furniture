@@ -70,7 +70,7 @@ const SpecialCategoriesClient = ({
               >
                 <div className="flex flex-col w-full h-full  gap-2">
                   <Link
-                    href={`/products?category=${name}`}
+                    href={`/categories/${name}`}
                     className="w-full box-border min-h-60 h-60 relative z-10 inline-block rounded-md border border-gray-primary overflow-hidden"
                   >
                     {image ? (
@@ -90,7 +90,7 @@ const SpecialCategoriesClient = ({
                   </Link>
                   <div className="flex flex-col flex-1 items-start">
                     <Link
-                      href={`/products?category=${name}`}
+                      href={`/categories/${name}`}
                       className="text-base font-bold line-clamp-2 cursor-pointer"
                     >
                       {name}
@@ -103,7 +103,7 @@ const SpecialCategoriesClient = ({
                   </div>
                   <Button variant={"outline"} asChild>
                     <Link
-                      href={`/products?category=${name}`}
+                      href={`/categories/${name}`}
                       className="text-base font-bold line-clamp-2 cursor-pointer"
                     >
                       View Now

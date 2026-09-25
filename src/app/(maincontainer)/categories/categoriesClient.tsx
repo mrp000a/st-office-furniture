@@ -76,8 +76,8 @@ export default function CategoriesPageClient({
             >
               {/* Image */}
               <button
-                onClick={() => router.push(`/products?category=${name}`)}
-                className="relative cursor-pointer aspect-[16/10] w-full overflow-hidden bg-muted"
+                onClick={() => router.push(`/categories/${name}`)}
+                className="relative cursor-pointer aspect-[16/10] w-full overflow-hidden bg-white"
               >
                 {image ? (
                   <Image
@@ -85,7 +85,7 @@ export default function CategoriesPageClient({
                     alt={image}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="object-contain transition-transform duration-500 group-hover:scale-105"
                   />
                 ) : (
                   //   <div>{image}</div>
@@ -122,7 +122,7 @@ export default function CategoriesPageClient({
                 {/* Actions */}
                 <div className="mt-4 flex items-center gap-2 border-t pt-3">
                   <Button className="flex-1" variant={"outline"} asChild>
-                    <Link href={`/products?category=${name}`}>
+                    <Link href={`/categories/${name}`}>
                       <MdViewList className="size-3.5" />
                       See Products
                     </Link>

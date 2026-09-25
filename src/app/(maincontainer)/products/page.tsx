@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import ProductsPageTest from "./productsClient";
 import { Metadata } from "next";
 import { coreInfo } from "@/components/data/core";
+import ProductsNotFound from "@/components/common/not-found-pages/products-not-found";
 
 type Props = {
   searchParams: Promise<{
@@ -42,6 +43,7 @@ export default async function ProductsPage({ searchParams }: Props) {
 
   const totalPages = Math.ceil(totalProducts / PRODUCTS_PER_PAGE);
 
+  // main data
   const products = await prisma.product.findMany({
     where: {
       ...(search
@@ -106,6 +108,7 @@ export default async function ProductsPage({ searchParams }: Props) {
     discountPrice: product.discountPrice ? Number(product.discountPrice) : null,
     discount: product.discount ? Number(product.discount) : null,
   }));
+
   return (
     <ProductsPageTest
       products={productsWithRating}

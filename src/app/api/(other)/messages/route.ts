@@ -4,6 +4,7 @@ import { Message } from "@/generated/prisma";
 import { getSession, requireRole } from "@/lib/serverAuth";
 import { sendEmail } from "@/lib/api";
 import { coreInfo } from "@/components/data/core";
+import { sendPushNotification } from "@/lib/push";
 
 export async function GET() {
   try {
@@ -53,7 +54,20 @@ export async function POST(req: Request) {
     });
 
     if (createMessage) {
-      sendEmail({ to: email.toLowerCase(), subject, message, name });
+      // sendEmail({ to: email.toLowerCase(), subject, message, name });
+      const subscriptions = await prisma.pushSubscription.findMany({});
+
+      for (const subscription of subscriptions) {
+        try {
+          await sendPushNotification(subscription, {
+            title: "Message Sent Successfull",
+            body: `Hey ${name}, Your message successfully sent to us. We will review your message as soon as possible..`,
+            url: `/profile`,
+          });
+        } catch (error) {
+          console.error("Push failed:", error);
+        }
+      }
     }
 
     return NextResponse.json({ success: true, result: createMessage });

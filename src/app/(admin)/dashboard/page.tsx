@@ -457,7 +457,7 @@ export default function AdminDashboardPage() {
             </Button>
 
             <Button asChild>
-              <Link href="/dashboard/products/new">
+              <Link href="/dashboard/products/add">
                 <Plus className="mr-2 h-4 w-4" />
                 Add Product
               </Link>
@@ -945,7 +945,7 @@ export default function AdminDashboardPage() {
 
           <CardContent className="grid gap-2">
             <QuickAction
-              href="/dashboard/products/new"
+              href="/dashboard/products/add"
               icon={Plus}
               title="Add Product"
             />

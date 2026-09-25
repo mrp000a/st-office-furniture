@@ -123,7 +123,7 @@ export async function PUT(req: Request) {
 export async function DELETE(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams;
   const id = searchParams.get("id");
-  const name = searchParams.get("name")?.toLowerCase();
+  // const name = searchParams.get("name")?.toLowerCase();
   try {
     const sessionPromise = getSession();
     await requireRole(sessionPromise, ["ADMIN", "SUPER_ADMIN"]);

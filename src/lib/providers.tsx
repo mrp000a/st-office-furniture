@@ -6,10 +6,12 @@ import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "./themeProviders";
 import React from "react";
 import { ScrollToTop } from "@/components/sec_lib/scroll-to-top";
+import PushProvider from "@/components/sec_lib/push-provider";
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
+      <PushProvider />
       <ReduxProvider>
         {/* <ScrollToTop /> */}
         <ThemeProvider

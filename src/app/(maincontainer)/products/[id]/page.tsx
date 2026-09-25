@@ -1,17 +1,10 @@
 import type { Metadata, ResolvingMetadata } from "next";
 import AProductPage from "./ProductPage";
-import {
-  coreInfo,
-  ProductDefaultImage,
-  ProductItemType,
-} from "@/components/data/core";
-import { Category, Product, ProductDescription } from "@/generated/prisma";
+import { coreInfo } from "@/components/data/core";
+import { Product } from "@/generated/prisma";
 import { prisma } from "@/lib/prisma";
-
-type ProductCombo = ProductItemType & {
-  descriptions: ProductDescription[];
-  category: Category;
-};
+import { getImageUrlProduct } from "@/lib/getImageUrl";
+import ProductNotFound from "@/components/common/not-found-pages/product-not-found";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -33,10 +26,10 @@ export async function generateMetadata(
   const product: Product = data.result;
 
   if (!product) {
-    return { title: "Product Not Found | ST Office Furniture" };
+    return { title: `Product Not Found | ${coreInfo.name}` };
   }
 
-  const productImage: string = product.images[0] ?? ProductDefaultImage;
+  const productImage: string = getImageUrlProduct(product.images[0]);
 
   // optionally access and extend (rather than replace) parent metadata
   const previousImages = (await parent).openGraph?.images || [];
@@ -44,12 +37,14 @@ export async function generateMetadata(
   const cleanDescription = product.keyFeatures.join(", ").substring(0, 155);
 
   const pageUrl = `${process.env.NEXT_PUBLIC_URL_SITE}/products/${id}`;
+
   return {
     title: `${product.title} | ${coreInfo.name}`,
     description: cleanDescription,
     keywords: [
       product.title,
       product.brand ?? "St office furniture",
+      ...product.keyFeatures,
       "office furniture",
       "buy office chair",
       "ST office",
@@ -57,6 +52,7 @@ export async function generateMetadata(
     alternates: {
       canonical: pageUrl,
     },
+
     openGraph: {
       title: `${product.title} | ${coreInfo.name}`,
       description: cleanDescription,
@@ -66,8 +62,8 @@ export async function generateMetadata(
       images: [
         {
           url: productImage,
-          width: 800,
-          height: 630,
+          width: 1000,
+          height: 1000,
           alt: product.title,
         },
         ...previousImages,
@@ -85,18 +81,6 @@ export async function generateMetadata(
 
 export default async function Page({ params }: Props) {
   const { id } = await params;
-
-  // fetch data
-  // const data = await fetch(
-  //   `${process.env.NEXT_PUBLIC_URL_SITE}/api/products/product?productCode=${id}`,
-  // ).then((res) => res.json());
-
-  // const product: ProductCombo = data.result;
-
-  // if (!product) {
-  //   return <></>;
-  // }
-  // console.log(product);
 
   const product = await prisma.product.findUnique({
     where: {
@@ -120,7 +104,7 @@ export default async function Page({ params }: Props) {
   });
 
   if (!product) {
-    return null;
+    return <ProductNotFound />;
   }
 
   const reviewStats = await prisma.proReview.aggregate({
