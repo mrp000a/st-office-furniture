@@ -44,7 +44,6 @@ export async function POST() {
     return NextResponse.json({
       success: true,
       message: "Push notification sent.",
-      statusCode: result.statusCode,
     });
   } catch (error: any) {
     console.error("Push test error:", error);
