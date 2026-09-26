@@ -3,18 +3,19 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 // import webpush
 import webpush from "web-push";
+import { sendPushNotification } from "@/lib/push";
 
 export async function POST() {
   try {
     // TEMPORARY:
     // Get the first active subscription
-    const subscription = await prisma.pushSubscription.findFirst({
+    const subscriptions = await prisma.pushSubscription.findMany({
       where: {
         isActive: true,
       },
     });
 
-    if (!subscription) {
+    if (!subscriptions || !subscriptions.length) {
       return NextResponse.json(
         {
           success: false,
@@ -24,27 +25,21 @@ export async function POST() {
       );
     }
 
-    const payload = JSON.stringify({
-      title: "ST Office Furniture",
-      body: "🎉 Push notification is working!",
-      icon: "/icons/icon-192.jpg",
-      badge: "/icons/icon-100.jpg",
-      data: {
-        url: "/",
-      },
-    });
-
-    const result = await webpush.sendNotification(
-      {
-        endpoint: subscription.endpoint,
-
-        keys: {
+    for (const subscription of subscriptions) {
+      const result = await sendPushNotification(
+        {
+          endpoint: subscription.endpoint,
           p256dh: subscription.p256dh,
           auth: subscription.auth,
         },
-      },
-      payload,
-    );
+        {
+          title: "Hellow Rakib I am here",
+          body: "Hey there, nice to meet you buddy.. ha ha ha",
+          icon: "/icons/icon-192.jpg",
+          url: "/products",
+        },
+      );
+    }
 
     return NextResponse.json({
       success: true,

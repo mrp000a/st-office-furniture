@@ -3,6 +3,8 @@ import React from "react";
 import { prisma } from "@/lib/prisma";
 import AdminDashboardPage from "./pageDash";
 
+export const dynamic = "force-dynamic";
+
 const page = async () => {
   // dashboard summary =================================================================
   const totalOrdersSum = await prisma.order.count({});

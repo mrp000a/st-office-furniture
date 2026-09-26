@@ -1,5 +1,6 @@
 "use client";
 
+import { useAlertDialog } from "../hooks/use-alert-dialog";
 import { Button } from "../ui/button";
 
 function urlBase64ToUint8Array(base64String: string) {
@@ -13,14 +14,15 @@ function urlBase64ToUint8Array(base64String: string) {
 }
 
 export default function EnableNotificationButton() {
+  const { alert } = useAlertDialog();
   const handleEnableClick = async () => {
     if (!("Notification" in window)) {
-      alert("Notifications are not supported.");
+      alert({ title: "Notifications are not supported." });
       return;
     }
 
     if (!("serviceWorker" in navigator)) {
-      alert("Service Worker is not supported.");
+      alert({ title: "Service Worker is not supported." });
       return;
     }
 
@@ -47,7 +49,7 @@ export default function EnableNotificationButton() {
       body: JSON.stringify(subscription),
     });
 
-    alert("Notifications enabled!");
+    alert({ title: "Notifications enabled!" });
   };
 
   return <Button onClick={handleEnableClick}>Enable Notifications</Button>;

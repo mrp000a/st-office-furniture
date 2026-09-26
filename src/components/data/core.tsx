@@ -280,7 +280,7 @@ export const CategoriesNav = [
   { label: "Chair Accessories", href: "/products?category=chair-accessories" },
   { label: "Sofa", href: "/products?category=sofa" },
   // testing
-  { label: "Test Page", href: "/test" },
+  // { label: "Test Page", href: "/test" },
 ];
 
 export const termsText = [
