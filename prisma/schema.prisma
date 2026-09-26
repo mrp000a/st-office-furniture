@@ -1,12 +1,7 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
-  provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
+  provider        = "prisma-client-js"
+  output          = "../src/generated/prisma"
+  previewFeatures = ["views"]
 }
 
 datasource db {
@@ -15,38 +10,26 @@ datasource db {
 }
 
 model User {
-  id Int @id @default(autoincrement())
-
-  name     String
-  phone    String @unique
-  email    String @unique
-  password String
-
-  image String?
-
-  gender Gender?
-
-  role UserRole @default(USER)
-
-  address String?
-
-  proReviews ProReview[]
-
-  cart   Cart?
-  orders Order[]
-
-  emailVerified Boolean   @default(false)
-  varifiedAt    DateTime?
-
+  id                 Int                 @id @default(autoincrement())
+  name               String
+  phone              String              @unique
+  email              String              @unique
+  password           String
+  image              String?
+  gender             Gender?
+  role               UserRole            @default(USER)
+  address            String?
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  emailVerified      Boolean             @default(false)
+  varifiedAt         DateTime?
+  googleId           String?             @unique
+  activityLogs       ActivityLog[]
+  cart               Cart?
+  orders             Order[]
+  proReviews         ProReview[]
+  pushSubscriptions  PushSubscription[]
   verificationTokens VerificationToken[]
-
-  googleId String? @unique
-
-  activityLogs ActivityLog[]
-
-  createdAt         DateTime           @default(now())
-  updatedAt         DateTime           @updatedAt
-  pushSubscriptions PushSubscription[]
 }
 
 model VerificationToken {
@@ -54,12 +37,213 @@ model VerificationToken {
   token     String   @unique
   userId    Int
   expiresAt DateTime
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
   createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
+}
+
+model Category {
+  id          Int       @id @default(autoincrement())
+  name        String    @unique
+  image       String?
+  description String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  products    Product[]
+}
+
+model Product {
+  id            Int                  @id @default(autoincrement())
+  title         String
+  productCode   String               @unique
+  images        String[]
+  brand         String?
+  keyFeatures   String[]
+  price         Decimal              @db.Decimal(12, 2)
+  discountPrice Decimal?             @db.Decimal(12, 2)
+  discount      Decimal?             @db.Decimal(5, 2)
+  stock         Int                  @default(0)
+  categoryId    Int?
+  createdAt     DateTime             @default(now())
+  updatedAt     DateTime             @updatedAt
+  cartItems     CartItem[]
+  orderItems    OrderItem[]
+  reviews       ProReview[]
+  category      Category?            @relation(fields: [categoryId], references: [id])
+  descriptions  ProductDescription[]
+
+  @@index([categoryId])
+}
+
+model ProductDescription {
+  id          Int     @id @default(autoincrement())
+  title       String
+  description String
+  productId   Int
+  product     Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model ProReview {
+  id        Int      @id @default(autoincrement())
+  rating    Int
+  note      String?
+  userId    Int
+  productId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, productId])
+  @@index([userId])
+  @@index([productId])
+}
+
+model Cart {
+  id        Int        @id @default(autoincrement())
+  userId    Int        @unique
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  user      User       @relation(fields: [userId], references: [id])
+  items     CartItem[]
+}
+
+model CartItem {
+  id        Int      @id @default(autoincrement())
+  title     String
+  price     Decimal  @db.Decimal(12, 2)
+  qty       Int
+  productId Int
+  cartId    Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  cart      Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([cartId, productId])
+}
+
+model Order {
+  id             Int            @id @default(autoincrement())
+  paymentStatus  PaymentStatus  @default(PENDING)
+  subtotal       Decimal        @db.Decimal(12, 2)
+  discountAmount Decimal        @default(0) @db.Decimal(12, 2)
+  total          Decimal        @db.Decimal(12, 2)
+  paidAmount     Decimal        @default(0) @db.Decimal(12, 2)
+  userId         Int?
+  status         OrderStatus    @default(PENDING)
+  receiverName   String
+  receiverPhone  String
+  address        String
+  receiverEmail  String?
+  customerNote   String?
+  deliveryArea   DeliveryAreas
+  paymentMethod  PaymentMethods @default(CASH_ON_DELIVERY)
+  shippingCost   Decimal        @default(0) @db.Decimal(12, 2)
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  user           User?          @relation(fields: [userId], references: [id])
+  items          OrderItem[]
+  logs           OrderLog[]
+
+  @@index([userId])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model OrderItem {
+  id        Int      @id @default(autoincrement())
+  title     String
+  price     Decimal  @db.Decimal(12, 2)
+  qty       Int
+  orderId   Int
+  productId Int?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product   Product? @relation(fields: [productId], references: [id])
+
+  @@index([orderId])
+  @@index([productId])
+}
+
+model OrderLog {
+  id        Int         @id @default(autoincrement())
+  orderId   Int
+  status    OrderStatus
+  note      String?
+  updatedBy String?
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  order     Order       @relation(fields: [orderId], references: [id], onDelete: Cascade)
+}
+
+model Message {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  subject   String
+  message   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ActivityLog {
+  id          Int            @id @default(autoincrement())
+  type        ActivityType
+  action      ActivityAction
+  title       String
+  description String
+  userId      Int?
+  entityId    String?
+  entityType  String?
+  metadata    Json?
+  createdAt   DateTime       @default(now())
+  user        User?          @relation(fields: [userId], references: [id])
+
+  @@index([type])
+  @@index([action])
+  @@index([userId])
+  @@index([entityType, entityId])
+  @@index([createdAt])
+  @@index([type, createdAt])
+}
+
+model PushSubscription {
+  id        Int      @id @default(autoincrement())
+  userId    Int?
+  endpoint  String   @unique
+  p256dh    String
+  auth      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+view MonthlyDeliveredSales {
+  month       DateTime? @db.Timestamp(6)
+  order_count Int?
+  total_sales Decimal?  @db.Decimal
+
+  @@map("monthly_delivered_sales")
+}
+
+view TopDeliveredProducts {
+  id       Int
+  title    String
+  code     String
+  category String?
+  sold     Int
+  stock    Int
+  rating   Int
+  image    String?
+  price    Decimal
+
+  @@map("top_delivered_products")
 }
 
 enum UserRole {
@@ -72,149 +256,6 @@ enum Gender {
   MALE
   FEMALE
   OTHER
-}
-
-model Category {
-  id Int @id @default(autoincrement())
-
-  name        String  @unique
-  image       String?
-  description String?
-
-  products Product[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model Product {
-  id Int @id @default(autoincrement())
-
-  title       String
-  productCode String   @unique
-  images      String[]
-
-  brand        String?
-  keyFeatures  String[]
-  descriptions ProductDescription[]
-
-  price         Decimal  @db.Decimal(12, 2)
-  discountPrice Decimal? @db.Decimal(12, 2)
-  discount      Decimal? @db.Decimal(5, 2)
-
-  stock Int @default(0)
-
-  reviews ProReview[]
-
-  category   Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
-  categoryId Int?
-
-  orderItems OrderItem[]
-  cartItems  CartItem[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([categoryId])
-}
-
-model ProductDescription {
-  id          Int    @id @default(autoincrement())
-  title       String // e.g., "Weight"
-  description String // e.g., "1.2 kg"
-
-  productId Int
-  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
-}
-
-model ProReview {
-  id Int @id @default(autoincrement())
-
-  rating Int // 0, 1, 2, 3, 4, 5
-  note   String?
-
-  userId Int
-  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
-  productId Int
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
-
-  @@unique([userId, productId])
-  @@index([userId])
-  @@index([productId])
-}
-
-model Cart {
-  id Int @id @default(autoincrement())
-
-  items CartItem[]
-
-  user   User @relation(fields: [userId], references: [id])
-  userId Int  @unique
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model CartItem {
-  id Int @id @default(autoincrement())
-
-  title String
-  price Decimal @db.Decimal(12, 2)
-  qty   Int
-
-  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
-  productId Int
-
-  cart   Cart @relation(fields: [cartId], references: [id], onDelete: Cascade)
-  cartId Int
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@unique([cartId, productId])
-}
-
-model Order {
-  id Int @id @default(autoincrement())
-
-  items         OrderItem[]
-  //PAYMENT
-  paymentStatus PaymentStatus @default(PENDING)
-
-  subtotal       Decimal @db.Decimal(12, 2)
-  discountAmount Decimal @default(0) @db.Decimal(12, 2)
-  total          Decimal @db.Decimal(12, 2)
-
-  paidAmount Decimal @default(0) @db.Decimal(12, 2)
-
-  userId Int?
-  user   User? @relation(fields: [userId], references: [id], onDelete: SetNull)
-
-  status OrderStatus @default(PENDING)
-
-  receiverName  String
-  receiverPhone String
-  address       String
-
-  receiverEmail String?
-  customerNote  String?
-
-  deliveryArea  DeliveryAreas
-  paymentMethod PaymentMethods @default(CASH_ON_DELIVERY)
-  shippingCost  Decimal        @default(0) @db.Decimal(12, 2)
-
-  logs OrderLog[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([userId])
-  @@index([status])
-  @@index([createdAt])
 }
 
 enum DeliveryAreas {
@@ -237,41 +278,6 @@ enum PaymentStatus {
   PARTIALLY_REFUNDED
 }
 
-model OrderItem {
-  id Int @id @default(autoincrement())
-
-  title String
-  price Decimal @db.Decimal(12, 2)
-  qty   Int
-
-  orderId Int
-  order   Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
-
-  product   Product? @relation(fields: [productId], references: [id])
-  productId Int?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([orderId])
-  @@index([productId])
-}
-
-model OrderLog {
-  id Int @id @default(autoincrement())
-
-  orderId Int
-  order   Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
-
-  status OrderStatus
-  note   String?
-
-  updatedBy String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
 enum OrderStatus {
   PENDING
   CONFIRMED
@@ -284,23 +290,6 @@ enum OrderStatus {
   CANCELLED
 }
 
-// Others fratures
-
-model Message {
-  id Int @id @default(autoincrement())
-
-  name    String
-  email   String
-  subject String
-  message String
-
-  isRead Boolean @default(false)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-// activity ------------------------------------------------------------------------------------------------------
 enum ActivityType {
   ORDER
   USER
@@ -332,49 +321,4 @@ enum ActivityAction {
   REJECT
   READ
   UNREAD
-}
-
-model ActivityLog {
-  id Int @id @default(autoincrement())
-
-  type   ActivityType
-  action ActivityAction
-
-  title       String
-  description String
-
-  // Who performed the activity
-  userId Int?
-  user   User? @relation(fields: [userId], references: [id], onDelete: SetNull)
-
-  // Optional reference to the affected entity
-  entityId   String?
-  entityType String?
-
-  // Optional additional information
-  metadata Json?
-
-  createdAt DateTime @default(now())
-
-  @@index([type])
-  @@index([action])
-  @@index([userId])
-  @@index([entityType, entityId])
-  @@index([createdAt])
-  @@index([type, createdAt])
-}
-
-// notification
-model PushSubscription {
-  id        Int      @id @default(autoincrement())
-  userId    Int?
-  endpoint  String   @unique
-  p256dh    String
-  auth      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([userId])
 }

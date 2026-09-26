@@ -2,6 +2,7 @@ import { LucideMessageSquareMore } from "lucide-react";
 import { AiFillProduct } from "react-icons/ai";
 import { FaCartPlus, FaGifts, FaUserCircle, FaUsers } from "react-icons/fa";
 import { IoIosHelpCircle, IoMdSettings } from "react-icons/io";
+import { IoNotifications } from "react-icons/io5";
 import { IconType } from "react-icons/lib";
 import { MdPointOfSale } from "react-icons/md";
 import { TbCategoryPlus } from "react-icons/tb";
@@ -19,6 +20,11 @@ export const DashboardNavItems: {
     label: "Messages",
     href: "/dashboard/messages",
     icon: LucideMessageSquareMore,
+  },
+  {
+    label: "Notifications",
+    href: "/dashboard/notifications",
+    icon: IoNotifications,
   },
   { label: "Settings", href: "/dashboard/settings", icon: IoMdSettings },
 ];

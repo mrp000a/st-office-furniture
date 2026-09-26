@@ -9,15 +9,6 @@ import {
   type ChartConfig,
 } from "@/components/ui/chart";
 
-const chartData = [
-  { month: "January", sales: 186, mobile: 80 },
-  { month: "February", sales: 305, mobile: 200 },
-  { month: "March", sales: 237, mobile: 120 },
-  { month: "April", sales: 73, mobile: 190 },
-  { month: "May", sales: 209, mobile: 130 },
-  { month: "June", sales: 214, mobile: 140 },
-];
-
 const chartConfig = {
   desktop: {
     label: "Desktop",
@@ -29,9 +20,13 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export function ChartBarDemoTooltip() {
+export function ChartBarDemoTooltipSales({
+  chartData,
+}: {
+  chartData: { month: string; order_count: number; total_sales: number }[];
+}) {
   return (
-    <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
+    <ChartContainer config={chartConfig} className="h-full w-full">
       <BarChart accessibilityLayer data={chartData}>
         <CartesianGrid vertical={false} />
         <XAxis
@@ -42,8 +37,8 @@ export function ChartBarDemoTooltip() {
           tickFormatter={(value) => value.slice(0, 3)}
         />
         <ChartTooltip content={<ChartTooltipContent />} />
-        <Bar dataKey="sales" fill="var(--color-desktop)" radius={4} />
-        {/* <Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} /> */}
+        <Bar dataKey={"total_sales"} fill="var(--color-desktop)" radius={4} />
+        {/* <Bar dataKey="order_count" fill="var(--color-mobile)" radius={4} /> */}
       </BarChart>
     </ChartContainer>
   );

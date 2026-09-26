@@ -20,7 +20,7 @@ const CategoriesNavBar = () => {
   const [categoriesShow, setCategoriesShow] = useState(false);
 
   return (
-    <div className="w-full bg-green-primary/80  text-xs md:text-xs lg:text-sm relative">
+    <div className="w-full bg-green-primary  text-xs md:text-xs lg:text-sm relative">
       <div className=" max-w-384 mx-auto px-2 flex justify-start items-center gap-3">
         <div
           onMouseEnter={() => setCategoriesShow(true)}

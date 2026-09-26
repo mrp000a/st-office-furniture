@@ -21,10 +21,23 @@ export default async function CategoriesPage({ searchParams }: Props) {
     where: {
       ...(search
         ? {
-            name: {
-              contains: search,
-              mode: "insensitive",
-            },
+            OR: [
+              {
+                name: {
+                  contains: search,
+                  mode: "insensitive",
+                },
+              },
+              ...(!isNaN(Number(search))
+                ? [
+                    {
+                      id: {
+                        equals: Number(search),
+                      },
+                    },
+                  ]
+                : []),
+            ],
           }
         : {}),
     },
@@ -38,10 +51,23 @@ export default async function CategoriesPage({ searchParams }: Props) {
     where: {
       ...(search
         ? {
-            name: {
-              contains: search,
-              mode: "insensitive",
-            },
+            OR: [
+              {
+                name: {
+                  contains: search,
+                  mode: "insensitive",
+                },
+              },
+              ...(!isNaN(Number(search))
+                ? [
+                    {
+                      id: {
+                        equals: Number(search),
+                      },
+                    },
+                  ]
+                : []),
+            ],
           }
         : {}),
     },

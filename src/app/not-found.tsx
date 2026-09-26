@@ -19,7 +19,7 @@ export default function Error404() {
           ERROR
         </h1>
 
-        <Image
+        <Image 
           src="/images/error/404.svg"
           alt="404"
           className="dark:hidden"

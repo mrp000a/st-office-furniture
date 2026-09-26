@@ -101,7 +101,7 @@ const ProductsPageTest = ({
           {products &&
             products.length > 0 &&
             products.map((item, index) => (
-              <div key={index} className="w-full max-w-64 max-sm:max-w-65 flex">
+              <div key={index} className="w-full max-w-70 max-sm:max-w-65 flex">
                 <ProductAdmin item={item} />
               </div>
             ))}

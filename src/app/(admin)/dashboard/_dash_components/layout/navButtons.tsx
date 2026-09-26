@@ -33,11 +33,11 @@ const DashNavButtons = () => {
             }}
             className={"flex justify-between items-center"}
             variant={
-              pathname.toLowerCase() == "/dashboard" ? "default" : "outline"
+              pathname.toLowerCase() == "/dashboard" ? "destructive" : "outline"
             }
           >
             <span className="flex items-center gap-2">
-              <MdOutlineSpaceDashboard className="text-green-primary" />
+              <MdOutlineSpaceDashboard className="text-red-primary" />
               <span className={`${sidebarOpen ? "hidden" : ""}`}>
                 Dashboard
               </span>
@@ -47,13 +47,13 @@ const DashNavButtons = () => {
           {DashboardNavItems.map(({ label, href, icon: Icon }, index) => (
             <Button
               onClick={() => router.push(href)}
-              className={`flex items-center justify-between`}
-              variant={pathname.startsWith(href) ? "default" : "outline"}
+              className={`flex items-center justify-between `}
+              variant={pathname.startsWith(href) ? "destructive" : "outline"}
               key={index}
               size={"lg"}
             >
-              <span className="flex items-center gap-2">
-                <Icon className="text-green-primary" />
+              <span className="flex items-center gap-2 ">
+                <Icon className="text-red-primary" />
                 <span className={`${sidebarOpen ? "hidden" : ""}`}>
                   {label}
                 </span>
@@ -63,7 +63,7 @@ const DashNavButtons = () => {
           ))}
         </div>
       </div>
-      <div className={`sm:hidden ${sidebarOpenMob ? "" : "bg-green-primary"} `}>
+      <div className={`sm:hidden ${sidebarOpenMob ? "" : "bg-red-primary"} `}>
         <Drawer
           open={sidebarOpenMob}
           direction="left"

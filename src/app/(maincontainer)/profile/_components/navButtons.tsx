@@ -23,14 +23,14 @@ const ProfileHeader = () => {
             pathname.startsWith("/profile")
               ? pathname.startsWith("/profile/")
                 ? "outline"
-                : "default"
+                : "destructive"
               : "outline"
           }
           asChild
         >
           <Link href={"/profile"}>
             <span className="flex items-center gap-2">
-              <FaUserCircle className="text-green-primary" />
+              <FaUserCircle className="text-red-primary" />
               <span>Profile</span>
             </span>
           </Link>
@@ -42,7 +42,7 @@ const ProfileHeader = () => {
             }}
             className={`flex items-center justify-between cursor-pointer`}
             variant={
-              pathname.startsWith(`/profile/${tab}`) ? "default" : "outline"
+              pathname.startsWith(`/profile/${tab}`) ? "destructive" : "outline"
             }
             key={index}
             size={"lg"}
@@ -50,10 +50,10 @@ const ProfileHeader = () => {
           >
             <Link href={`/profile/${tab}`}>
               <span className="flex items-center gap-2">
-                <Icon className="text-green-primary" />
+                <Icon className="text-red-primary" />
                 <span>{label}</span>
               </span>
-              <IoIosArrowForward className={``} />
+              <IoIosArrowForward className={`text-red-primary`} />
             </Link>
           </Button>
         ))}
