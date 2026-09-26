@@ -116,6 +116,7 @@ export default function ProfileHome({
               <div className="relative  h-24 w-24 shrink-0 overflow-hidden rounded-full border-4 border-background bg-muted shadow-lg sm:h-32 sm:w-32">
                 {user.image ? (
                   <Image
+                    unoptimized
                     src={getImageUrl(user.image)}
                     alt={displayName}
                     fill

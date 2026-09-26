@@ -35,6 +35,7 @@ export function FinalCTA() {
 
           <div className="absolute inset-y-0 right-0 hidden w-[45%] lg:block">
             <Image
+              unoptimized
               src={WhyChooseImage}
               alt="Modern office furniture"
               fill

@@ -22,6 +22,7 @@ const Page = () => {
                 className={` relative aspect-video w-full max-w-lg rounded-md ring ring-gray-secondary   overflow-hidden text-shadow-2xs text-shadow-blue-primary `}
               >
                 <Image
+                  unoptimized
                   fill
                   className={`object-cover object-center overflow-hidden `}
                   sizes="80vw"

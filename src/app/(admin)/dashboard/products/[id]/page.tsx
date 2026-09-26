@@ -505,6 +505,7 @@ const PageEditProduct = ({
                           >
                             <div className="relative w-8 h-8">
                               <Image
+                                unoptimized
                                 fill
                                 src={getImageUrlProduct(item)}
                                 alt=""

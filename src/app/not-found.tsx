@@ -19,7 +19,8 @@ export default function Error404() {
           ERROR
         </h1>
 
-        <Image 
+        <Image
+          unoptimized
           src="/images/error/404.svg"
           alt="404"
           className="dark:hidden"
@@ -27,6 +28,7 @@ export default function Error404() {
           height={152}
         />
         <Image
+          unoptimized
           src="/images/error/404-dark.svg"
           alt="404"
           className="hidden dark:block"

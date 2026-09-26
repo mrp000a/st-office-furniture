@@ -17,6 +17,7 @@ const Imagegallery = () => {
             className={`group relative aspect-video h-full w-full overflow-hidden rounded-md cursor-pointer shadow-sm shadow-foreground/50`}
           >
             <Image
+              unoptimized
               fill
               src={item.image}
               alt="Hero image"

@@ -90,6 +90,7 @@ const ProductAdmin = ({ item }: { item: AdminProductItem }) => {
         className="relative block aspect-video w-full overflow-hidden rounded-lg border border-gray-secondary/60 bg-background"
       >
         <Image
+          unoptimized
           src={getImageUrlProduct(productImage)}
           alt={item.title}
           sizes="256px"

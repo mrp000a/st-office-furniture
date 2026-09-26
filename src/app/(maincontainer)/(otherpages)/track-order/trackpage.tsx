@@ -48,6 +48,7 @@ const PageTrackOrder = () => {
         <div className="w-full overflow-hidden relative hidden sm:flex">
           <div className="absolute w-full h-full flex-1 overflow-hidden ">
             <Image
+              unoptimized
               fill
               className={`object-cover object-center overflow-hidden relative`}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

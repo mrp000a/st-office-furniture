@@ -22,6 +22,7 @@ const Footer = () => {
   return (
     <footer className="relative z-10">
       <Image
+        unoptimized
         src={backgroundImage}
         alt="Background"
         placeholder="blur"
@@ -30,6 +31,7 @@ const Footer = () => {
         className="object-cover object-center z-0 dark:hidden"
       />
       <Image
+        unoptimized
         src={backgroundImageDark}
         alt="Background"
         placeholder="blur"
@@ -71,6 +73,7 @@ const Footer = () => {
                 className="w-65 h-20 relative z-10 inline-block  overflow-hidden rounded-sm "
               >
                 <Image
+                  unoptimized
                   src={coreInfo.image}
                   alt={coreInfo.name}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -78,6 +81,7 @@ const Footer = () => {
                   className="object-contain object-center dark:hidden "
                 />
                 <Image
+                  unoptimized
                   src={coreInfo.imageDark}
                   alt={coreInfo.name}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

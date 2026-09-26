@@ -27,20 +27,20 @@ export default function AuthLayout({
                   className="h-20 w-60  relative z-30  rounded-sm overflow-hidden block max-[500px]:hidden"
                 >
                   <Image
+                    unoptimized
                     src={coreInfo.image}
                     alt={coreInfo.name}
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     fill
                     className="object-contain object-center dark:hidden "
-                   
                   />
                   <Image
+                    unoptimized
                     src={coreInfo.imageDark}
                     alt={coreInfo.name}
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     fill
                     className="object-contain object-center hidden dark:block "
-                    
                   />
                 </Link>
 

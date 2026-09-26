@@ -52,6 +52,7 @@ export const CartProductItem = ({
         className="h-15 cursor-pointer w-15 relative border box-border border-gray-secondary rounded-md overflow-hidden"
       >
         <Image
+          unoptimized
           src={getImageUrlProduct(image)}
           alt={title}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -164,6 +165,7 @@ export const CartProductItemOrder = ({
         className="h-15 cursor-pointer w-15 relative border box-border border-gray-secondary rounded-md overflow-hidden"
       >
         <Image
+          unoptimized
           src={getImageUrlProduct(image)}
           alt={title}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

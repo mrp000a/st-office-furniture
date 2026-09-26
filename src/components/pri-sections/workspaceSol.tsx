@@ -103,6 +103,7 @@ export function WorkspaceSolutions() {
             >
               {/* Image */}
               <Image
+                unoptimized
                 src={solution.image}
                 alt={solution.title}
                 fill

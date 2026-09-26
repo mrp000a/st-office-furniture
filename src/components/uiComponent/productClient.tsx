@@ -32,6 +32,7 @@ const ProductClient = ({
         className=" relative block w-full aspect-square overflow-hidden rounded-md border border-gray-secondary bg-white"
       >
         <Image
+          unoptimized
           src={getImageUrlProduct(item.images[0])}
           alt={item.title}
           fill

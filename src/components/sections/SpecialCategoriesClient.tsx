@@ -59,7 +59,7 @@ const SpecialCategoriesClient = ({
         </div>
         <div
           ref={scrollContainerRef}
-          className="relative flex items-stretch p-2 h-100  gap-3 w-full   overflow-x-auto overflow-y-hidden"
+          className="relative flex items-stretch p-2 h-100  gap-3 w-full scrollbar-none   overflow-x-auto overflow-y-hidden"
         >
           {categories &&
             categories.length > 0 &&
@@ -75,6 +75,7 @@ const SpecialCategoriesClient = ({
                   >
                     {image ? (
                       <Image
+                        unoptimized
                         src={getImageUrlProduct(image)}
                         alt={name}
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

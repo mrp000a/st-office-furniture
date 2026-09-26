@@ -66,6 +66,7 @@ const HomeNav = () => {
                   className="h-16 w-48  relative z-30  rounded-sm overflow-hidden block max-[500px]:hidden"
                 >
                   <Image
+                    unoptimized
                     src={coreInfo.image}
                     alt={coreInfo.name}
                     sizes="(max-width: 768px) 40vw, (max-width: 1200px) 30vw, 33vw"
@@ -73,6 +74,7 @@ const HomeNav = () => {
                     className="object-contain object-center dark:hidden "
                   />
                   <Image
+                    unoptimized
                     src={coreInfo.imageDark}
                     alt={coreInfo.name}
                     // loading="eager"
@@ -86,6 +88,7 @@ const HomeNav = () => {
                   className="size-16 rounded-full  relative z-30 overflow-hidden hidden max-[500px]:block"
                 >
                   <Image
+                    unoptimized
                     src={coreInfo.logo}
                     alt={coreInfo.name}
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -127,7 +130,7 @@ const HomeNav = () => {
                     onClick={() => router.push("/profile")}
                   >
                     <div className="relative w-12 h-12 aspect-video  rounded-full overflow-hidden outline-3 outline-gray-secondary">
-                      <Image
+                      <Image unoptimized
                         fill
                         className={`object-cover object-center overflow-hidden rounded-full relative w-200 h-300 ${user?.image ? "" : "mix-blend-darken"}`}
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

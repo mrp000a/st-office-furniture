@@ -56,6 +56,7 @@ const HeroSectionA = () => {
                     className={` relative  h-full w-full  overflow-hidden text-shadow-2xs text-shadow-blue-primary `}
                   >
                     <Image
+                      unoptimized
                       fill
                       className={`object-cover object-center overflow-hidden hero-image`}
                       sizes="80vw"

@@ -5,7 +5,6 @@ import ReduxProvider from "@/redux/provider";
 import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "./themeProviders";
 import React from "react";
-import { ScrollToTop } from "@/components/sec_lib/scroll-to-top";
 import PushProvider from "@/components/sec_lib/push-provider";
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
@@ -13,7 +12,6 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
     <>
       <PushProvider />
       <ReduxProvider>
-        {/* <ScrollToTop /> */}
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

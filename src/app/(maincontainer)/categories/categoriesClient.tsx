@@ -81,6 +81,7 @@ export default function CategoriesPageClient({
               >
                 {image ? (
                   <Image
+                    unoptimized
                     src={getImageUrlProduct(image)}
                     alt={image}
                     fill

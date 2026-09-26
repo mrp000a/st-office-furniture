@@ -15,7 +15,6 @@ import { DropdownMenuNotification } from "../common/dropdownNotification";
 import { useDashboardDrawer } from "@/context/SidebarContext";
 
 const DashHeader = () => {
-  
   const { setSidebarOpen, setSidebarOpenMob } = useDashboardDrawer();
 
   return (
@@ -39,6 +38,7 @@ const DashHeader = () => {
           className="w-12 h-12 relative z-10 inline-block rounded-full border border-gray-primary overflow-hidden"
         >
           <Image
+            unoptimized
             src={coreInfo.logo}
             alt={coreInfo.name}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

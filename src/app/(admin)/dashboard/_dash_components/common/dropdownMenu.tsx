@@ -24,6 +24,7 @@ export function DropdownMenuAdmin() {
         <button>
           <span className="w-8 h-8 relative z-10 inline-block rounded-full border border-gray-primary overflow-hidden">
             <Image
+              unoptimized
               src={getImageUrl(data?.user?.image)}
               alt={data?.user?.name ?? ""}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

@@ -193,6 +193,7 @@ const AProductPage = ({
                           >
                             <div className="swiper-zoom-container h-full w-full">
                               <Image
+                                unoptimized
                                 fill
                                 style={zoomStyle}
                                 className={`object-contain object-center overflow-hidden transition-transform duration-150 ease-out group-hover:scale-170`}
@@ -210,6 +211,7 @@ const AProductPage = ({
                       className={` relative  h-full w-full  min-w-full  overflow-hidden text-shadow-2xs text-shadow-blue-primary`}
                     >
                       <Image
+                        unoptimized
                         fill
                         className={`object-contain object-center overflow-hidden  relative w-200 h-300 `}
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
@@ -233,6 +235,7 @@ const AProductPage = ({
                       }`}
                     >
                       <Image
+                        unoptimized
                         fill
                         className={`object-contain object-center overflow-hidden   `}
                         sizes="10vw"

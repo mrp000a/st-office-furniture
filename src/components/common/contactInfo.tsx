@@ -94,6 +94,7 @@ const ContactInfoClient = () => {
           <div className="phone flex items-center flex-wrap gap-3 reveal">
             <div className="h-5 w-5 relative rounded-md">
               <Image
+                unoptimized
                 src={imoIcon}
                 alt="Background"
                 fill

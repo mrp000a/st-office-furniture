@@ -77,6 +77,7 @@ const ProductSearchContainer = ({
             >
               <div className=" relative h-10 w-10 min-h-10 min-w-10 overflow-hidden rounded-sm border border-green-primary">
                 <Image
+                  unoptimized
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="overflow-hidden object-cover"

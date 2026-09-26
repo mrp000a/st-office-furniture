@@ -133,7 +133,14 @@ export default function AdminNotifications() {
             </div>
           </div>
 
-          <form className="space-y-5 p-4 sm:p-5">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              console.log({ form: "Submitted" });
+              e.target.reset();
+            }}
+            className="space-y-5 p-4 sm:p-5"
+          >
             {/* Type + Audience */}
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-2">
@@ -264,7 +271,7 @@ export default function AdminNotifications() {
               <div className="space-y-2">
                 <label htmlFor="schedule">Schedule Time</label>
 
-                <Input id="schedule" type="datetime-local"  />
+                <Input id="schedule" type="datetime-local" />
               </div>
             </div>
 

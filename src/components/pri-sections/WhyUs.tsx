@@ -27,6 +27,7 @@ export function WhySTOfficeFurniture() {
             {/* Main image */}
             <div className="relative aspect-[4/3] overflow-hidden rounded-2xl sm:rounded-3xl">
               <Image
+                unoptimized
                 src={WhyChooseImage}
                 alt="ST Office Furniture"
                 fill

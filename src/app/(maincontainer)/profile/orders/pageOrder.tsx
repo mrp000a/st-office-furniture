@@ -149,6 +149,7 @@ const PageProfileOrders = ({
                         <span className="min-w-6 max-w-6  min-h-6 max-h-6 relative z-10 inline-block rounded-full  overflow-hidden">
                           {user?.image ? (
                             <Image
+                              unoptimized
                               src={getImageUrl(user?.image)}
                               alt={user.email}
                               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

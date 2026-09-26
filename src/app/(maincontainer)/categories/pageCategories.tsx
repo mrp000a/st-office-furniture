@@ -57,6 +57,7 @@ const PageCategoriesAdmin = ({
                 <span className="w-14  h-14 relative z-10 inline-block rounded-md border border-gray-primary overflow-hidden">
                   {image ? (
                     <Image
+                      unoptimized
                       src={getImageUrlProduct(image)}
                       alt={name}
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

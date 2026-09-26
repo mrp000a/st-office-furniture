@@ -184,6 +184,7 @@ const PageOrderInfo = ({
                                 {/* Product image */}
                                 <span className="min-w-10 max-w-10 min-h-10 max-h-10 relative z-10 inline-block rounded-sm border overflow-hidden">
                                   <Image
+                                    unoptimized
                                     src={getImageUrlProduct(product?.images[0])}
                                     alt={title}
                                     sizes="40px"

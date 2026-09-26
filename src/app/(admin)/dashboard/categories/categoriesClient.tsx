@@ -171,6 +171,7 @@ export default function CategoriesPageClient({
               <div className="relative aspect-[16/10] w-full overflow-hidden bg-muted">
                 {image ? (
                   <Image
+                    unoptimized
                     src={getImageUrlProduct(image)}
                     alt={image}
                     fill
