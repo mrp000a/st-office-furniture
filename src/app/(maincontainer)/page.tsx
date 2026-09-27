@@ -19,7 +19,7 @@ const Page = () => {
     <div className="w-full  mx-auto">
       <HeroSectionA />
       <FeaturedProducts />
-      {/* <SpecialCategories /> */}
+      <SpecialCategories />
       <TrustStrip />
       <WhySTOfficeFurniture />
       <StatsSection />
