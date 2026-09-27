@@ -136,7 +136,7 @@ export async function FindCategoryExists({
   id?: number;
 }) {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_URL_SITE}/api/categories/check?name=${name}&id=${id}`,
+    `${process.env.NEXT_PUBLIC_URL_SITE}/api/c/check?name=${name}&id=${id}`,
     {
       method: "GET",
       redirect: "follow",
@@ -148,7 +148,7 @@ export async function FindCategoryExists({
 
 export async function getCategories() {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_URL_SITE}/api/categories`,
+    `${process.env.NEXT_PUBLIC_URL_SITE}/api/c`,
     {
       method: "GET",
       redirect: "follow",
@@ -164,7 +164,7 @@ export async function getCategories() {
 
 export async function getCategoriesClient() {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_URL_SITE}/api/categories`,
+    `${process.env.NEXT_PUBLIC_URL_SITE}/api/c`,
     {
       method: "GET",
       redirect: "follow",
@@ -186,7 +186,7 @@ export async function deleteCategories({
   name: string;
 }) {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_URL_SITE}/api/categories?id=${id}&name=${name}`,
+    `${process.env.NEXT_PUBLIC_URL_SITE}/api/c?id=${id}&name=${name}`,
     {
       method: "DELETE",
       redirect: "follow",
@@ -223,7 +223,7 @@ export async function editCategories({
   image?: string;
 }) {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_URL_SITE}/api/categories`,
+    `${process.env.NEXT_PUBLIC_URL_SITE}/api/c`,
     {
       method: "PUT",
       redirect: "follow",

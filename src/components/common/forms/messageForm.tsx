@@ -11,6 +11,7 @@ import { FiLoader } from "react-icons/fi";
 
 type Inputs = {
   name: string;
+  phone: string;
   email: string;
   subject: string;
   message: string;
@@ -31,12 +32,13 @@ const MessageForm = () => {
 
   const onSubmit: SubmitHandler<Inputs> = async ({
     email,
+    phone,
     name,
     subject,
     message,
   }) => {
     try {
-      const raw = { email, name, subject, message };
+      const raw = { email, name, phone, subject, message };
       const myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
       const data = await fetch(`/api/messages`, {
@@ -65,21 +67,25 @@ const MessageForm = () => {
 
   return (
     <div className=" h-full w-full">
-      <div className="w-full max-w-384 mx-auto p-4  rounded-md bg-background border-red/30 border">
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="space-y-4 flex-center flex-col reveal"
-        >
-          <h3 className=" text-center font-bold">Feel Free To Reach Out</h3>
+      <div className="w-full max-w-384 mx-auto p-3 lg:p-6  rounded-md bg-background border-gray-secondary/80 shadow-lg shadow-foreground/20  border">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 ">
+          <div className="mb-7">
+            <h2 className="text-xl font-bold sm:text-2xl">Send an inquiry</h2>
+
+            <p className="mt-1 text-sm text-gray-primary">
+              {"Fill out the form and we'll get back to you."}
+            </p>
+          </div>
 
           <div className="space-y-4 w-full">
             {/* name and email section  */}
             <div className="flex flex-col md:flex-row items-start justify-between w-full gap-3">
               <div className="grid grid-cols-1 space-y-2 w-full flex-1">
-                <label htmlFor="name" className="text-sm font-light">
-                  Name
+                <label htmlFor="name" className="text-sm font-medium">
+                  Full Name
                 </label>
                 <Input
+                  className="h-10"
                   id="name"
                   type="text"
                   placeholder="Enter Name"
@@ -92,32 +98,56 @@ const MessageForm = () => {
                 )}
               </div>
               <div className="grid grid-cols-1 space-y-2 w-full flex-1">
-                <label htmlFor="email" className="text-sm font-light">
-                  Email
+                <label htmlFor="email" className="text-sm font-medium">
+                  Phone
                 </label>
                 <Input
+                  className="h-10"
                   id="email"
-                  type="email"
-                  placeholder="Enter Email"
-                  autoComplete="email"
-                  {...register("email", {
+                  type="text"
+                  placeholder="Enter Phone "
+                  autoComplete="phone"
+                  {...register("phone", {
                     required: {
                       value: true,
-                      message: "Email is required!",
+                      message: "Phone is required!",
                     },
                   })}
                 />
-                {errors.email && (
-                  <InputErrorMessage>{errors.email.message}</InputErrorMessage>
+                {errors.phone && (
+                  <InputErrorMessage>{errors.phone.message}</InputErrorMessage>
                 )}
               </div>
             </div>
+            {/* email */}
+            <div className="grid grid-cols-1 space-y-2 w-full flex-1">
+              <label htmlFor="email" className="text-sm font-medium">
+                Email
+              </label>
+              <Input
+                className="h-10"
+                id="email"
+                type="email"
+                placeholder="Enter Email"
+                autoComplete="email"
+                {...register("email", {
+                  required: {
+                    value: false,
+                    message: "Email is required!",
+                  },
+                })}
+              />
+              {errors.email && (
+                <InputErrorMessage>{errors.email.message}</InputErrorMessage>
+              )}
+            </div>
             {/* subject */}
             <div className="grid grid-cols-1 space-y-2">
-              <label htmlFor="subject" className="text-sm font-light">
+              <label htmlFor="subject" className="text-sm font-medium">
                 Subject
               </label>
               <Input
+                className="h-10"
                 id="subject"
                 type="text"
                 placeholder="Enter Subject"
@@ -130,28 +160,43 @@ const MessageForm = () => {
               )}
             </div>
             <div className="grid grid-cols-1 space-y-2">
-              <label htmlFor="message" className="text-sm font-light">
-                Message
-              </label>
+              <div className="flex items-center justify-between">
+                <label htmlFor="message" className="text-sm font-medium">
+                  Message
+                </label>
+                <span className="text-[11px] text-gray-primary font-light">
+                  Tell us what you need.
+                </span>
+              </div>
               <Textarea
                 id="message"
                 placeholder="Write a message"
                 {...register("message", {
                   required: { value: true, message: "Message is required!" },
                 })}
-                className="max-h-40 overflow-auto"
+                className="max-h-36 h-36 overflow-auto"
               />
               {errors.message && (
                 <InputErrorMessage>{errors.message.message}</InputErrorMessage>
               )}
             </div>
           </div>
-          <Button disabled={isSubmitting} type="submit">
+          <Button
+            disabled={isSubmitting}
+            type="submit"
+            variant={"default"}
+            className="bg-green-primary w-full text-white"
+            size={"lg"}
+          >
             <FiLoader
               className={`animate-spin ${isSubmitting ? "" : "hidden"}`}
             />
             Send Message
           </Button>
+          <p className="text-center text-[11px] leading-5 text-gray-primary">
+            By submitting this form, you agree that we may use your information
+            to respond to your inquiry.
+          </p>
         </form>
       </div>
     </div>

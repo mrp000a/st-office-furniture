@@ -7,7 +7,6 @@ import {
   FolderOpen,
   MoreHorizontal,
   Plus,
-  Search,
   Settings,
   Trash2,
 } from "lucide-react";
@@ -30,57 +29,6 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { IoReload } from "react-icons/io5";
 import { getImageUrlProduct } from "@/lib/getImageUrl";
-
-// const categories = [
-//   {
-//     id: 1,
-//     name: "Office Chairs",
-//     description:
-//       "Ergonomic and comfortable chairs designed for modern office workspaces.",
-//     image: "/images/categories/office-chair.jpg",
-//     products: 24,
-//   },
-//   {
-//     id: 2,
-//     name: "Executive Chairs",
-//     description:
-//       "Premium executive chairs with stylish designs and superior comfort.",
-//     image: "/images/categories/executive-chair.jpg",
-//     products: 12,
-//   },
-//   {
-//     id: 3,
-//     name: "Visitor Chairs",
-//     description:
-//       "Comfortable and durable chairs for visitors, reception areas and meetings.",
-//     image: "/images/categories/visitor-chair.jpg",
-//     products: 18,
-//   },
-//   {
-//     id: 4,
-//     name: "Gaming Chairs",
-//     description:
-//       "High-performance chairs designed for gaming, streaming and long sessions.",
-//     image: "/images/categories/gaming-chair.jpg",
-//     products: 9,
-//   },
-//   {
-//     id: 5,
-//     name: "Sofas",
-//     description:
-//       "Modern sofas suitable for offices, lounges, waiting areas and receptions.",
-//     image: "/images/categories/sofa.jpg",
-//     products: 15,
-//   },
-//   {
-//     id: 6,
-//     name: "Chair Accessories",
-//     description:
-//       "Useful accessories and replacement parts for office and executive chairs.",
-//     image: "/images/categories/accessories.jpg",
-//     products: 21,
-//   },
-// ];
 
 export default function CategoriesPageClient({
   categories,
@@ -162,7 +110,7 @@ export default function CategoriesPageClient({
       {/* Category Grid */}
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {categories.map(
-          ({ id, name, description, _count, createdAt, image, updatedAt }) => (
+          ({ id, name, description, _count, createdAt, image, }) => (
             <div
               key={id}
               className="group overflow-hidden rounded-xl bg-violet-primary/5 border bg-card transition-all hover:-translate-y-0.5 hover:shadow-md"

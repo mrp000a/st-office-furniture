@@ -50,7 +50,7 @@ const SpecialCategoriesClient = ({
           </span>
           <span>
             <Button variant={"destructive"} asChild>
-              <Link href={"/categories"}>
+              <Link href={"/c"}>
                 <span>See All</span>
                 <ArrowBigRight />
               </Link>
@@ -70,7 +70,7 @@ const SpecialCategoriesClient = ({
               >
                 <div className="flex flex-col w-full h-full  gap-2">
                   <Link
-                    href={`/categories/${name}`}
+                    href={`/c/${name}`}
                     className="w-full box-border min-h-60 h-60 relative z-10 inline-block rounded-md border border-gray-primary overflow-hidden"
                   >
                     {image ? (
@@ -80,7 +80,7 @@ const SpecialCategoriesClient = ({
                         alt={name}
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         fill
-                        className="object-cover group-hover:scale-115 object-center w-full h-full cursor-pointer  transition-all duration-500"
+                        className="object-contain bg-white group-hover:scale-115 object-center w-full h-full cursor-pointer  transition-all duration-500"
                       />
                     ) : (
                       <TbCategoryPlus
@@ -91,7 +91,7 @@ const SpecialCategoriesClient = ({
                   </Link>
                   <div className="flex flex-col flex-1 items-start">
                     <Link
-                      href={`/categories/${name}`}
+                      href={`/c/${name}`}
                       className="text-base font-bold line-clamp-2 cursor-pointer"
                     >
                       {name}
@@ -104,11 +104,11 @@ const SpecialCategoriesClient = ({
                   </div>
                   <Button variant={"outline"} asChild>
                     <Link
-                      href={`/categories/${name}`}
+                      href={`/c/${name}`}
                       className="text-base font-bold line-clamp-2 cursor-pointer"
                     >
                       View Now
-                      <span className="size-5  bg-gray-secondary/60 flex-center group-hover:rotate-0 transition-all -rotate-45 rounded-full text-blue-primary">
+                      <span className="size-5 group-hover:bg-yellow-400  bg-gray-secondary/60 flex-center group-hover:rotate-0 transition-all -rotate-45 rounded-full text-blue-primary">
                         <ArrowRight size={3.3} className="" />
                       </span>
                     </Link>

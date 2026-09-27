@@ -156,7 +156,7 @@ const PageMessagesAdmin = ({
                             setEditCategoryData({
                               id,
                               name,
-                              email,
+                              email: email ?? "",
                               subject,
                               message,
                               createdAt,

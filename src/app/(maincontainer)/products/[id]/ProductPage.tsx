@@ -401,7 +401,7 @@ const AProductPage = ({
                       type="button"
                       size={"lg"}
                       variant={"secondary"}
-                      className="hover:bg-green-primary  hover:text-background dark:hover:text-foreground text-base cursor-pointer"
+                      className="hover:bg-red-primary  hover:text-background dark:hover:text-foreground text-base cursor-pointer"
                     >
                       <CirclePlus /> Add to Cart
                     </Button>
@@ -451,7 +451,7 @@ const AProductPage = ({
                       disabled={productInfo.stock < 1}
                       type="button"
                       size={"lg"}
-                      className="bg-green-primary text-background dark:text-foreground text-base cursor-pointer"
+                      className="bg-red-primary text-background dark:text-foreground text-base cursor-pointer"
                     >
                       <Banknote /> Order Now
                     </Button>

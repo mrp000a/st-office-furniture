@@ -314,7 +314,9 @@ export default function AdminDashboardPage({
           <CardContent>
             <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
               <div>
-                <p className="text-3xl font-bold">৳1,284,500</p>
+                <p className="text-3xl font-bold">
+                  {dashboardSummary?.revenue?.toLocaleString() ?? 0}
+                </p>
 
                 <p className="mt-1 flex items-center gap-1 text-sm text-green-600">
                   <ArrowUpRight className="h-4 w-4" />
@@ -558,7 +560,7 @@ export default function AdminDashboardPage({
 
                 <div className="min-w-0 flex-1">
                   <Link
-                    href={`/dashboard/products/${product.code}`}
+                    href={`/products/${product.code}`}
                     className="line-clamp-1 text-sm font-semibold hover:underline"
                   >
                     {product.name}
@@ -734,7 +736,7 @@ export default function AdminDashboardPage({
             />
 
             <QuickAction
-              href="/dashboard/categories"
+              href="/dashboard/c"
               icon={Boxes}
               title="Manage Categories"
             />

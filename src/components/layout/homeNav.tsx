@@ -47,9 +47,9 @@ const HomeNav = () => {
   return (
     <>
       <header
-        className={`bg-background/70   sticky w-full z-50 top-0 border border-gray-secondary/80 box-border`}
+        className={`bg-background/50 backdrop-blur-xl   sticky w-full z-50 top-0 border border-gray-secondary/80 box-border`}
       >
-        <div className="absolute inset-0 bg-background/20 backdrop-blur-lg backdrop-saturate-150" />
+        {/* <div className="absolute pointer-events-none inset-0 bg-background/60 backdrop-blur-2xl backdrop-saturate-150" /> */}
         <div className="w-full">
           <div className="w-full  py-2 px-1 sm:px-3 h-full justify-center items-center   flex relative">
             <div className="max-w-384 w-full mx-auto flex justify-between items-center">
@@ -63,7 +63,7 @@ const HomeNav = () => {
                 </button>
                 <Link
                   href={"/#"}
-                  className="h-16 w-48  relative z-30  rounded-sm overflow-hidden block max-[500px]:hidden"
+                  className="h-16 w-48  relative z-30 mix-blend-darken dark:mix-blend-lighten  rounded-sm overflow-hidden block max-[500px]:hidden"
                 >
                   <Image
                     unoptimized

@@ -21,7 +21,7 @@ export async function generateMetadata(
 
   // fetch data
   const data = await fetch(
-    `${process.env.NEXT_PUBLIC_URL_SITE}/api/categories/category?name=${slug}`,
+    `${process.env.NEXT_PUBLIC_URL_SITE}/api/c/category?name=${slug}`,
   ).then((res) => res.json());
 
   const product: Category = data.result;
@@ -39,7 +39,7 @@ export async function generateMetadata(
     product.description?.substring(0, 155) ??
     "Shop By Category | St Office Furniture ";
 
-  const pageUrl = `${process.env.NEXT_PUBLIC_URL_SITE}/categories/${slug}`;
+  const pageUrl = `${process.env.NEXT_PUBLIC_URL_SITE}/c/${slug}`;
 
   return {
     title: `${product.name.toUpperCase()} | ${coreInfo.name}`,

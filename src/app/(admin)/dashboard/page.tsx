@@ -3,7 +3,8 @@ import React from "react";
 import { prisma } from "@/lib/prisma";
 import AdminDashboardPage from "./pageDash";
 
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 const page = async () => {
   // dashboard summary =================================================================
@@ -15,25 +16,14 @@ const page = async () => {
     _count: { _all: true },
   });
   const totalProductSum = await prisma.product.count({});
+  const totalProductLowStock = await prisma.product.count({
+    where: { stock: { lt: 20 } },
+  });
+  const totalProductOutStock = await prisma.product.count({
+    where: { stock: { equals: 0 } },
+  });
+  const totalReview = await prisma.proReview.count({});
 
-  const dashboardSummary = {
-    revenue: Number(totalRevenueSum._sum.total),
-    revenueGrowth: 18.6,
-
-    orders: totalOrdersSum,
-    ordersGrowth: 12.4,
-
-    customers: totalCustomerSum,
-    customersGrowth: 9.8,
-
-    products: totalProductSum,
-    productsGrowth: 5.2,
-
-    pendingOrders: 20,
-    lowStock: 9,
-    outOfStock: 3,
-    reviews: 42,
-  };
   //   sales data
   const deliveredSalesDataRaw = await prisma.monthlyDeliveredSales.findMany({
     orderBy: { month: "desc" },
@@ -173,7 +163,7 @@ const page = async () => {
     };
   });
 
-  //  order statuses ======================================================================
+  //  Activities ======================================================================
   const activitiesRaw = await prisma.activityLog.findMany({
     where: {
       type: {
@@ -219,6 +209,26 @@ const page = async () => {
         : 0,
     };
   });
+
+  const dashboardSummary = {
+    revenue: Number(totalRevenueSum._sum.total),
+    revenueGrowth: 18.6,
+
+    orders: totalOrdersSum,
+    ordersGrowth: 12.4,
+
+    customers: totalCustomerSum,
+    customersGrowth: 9.8,
+
+    products: totalProductSum,
+    productsGrowth: 5.2,
+
+    pendingOrders: orderStatuses.filter((item) => item.status === "PENDING")[0]
+      ._count._all,
+    lowStock: totalProductLowStock,
+    outOfStock: totalProductOutStock,
+    reviews: totalReview,
+  };
 
   return (
     <div>

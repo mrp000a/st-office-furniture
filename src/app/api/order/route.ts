@@ -3,11 +3,9 @@ import { prisma } from "@/lib/prisma";
 import { Order, OrderItem, OrderStatus, Product } from "@/generated/prisma";
 import {
   DeliveryAreas,
-  orderStatuses,
   orderStatuses2,
 } from "@/components/data/core";
 import { getSession, getUserId, requireRole } from "@/lib/serverAuth";
-import { useId } from "react";
 import { orderConfirmationEmail } from "../../../components/uiComponent/order-confirm-email";
 import { Resend } from "resend";
 import { createActivity } from "@/lib/activity-log";
@@ -181,14 +179,14 @@ export async function POST(req: Request) {
         to: [receiverEmail ?? userEmail],
         subject: "Your Order Placed Successfully",
         html: orderConfirmationEmail({
-          customerName: "Muhammad Rakib",
+          customerName: receiverName ?? "Customer",
           orderId: createOrder.id,
           subtotal: subTotalPrice,
           total: totalPrice,
           deliveryCharge: deliveryCharge,
           orderUrl: `${process.env.NEXT_PUBLIC_URL_SITE}/order/${createOrder.id}`,
           status: "PENDING",
-          items: sanitizedItems.map((item, index) => {
+          items: sanitizedItems.map((item) => {
             return { title: item.title, price: item.price, quantity: item.qty };
           }),
         }),
@@ -247,18 +245,29 @@ export async function PUT(req: Request) {
         { status: 400 },
       );
 
-    const updateData: {
-      name?: string;
-      email?: string;
-      phone?: string;
-      image?: string;
-      address?: string;
-      password?: string;
-    } = {};
-
     const order = await prisma.order.update({
       where: { id: Number(id) },
-      data: {},
+      data: {
+        id,
+        receiverEmail,
+        receiverName,
+        receiverPhone,
+        customerNote,
+
+        address,
+        deliveryArea,
+        paymentMethod,
+
+        discountAmount,
+        paidAmount,
+        paymentStatus,
+        shippingCost,
+
+        status,
+        subtotal,
+        total,
+        userId,
+      },
     });
 
     return NextResponse.json({ success: true, result: order });

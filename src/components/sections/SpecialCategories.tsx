@@ -9,7 +9,7 @@ export default async function SpecialCategories() {
     success: boolean;
     result: Category[];
     message: string;
-  } = await fetch(`${process.env.NEXT_PUBLIC_URL_SITE}/api/categories`, {
+  } = await fetch(`${process.env.NEXT_PUBLIC_URL_SITE}/api/c`, {
     method: "GET",
     redirect: "follow",
     next: { revalidate: 600 },

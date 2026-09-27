@@ -1,10 +1,10 @@
 "use client";
 
-import { ChartBarDemoTooltipSales } from "@/app/(admin)/dashboard/_dash_components/chart/sales";
-import { ChartBarDemoTooltip } from "@/components/examples/chart-data";
 import EnableNotificationButton from "@/components/sec_lib/enableNotificationButton";
 
 import React from "react";
+import AboutPage from "../(maincontainer)/(otherpages)/about/aboutClient";
+import MessageForm from "@/components/common/forms/messageForm";
 
 const Page = () => {
   const handleClick = async () => {
@@ -27,6 +27,8 @@ const Page = () => {
         {/* <ChartBarDemoTooltipSales chartData={[{month: "jan", order_count: 12, total_sales: 234}]} /> */}
         <button onClick={handleClick}>Get Notification</button>
       </div>
+      {/* <AboutPage /> */}
+      {/* <MessageForm /> */}
     </div>
   );
 };

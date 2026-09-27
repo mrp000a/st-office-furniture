@@ -97,7 +97,7 @@ const ProductsPageTest = ({
 
       {/* main  */}
       <div className="flex-center">
-        <div className="flex flex-wrap  items-stretch gap-4 max-sm:flex-center w-full ">
+        <div className="flex flex-wrap  items-stretch gap-4 max-sm:flex-center w-full  flex-center">
           {products &&
             products.length > 0 &&
             products.map((item, index) => (

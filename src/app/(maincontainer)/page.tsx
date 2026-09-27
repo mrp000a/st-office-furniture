@@ -12,6 +12,7 @@ import NewArivalsProducts from "@/components/sections/NewArrival";
 import SpecialCategories from "@/components/sections/SpecialCategories";
 
 import React from "react";
+import SendMessageContact from "./(otherpages)/contact/comp/sendMessageContact";
 
 const Page = () => {
   return (
@@ -25,17 +26,19 @@ const Page = () => {
       <WorkspaceSolutions />
       <NewArivalsProducts />
       <ReviewsSection />
-      <FaqQuestion />
-      <div className="max-w-5xl mx-auto p-4">
-        <div className="mb-4 flex items-center gap-3">
-          <span className="h-px w-9 bg-primary" />
-
-          <span className="text-xs font-semibold uppercase tracking-[0.25em] text-primary">
-            Any other queries
+      <div className="py-6 bg-violet-primary/20">
+        <div className="text-center mb-5">
+          <span className="text-xs font-bold uppercase tracking-[0.2em] text-green-primary">
+            FAQ
           </span>
+
+          <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">
+            Frequently asked questions
+          </h2>
         </div>
-        <MessageForm />
+        <FaqQuestion />
       </div>
+      <SendMessageContact />
       <FinalCTA />
     </div>
   );

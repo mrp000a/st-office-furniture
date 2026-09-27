@@ -11,6 +11,8 @@ import { useRouter } from "next/navigation";
 import { Banknote, CirclePlus } from "lucide-react";
 import RatingStars from "./ratingstars";
 import { getImageUrlProduct } from "@/lib/getImageUrl";
+import { GiLoveLetter } from "react-icons/gi";
+import { FaHeart } from "react-icons/fa";
 
 const ProductClient = ({
   item,
@@ -51,6 +53,9 @@ const ProductClient = ({
           New
         </span>
       </Link>
+      {/* <span className="flex-center absolute z-30 rounded-full p-2 border border-gray-secondary">
+        <FaHeart size={4} className="size-8 fill-red-primary" />
+      </span> */}
 
       <div className="flex flex-col w-full">
         <Link
@@ -60,7 +65,7 @@ const ProductClient = ({
           {item.title}
         </Link>
         <Link
-          href={`/categories/${item.category?.name.trim() ?? ""}`}
+          href={`/c/${item.category?.name.trim() ?? ""}`}
           className="font-semibold text-gray-secondary text-[10px] w-fit"
         >
           {item.category?.name ?? "N/A"}

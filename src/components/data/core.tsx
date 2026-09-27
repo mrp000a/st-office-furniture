@@ -129,7 +129,7 @@ export const navItems: {
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
-  { label: "Categories", href: "/categories" },
+  { label: "Categories", href: "/c" },
   { label: "Checkout", href: "/checkout" },
   { label: "Track Order", href: "/track-order" },
   { label: "Products", href: "/products" },
@@ -197,28 +197,32 @@ export const SocialLinks = [
 
 export const ContactInfoFooter = [
   {
-    name: "Address",
-    label: "55, North Jatrabari, Dhaka , 1204, Bangladesh",
-    href: "https://maps.app.goo.gl/RJyz9s7cT9nEzPmB8",
-    icon: FaLocationDot,
-  },
-  {
     name: "Phone",
     label: "+8801521120706",
     href: "tel:+8801521120706",
     icon: FaPhone,
+    description: "Talk directly with our team.",
   },
   {
     name: "WhatsApp",
     label: "+8801521120706",
     href: "https://wa.me/+8801521120706",
     icon: FaWhatsapp,
+    description: "Quick questions and product help.",
   },
   {
     name: "Email",
     label: "info@stofficefurniture.com",
     href: "mailto:info@stofficefurniture.com",
     icon: MdEmail,
+    description: "For detailed questions and inquiries.",
+  },
+  {
+    name: "Address",
+    label: "55, North Jatrabari, Dhaka , 1204, Bangladesh",
+    href: "https://maps.app.goo.gl/RJyz9s7cT9nEzPmB8",
+    icon: FaLocationDot,
+    description: "Come and discuss your requirements.",
   },
 ];
 
@@ -268,17 +272,18 @@ export const quickLinks = [
 ];
 
 export const CategoriesNav = [
-  { label: "All Categories", href: "/categories" },
-  { label: "Executive Chair", href: "/products?category=executive-chair" },
-  { label: "Manager Chair", href: "/products?category=manager-chair" },
-  { label: "Boss Chair", href: "/products?category=boss-chair" },
-  { label: "Visitors Chair", href: "/products?category=visitors-chair" },
-  { label: "Wooden Chair", href: "/products?category=wooden-chair" },
-  { label: "Waiting Chair", href: "/products?category=waiting-chair" },
-  { label: "Event Chair", href: "/products?category=even-chair" },
-  { label: "Stool", href: "/products?category=stool" },
-  { label: "Chair Accessories", href: "/products?category=chair-accessories" },
-  { label: "Sofa", href: "/products?category=sofa" },
+  { label: "All Categories", href: "/products" },
+  // { label: "Manager Chair", href: "/products?category=manager-chair" },
+  { label: "Executive Chair", href: "/c/executive-chair" },
+  { label: "Manager Chair", href: "/c/manager-chair" },
+  { label: "Boss Chair", href: "/c/boss-chair" },
+  { label: "Visitors Chair", href: "/c/visitors-chair" },
+  { label: "Wooden Chair", href: "/c/wooden-chair" },
+  { label: "Waiting Chair", href: "/c/waiting-chair" },
+  { label: "Event Chair", href: "/c/even-chair" },
+  { label: "Stool", href: "/c/stool" },
+  { label: "Chair Accessories", href: "/c/chair-accessories" },
+  { label: "Sofa", href: "/c/sofa" },
   // testing
   // { label: "Test Page", href: "/test" },
 ];

@@ -71,7 +71,7 @@ const PageAddCategory = ({
       description,
     });
 
-    const res = await fetch("/api/categories", {
+    const res = await fetch("/api/c", {
       method: "POST",
       headers: myHeaders,
       body: raw,
@@ -119,7 +119,7 @@ const PageAddCategory = ({
       description,
     });
 
-    const res = await fetch("/api/categories", {
+    const res = await fetch("/api/c", {
       method: "PUT",
       headers: myHeaders,
       body: raw,

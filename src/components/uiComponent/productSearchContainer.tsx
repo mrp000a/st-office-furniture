@@ -6,10 +6,8 @@ import { Button } from "../ui/button";
 import { Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { getProducts } from "@/lib/api";
-import Link from "next/link";
 import Image from "next/image";
 import { NoItemsFound } from "./uiCom";
-import { ProductDefaultImage } from "../data/core";
 import { getImageUrlProduct } from "@/lib/getImageUrl";
 
 const ProductSearchContainer = ({
@@ -39,27 +37,25 @@ const ProductSearchContainer = ({
 
   return (
     <div className="grid grid-cols-1 space-y-1 flex-1 w-full max-w-280 relative ">
-      <div className="flex w-full rounded-md">
-        <Input
+      <div className="flex w-full rounded-full h-8 focus-within:outline-3 transition-all outline outline-gray-secondary overflow-hidden">
+        <input
           ref={focusRef}
-          className={`w-full   backdrop-blur-sm`}
+          className={`w-full bg-background/50 backdrop-blur-sm outline-none px-4 flex-1 bg-none`}
           value={productSearchString}
           onChange={(e) => setProductSearchString(e.target.value)}
           placeholder="Search Products!"
         />{" "}
-        <Button
+        <button
+        className="px-3 h-full bg-gray-primary  dark:bg-gray-secondary"
           type="button"
           onClick={() => {
             if (productSearchString.length === 0) return;
-            router.push(`/products?search=${productSearchString}`);
             setProductSearchString("");
+            router.push(`/products?search=${productSearchString}`);
           }}
         >
-          <span className="flex items-center gap-2">
-            <Search />
-            <span>Search</span>
-          </span>
-        </Button>
+          <Search className="text-white" />
+        </button>
       </div>
       <div
         className={`${productSearchString.length > 0 ? "" : "hidden"} flex flex-col  gap-2 p-2 w-full absolute top-full bg-background z-30  max-h-125 overflow-y-auto overflow-x-hidden`}

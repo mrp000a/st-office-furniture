@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 import { prisma } from "@/lib/prisma";
 // import webpush
-import webpush from "web-push";
+// import webpush from "web-push";
 import { sendPushNotification } from "@/lib/push";
 
 export async function POST() {
@@ -37,6 +37,8 @@ export async function POST() {
           body: "Hey there, nice to meet you buddy.. ha ha ha",
           icon: "/icons/icon-192.jpg",
           url: "/products",
+          image:
+            "https://files.stofficefurniture.com/r2upload/products/images/315b6539-e6da-45f9-8966-a214614c1fbc.png",
         },
       );
     }

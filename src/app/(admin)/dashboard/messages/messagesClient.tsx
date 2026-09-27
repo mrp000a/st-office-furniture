@@ -47,7 +47,7 @@ export default function MessagesPage({
   const [editCategoryData, setEditCategoryData] = useState<{
     id: number;
     name: string;
-    email: string;
+    email?: string;
     subject: string;
     message: string;
     createdAt: Date;
@@ -145,7 +145,7 @@ export default function MessagesPage({
                     <tr
                       key={id}
                       className={`transition hover:bg-muted/50 ${
-                        !isRead ? "bg-violet-primary/[0.10]" : ""
+                        !isRead ? "bg-violet-primary/10" : ""
                       }`}
                     >
                       {/* Name */}
@@ -213,7 +213,7 @@ export default function MessagesPage({
                               setEditCategoryData({
                                 id,
                                 name,
-                                email,
+                                email: email ?? "",
                                 subject,
                                 message,
                                 createdAt,
@@ -341,7 +341,7 @@ export default function MessagesPage({
                       setEditCategoryData({
                         id,
                         name,
-                        email,
+                        email: email ?? "",
                         subject,
                         message,
                         createdAt,

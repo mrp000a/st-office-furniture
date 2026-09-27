@@ -21,7 +21,7 @@ export default function CategoryHeader({
       <div className="mx-auto max-w-384 px-5 py-10 sm:px-8 lg:px-12 lg:py-16 bg-background border rounded-md">
         <div className="mb-8">
           <Link
-            href="/categories"
+            href="/c"
             className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
           >
             <ArrowLeft className="h-4 w-4" />

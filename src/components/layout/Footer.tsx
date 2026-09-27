@@ -39,8 +39,9 @@ const Footer = () => {
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 60vw"
         className="object-cover object-center z-0 hidden dark:block"
       />
+
       <div
-        className={` w-full relative  z-20 border border-gray-primary pb-16  text-xs text-gray-primary ${pathname.startsWith("/dashboard") ? "hidden" : ""}`}
+        className={` w-full relative bg-background/40 backdrop-blur-sm  z-20 border border-gray-primary pb-16  text-xs text-gray-primary ${pathname.startsWith("/dashboard") ? "hidden" : ""}`}
       >
         {/* first footer line */}
         <div className="w-full bg-green-primary/10 backdrop-blur-sm border box-border border-gray-secondary px-2 py-2 text-gray-primary">

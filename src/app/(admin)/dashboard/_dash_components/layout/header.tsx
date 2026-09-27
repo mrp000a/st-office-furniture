@@ -35,30 +35,33 @@ const DashHeader = () => {
         </button>
         <Link
           href={"/#"}
-          className="w-12 h-12 relative z-10 inline-block rounded-full border border-gray-primary overflow-hidden"
+          className="h-12 w-43 mix-blend-darken dark:mix-blend-lighten  relative z-30  rounded-sm overflow-hidden block max-[500px]:hidden"
         >
           <Image
             unoptimized
-            src={coreInfo.logo}
+            src={coreInfo.image}
             alt={coreInfo.name}
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            sizes="(max-width: 768px) 40vw, (max-width: 1200px) 30vw, 33vw"
             fill
-            className="object-cover w-full h-full"
+            className="object-contain object-center dark:hidden "
+          />
+          <Image
+            unoptimized
+            src={coreInfo.imageDark}
+            alt={coreInfo.name}
+            // loading="eager"
+            sizes="(max-width: 768px) 40vw, (max-width: 1200px) 30vw, 33vw"
+            fill
+            className="object-contain object-center hidden dark:block "
           />
         </Link>
-        <span className="max-md:hidden text-xl font-bold font-mono flex flex-col justify-center">
-          <span>Dashboard</span>
-          <span className="text-[10px] text-gray-secondary">
-            {coreInfo.name}
-          </span>
-        </span>
       </span>
 
       {/* admins options */}
-      <div className="flex justify-between items-center flex-1">
+      <div className="flex justify-between items-center gap-2">
         <div className="flex items-center  gap-3 flex-1">
-          <span className="flex-center max-sm:hidden flex-1 max-w-120 outline outline-gray-secondary/80 rounded-md overflow-hidden focus-within:outline-2 transition-all focus-within:outline-gray-secondary">
-            <span className="px-2 bg-gray-secondary/50">
+          <span className="flex-center py-1  max-sm:hidden flex-1 max-w-120 outline outline-gray-secondary/80 rounded-full overflow-hidden focus-within:outline-2 transition-all focus-within:outline-gray-secondary">
+            <span className="px-2 ">
               <Search />
             </span>
             <input

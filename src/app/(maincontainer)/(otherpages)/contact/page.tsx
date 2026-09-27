@@ -5,11 +5,15 @@ import { Metadata } from "next";
 import Image from "next/image";
 import React from "react";
 import officeImage from "@/components/images/Office/open-plan-work-space.jpg";
+import ContactPage from "./contactClient";
+import HeroContact from "./comp/Hero";
+import Methods from "./comp/Methods";
+import SendMessageContact from "./comp/sendMessageContact";
 
 const Page = () => {
   return (
     <div className="p-2">
-      <div className="flex-center flex-col max-w-384 mx-auto p-2 gap-2 shadow-background dark:shadow-foreground/69 bg-background shadow-md rounded-md">
+      {/* {<div className="flex-center flex-col max-w-384 mx-auto p-2 gap-2 shadow-background dark:shadow-foreground/69 bg-background shadow-md rounded-md">
         <span className="text-lg font-bold">Contact Us</span>
 
         <div className="space-y-2 w-full flex flex-col md:flex-row  gap-2">
@@ -37,7 +41,13 @@ const Page = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div>} */}
+      <HeroContact />
+      <Methods />
+      <SendMessageContact />
+
+      {/* sdfsdf */}
+      <ContactPage />
     </div>
   );
 };

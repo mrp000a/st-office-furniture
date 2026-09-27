@@ -95,7 +95,7 @@ const ProductAdmin = ({ item }: { item: AdminProductItem }) => {
           alt={item.title}
           sizes="256px"
           fill
-          className="object-contain transition-transform duration-500 ease-in-out group-hover:scale-110"
+          className="object-contain bg-white transition-transform duration-500 ease-in-out group-hover:scale-110"
         />
 
         {discount > 0 && (
@@ -123,7 +123,7 @@ const ProductAdmin = ({ item }: { item: AdminProductItem }) => {
           </Link>
 
           <Link
-            href={`/categories/${item.category?.name?.toLowerCase() ?? ""}`}
+            href={`/c/${item.category?.name?.toLowerCase() ?? ""}`}
             className="mt-0.5 inline-flex items-center gap-1 text-[11px] font-medium text-gray-secondary transition-colors hover:text-primary"
           >
             <Tag className="h-3 w-3" />

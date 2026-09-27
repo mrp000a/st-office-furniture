@@ -3,8 +3,6 @@ import { prisma } from "@/lib/prisma";
 import { Message } from "@/generated/prisma";
 import { getSession, requireRole } from "@/lib/serverAuth";
 import { sendEmail } from "@/lib/api";
-import { coreInfo } from "@/components/data/core";
-import { sendPushNotification } from "@/lib/push";
 
 export async function GET() {
   try {
@@ -31,15 +29,15 @@ export async function POST(req: Request) {
     // await requireRole(sessionPromise, ["ADMIN", "SUPER_ADMIN"]);
 
     const body = await req.json();
-    const { name, email, subject, message } = body as Message;
+    const { name, email, subject, message, phone } = body as Message;
     // console.log({ name, email, subject, message });
     // return;
 
-    if (!name || !email || !subject || !message)
+    if (!name || !phone || !subject || !message)
       return NextResponse.json(
         {
           success: false,
-          message: "name, email, subject is required!",
+          message: "name, phone, subject is required!",
         },
         { status: 400 },
       );
@@ -47,14 +45,16 @@ export async function POST(req: Request) {
     const createMessage = await prisma.message.create({
       data: {
         name,
+        phone: phone ?? "",
         email,
         subject,
         message,
       },
     });
 
-    if (createMessage) {
-      // sendEmail({ to: email.toLowerCase(), subject, message, name });
+    if (createMessage && email) {
+      sendEmail({ to: email.toLowerCase(), subject, message, name });
+      /*
       const subscriptions = await prisma.pushSubscription.findMany({});
 
       for (const subscription of subscriptions) {
@@ -68,6 +68,7 @@ export async function POST(req: Request) {
           console.error("Push failed:", error);
         }
       }
+        */
     }
 
     return NextResponse.json({ success: true, result: createMessage });

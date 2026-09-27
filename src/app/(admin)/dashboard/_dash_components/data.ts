@@ -13,7 +13,7 @@ export const DashboardNavItems: {
   icon: IconType;
 }[] = [
   { label: "Products", href: "/dashboard/products", icon: AiFillProduct },
-  { label: "Categories", href: "/dashboard/categories", icon: TbCategoryPlus },
+  { label: "Categories", href: "/dashboard/c", icon: TbCategoryPlus },
   { label: "Users", href: "/dashboard/users", icon: FaUsers },
   { label: "Orders", href: "/dashboard/orders", icon: MdPointOfSale },
   {

@@ -1,11 +1,18 @@
 import { coreInfo } from "@/components/data/core";
 import { Metadata } from "next";
 import React from "react";
+import AboutPage from "./aboutClient";
+import { TrustStrip } from "@/components/pri-sections/TrustStrip";
+import { WhySTOfficeFurniture } from "@/components/pri-sections/WhyUs";
+import { StatsSection } from "@/components/pri-sections/Stats";
+import { WorkspaceSolutions } from "@/components/pri-sections/workspaceSol";
+import { ReviewsSection } from "@/components/pri-sections/reviews";
+import { FinalCTA } from "@/components/pri-sections/finalCTA";
 
 const Page = () => {
   return (
-    <div className="p-2">
-      <div className="flex-center flex-col max-w-384 mx-auto p-2 shadow-background dark:shadow-foreground/69 bg-background shadow-md rounded-md">
+    <div className="">
+      {/* <div className="flex-center flex-col max-w-384 mx-auto p-2 shadow-background dark:shadow-foreground/69 bg-background shadow-md rounded-md">
         <span className="text-lg font-bold">About Us</span>
         <div className="w-full text-justify space-y-2">
           <h3>Welcome to ST Office Furniture.</h3>
@@ -23,13 +30,21 @@ const Page = () => {
             about product longevity.
           </p>
           <p>
-            As the world and {"people's"} tastes evolve over time, we continuously
-            introduce new collections to ensure customers can find products that
-            match their preferences.
+            As the world and {"people's"} tastes evolve over time, we
+            continuously introduce new collections to ensure customers can find
+            products that match their preferences.
           </p>
           <p>Thanks.</p>
         </div>
-      </div>
+      </div> */}
+      <AboutPage />
+
+      <TrustStrip />
+      <WhySTOfficeFurniture />
+      <StatsSection />
+      <WorkspaceSolutions />
+      <ReviewsSection />
+      <FinalCTA />
     </div>
   );
 };
