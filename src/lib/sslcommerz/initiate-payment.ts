@@ -77,6 +77,16 @@ export async function initiateSslCommerzPayment({
 
   data.append("num_of_item", String(order.itemCount));
 
+  data.append("ship_name", customer.name);
+
+  data.append("ship_add1", customer.address);
+
+  data.append("ship_city", customer.city || "N/A");
+
+  data.append("ship_postcode", customer.postcode || "N/A");
+
+  data.append("ship_country", "Bangladesh");
+
   // Product information
   data.append("product_name", "ST Office Furniture Products");
 
