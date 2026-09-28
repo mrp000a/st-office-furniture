@@ -72,7 +72,7 @@ export const PaymentMethodsInfo = [
     label: "Cash on Delivery",
     description: "Pay with cash upon delivery.",
     icon: PiMoneyWavyFill,
-    value: "CASH_ON_DELIVERY",
+    value: "COD",
   },
 ];
 

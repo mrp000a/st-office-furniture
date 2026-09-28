@@ -134,7 +134,7 @@ model Order {
   paidAmount     Decimal     @default(0) @db.Decimal(12, 2)
   status         OrderStatus @default(PENDING)
 
-  paymentMethod PaymentMethods @default(CASH_ON_DELIVERY)
+  paymentMethod PaymentMethods @default(COD)
   paymentStatus PaymentStatus  @default(PENDING)
   paymentId     String?
   transactionId String?
@@ -274,11 +274,12 @@ enum DeliveryAreas {
 }
 
 enum PaymentMethods {
-  CASH_ON_DELIVERY
+  COD
   BKASH
   NAGAD
   ROCKET
   STRIPE
+  SSLCOMMERZ
 }
 
 enum PaymentStatus {
