@@ -53,15 +53,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    /*
-     * IMPORTANT:
-     * Use the amount calculated/stored by your server.
-     * Never trust an amount coming from the browser.
-     *
-     * Replace `totalAmount` with the actual field
-     * from your Order model.
-     */
-
     const amount = Number(order.total);
 
     if (!amount || amount <= 0) {

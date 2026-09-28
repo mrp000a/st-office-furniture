@@ -25,7 +25,7 @@ export async function GET(request: NextRequest) {
         },
 
         data: {
-          paymentStatus: "FAILED",
+          paymentStatus: "CANCELLED",
         },
       });
 
@@ -94,7 +94,7 @@ export async function GET(request: NextRequest) {
 
     const paidAmount = Number(payment.amount);
 
-    const orderAmount = Number(order.totalAmount);
+    const orderAmount = Number(order.total);
 
     if (!Number.isFinite(paidAmount) || paidAmount !== orderAmount) {
       console.error("bKash amount mismatch", {
@@ -121,8 +121,8 @@ export async function GET(request: NextRequest) {
 
         paidAt: new Date(),
 
-        // Optional:
-        // status: "CONFIRMED",
+        // order status
+        status: "CONFIRMED",
       },
     });
 

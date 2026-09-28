@@ -278,12 +278,14 @@ enum PaymentMethods {
   BKASH
   NAGAD
   ROCKET
+  STRIPE
 }
 
 enum PaymentStatus {
   PENDING
   PAID
   FAILED
+  CANCELLED
   REFUNDED
   PARTIALLY_REFUNDED
 }
