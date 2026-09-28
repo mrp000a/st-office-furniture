@@ -127,7 +127,6 @@ export default function AdminDashboardPage({
   lowStockProducts,
   salesData,
   recentActivities,
-  outOfStockProduct,
 }: {
   dashboardSummary: dashboardSummaryType;
   orderStatusData: {
@@ -140,7 +139,6 @@ export default function AdminDashboardPage({
   topProducts: Product[];
   salesData: { month: string; order_count: number; total_sales: number }[];
   recentActivities: ActivityItem[];
-  outOfStockProduct: number;
 }) {
   const maxSales = Math.max(...salesData.map((item) => item.total_sales));
   const router = useRouter();
@@ -149,19 +147,19 @@ export default function AdminDashboardPage({
   const notifications = [
     {
       id: "1",
-      title: `${orderStatusData.filter((item) => item.status === "PENDING")[0].count} orders require attention`,
+      title: `${dashboardSummary.pendingOrders ?? 0} orders require attention`,
       description: "Pending orders are waiting for confirmation.",
       type: "warning",
     },
     {
       id: "2",
-      title: `${lowStockProducts?.length} products are low in stock`,
+      title: `${lowStockProducts?.length ?? 0} products are low in stock`,
       description: "Consider reviewing your inventory.",
       type: "warning",
     },
     {
       id: "3",
-      title: `${outOfStockProduct} products are out of stock`,
+      title: `${dashboardSummary.outOfStock ?? 0} products are out of stock`,
       description: "These products cannot currently be purchased.",
       type: "danger",
     },

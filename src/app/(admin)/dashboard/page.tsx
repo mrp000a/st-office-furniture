@@ -3,8 +3,8 @@ import React from "react";
 import { prisma } from "@/lib/prisma";
 import AdminDashboardPage from "./pageDash";
 
-// export const dynamic = "force-dynamic";
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
+// export const revalidate = 60;
 
 const page = async () => {
   // dashboard summary =================================================================
@@ -98,7 +98,7 @@ const page = async () => {
     },
   );
 
-  //  products low ======================================================================
+  //  products related================================================================================
   const lowStockProductsRaw = await prisma.product.findMany({
     where: { stock: { gt: 0, lt: 20 } },
     orderBy: { stock: "asc" },
@@ -142,14 +142,11 @@ const page = async () => {
       };
     },
   );
-  //  products low ======================================================================
+
   const topStockProductsRaw = await prisma.topDeliveredProducts.findMany({
     take: 10,
     where: {},
     orderBy: { sold: "desc" },
-  });
-  const outOfStockProduct = await prisma.product.count({
-    where: { stock: { equals: 0 } },
   });
 
   const topStockProducts = topStockProductsRaw.map((item) => {
@@ -211,23 +208,23 @@ const page = async () => {
   });
 
   const dashboardSummary = {
-    revenue: Number(totalRevenueSum._sum.total),
+    revenue: Number(totalRevenueSum?._sum?.total ?? 0),
     revenueGrowth: 18.6,
 
-    orders: totalOrdersSum,
+    orders: totalOrdersSum ?? 0,
     ordersGrowth: 12.4,
 
-    customers: totalCustomerSum,
+    customers: totalCustomerSum ?? 0,
     customersGrowth: 9.8,
 
-    products: totalProductSum,
+    products: totalProductSum ?? 0,
     productsGrowth: 5.2,
 
-    pendingOrders: orderStatuses.filter((item) => item.status === "PENDING")[0]
-      ._count._all,
-    lowStock: totalProductLowStock,
-    outOfStock: totalProductOutStock,
-    reviews: totalReview,
+    pendingOrders: orderStatuses?.filter((item) => item.status === "PENDING")[0]
+      ?._count?._all,
+    lowStock: totalProductLowStock ?? 0,
+    outOfStock: totalProductOutStock ?? 0,
+    reviews: totalReview ?? 0,
   };
 
   return (
@@ -240,7 +237,6 @@ const page = async () => {
         lowStockProducts={lowStockProducts}
         topProducts={topStockProducts}
         recentActivities={activitiesRaw}
-        outOfStockProduct={outOfStockProduct}
       />
     </div>
   );
