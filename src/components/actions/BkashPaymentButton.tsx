@@ -41,7 +41,7 @@ export default function BkashButton({ orderId }: { orderId: number }) {
       await alert({
         title: error instanceof Error ? error.message : "Payment failed",
       });
-
+    } finally {
       setLoading(false);
     }
   };

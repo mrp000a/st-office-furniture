@@ -1,9 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { useAlertDialog } from "../hooks/use-alert-dialog";
 
 export function SslCommerzButton({ orderId }: { orderId: number }) {
   const [loading, setLoading] = useState(false);
+  const { alert } = useAlertDialog();
 
   async function handlePayment() {
     try {
@@ -31,8 +33,10 @@ export function SslCommerzButton({ orderId }: { orderId: number }) {
     } catch (error) {
       console.error(error);
 
-      alert(error instanceof Error ? error.message : "Payment failed");
-
+      alert({
+        title: error instanceof Error ? error.message : "Payment failed",
+      });
+    } finally {
       setLoading(false);
     }
   }

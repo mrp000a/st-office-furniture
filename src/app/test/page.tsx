@@ -7,6 +7,7 @@ import AboutPage from "../(maincontainer)/(otherpages)/about/aboutClient";
 import MessageForm from "@/components/common/forms/messageForm";
 import BkashButton from "@/components/actions/BkashPaymentButton";
 import StripeButton from "@/components/actions/StripePaymentButton";
+import { SslCommerzButton } from "@/components/actions/SSLCommerzPaymentButton";
 
 const Page = () => {
   const handleClick = async () => {
@@ -30,9 +31,10 @@ const Page = () => {
         <button onClick={handleClick}>Get Notification</button>
       </div>
 
-      <div className="flex-center w-full min-h-100">
+      <div className="flex-center flex-wrap w-full min-h-100">
         <BkashButton orderId={20033} />
         <StripeButton orderId={20033} />
+        <SslCommerzButton orderId={20033} />
       </div>
       {/* <AboutPage /> */}
       {/* <MessageForm /> */}

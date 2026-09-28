@@ -26,11 +26,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import Image from "next/image";
-import { FaUserCircle } from "react-icons/fa";
 import Link from "next/link";
 import { OrderStatusBadge } from "@/components/uiComponent/order-status-badge";
 import OrderLogForm from "../../_dash_components/common/logForm";
 import { getImageUrlProduct } from "@/lib/getImageUrl";
+import BkashButton from "@/components/actions/BkashPaymentButton";
+import StripeButton from "@/components/actions/StripePaymentButton";
+import { SslCommerzButton } from "@/components/actions/SSLCommerzPaymentButton";
 
 const PageOrderInfo = ({
   order,
@@ -230,6 +232,13 @@ const PageOrderInfo = ({
                   Continue
                 </Button>
               </div>
+            </div>
+
+            <div className="bg-red-primary/10 p-2 rounded-md border flex-center flex-col px-4 gap-2">
+              <h3>Testing Payment Methods</h3>
+              <BkashButton orderId={order.id} />
+              <StripeButton orderId={order.id} />
+              <SslCommerzButton orderId={order.id} />
             </div>
           </div>
           {/* log container */}

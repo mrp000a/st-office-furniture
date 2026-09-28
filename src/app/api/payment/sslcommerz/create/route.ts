@@ -18,6 +18,16 @@ export async function POST(request: NextRequest) {
         { status: 400 },
       );
     }
+    // testing
+    // const order = await prisma.order.findFirst({
+    //   where: {
+    //     paymentStatus: { not: "PAID" },
+    //   },
+
+    //   // Include your order items
+    //   // if required by your schema.
+    //   include: { _count: true, user: { select: { email: true } } },
+    // });
 
     const order = await prisma.order.findUnique({
       where: {

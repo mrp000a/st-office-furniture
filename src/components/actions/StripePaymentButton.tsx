@@ -36,7 +36,7 @@ export default function StripeButton({ orderId }: { orderId: number }) {
       console.error(error);
 
       alert(error instanceof Error ? error.message : "Payment failed");
-
+    } finally {
       setLoading(false);
     }
   };
