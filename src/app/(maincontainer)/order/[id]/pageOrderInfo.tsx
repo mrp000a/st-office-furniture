@@ -31,6 +31,7 @@ import Link from "next/link";
 import { OrderStatusBadge } from "@/components/uiComponent/order-status-badge";
 import { HtmlProps } from "next/dist/shared/lib/html-context.shared-runtime";
 import { getImageUrlProduct } from "@/lib/getImageUrl";
+import { Badge } from "@/components/ui/badge";
 
 const PageOrderInfo = ({
   order,
@@ -53,7 +54,17 @@ const PageOrderInfo = ({
       {order ? (
         <div className="flex gap-3 w-full flex-col md:flex-row px-2">
           {/* info container */}
-          <div className="max-w-200 flex-1 w-full bg-violet-primary/5 rounded-sm shadow shadow-foreground p-2 space-y-3 h-fit">
+          <div className="max-w-200 relative flex-1 w-full bg-violet-primary/5 rounded-sm shadow shadow-foreground p-2 space-y-3 h-fit">
+            {/* paid status */}
+            <Badge
+              variant={
+                order.paymentStatus === "PAID" ? "outline" : "destructive"
+              }
+              className="absolute top-2 right-2"
+            >
+              Payment: {order.paymentStatus}
+            </Badge>
+
             <div className="flex-center ">
               <h2 className="text-lg font-semibold">
                 Order Information #{order.id}
@@ -142,7 +153,9 @@ const PageOrderInfo = ({
                     <span className="font-semibold text-green-primary dark:bg-foreground bg-background px-2  rounded-sm">
                       ৳
                       {(
-                        Number(order.total) - Number(order.discountAmount)
+                        Number(order.total) -
+                        Number(order.discountAmount ?? 0) -
+                        Number(order.paidAmount ?? 0)
                       ).toFixed(2)}
                     </span>
                   </div>

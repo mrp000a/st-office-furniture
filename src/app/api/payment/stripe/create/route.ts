@@ -121,11 +121,11 @@ export async function POST(request: NextRequest) {
 
       success_url:
         `${process.env.NEXT_PUBLIC_URL}` +
-        `/checkout/payment/success?order=${order.id}`,
+        `/checkout/payment/success?orderId=${order.id}`,
 
       cancel_url:
         `${process.env.NEXT_PUBLIC_URL}` +
-        `/checkout/payment/cancelled?order=${order.id}`,
+        `/checkout/payment/cancelled?orderId=${order.id}`,
 
       customer_email: order.receiverEmail || order.user?.email || undefined,
     });

@@ -120,14 +120,22 @@ export async function GET(request: NextRequest) {
         transactionId: payment.trxID,
 
         paidAt: new Date(),
-
+        paidAmount: order.total,
         // order status
         status: "CONFIRMED",
+        logs: {
+          create: {
+            status: "CONFIRMED",
+            note: `Paid using Bkash. Tnx: ${payment.trxID}`,
+          },
+        },
       },
+
+      include: { logs: true },
     });
 
     return NextResponse.redirect(
-      new URL(`/checkout/payment/success?order=${order.id}`, request.url),
+      new URL(`/checkout/payment/success?orderId=${order.id}`, request.url),
     );
   } catch (error) {
     console.error("bKash callback error:", error);

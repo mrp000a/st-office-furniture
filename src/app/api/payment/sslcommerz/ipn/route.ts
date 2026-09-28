@@ -167,6 +167,8 @@ export async function POST(request: NextRequest) {
 
       data: {
         paymentStatus: "PAID",
+        status: "CONFIRMED",
+        paidAmount: order.total,
 
         paidAt: new Date(),
 

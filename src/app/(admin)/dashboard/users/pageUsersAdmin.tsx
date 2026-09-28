@@ -16,7 +16,13 @@ import { ProductDefaultImage } from "@/components/data/core";
 import { FaUserCircle } from "react-icons/fa";
 import PageEditUserAdmin from "../_dash_components/common/PageEditUser";
 import { NoItemsFound } from "@/components/uiComponent/uiCom";
-import { ChevronRight, CirclePlus, Settings } from "lucide-react";
+import {
+  ChevronRight,
+  CirclePlus,
+  Settings,
+  Verified,
+  VerifiedIcon,
+} from "lucide-react";
 import PageAddUserAdmin from "../_dash_components/common/pageAddUserAdmin";
 import {
   Table,
@@ -34,6 +40,7 @@ import { deleteUser } from "@/lib/api";
 import SearchShowClient from "@/components/common/searchShowClient";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { getImageUrlProduct } from "@/lib/getImageUrl";
+import { Badge } from "@/components/ui/badge";
 
 const PageUsersAdmin = ({
   users,
@@ -114,6 +121,7 @@ const PageUsersAdmin = ({
                 <TableHead>Address</TableHead>
                 {/* <TableHead>Payment</TableHead> */}
                 <TableHead>Role</TableHead>
+                <TableHead>Varified</TableHead>
                 <TableHead>Gender</TableHead>
                 <TableHead>Date</TableHead>
                 <TableHead>Buttons</TableHead>
@@ -132,6 +140,7 @@ const PageUsersAdmin = ({
                     address,
                     gender,
                     role,
+                    emailVerified,
                     createdAt,
                   },
                   index,
@@ -167,6 +176,19 @@ const PageUsersAdmin = ({
                     </TableCell>
 
                     <TableCell>{role}</TableCell>
+                    <TableCell>
+                      <Badge
+                        variant={emailVerified ? "default" : "destructive"}
+                      >
+                        {emailVerified ? (
+                          <>
+                            <VerifiedIcon /> Varified
+                          </>
+                        ) : (
+                          "Not Varified"
+                        )}
+                      </Badge>
+                    </TableCell>
                     <TableCell>{gender}</TableCell>
 
                     <TableCell>

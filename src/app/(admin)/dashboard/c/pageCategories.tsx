@@ -83,7 +83,7 @@ const PageCategoriesAdmin = ({
                       alt={name}
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       fill
-                      className="object-cover w-full h-full"
+                      className="object-contain bg-white w-full h-full"
                     />
                   ) : (
                     <TbCategoryPlus className="h-full w-full" />

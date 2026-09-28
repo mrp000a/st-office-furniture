@@ -29,6 +29,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { IoReload } from "react-icons/io5";
 import { getImageUrlProduct } from "@/lib/getImageUrl";
+import Link from "next/link";
 
 export default function CategoriesPageClient({
   categories,
@@ -110,7 +111,7 @@ export default function CategoriesPageClient({
       {/* Category Grid */}
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {categories.map(
-          ({ id, name, description, _count, createdAt, image, }) => (
+          ({ id, name, description, _count, createdAt, image }) => (
             <div
               key={id}
               className="group overflow-hidden rounded-xl bg-violet-primary/5 border bg-card transition-all hover:-translate-y-0.5 hover:shadow-md"
@@ -124,7 +125,7 @@ export default function CategoriesPageClient({
                     alt={image}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="object-contain bg-white transition-transform duration-500 group-hover:scale-105"
                   />
                 ) : (
                   //   <div>{image}</div>
@@ -141,7 +142,12 @@ export default function CategoriesPageClient({
               <div className="p-4">
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
-                    <h2 className="truncate font-semibold">{name}</h2>
+                    <Link
+                      href={`/c/${name}`}
+                      className="truncate font-semibold"
+                    >
+                      {name}
+                    </Link>
 
                     <p className="mt-1 line-clamp-2 text-sm leading-5 text-muted-foreground">
                       {description}

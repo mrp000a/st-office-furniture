@@ -2,13 +2,6 @@
 
 import EnableNotificationButton from "@/components/sec_lib/enableNotificationButton";
 
-import React from "react";
-import AboutPage from "../(maincontainer)/(otherpages)/about/aboutClient";
-import MessageForm from "@/components/common/forms/messageForm";
-import BkashButton from "@/components/actions/BkashPaymentButton";
-import StripeButton from "@/components/actions/StripePaymentButton";
-import { SslCommerzButton } from "@/components/actions/SSLCommerzPaymentButton";
-
 const Page = () => {
   const handleClick = async () => {
     await fetch("/api/push/test", {
@@ -32,9 +25,11 @@ const Page = () => {
       </div>
 
       <div className="flex-center flex-wrap w-full min-h-100">
-        <BkashButton orderId={20033} />
+        {/* <BkashButton orderId={20033} />
         <StripeButton orderId={20033} />
-        <SslCommerzButton orderId={20033} />
+        <SslCommerzButton orderId={20033} /> */}
+
+        {/* <PaymentSuccessPage searchParams={order: }/> */}
       </div>
       {/* <AboutPage /> */}
       {/* <MessageForm /> */}

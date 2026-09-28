@@ -11,7 +11,7 @@ export default function BkashButton({ orderId }: { orderId: number }) {
     try {
       setLoading(true);
 
-      const response = await fetch("/api/bkash/create", {
+      const response = await fetch("/api/payment/bkash/create", {
         method: "POST",
 
         headers: {

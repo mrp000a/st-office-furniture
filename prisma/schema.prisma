@@ -294,6 +294,7 @@ enum PaymentStatus {
 enum OrderStatus {
   PENDING
   CONFIRMED
+  // REJECTED
   PACKAGED
   ON_HOLD
   SHIPPED
