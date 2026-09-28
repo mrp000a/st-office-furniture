@@ -285,7 +285,7 @@ export const CategoriesNav = [
   { label: "Chair Accessories", href: "/c/chair-accessories" },
   { label: "Sofa", href: "/c/sofa" },
   // testing
-  { label: "Test Page", href: "/test" },
+  // { label: "Test Page", href: "/test" },
 ];
 
 export const termsText = [
