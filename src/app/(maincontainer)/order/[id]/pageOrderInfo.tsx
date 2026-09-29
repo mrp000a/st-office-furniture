@@ -20,7 +20,7 @@ import {
 } from "@/generated/prisma";
 
 import { NoItemsFound } from "@/components/uiComponent/uiCom";
-import { CheckIcon } from "lucide-react";
+import { CheckIcon, FileText } from "lucide-react";
 import { useRouter } from "next/navigation";
 import {
   Table,
@@ -35,6 +35,10 @@ import Link from "next/link";
 import { OrderStatusBadge } from "@/components/uiComponent/order-status-badge";
 import { getImageUrlProduct } from "@/lib/getImageUrl";
 import { Badge } from "@/components/ui/badge";
+import {
+  InvoiceButtonDownload,
+  InvoiceButtonView,
+} from "@/components/common/invoice/InvoiceButton";
 
 type sanitizeOrder = {
   id: number;
@@ -284,6 +288,11 @@ const PageOrderInfo = ({ order }: { order: sanitizeOrder }) => {
                   Continue
                 </Button>
               </div>
+            </div>
+
+            <div className="flex items-center flex-wrap">
+              <InvoiceButtonView id={order.publicId ?? ""} />
+              <InvoiceButtonDownload id={order.publicId ?? ""} />
             </div>
           </div>
           {/* log container */}

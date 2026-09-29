@@ -115,9 +115,9 @@ export default function RootLayout({
           {children}
           <Toaster richColors icons={{}} />
         </Providers>
-        <Suspense fallback={null}>
+        {/* <Suspense fallback={null}>
           <AnalyticsTracker />
-        </Suspense>
+        </Suspense> */}
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID!} />
       </body>
     </html>
