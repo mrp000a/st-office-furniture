@@ -11,6 +11,9 @@ import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/ui/sonner";
 import Providers from "@/lib/providers";
 import { coreInfo } from "@/components/data/core";
+import { GoogleAnalytics } from "@next/third-parties/google";
+import { Suspense } from "react";
+import AnalyticsTracker from "@/components/actions/CombinedTracker";
 // import siteImage from '@/components/images/siteImage.png'
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
@@ -112,6 +115,10 @@ export default function RootLayout({
           {children}
           <Toaster richColors icons={{}} />
         </Providers>
+        <Suspense fallback={null}>
+          <AnalyticsTracker />
+        </Suspense>
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID!} />
       </body>
     </html>
   );

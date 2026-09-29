@@ -256,6 +256,18 @@ view TopDeliveredProducts {
   @@map("top_delivered_products")
 }
 
+model PageView {
+  id        String   @id @default(uuid())
+  path      String // e.g., "/products/office-chair"
+  referrer  String? // Traffic source/referrer
+  userAgent String? // Browser & device details
+  ipAddress String? // Hashed or raw IP for approximate user count
+  createdAt DateTime @default(now())
+
+  @@index([path])
+  @@index([createdAt])
+}
+
 enum UserRole {
   SUPER_ADMIN
   ADMIN
