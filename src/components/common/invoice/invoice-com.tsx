@@ -64,6 +64,7 @@ type SanitizeOrder = {
 /* -------------------------------------------------------------------------- */
 /*                                  Helpers                                   */
 /* -------------------------------------------------------------------------- */
+const invoiceCreatedAt = new Date();
 
 function formatMoney(value: number) {
   return `Tk. ${Number(value).toLocaleString("en-BD", {
@@ -74,6 +75,7 @@ function formatMoney(value: number) {
 
 function formatDate(date: Date) {
   return new Date(date).toLocaleDateString("en-US", {
+    timeZone: "Asia/Dhaka",
     month: "long",
     day: "numeric",
     year: "numeric",
@@ -82,6 +84,7 @@ function formatDate(date: Date) {
 
 function formatTime(date: Date) {
   return new Date(date).toLocaleTimeString("en-US", {
+    timeZone: "Asia/Dhaka",
     hour: "numeric",
     minute: "2-digit",
     hour12: true,
@@ -972,9 +975,16 @@ export function OrderInvoice({ order }: { order: SanitizeOrder }) {
         {/* ---------------------------------------------------------------- */}
 
         <View style={styles.footer} fixed>
-          <Text style={styles.footerLeft}>
-            ST Office Furniture • Better Seating Better Working
-          </Text>
+          <View>
+            <Text style={styles.footerLeft}>
+              ST Office Furniture • Better Seating Better Working
+            </Text>
+
+            <Text style={[styles.footerLeft, { marginTop: 2 }]}>
+              Invoice created: {formatDate(invoiceCreatedAt)} •{" "}
+              {formatTime(invoiceCreatedAt)} (BST)
+            </Text>
+          </View>
 
           <Text
             style={styles.footerRight}
