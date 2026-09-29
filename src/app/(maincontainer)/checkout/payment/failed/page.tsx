@@ -19,7 +19,7 @@ export default async function PaymentFailedPage({ searchParams }: Props) {
   const orderId = params.orderId;
 
   return (
-    <main className="min-h-[80vh] bg-muted/20 px-4 py-12 sm:py-20">
+    <main className="bg-muted/20 min-h-[80vh] px-4 py-12 sm:py-20">
       <div className="mx-auto max-w-xl">
         {/* Header */}
         <section className="text-center">
@@ -39,36 +39,38 @@ export default async function PaymentFailedPage({ searchParams }: Props) {
             Payment Failed
           </h1>
 
-          <p className="mx-auto mt-3 max-w-md leading-6 text-muted-foreground">
-            {"We couldn't complete your payment. Your order has not been confirmed yet."}
+          <p className="text-muted-foreground mx-auto mt-3 max-w-md leading-6">
+            {
+              "We couldn't complete your payment. Your order has not been confirmed yet."
+            }
           </p>
         </section>
 
         {/* Information card */}
-        <section className="mt-8 rounded-2xl border bg-background p-6 shadow-sm">
+        <section className="bg-background mt-8 rounded-2xl border p-6 shadow-sm">
           <h2 className="font-semibold">What can you do?</h2>
 
           <div className="mt-5 space-y-4">
             <div className="flex gap-3">
-              <div className="mt-0.5 h-2 w-2 shrink-0 rounded-full bg-muted-foreground" />
+              <div className="bg-muted-foreground mt-0.5 h-2 w-2 shrink-0 rounded-full" />
 
-              <p className="text-sm leading-6 text-muted-foreground">
+              <p className="text-muted-foreground text-sm leading-6">
                 Check your payment information and try again.
               </p>
             </div>
 
             <div className="flex gap-3">
-              <div className="mt-0.5 h-2 w-2 shrink-0 rounded-full bg-muted-foreground" />
+              <div className="bg-muted-foreground mt-0.5 h-2 w-2 shrink-0 rounded-full" />
 
-              <p className="text-sm leading-6 text-muted-foreground">
+              <p className="text-muted-foreground text-sm leading-6">
                 Make sure your payment account has sufficient balance.
               </p>
             </div>
 
             <div className="flex gap-3">
-              <div className="mt-0.5 h-2 w-2 shrink-0 rounded-full bg-muted-foreground" />
+              <div className="bg-muted-foreground mt-0.5 h-2 w-2 shrink-0 rounded-full" />
 
-              <p className="text-sm leading-6 text-muted-foreground">
+              <p className="text-muted-foreground text-sm leading-6">
                 If you were charged but the payment shows as failed, please
                 contact us before making another payment.
               </p>
@@ -78,8 +80,8 @@ export default async function PaymentFailedPage({ searchParams }: Props) {
 
         {/* Order reference */}
         {orderId && (
-          <div className="mt-4 rounded-xl border bg-background px-5 py-4 text-center">
-            <p className="text-xs text-muted-foreground">Order reference</p>
+          <div className="bg-background mt-4 rounded-xl border px-5 py-4 text-center">
+            <p className="text-muted-foreground text-xs">Order reference</p>
 
             <p className="mt-1 font-semibold">#{orderId}</p>
           </div>
@@ -90,7 +92,7 @@ export default async function PaymentFailedPage({ searchParams }: Props) {
           {orderId ? (
             <Link
               href={`/checkout?orderId=${orderId}`}
-              className="flex items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3.5 font-medium text-primary-foreground transition hover:opacity-90"
+              className="bg-primary text-primary-foreground flex items-center justify-center gap-2 rounded-xl px-5 py-3.5 font-medium transition hover:opacity-90"
             >
               <RefreshCcw className="h-4 w-4" />
               Try Payment Again
@@ -98,7 +100,7 @@ export default async function PaymentFailedPage({ searchParams }: Props) {
           ) : (
             <Link
               href="/checkout"
-              className="flex items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3.5 font-medium text-primary-foreground transition hover:opacity-90"
+              className="bg-primary text-primary-foreground flex items-center justify-center gap-2 rounded-xl px-5 py-3.5 font-medium transition hover:opacity-90"
             >
               <RefreshCcw className="h-4 w-4" />
               Return to Checkout
@@ -107,7 +109,7 @@ export default async function PaymentFailedPage({ searchParams }: Props) {
 
           <Link
             href="/products"
-            className="flex items-center justify-center gap-2 rounded-xl border bg-background px-5 py-3.5 font-medium transition hover:bg-muted"
+            className="bg-background hover:bg-muted flex items-center justify-center gap-2 rounded-xl border px-5 py-3.5 font-medium transition"
           >
             <ShoppingBag className="h-4 w-4" />
             Continue Shopping
@@ -116,7 +118,7 @@ export default async function PaymentFailedPage({ searchParams }: Props) {
 
         {/* Support */}
         <div className="mt-8 text-center">
-          <p className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+          <p className="text-muted-foreground flex items-center justify-center gap-2 text-sm">
             <Headphones className="h-4 w-4" />
             Having trouble?
           </p>

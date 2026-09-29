@@ -1,9 +1,4 @@
-import {
-  Truck,
-  ShieldCheck,
-  RotateCcw,
-  MessageCircle,
-} from "lucide-react";
+import { Truck, ShieldCheck, RotateCcw, MessageCircle } from "lucide-react";
 
 const trustItems = [
   {
@@ -30,7 +25,7 @@ const trustItems = [
 
 export function TrustStrip() {
   return (
-    <section className="relative w-full bg-background">
+    <section className="bg-background relative w-full">
       <div className="mx-auto max-w-384 px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
         <div className="grid grid-cols-2 gap-y-8 md:grid-cols-4 md:gap-y-0">
           {trustItems.map((item, index) => {
@@ -39,22 +34,12 @@ export function TrustStrip() {
             return (
               <div
                 key={item.title}
-                className={`
-                  flex items-center gap-4 px-4
-                  sm:px-6
-                  md:justify-center
-                  ${
-                    index !== 0
-                      ? "md:border-l md:border-border"
-                      : ""
-                  }
-                `}
+                className={`flex items-center gap-4 px-4 sm:px-6 md:justify-center ${
+                  index !== 0 ? "md:border-border md:border-l" : ""
+                } `}
               >
-                <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-primary/10">
-                  <Icon
-                    className="size-5 text-primary"
-                    strokeWidth={1.8}
-                  />
+                <div className="bg-primary/10 flex size-12 shrink-0 items-center justify-center rounded-full">
+                  <Icon className="text-primary size-5" strokeWidth={1.8} />
                 </div>
 
                 <div>
@@ -62,7 +47,7 @@ export function TrustStrip() {
                     {item.title}
                   </h3>
 
-                  <p className="mt-1 max-w-[180px] text-xs leading-5 text-muted-foreground sm:text-sm">
+                  <p className="text-muted-foreground mt-1 max-w-[180px] text-xs leading-5 sm:text-sm">
                     {item.description}
                   </p>
                 </div>

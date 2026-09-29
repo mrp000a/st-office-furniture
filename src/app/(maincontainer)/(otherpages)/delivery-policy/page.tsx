@@ -9,12 +9,12 @@ import React from "react";
 const Page = () => {
   return (
     <div className="px-2">
-      <div className="flex-center gap-4 flex-col max-w-300 mx-auto p-4 box-border rounded-lg bg-background shadow-lg shadow-foreground/30 ">
-        <span className="text-lg font-bold py-4  w-full text-center">
+      <div className="flex-center bg-background shadow-foreground/30 mx-auto box-border max-w-300 flex-col gap-4 rounded-lg p-4 shadow-lg">
+        <span className="w-full py-4 text-center text-lg font-bold">
           Delivery Policy
         </span>
         <hr className="w-full" />
-        <div className="whitespace-pre-line font-bangla w-full">
+        <div className="font-bangla w-full whitespace-pre-line">
           <h3 className="text-lg font-semibold">ডেলিভারি নীতিমালা</h3>
           <ul className="list-disc space-y-2">
             {deliveryPolicyText &&

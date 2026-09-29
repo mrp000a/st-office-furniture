@@ -37,19 +37,19 @@ export default function CategoriesPageClient({
   const router = useRouter();
 
   return (
-    <div className="w-full max-w-384 bg-background border shadow rounded-md mx-auto space-y-6 p-3">
+    <div className="bg-background mx-auto w-full max-w-384 space-y-6 rounded-md border p-3 shadow">
       {/* Header */}
-      <div className="flex gap-4 flex-wrap items-center justify-between w-full">
+      <div className="flex w-full flex-wrap items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
             <h1 className="text-2xl font-bold tracking-tight">Categories</h1>
 
-            <span className="rounded-full bg-primary/10 px-2.5 py-1 text-xs font-semibold text-primary">
+            <span className="bg-primary/10 text-primary rounded-full px-2.5 py-1 text-xs font-semibold">
               {totalItems}
             </span>
           </div>
 
-          <p className="mt-1 text-sm text-muted-foreground">
+          <p className="text-muted-foreground mt-1 text-sm">
             Explore our products into categories.
           </p>
         </div>
@@ -72,12 +72,12 @@ export default function CategoriesPageClient({
           ({ id, name, description, _count, createdAt, image, updatedAt }) => (
             <div
               key={id}
-              className="group overflow-hidden   rounded-xl border bg-violet-primary/10 transition-all hover:-translate-y-0.5 hover:shadow-md"
+              className="group bg-violet-primary/10 overflow-hidden rounded-xl border transition-all hover:-translate-y-0.5 hover:shadow-md"
             >
               {/* Image */}
               <button
                 onClick={() => router.push(`/c/${name}`)}
-                className="relative cursor-pointer aspect-[16/10] w-full overflow-hidden bg-white"
+                className="relative aspect-[16/10] w-full cursor-pointer overflow-hidden bg-white"
               >
                 {image ? (
                   <Image
@@ -94,7 +94,7 @@ export default function CategoriesPageClient({
                 )}
 
                 {/* Product Count */}
-                <div className="absolute right-3 top-3 rounded-full bg-background/90 px-2.5 py-1 text-xs font-medium shadow-sm backdrop-blur">
+                <div className="bg-background/90 absolute top-3 right-3 rounded-full px-2.5 py-1 text-xs font-medium shadow-sm backdrop-blur">
                   {_count.products} products
                 </div>
               </button>
@@ -105,7 +105,7 @@ export default function CategoriesPageClient({
                   <div className="min-w-0">
                     <h2 className="truncate font-semibold">{name}</h2>
 
-                    <p className="mt-1 line-clamp-2 text-sm leading-5 text-muted-foreground">
+                    <p className="text-muted-foreground mt-1 line-clamp-2 text-sm leading-5">
                       {description}
                     </p>
                   </div>
@@ -114,7 +114,7 @@ export default function CategoriesPageClient({
                   <button
                     type="button"
                     title="More options"
-                    className="flex size-8 shrink-0 items-center justify-center rounded-md text-muted-foreground transition hover:bg-muted hover:text-foreground"
+                    className="text-muted-foreground hover:bg-muted hover:text-foreground flex size-8 shrink-0 items-center justify-center rounded-md transition"
                   >
                     <MoreHorizontal className="size-4" />
                   </button>
@@ -140,9 +140,9 @@ export default function CategoriesPageClient({
 
       {/* Empty State */}
       {categories.length === 0 && (
-        <div className="flex min-h-80 flex-col items-center justify-center rounded-xl border border-dashed bg-card p-6 text-center">
-          <div className="flex size-12 items-center justify-center rounded-full bg-muted">
-            <FolderOpen className="size-5 text-muted-foreground" />
+        <div className="bg-card flex min-h-80 flex-col items-center justify-center rounded-xl border border-dashed p-6 text-center">
+          <div className="bg-muted flex size-12 items-center justify-center rounded-full">
+            <FolderOpen className="text-muted-foreground size-5" />
           </div>
 
           <h3 className="mt-4 font-semibold">No categories found</h3>

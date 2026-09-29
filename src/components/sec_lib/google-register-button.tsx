@@ -24,7 +24,7 @@ export default function GoogleRegButton() {
       type="button"
       onClick={handleGoogleLogin}
       disabled={loading}
-      className="flex h-11 w-full items-center justify-center gap-3 rounded-lg border bg-background px-4 text-sm font-medium transition hover:bg-muted disabled:pointer-events-none disabled:opacity-60"
+      className="bg-background hover:bg-muted flex h-11 w-full items-center justify-center gap-3 rounded-lg border px-4 text-sm font-medium transition disabled:pointer-events-none disabled:opacity-60"
     >
       {loading ? (
         <>

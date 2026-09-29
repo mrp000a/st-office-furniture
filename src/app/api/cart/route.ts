@@ -13,7 +13,6 @@ export async function GET(req: NextRequest) {
     });
   }
   try {
-
     const cart = await prisma.cart.findUnique({
       where: {
         userId: Number(userId),
@@ -67,7 +66,6 @@ export async function PUT(req: NextRequest) {
     });
   }
   try {
-
     const cart = await prisma.cart.delete({
       where: {
         userId: Number(userId),

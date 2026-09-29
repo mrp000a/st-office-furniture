@@ -38,7 +38,7 @@ const EditProfile = ({
           onOpenChange={setOpenEditUser}
           // modal={false}
         >
-          <DialogContent className="sm:max-w-lg  max-h-screen overflow-auto z-999">
+          <DialogContent className="z-999 max-h-screen overflow-auto sm:max-w-lg">
             <DialogHeader>
               <DialogTitle>Edit User</DialogTitle>
               <DialogDescription>
@@ -46,7 +46,7 @@ const EditProfile = ({
                 done.
               </DialogDescription>
             </DialogHeader>
-            <div className=" h-full">
+            <div className="h-full">
               <PageEditUserClient
                 name={userData?.name ?? ""}
                 email={userData?.email ?? ""}

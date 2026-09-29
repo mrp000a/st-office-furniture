@@ -14,22 +14,22 @@ import MessageForm from "./forms/messageForm";
 
 const ContactInfoClient = () => {
   return (
-    <div className="rounded-md border bg-background reveal p-3 w-full space-y-2 flex-1">
-      <h2 className=" text-center font-bold">Get In Touch</h2>
-      <div className="reveal text-sm font-semibold text-gray-primary ">
+    <div className="bg-background reveal w-full flex-1 space-y-2 rounded-md border p-3">
+      <h2 className="text-center font-bold">Get In Touch</h2>
+      <div className="reveal text-gray-primary text-sm font-semibold">
         <p>
           What’s next? Feel free to reach out to us, have a query, or simply
           want to connect.
         </p>
-        <ul className="list-disc list-inside">
+        <ul className="list-inside list-disc">
           <li>To purchase any kind of furniture.</li>
           <li>You may also visit our office or factory.</li>
         </ul>
       </div>
-      <div className=" content-center gap-4 reveal">
+      <div className="reveal content-center gap-4">
         {/* email and phone  */}
-        <div className=" font-semibold font-mono flex gap-x-3 flex-wrap ">
-          <div className="email flex items-center flex-wrap gap-3 reveal">
+        <div className="flex flex-wrap gap-x-3 font-mono font-semibold">
+          <div className="email reveal flex flex-wrap items-center gap-3">
             <MdEmail />
             <Link
               href="mailto:info@stofficefurniture.com"
@@ -53,7 +53,7 @@ const ContactInfoClient = () => {
               <CopyIcon />
             </Button>
           </div>
-          <div className="phone flex items-center flex-wrap gap-3 reveal">
+          <div className="phone reveal flex flex-wrap items-center gap-3">
             <MdPhone />
             <Link href="tel:+8801745968104" className="break-all">
               +8801745-968104
@@ -72,7 +72,7 @@ const ContactInfoClient = () => {
               <CopyIcon />
             </Button>
           </div>
-          <div className="phone flex items-center flex-wrap gap-3 reveal">
+          <div className="phone reveal flex flex-wrap items-center gap-3">
             <FaWhatsapp />
             <Link href="tel:+8801521120706" className="break-all">
               +8801521-120706
@@ -91,15 +91,15 @@ const ContactInfoClient = () => {
               <CopyIcon />
             </Button>
           </div>
-          <div className="phone flex items-center flex-wrap gap-3 reveal">
-            <div className="h-5 w-5 relative rounded-md">
+          <div className="phone reveal flex flex-wrap items-center gap-3">
+            <div className="relative h-5 w-5 rounded-md">
               <Image
                 unoptimized
                 src={imoIcon}
                 alt="Background"
                 fill
                 sizes="50vw"
-                className="object-cover object-center "
+                className="object-cover object-center"
               />
             </div>
             <Link href="tel:+01835632990" className="break-all">
@@ -123,7 +123,7 @@ const ContactInfoClient = () => {
 
         {/* social links */}
 
-        <div className=" reveal">
+        <div className="reveal">
           <div className="text-gray-primary font-semibold">
             You may also find us on these platforms!
           </div>
@@ -134,7 +134,7 @@ const ContactInfoClient = () => {
         Location: 55 North Jatrabari, Dhaka-1204, Bangladesh [a two-minute walk
         from Sayedabad Malancha Community Center].
       </div>
-      <div className="aspect-5/3 mx-auto max-w-lg ring-2 ring-gray-secondary dark:invert rounded-md overflow-hidden w-full">
+      <div className="ring-gray-secondary mx-auto aspect-5/3 w-full max-w-lg overflow-hidden rounded-md ring-2 dark:invert">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3653.0164248473898!2d90.42971787607819!3d23.711107490282284!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b9ca693759fb%3A0x66bd366a3654f9c8!2s55%2C%201%20North%20Jatrabari%2C%20Dhaka%201204!5e0!3m2!1sen!2sbd!4v1789317111524!5m2!1sen!2sbd"
           width="100%"

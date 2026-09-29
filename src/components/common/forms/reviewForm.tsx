@@ -72,11 +72,11 @@ const ReviewForm = ({ productId, productCode }: ReviewFormProps) => {
   };
 
   return (
-    <div className="w-full rounded-xl border bg-background p-2">
+    <div className="bg-background w-full rounded-xl border p-2">
       <div className="mb-2">
         <h2 className="text-lg font-semibold">Write a Review</h2>
 
-        <p className="mt-1 text-sm text-muted-foreground">
+        <p className="text-muted-foreground mt-1 text-sm">
           Share your experience with this product.
         </p>
       </div>
@@ -100,7 +100,7 @@ const ReviewForm = ({ productId, productCode }: ReviewFormProps) => {
                       key={star}
                       type="button"
                       onClick={() => field.onChange(star)}
-                      className="rounded-md  transition-transform hover:scale-110 "
+                      className="rounded-md transition-transform hover:scale-110"
                       aria-label={`Rate ${star} out of 5`}
                     >
                       <Star
@@ -114,7 +114,7 @@ const ReviewForm = ({ productId, productCode }: ReviewFormProps) => {
                   ))}
 
                   {field.value > 0 && (
-                    <span className="ml-2 text-sm text-muted-foreground">
+                    <span className="text-muted-foreground ml-2 text-sm">
                       {field.value}/5
                     </span>
                   )}
@@ -132,7 +132,7 @@ const ReviewForm = ({ productId, productCode }: ReviewFormProps) => {
         <div className="space-y-2">
           <label htmlFor="note" className="text-sm font-medium">
             Your Review
-            <span className="ml-1 text-muted-foreground">(Optional)</span>
+            <span className="text-muted-foreground ml-1">(Optional)</span>
           </label>
 
           <Textarea
@@ -151,12 +151,12 @@ const ReviewForm = ({ productId, productCode }: ReviewFormProps) => {
 
           <div className="flex justify-between">
             {errors.note ? (
-              <p className="text-sm text-destructive">{errors.note.message}</p>
+              <p className="text-destructive text-sm">{errors.note.message}</p>
             ) : (
               <span />
             )}
 
-            <span className="text-xs text-muted-foreground">
+            <span className="text-muted-foreground text-xs">
               Max 1000 characters
             </span>
           </div>

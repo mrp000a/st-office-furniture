@@ -20,8 +20,8 @@ const CategoriesNavBar = () => {
   const [categoriesShow, setCategoriesShow] = useState(false);
 
   return (
-    <div className="w-full bg-green-primary  text-xs md:text-xs lg:text-sm relative">
-      <div className=" max-w-384 mx-auto px-2 flex justify-start items-center gap-3">
+    <div className="bg-green-primary relative w-full text-xs md:text-xs lg:text-sm">
+      <div className="mx-auto flex max-w-384 items-center justify-start gap-3 px-2">
         <div
           onMouseEnter={() => setCategoriesShow(true)}
           onMouseLeave={() => setCategoriesShow(false)}
@@ -33,7 +33,7 @@ const CategoriesNavBar = () => {
             onOpenChange={setCategoriesShow}
           >
             <DropdownMenuTrigger asChild>
-              <button className="text-white flex items-center">
+              <button className="flex items-center text-white">
                 <MenuIcon className="h-5" />
                 <span>Categories</span>
               </button>
@@ -45,7 +45,7 @@ const CategoriesNavBar = () => {
                   <DropdownMenuItem key={index} asChild>
                     <Link
                       href={href}
-                      className="  px-2 rounded-md active:translate-y-[0.5px]"
+                      className="rounded-md px-2 active:translate-y-[0.5px]"
                       key={index}
                     >
                       {label}
@@ -61,14 +61,14 @@ const CategoriesNavBar = () => {
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
-        <div className="flex flex-wrap justify-start items-center  text-background  max-md:hidden overflow-hidden">
+        <div className="text-background flex flex-wrap items-center justify-start overflow-hidden max-md:hidden">
           {CategoriesNav.map(({ label, href }, index) => (
             <Button
               key={index}
               // size={"xs"}
               asChild
               variant={"link"}
-              className="text-wrap h-5"
+              className="h-5 text-wrap"
             >
               <Link
                 href={href}

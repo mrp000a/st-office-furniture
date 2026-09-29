@@ -24,14 +24,14 @@ const DashNavButtons = () => {
   return (
     <>
       <div
-        className={`px-1 hidden sm:block  sticky top-12 py-1 border border-gray-secondary rounded-md bg-background ${sidebarOpen ? "w-fit" : " lg:w-50 max-w-full"}`}
+        className={`border-gray-secondary bg-background sticky top-12 hidden rounded-md border px-1 py-1 sm:block ${sidebarOpen ? "w-fit" : "max-w-full lg:w-50"}`}
       >
-        <div className="flex flex-col  justify-start gap-2 ">
+        <div className="flex flex-col justify-start gap-2">
           <Button
             onClick={() => {
               router.push("/dashboard");
             }}
-            className={"flex justify-between items-center"}
+            className={"flex items-center justify-between"}
             variant={
               pathname.toLowerCase() == "/dashboard" ? "destructive" : "outline"
             }
@@ -47,12 +47,12 @@ const DashNavButtons = () => {
           {DashboardNavItems.map(({ label, href, icon: Icon }, index) => (
             <Button
               onClick={() => router.push(href)}
-              className={`flex items-center justify-between `}
+              className={`flex items-center justify-between`}
               variant={pathname.startsWith(href) ? "destructive" : "outline"}
               key={index}
               size={"lg"}
             >
-              <span className="flex items-center gap-2 ">
+              <span className="flex items-center gap-2">
                 <Icon className="text-red-primary" />
                 <span className={`${sidebarOpen ? "hidden" : ""}`}>
                   {label}
@@ -69,10 +69,10 @@ const DashNavButtons = () => {
           direction="left"
           onOpenChange={setSidebarOpenMob}
         >
-          <DrawerContent className="z-9999 px-3 py-2 ">
+          <DrawerContent className="z-9999 px-3 py-2">
             <DrawerHeader>
               <DrawerTitle>
-                <div className="flex justify-between items-center">
+                <div className="flex items-center justify-between">
                   <span>Dashboard</span>
                   <Button
                     onClick={() => {
@@ -84,11 +84,11 @@ const DashNavButtons = () => {
                   </Button>
                 </div>
               </DrawerTitle>
-              <span className="w-full text-gray-secondary text-center">
+              <span className="text-gray-secondary w-full text-center">
                 Navigation
               </span>
             </DrawerHeader>
-            <div className="flex flex-col  justify-start gap-2 ">
+            <div className="flex flex-col justify-start gap-2">
               <Button
                 onClick={() => {
                   router.push("/dashboard");
@@ -97,7 +97,7 @@ const DashNavButtons = () => {
                     clearTimeout(time);
                   }, 500);
                 }}
-                className={"flex justify-between items-center"}
+                className={"flex items-center justify-between"}
                 variant={
                   pathname.toLowerCase() == "/dashboard" ? "default" : "outline"
                 }

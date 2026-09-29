@@ -25,10 +25,10 @@ const MobileNavDrawar = ({
   return (
     <div>
       <Drawer open={openMobNav} direction="left" onOpenChange={setOpenMobNav}>
-        <DrawerContent className="z-9999 px-3 py-2 ">
+        <DrawerContent className="z-9999 px-3 py-2">
           <DrawerHeader>
             <DrawerTitle>
-              <div className="flex justify-between items-center">
+              <div className="flex items-center justify-between">
                 <span>{coreInfo.name}</span>
                 <Button
                   onClick={() => setOpenMobNav(false)}
@@ -38,11 +38,11 @@ const MobileNavDrawar = ({
                 </Button>
               </div>
             </DrawerTitle>
-            <span className="w-full text-gray-secondary text-center">
+            <span className="text-gray-secondary w-full text-center">
               Navigation
             </span>
           </DrawerHeader>
-          <div className="flex flex-col justify-start gap-2 px-4 overflow-auto">
+          <div className="flex flex-col justify-start gap-2 overflow-auto px-4">
             {navItems.map(({ href, label }, index) => (
               <Button
                 variant={

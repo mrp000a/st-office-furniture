@@ -31,9 +31,9 @@ const PageCategoriesAdmin = ({
 
   return (
     <div className="">
-      <div className="flex justify-between items-center flex-wrap">
-        <h2 className="text-2xl font-bold font-mono">Categories</h2>
-        <div className="gap-1 flex items-center flex-wrap">
+      <div className="flex flex-wrap items-center justify-between">
+        <h2 className="font-mono text-2xl font-bold">Categories</h2>
+        <div className="flex flex-wrap items-center gap-1">
           <div className="flex-1">
             <SearchLayout />
           </div>
@@ -43,18 +43,18 @@ const PageCategoriesAdmin = ({
           </Button>
         </div>
       </div>
-      <hr className="py-1 inline-block w-full" />
+      <hr className="inline-block w-full py-1" />
       <SearchShowClient />
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2 ">
+      <div className="grid grid-cols-1 gap-2 md:grid-cols-2 xl:grid-cols-3">
         {categories &&
           categories.length > 0 &&
           categories.map(({ description, name, id, image }, index) => (
             <div
-              className="flex items-start justify-between border border-gray-secondary rounded-md p-1"
+              className="border-gray-secondary flex items-start justify-between rounded-md border p-1"
               key={index}
             >
-              <div className="flex  gap-2">
-                <span className="w-14  h-14 relative z-10 inline-block rounded-md border border-gray-primary overflow-hidden">
+              <div className="flex gap-2">
+                <span className="border-gray-primary relative z-10 inline-block h-14 w-14 overflow-hidden rounded-md border">
                   {image ? (
                     <Image
                       unoptimized
@@ -62,14 +62,14 @@ const PageCategoriesAdmin = ({
                       alt={name}
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       fill
-                      className="object-cover w-full h-full"
+                      className="h-full w-full object-cover"
                     />
                   ) : (
                     <TbCategoryPlus className="h-full w-full" />
                   )}
                 </span>
                 <div className="flex flex-col items-start">
-                  <span className="text-base font-bold line-clamp-2">
+                  <span className="line-clamp-2 text-base font-bold">
                     {name}
                   </span>
                   <span className="line-clamp-3 text-[10px]">
@@ -81,7 +81,7 @@ const PageCategoriesAdmin = ({
                     </span> */}
                 </div>
               </div>
-              <div className="flex items-center flex-wrap gap-2">
+              <div className="flex flex-wrap items-center gap-2">
                 <Button className="" variant={"outline"}>
                   <FiEdit3 />
                   <span>Edit</span>

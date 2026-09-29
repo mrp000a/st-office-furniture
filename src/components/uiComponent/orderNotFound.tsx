@@ -21,26 +21,26 @@ export default function OrderNotFound() {
       <Card className="w-full max-w-2xl overflow-hidden border shadow-sm">
         <CardContent className="p-0">
           {/* Top accent */}
-          <div className="h-1.5 w-full bg-green-primary" />
+          <div className="bg-green-primary h-1.5 w-full" />
 
           <div className="flex flex-col items-center px-6 py-12 text-center sm:px-10 sm:py-16">
             {/* Icon */}
             <div className="relative mb-6">
-              <div className="flex h-24 w-24 items-center justify-center rounded-full bg-green-primary/10">
-                <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-green-primary/20 bg-background shadow-sm">
-                  <ClipboardX className="h-8 w-8 text-green-primary" />
+              <div className="bg-green-primary/10 flex h-24 w-24 items-center justify-center rounded-full">
+                <div className="border-green-primary/20 bg-background flex h-16 w-16 items-center justify-center rounded-2xl border shadow-sm">
+                  <ClipboardX className="text-green-primary h-8 w-8" />
                 </div>
               </div>
 
               {/* Small badge */}
-              <div className="absolute -bottom-1 -right-1 flex h-8 w-8 items-center justify-center rounded-full border-4 border-background bg-muted">
-                <Search className="h-3.5 w-3.5 text-muted-foreground" />
+              <div className="border-background bg-muted absolute -right-1 -bottom-1 flex h-8 w-8 items-center justify-center rounded-full border-4">
+                <Search className="text-muted-foreground h-3.5 w-3.5" />
               </div>
             </div>
 
             {/* Heading */}
             <div className="max-w-md">
-              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-green-primary">
+              <p className="text-green-primary mb-2 text-xs font-semibold tracking-[0.2em] uppercase">
                 Order unavailable
               </p>
 
@@ -48,7 +48,7 @@ export default function OrderNotFound() {
                 Order not found
               </h1>
 
-              <p className="mt-3 text-sm leading-6 text-muted-foreground sm:text-base">
+              <p className="text-muted-foreground mt-3 text-sm leading-6 sm:text-base">
                 We couldn&apos;t find the order you&apos;re looking for. It may
                 have been deleted, the order ID may be incorrect, or you may not
                 have access to this order.
@@ -56,16 +56,16 @@ export default function OrderNotFound() {
             </div>
 
             {/* Information box */}
-            <div className="mt-8 w-full max-w-md rounded-xl border bg-muted/30 p-4 text-left">
+            <div className="bg-muted/30 mt-8 w-full max-w-md rounded-xl border p-4 text-left">
               <div className="flex gap-3">
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-background shadow-sm">
-                  <ShoppingBag className="h-4 w-4 text-muted-foreground" />
+                <div className="bg-background flex h-9 w-9 shrink-0 items-center justify-center rounded-lg shadow-sm">
+                  <ShoppingBag className="text-muted-foreground h-4 w-4" />
                 </div>
 
                 <div className="min-w-0">
                   <p className="text-sm font-medium">What can you do?</p>
 
-                  <ul className="mt-2 space-y-1.5 text-xs leading-5 text-muted-foreground">
+                  <ul className="text-muted-foreground mt-2 space-y-1.5 text-xs leading-5">
                     <li>• Check that the order ID is correct.</li>
                     <li>• Return to the orders list and search again.</li>
                     <li>• Contact administrator if necessary.</li>
@@ -99,7 +99,7 @@ export default function OrderNotFound() {
             <Button
               variant="ghost"
               size="sm"
-              className="mt-4 text-muted-foreground"
+              className="text-muted-foreground mt-4"
               onClick={() => window.location.reload()}
             >
               <RefreshCcw className="mr-2 h-3.5 w-3.5" />

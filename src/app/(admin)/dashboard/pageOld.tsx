@@ -33,32 +33,34 @@ const DashPage = () => {
 
   return (
     <div className="space-y-2">
-      <h2 className="text-2xl font-bold font-mono capitalize">
+      <h2 className="font-mono text-2xl font-bold capitalize">
         Welcome!{" "}
         {user?.role
           .toLocaleLowerCase()
           .split("_")
           .map((item) => item + " ")}{" "}
-        <span className="font-bold text-shadow-lg font-extrabold">{user?.name}</span>
+        <span className="font-bold font-extrabold text-shadow-lg">
+          {user?.name}
+        </span>
       </h2>
       <hr />
-      <div className="w-full gap-3 items-end grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
-        <div className="relative ">
+      <div className="grid w-full grid-cols-1 items-end gap-3 md:grid-cols-2 xl:grid-cols-3">
+        <div className="relative">
           <ChartPieDonutText chartData={chartData1} />
         </div>
-        <div className="relative ">
+        <div className="relative">
           <ChartPieDonutText chartData={chartData2} />
         </div>
-        <div className="relative ">
+        <div className="relative">
           <ChartPieDonutText chartData={chartData3} />
         </div>
-        <div className="relative ">
+        <div className="relative">
           <ChartBarDemoTooltip />
         </div>
-        <div className="relative ">
+        <div className="relative">
           <ChartAreaInteractive />
         </div>
-        <div className="relative ">
+        <div className="relative">
           <ChartRadialStacked />
         </div>
       </div>

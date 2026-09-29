@@ -28,14 +28,14 @@ export default function OrdersSearch() {
 
   return (
     <div className=" ">
-      <div className="hidden sm:flex justify-center items-center focus-within:ring-2 max-w-full focus-within:ring-gray-secondary/80 transition-all ring-gray-secondary/50 ring rounded-md overflow-hidden  gap-1">
+      <div className="focus-within:ring-gray-secondary/80 ring-gray-secondary/50 hidden max-w-full items-center justify-center gap-1 overflow-hidden rounded-md ring transition-all focus-within:ring-2 sm:flex">
         <button className="bg-gray-secondary/20 h-full w-fit p-1 px-2">
           <Search />
         </button>
         <input
           value={searchStringValue ?? ""}
           onChange={(e) => handleSearch(e.target.value)}
-          className="focus:bg-none max-w-full focus:outline-none"
+          className="max-w-full focus:bg-none focus:outline-none"
           placeholder="Search Item"
         />
       </div>
@@ -51,13 +51,13 @@ export default function OrdersSearch() {
 
       {/* mobile search overlay */}
       <div
-        className={`absolute  right-0 w-lg max-w-[calc(100vw-50px)] pl-8  rounded-sm  py-1 box-border flex justify-end items-center transition-all duration-300 sm:hidden z-30 ${
+        className={`absolute right-0 z-30 box-border flex w-lg max-w-[calc(100vw-50px)] items-center justify-end rounded-sm py-1 pl-8 transition-all duration-300 sm:hidden ${
           isSearchOpen
-            ? "opacity-100 pointer-events-auto translate-y-0"
-            : "opacity-0 pointer-events-none -translate-y-8"
+            ? "pointer-events-auto translate-y-0 opacity-100"
+            : "pointer-events-none -translate-y-8 opacity-0"
         }`}
       >
-        <div className="bg-background  flex-center focus-within:ring-2 max-w-full focus-within:ring-gray-secondary/80 transition-all ring-gray-secondary/50 ring rounded-md overflow-hidden  gap-1">
+        <div className="bg-background flex-center focus-within:ring-gray-secondary/80 ring-gray-secondary/50 max-w-full gap-1 overflow-hidden rounded-md ring transition-all focus-within:ring-2">
           <button
             className="bg-gray-secondary/20 h-full w-fit p-1 px-2"
             onClick={async () => console.log("object")}
@@ -67,7 +67,7 @@ export default function OrdersSearch() {
           <input
             value={searchStringValue ?? ""}
             onChange={(e) => handleSearch(e.target.value)}
-            className="focus:bg-none w-full focus:outline-none"
+            className="w-full focus:bg-none focus:outline-none"
             placeholder="Search Item"
           />
         </div>

@@ -74,20 +74,20 @@ const PageLogin = () => {
   };
 
   return (
-    <div className="w-full min-h-[calc(100vh-300px)] flex-center  max-w-5xl mx-auto p-2 py-4 ">
-      <div className="rounded-md bg-background outline-2 outline-gray-secondary shadow-2xl shadow-foreground/40 w-full flex-col sm:flex-row flex items-stretch overflow-hidden">
-        <div className="w-full overflow-hidden relative hidden sm:flex">
-          <div className="absolute w-full h-full flex-1 overflow-hidden ">
+    <div className="flex-center mx-auto min-h-[calc(100vh-300px)] w-full max-w-5xl p-2 py-4">
+      <div className="bg-background outline-gray-secondary shadow-foreground/40 flex w-full flex-col items-stretch overflow-hidden rounded-md shadow-2xl outline-2 sm:flex-row">
+        <div className="relative hidden w-full overflow-hidden sm:flex">
+          <div className="absolute h-full w-full flex-1 overflow-hidden">
             <Image
               unoptimized
               fill
-              className={`object-cover object-center overflow-hidden relative`}
+              className={`relative overflow-hidden object-cover object-center`}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               src={LoginAndRegisterPageImages.login}
               alt=""
             />
           </div>
-          <div className="relative h-full pt-24 w-full bg-foreground/30 z-20  flex justify-end p-5 items-center flex-col text-background">
+          <div className="bg-foreground/30 text-background relative z-20 flex h-full w-full flex-col items-center justify-end p-5 pt-24">
             <h2 className="text-2xl font-bold">Welcome Back!</h2>
             <span className="text-center">
               Log in to enjoy your shopping experience.
@@ -96,19 +96,19 @@ const PageLogin = () => {
         </div>
         <div className="w-full p-4">
           <form onSubmit={handleSubmit(handleSubmitData)}>
-            <div className=" gap-2">
-              <h2 className="text-2xl font-bold flex items-center gap-3 ">
+            <div className="gap-2">
+              <h2 className="flex items-center gap-3 text-2xl font-bold">
                 <MdVerifiedUser className="text-green-primary" />{" "}
                 <span>Log In!</span>
               </h2>
-              <span className="text-center text-gray-secondary">
+              <span className="text-gray-secondary text-center">
                 Log in to enjoy your shopping experience.
               </span>
             </div>
 
             {/* sec 8 */}
-            <div className="flex items-start justify-between gap-4 flex-col">
-              <div className="grid grid-cols-1 space-y-1 flex-1 w-full">
+            <div className="flex flex-col items-start justify-between gap-4">
+              <div className="grid w-full flex-1 grid-cols-1 space-y-1">
                 <label htmlFor="email">Phone / Email:</label>
                 <Input
                   id="email"
@@ -122,7 +122,7 @@ const PageLogin = () => {
                   <InputErrorMessage>{errors.email.message}</InputErrorMessage>
                 )}
               </div>
-              <div className="grid grid-cols-1 space-y-1 flex-1 w-full">
+              <div className="grid w-full flex-1 grid-cols-1 space-y-1">
                 <label htmlFor="password">Password:</label>
                 <Input
                   id="password"
@@ -145,20 +145,20 @@ const PageLogin = () => {
                     {errors.password.message}
                   </InputErrorMessage>
                 )}
-                <div className="flex justify-between items-center flex-wrap">
-                  <div className="flex items-center w-fit gap-2 text-xs text-gray-secondary">
+                <div className="flex flex-wrap items-center justify-between">
+                  <div className="text-gray-secondary flex w-fit items-center gap-2 text-xs">
                     <input
                       name="showPass"
                       type="checkbox"
                       id="showPass"
                       onChange={(e) => setShowPass(() => e.target.checked)}
                     />
-                    <label htmlFor="showPass" className="text-nowrap ">
+                    <label htmlFor="showPass" className="text-nowrap">
                       Show Password
                     </label>
                   </div>
 
-                  <div className="text-xs text-gray-secondary">
+                  <div className="text-gray-secondary text-xs">
                     <Button
                       variant={"link"}
                       className="text-blue-primary"
@@ -173,7 +173,7 @@ const PageLogin = () => {
               </div>
             </div>
 
-            <div className="w-full flex-center pt-4">
+            <div className="flex-center w-full pt-4">
               <Button disabled={isSubmitting} type="submit" className="w-full">
                 {isSubmitting && (
                   <span className="animate-spin">
@@ -184,9 +184,9 @@ const PageLogin = () => {
               </Button>
             </div>
           </form>
-          <div className="relative my-4 flex-center">
-            <span className="bg-background relative z-20 px-2 ">Or</span>
-            <div className="absolute top-0 w-full h-[0.10px] my-3 bg-gray-300"></div>
+          <div className="flex-center relative my-4">
+            <span className="bg-background relative z-20 px-2">Or</span>
+            <div className="absolute top-0 my-3 h-[0.10px] w-full bg-gray-300"></div>
           </div>
           <div className="text-gray-secondary">
             {"Don't"} have an account?

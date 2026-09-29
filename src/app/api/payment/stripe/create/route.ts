@@ -67,7 +67,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-
     const amountInCents = Math.round(amount * 100);
 
     const session = await stripe.checkout.sessions.create({

@@ -14,18 +14,18 @@ const CartItems = () => {
   return (
     <div>
       <div className="space-y-1">
-        <div className="flex justify-between items-center flex-wrap">
+        <div className="flex flex-wrap items-center justify-between">
           <h2 className="text-lg font-bold">Cart Items</h2>
-          <div className="flex gap-1 items-center flex-wrap">
+          <div className="flex flex-wrap items-center gap-1">
             {/* <Button>Add</Button>
             <Button>Now</Button> */}
           </div>
         </div>
         <hr />
-        <div className="py-3  h-full max-h-110 w-full  overflow-x-hidden overflow-y-auto  max-w-full  flex flex-col  gap-3 box-border">
+        <div className="box-border flex h-full max-h-110 w-full max-w-full flex-col gap-3 overflow-x-hidden overflow-y-auto py-3">
           {cart && cart.items.length > 0 ? (
             cart.items.map(({ title, product, qty, id }, index) => (
-              <div key={index} className="w-full flex flex-col">
+              <div key={index} className="flex w-full flex-col">
                 <CartProductItemOrder
                   deleteCartItem={handleDeleteCartItem}
                   id={id ? id : 0}
@@ -42,13 +42,13 @@ const CartItems = () => {
           ) : (
             <>
               <NoItemsFound />
-              <Button asChild className="w-fit mx-auto">
+              <Button asChild className="mx-auto w-fit">
                 <Link href={"/products"}>Continue Shopping</Link>
               </Button>
             </>
           )}
         </div>
-        <div className="w-full flex items-end justify-end">
+        <div className="flex w-full items-end justify-end">
           <Button asChild>
             <Link href={"/checkout"} className="">
               Checkout

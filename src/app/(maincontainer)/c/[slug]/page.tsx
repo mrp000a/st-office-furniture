@@ -113,7 +113,6 @@ export default async function Page({ params, searchParams }: Props) {
   const PRODUCTS_PER_PAGE = 30;
 
   const totalPages = Math.ceil(totalProducts / PRODUCTS_PER_PAGE);
-  
 
   // main data
   const products = await prisma.product.findMany({

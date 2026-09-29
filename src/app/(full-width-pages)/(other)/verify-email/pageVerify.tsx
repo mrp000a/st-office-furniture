@@ -59,17 +59,17 @@ export default function VerifyEmailPage() {
   }, [searchParams, router]);
 
   return (
-    <div className="flex relative min-h-screen items-center justify-center w-full h-full px-2">
+    <div className="relative flex h-full min-h-screen w-full items-center justify-center px-2">
       <GridShape />
-      <div className="flex-center flex-col max-w-lg w-full h-full bg-background min-h-48 shadow-lg shadow-foreground/40 rounded-md">
+      <div className="flex-center bg-background shadow-foreground/40 h-full min-h-48 w-full max-w-lg flex-col rounded-md shadow-lg">
         <h1 className="text-2xl font-bold">
           {loading ? "Verifying..." : message}
         </h1>
-          {!loading && (
-            <Button variant={"outline"} asChild>
-              <Link href={"/"}>Go to Home</Link>
-            </Button>
-          )}
+        {!loading && (
+          <Button variant={"outline"} asChild>
+            <Link href={"/"}>Go to Home</Link>
+          </Button>
+        )}
       </div>
     </div>
   );

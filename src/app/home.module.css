@@ -67,7 +67,6 @@
 }
 
 @keyframes slideLeft {
-
   0%,
   25% {
     transform: translateX(0%);

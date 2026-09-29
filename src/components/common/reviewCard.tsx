@@ -18,24 +18,24 @@ type ReviewCardProps = {
 
 export function ReviewCard({ review }: ReviewCardProps) {
   return (
-    <div className="flex gap-4 border-b py-4 rounded-md">
+    <div className="flex gap-4 rounded-md border-b py-4">
       <Avatar className="size-10">
-        <AvatarImage src={getImageUrl(review.user.image)} />
+        <AvatarImage alt="userImage" src={getImageUrl(review.user.image)} />
         <AvatarFallback>
           {review.user.name?.charAt(0).toUpperCase() ?? "U"}
         </AvatarFallback>
       </Avatar>
 
       <div className="flex-1 space-y-1">
-        <div className="flex items-start justify-between gap-4 ">
+        <div className="flex items-start justify-between gap-4">
           <div className="">
             <h4 className="font-semibold">{review.user.name ?? "Anonymous"}</h4>
-            <span className="text-gray-primary text-xs break-after-auto">
+            <span className="text-gray-primary break-after-auto text-xs">
               {review.user.email ?? "N/A"}
             </span>
           </div>
-          <div className="flex flex-col gap-2 items-end">
-            <p className="text-xs text-muted-foreground">
+          <div className="flex flex-col items-end gap-2">
+            <p className="text-muted-foreground text-xs">
               {new Date(review.createdAt).toLocaleDateString()}
             </p>
             <div className="flex items-center gap-0.5">
@@ -54,7 +54,7 @@ export function ReviewCard({ review }: ReviewCardProps) {
         </div>
 
         {review.note && (
-          <p className="text-sm leading-6 text-muted-foreground whitespace-pre-line ">
+          <p className="text-muted-foreground text-sm leading-6 whitespace-pre-line">
             {review.note}
           </p>
         )}

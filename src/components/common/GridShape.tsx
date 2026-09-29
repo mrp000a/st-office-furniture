@@ -4,7 +4,7 @@ import React from "react";
 export default function GridShape() {
   return (
     <>
-      <div className="absolute right-0 top-0 -z-1 w-full max-w-62 xl:max-w-md invert dark:invert-0">
+      <div className="absolute top-0 right-0 -z-1 w-full max-w-62 invert xl:max-w-md dark:invert-0">
         <Image
           unoptimized
           width={540}
@@ -13,7 +13,7 @@ export default function GridShape() {
           alt="grid"
         />
       </div>
-      <div className="absolute bottom-0 left-0 -z-1 w-full max-w-62 rotate-180 xl:max-w-md invert dark:invert-0">
+      <div className="absolute bottom-0 left-0 -z-1 w-full max-w-62 rotate-180 invert xl:max-w-md dark:invert-0">
         <Image
           unoptimized
           width={540}

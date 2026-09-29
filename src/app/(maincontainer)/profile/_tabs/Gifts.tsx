@@ -43,22 +43,22 @@ const history = [
 
 export default function GiftsPage() {
   return (
-    <div className="w-full space-y-8  p-3">
+    <div className="w-full space-y-8 p-3">
       {/* Header */}
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Gifts</h1>
 
-          <p className="mt-1 text-sm text-muted-foreground">
+          <p className="text-muted-foreground mt-1 text-sm">
             View your available gifts and rewards.
           </p>
         </div>
 
-        <div className="flex items-center gap-2 rounded-lg border bg-card px-4 py-2">
-          <Gift className="size-5 text-primary" />
+        <div className="bg-card flex items-center gap-2 rounded-lg border px-4 py-2">
+          <Gift className="text-primary size-5" />
 
           <div>
-            <p className="text-xs text-muted-foreground">Available Rewards</p>
+            <p className="text-muted-foreground text-xs">Available Rewards</p>
 
             <p className="font-semibold">2 Gifts</p>
           </div>
@@ -66,24 +66,24 @@ export default function GiftsPage() {
       </div>
 
       {/* Gift Banner */}
-      <section className="relative overflow-hidden rounded-2xl border bg-muted/30 p-6 md:p-8">
+      <section className="bg-muted/30 relative overflow-hidden rounded-2xl border p-6 md:p-8">
         <div className="relative z-10 max-w-2xl">
-          <div className="mb-3 flex size-12 items-center justify-center rounded-xl bg-primary/10">
-            <Gift className="size-6 text-primary" />
+          <div className="bg-primary/10 mb-3 flex size-12 items-center justify-center rounded-xl">
+            <Gift className="text-primary size-6" />
           </div>
 
           <h2 className="text-xl font-bold md:text-2xl">
             Something special is waiting for you 🎁
           </h2>
 
-          <p className="mt-2 text-sm leading-6 text-muted-foreground">
+          <p className="text-muted-foreground mt-2 text-sm leading-6">
             Check your available rewards and enjoy exclusive gifts from ST
             Office Furniture.
           </p>
         </div>
 
-        <Gift className="absolute -right-6 -bottom-8 size-40 rotate-12 text-primary/5" />
-        <Sparkles className="absolute right-20 top-6 size-10 text-primary/10" />
+        <Gift className="text-primary/5 absolute -right-6 -bottom-8 size-40 rotate-12" />
+        <Sparkles className="text-primary/10 absolute top-6 right-20 size-10" />
       </section>
 
       {/* Available Gifts */}
@@ -91,7 +91,7 @@ export default function GiftsPage() {
         <div>
           <h2 className="text-lg font-semibold">Available Gifts</h2>
 
-          <p className="text-sm text-muted-foreground">
+          <p className="text-muted-foreground text-sm">
             Gifts and rewards currently available to you.
           </p>
         </div>
@@ -104,12 +104,12 @@ export default function GiftsPage() {
             return (
               <div
                 key={gift.title}
-                className="group relative overflow-hidden rounded-xl border bg-card p-5 transition hover:-translate-y-0.5 hover:shadow-md"
+                className="group bg-card relative overflow-hidden rounded-xl border p-5 transition hover:-translate-y-0.5 hover:shadow-md"
               >
                 {/* Icon */}
                 <div className="flex items-start justify-between">
-                  <div className="flex size-11 items-center justify-center rounded-xl bg-primary/10">
-                    <Icon className="size-5 text-primary" />
+                  <div className="bg-primary/10 flex size-11 items-center justify-center rounded-xl">
+                    <Icon className="text-primary size-5" />
                   </div>
 
                   <span
@@ -127,7 +127,7 @@ export default function GiftsPage() {
                 <div className="mt-5">
                   <h3 className="font-semibold">{gift.title}</h3>
 
-                  <p className="mt-1 min-h-10 text-sm leading-5 text-muted-foreground">
+                  <p className="text-muted-foreground mt-1 min-h-10 text-sm leading-5">
                     {gift.description}
                   </p>
                 </div>
@@ -135,14 +135,14 @@ export default function GiftsPage() {
                 {/* Value */}
                 <div className="mt-5 flex items-end justify-between border-t pt-4">
                   <div>
-                    <p className="text-xs text-muted-foreground">Gift Value</p>
+                    <p className="text-muted-foreground text-xs">Gift Value</p>
 
                     <p className="mt-0.5 text-xl font-bold">{gift.value}</p>
                   </div>
 
                   <button
                     disabled={!available}
-                    className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+                    className="bg-primary text-primary-foreground rounded-lg px-4 py-2 text-sm font-medium transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     {available ? "View Gift" : "Coming Soon"}
                   </button>
@@ -154,17 +154,17 @@ export default function GiftsPage() {
       </section>
 
       {/* Gift History */}
-      <section className="rounded-xl border bg-card">
+      <section className="bg-card rounded-xl border">
         <div className="border-b p-5 md:p-6">
           <div className="flex items-center gap-3">
-            <div className="flex size-10 items-center justify-center rounded-lg bg-muted">
-              <Clock3 className="size-5 text-muted-foreground" />
+            <div className="bg-muted flex size-10 items-center justify-center rounded-lg">
+              <Clock3 className="text-muted-foreground size-5" />
             </div>
 
             <div>
               <h2 className="font-semibold">Gift History</h2>
 
-              <p className="text-sm text-muted-foreground">
+              <p className="text-muted-foreground text-sm">
                 Your previously received rewards.
               </p>
             </div>
@@ -185,7 +185,7 @@ export default function GiftsPage() {
                 <div>
                   <p className="font-medium">{item.title}</p>
 
-                  <p className="text-sm text-muted-foreground">{item.date}</p>
+                  <p className="text-muted-foreground text-sm">{item.date}</p>
                 </div>
               </div>
 
@@ -193,10 +193,10 @@ export default function GiftsPage() {
                 <div className="text-right">
                   <p className="font-semibold">{item.value}</p>
 
-                  <p className="text-xs text-muted-foreground">Redeemed</p>
+                  <p className="text-muted-foreground text-xs">Redeemed</p>
                 </div>
 
-                <Ticket className="size-5 text-muted-foreground" />
+                <Ticket className="text-muted-foreground size-5" />
               </div>
             </div>
           ))}

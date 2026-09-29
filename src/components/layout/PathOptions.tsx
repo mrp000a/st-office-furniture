@@ -13,14 +13,14 @@ const PathOptions = ({ forceShow = false }: { forceShow?: boolean }) => {
   }
   return (
     <div
-      className={` w-full mx-auto px-3 py-2 max-sm:py-1  box-border text-gray-secondary font-semibold relative z-30 `}
+      className={`text-gray-secondary relative z-30 mx-auto box-border w-full px-3 py-2 font-semibold max-sm:py-1`}
     >
-      <div className="flex items-center gap-2 md:gap-3 xl:gap-4 scroll-auto scrollbar-thin scrollbar-thumb-gray-secondary/20 overflow-auto overflow-y-hidden">
+      <div className="scrollbar-thumb-gray-secondary/20 flex scrollbar-thin items-center gap-2 overflow-auto overflow-y-hidden scroll-auto md:gap-3 xl:gap-4">
         <Link href={"/"}>
-          <Home className="size-5"/>
+          <Home className="size-5" />
         </Link>
         {pathnamesArray.map((item, index) => (
-          <div key={index} className="md:space-x-4 space-x-2">
+          <div key={index} className="space-x-2 md:space-x-4">
             <span>/</span>
             <Link
               href={"/" + pathnamesArray.slice(0, index + 1).join("/") + "/"}

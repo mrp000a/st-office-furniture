@@ -55,7 +55,7 @@ export default async function ProductsPage({ params }: Props) {
         };
       }),
     };
-    
+
     return (
       <div>
         <PageOrderInfo order={sanitizeOrder} />;

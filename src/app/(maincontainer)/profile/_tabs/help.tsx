@@ -71,33 +71,33 @@ export default function HelpPage() {
       <div>
         <h1 className="text-2xl font-bold tracking-tight">Help & Support</h1>
 
-        <p className="mt-1 text-sm text-muted-foreground">
+        <p className="text-muted-foreground mt-1 text-sm">
           Find answers to common questions or get help with your account.
         </p>
       </div>
 
       {/* Search */}
-      <section className="relative overflow-hidden rounded-2xl border bg-muted/30 p-6 md:p-10">
+      <section className="bg-muted/30 relative overflow-hidden rounded-2xl border p-6 md:p-10">
         <div className="relative z-10 mx-auto max-w-2xl text-center">
-          <div className="mx-auto flex size-12 items-center justify-center rounded-xl bg-primary/10">
-            <CircleHelp className="size-6 text-primary" />
+          <div className="bg-primary/10 mx-auto flex size-12 items-center justify-center rounded-xl">
+            <CircleHelp className="text-primary size-6" />
           </div>
 
           <h2 className="mt-4 text-xl font-bold md:text-2xl">
             How can we help you?
           </h2>
 
-          <p className="mt-2 text-sm text-muted-foreground">
+          <p className="text-muted-foreground mt-2 text-sm">
             Search our help center or browse the categories below.
           </p>
 
           <div className="relative mt-6">
-            <Search className="absolute left-4 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+            <Search className="text-muted-foreground absolute top-1/2 left-4 size-4 -translate-y-1/2" />
 
             <input
               type="text"
               placeholder="Search for help..."
-              className="h-12 w-full rounded-xl border bg-background pl-11 pr-4 text-sm outline-none transition placeholder:text-muted-foreground focus:ring-2 focus:ring-primary/20"
+              className="bg-background placeholder:text-muted-foreground focus:ring-primary/20 h-12 w-full rounded-xl border pr-4 pl-11 text-sm transition outline-none focus:ring-2"
             />
           </div>
         </div>
@@ -108,7 +108,7 @@ export default function HelpPage() {
         <div>
           <h2 className="text-lg font-semibold">Browse Help Topics</h2>
 
-          <p className="text-sm text-muted-foreground">
+          <p className="text-muted-foreground text-sm">
             Find information based on what you need help with.
           </p>
         </div>
@@ -120,19 +120,19 @@ export default function HelpPage() {
             return (
               <div
                 key={category.title}
-                className="group rounded-xl border bg-card p-5 transition hover:-translate-y-0.5 hover:shadow-md"
+                className="group bg-card rounded-xl border p-5 transition hover:-translate-y-0.5 hover:shadow-md"
               >
                 <div className="flex items-start justify-between">
-                  <div className="flex size-11 items-center justify-center rounded-xl bg-primary/10">
-                    <Icon className="size-5 text-primary" />
+                  <div className="bg-primary/10 flex size-11 items-center justify-center rounded-xl">
+                    <Icon className="text-primary size-5" />
                   </div>
 
-                  <ChevronRight className="size-4 text-muted-foreground transition-transform group-hover:translate-x-1" />
+                  <ChevronRight className="text-muted-foreground size-4 transition-transform group-hover:translate-x-1" />
                 </div>
 
                 <h3 className="mt-5 font-semibold">{category.title}</h3>
 
-                <p className="mt-1 text-sm leading-5 text-muted-foreground">
+                <p className="text-muted-foreground mt-1 text-sm leading-5">
                   {category.description}
                 </p>
               </div>
@@ -142,17 +142,17 @@ export default function HelpPage() {
       </section>
 
       {/* FAQ */}
-      <section className="rounded-xl border bg-card">
+      <section className="bg-card rounded-xl border">
         <div className="border-b p-5 md:p-6">
           <div className="flex items-center gap-3">
-            <div className="flex size-10 items-center justify-center rounded-lg bg-muted">
-              <BookOpen className="size-5 text-muted-foreground" />
+            <div className="bg-muted flex size-10 items-center justify-center rounded-lg">
+              <BookOpen className="text-muted-foreground size-5" />
             </div>
 
             <div>
               <h2 className="font-semibold">Frequently Asked Questions</h2>
 
-              <p className="text-sm text-muted-foreground">
+              <p className="text-muted-foreground text-sm">
                 Quick answers to common questions.
               </p>
             </div>
@@ -162,14 +162,14 @@ export default function HelpPage() {
         <div className="divide-y">
           {faqs.map((faq) => (
             <div key={faq.question} className="flex items-start gap-4 p-5">
-              <div className="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-lg bg-muted">
-                <CircleHelp className="size-4 text-muted-foreground" />
+              <div className="bg-muted mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-lg">
+                <CircleHelp className="text-muted-foreground size-4" />
               </div>
 
               <div className="min-w-0">
                 <h3 className="font-medium">{faq.question}</h3>
 
-                <p className="mt-1 text-sm leading-6 text-muted-foreground">
+                <p className="text-muted-foreground mt-1 text-sm leading-6">
                   {faq.answer}
                 </p>
               </div>
@@ -179,18 +179,18 @@ export default function HelpPage() {
       </section>
 
       {/* Contact Support */}
-      <section className="rounded-xl border bg-card">
+      <section className="bg-card rounded-xl border">
         <div className="p-6 md:p-8">
           <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
             <div className="flex items-start gap-4">
-              <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-primary/10">
-                <Headphones className="size-6 text-primary" />
+              <div className="bg-primary/10 flex size-12 shrink-0 items-center justify-center rounded-xl">
+                <Headphones className="text-primary size-6" />
               </div>
 
               <div>
                 <h2 className="font-semibold">Still need help?</h2>
 
-                <p className="mt-1 max-w-xl text-sm leading-6 text-muted-foreground">
+                <p className="text-muted-foreground mt-1 max-w-xl text-sm leading-6">
                   Our support team is here to help you with questions about your
                   orders, products or account.
                 </p>
@@ -199,7 +199,7 @@ export default function HelpPage() {
 
             <button
               disabled
-              className="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground opacity-80"
+              className="bg-primary text-primary-foreground inline-flex h-10 items-center justify-center gap-2 rounded-lg px-4 text-sm font-medium opacity-80"
             >
               <MessageCircle className="size-4" />
               Contact Support
@@ -208,10 +208,10 @@ export default function HelpPage() {
 
           <div className="mt-6 grid gap-3 border-t pt-6 sm:grid-cols-2">
             <div className="flex items-center gap-3 rounded-lg border p-4">
-              <Mail className="size-5 text-muted-foreground" />
+              <Mail className="text-muted-foreground size-5" />
 
               <div>
-                <p className="text-xs text-muted-foreground">Email Support</p>
+                <p className="text-muted-foreground text-xs">Email Support</p>
 
                 <p className="text-sm font-medium">
                   support@stofficefurniture.com
@@ -220,10 +220,10 @@ export default function HelpPage() {
             </div>
 
             <div className="flex items-center gap-3 rounded-lg border p-4">
-              <MessageCircle className="size-5 text-muted-foreground" />
+              <MessageCircle className="text-muted-foreground size-5" />
 
               <div>
-                <p className="text-xs text-muted-foreground">Support Hours</p>
+                <p className="text-muted-foreground text-xs">Support Hours</p>
 
                 <p className="text-sm font-medium">
                   Sat – Thu · 9:00 AM – 6:00 PM

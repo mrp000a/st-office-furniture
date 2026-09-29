@@ -48,7 +48,7 @@ const Profile = ({
   return (
     <div>
       <div className="space-y-1">
-        <div className="flex justify-between items-center flex-wrap">
+        <div className="flex flex-wrap items-center justify-between">
           <h2 className="text-lg font-bold">Profile</h2>
         </div>
         <hr />
@@ -57,7 +57,7 @@ const Profile = ({
             <div className="flex flex-1 flex-col items-start justify-start">
               <span className="text-[10px]">First Name</span>
               <Input
-                className="min-h-10 flex-1   bg-gray-secondary/40 text-foreground"
+                className="bg-gray-secondary/40 text-foreground min-h-10 flex-1"
                 disabled
                 value={userData?.name ?? ""}
               />
@@ -65,7 +65,7 @@ const Profile = ({
             <div className="flex flex-1 flex-col items-start justify-start">
               <span className="text-[10px]">Last Name</span>
               <Input
-                className="min-h-10 flex-1   bg-gray-secondary/40 text-foreground"
+                className="bg-gray-secondary/40 text-foreground min-h-10 flex-1"
                 disabled
                 value={userData?.name ?? ""}
               />
@@ -75,7 +75,7 @@ const Profile = ({
             <div className="flex flex-1 flex-col items-start justify-start">
               <span className="text-[10px]">Address</span>
               <Input
-                className="min-h-10 flex-1   bg-gray-secondary/40 text-foreground"
+                className="bg-gray-secondary/40 text-foreground min-h-10 flex-1"
                 disabled
                 value={userData?.address ?? ""}
               />
@@ -83,7 +83,7 @@ const Profile = ({
             <div className="flex flex-1 flex-col items-start justify-start">
               <span className="text-[10px]">Role</span>
               <Input
-                className="min-h-10 flex-1 capitalize    bg-gray-secondary/40 text-foreground"
+                className="bg-gray-secondary/40 text-foreground min-h-10 flex-1 capitalize"
                 disabled
                 value={userData?.role.toLocaleLowerCase() ?? ""}
               />
@@ -93,7 +93,7 @@ const Profile = ({
             <div className="flex flex-1 flex-col items-start justify-start">
               <span className="text-[10px]">Gender</span>
               <Input
-                className="min-h-10 flex-1   bg-gray-secondary/40 text-foreground"
+                className="bg-gray-secondary/40 text-foreground min-h-10 flex-1"
                 disabled
                 value={userData?.gender ?? ""}
               />
@@ -101,7 +101,7 @@ const Profile = ({
             <div className="flex flex-1 flex-col items-start justify-start">
               <span className="text-[10px]">Created At</span>
               <Input
-                className="min-h-10 flex-1 capitalize    bg-gray-secondary/40 text-foreground"
+                className="bg-gray-secondary/40 text-foreground min-h-10 flex-1 capitalize"
                 disabled
                 value={new Date(userData?.createdAt ?? "").toDateString()}
               />
@@ -111,7 +111,7 @@ const Profile = ({
             <div className="flex flex-1 flex-col items-start justify-start">
               <span className="text-[10px]">Email</span>
               <Input
-                className="min-h-10 flex-1   bg-gray-secondary/40 text-foreground"
+                className="bg-gray-secondary/40 text-foreground min-h-10 flex-1"
                 disabled
                 value={userData?.email ?? ""}
               />
@@ -119,7 +119,7 @@ const Profile = ({
             <div className="flex flex-1 flex-col items-start justify-start">
               <span className="text-[10px]">Phone</span>
               <Input
-                className="min-h-10 flex-1   bg-gray-secondary/40 text-foreground"
+                className="bg-gray-secondary/40 text-foreground min-h-10 flex-1"
                 disabled
                 value={userData?.phone ?? ""}
               />
@@ -128,10 +128,10 @@ const Profile = ({
           <div className="flex flex-wrap items-center gap-2">
             <div className="flex flex-1 flex-col items-start justify-start">
               <span className="text-[10px]">Password</span>
-              <div className="flex-1 w-full flex items-center flex-wrap gap-2 box-border">
+              <div className="box-border flex w-full flex-1 flex-wrap items-center gap-2">
                 <Input
                   type="password"
-                  className="min-h-10 w-full flex-1   bg-gray-secondary/40 text-foreground"
+                  className="bg-gray-secondary/40 text-foreground min-h-10 w-full flex-1"
                   disabled
                   value={"password"}
                 />
@@ -144,12 +144,12 @@ const Profile = ({
                 </Button>
               </div>
             </div>
-            <div className="flex  flex-1 flex-col items-start justify-start">
+            <div className="flex flex-1 flex-col items-start justify-start">
               <span className="text-[10px]">Total Order</span>
-              <div className="flex-1 w-full flex items-center flex-wrap gap-2 box-border">
+              <div className="box-border flex w-full flex-1 flex-wrap items-center gap-2">
                 <Input
                   // type="password"
-                  className="min-h-10 w-full flex-1   bg-gray-secondary/40 text-foreground"
+                  className="bg-gray-secondary/40 text-foreground min-h-10 w-full flex-1"
                   disabled
                   value={userData?._count.orders.toString() ?? ""}
                 />
@@ -166,7 +166,7 @@ const Profile = ({
           onOpenChange={setOpenEditUser}
           // modal={false}
         >
-          <DialogContent className="sm:max-w-lg  max-h-screen overflow-auto z-999">
+          <DialogContent className="z-999 max-h-screen overflow-auto sm:max-w-lg">
             <DialogHeader>
               <DialogTitle>Edit User</DialogTitle>
               <DialogDescription>
@@ -174,7 +174,7 @@ const Profile = ({
                 done.
               </DialogDescription>
             </DialogHeader>
-            <div className=" h-full">
+            <div className="h-full">
               <PageEditUserClient
                 name={userData?.name ?? ""}
                 email={userData?.email ?? ""}

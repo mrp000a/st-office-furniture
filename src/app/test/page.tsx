@@ -24,7 +24,7 @@ const Page = () => {
         <button onClick={handleClick}>Get Notification</button>
       </div>
 
-      <div className="flex-center flex-wrap w-full min-h-100">
+      <div className="flex-center min-h-100 w-full flex-wrap">
         {/* <BkashButton orderId={20033} />
         <StripeButton orderId={20033} />
         <SslCommerzButton orderId={20033} /> */}

@@ -1,9 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import {
-  Cart,
-  CartItemInput,
-} from "./cartTypes";
+import { Cart, CartItemInput } from "./cartTypes";
 
 type CartState = {
   cart: Cart | null;
@@ -29,10 +26,7 @@ const cartSlice = createSlice({
      * - Loading cart from localStorage
      * - After synchronizing guest cart with database
      */
-    setCart: (
-      state,
-      action: PayloadAction<Cart>
-    ) => {
+    setCart: (state, action: PayloadAction<Cart>) => {
       state.cart = action.payload;
     },
 
@@ -50,10 +44,7 @@ const cartSlice = createSlice({
      * - Guest users
      * - Logged-in users
      */
-    addItem: (
-      state,
-      action: PayloadAction<CartItemInput>
-    ) => {
+    addItem: (state, action: PayloadAction<CartItemInput>) => {
       const newItem = action.payload;
 
       // Create a guest cart if no cart exists
@@ -67,8 +58,7 @@ const cartSlice = createSlice({
       }
 
       const existingItem = state.cart.items.find(
-        (item) =>
-          item.productId === newItem.productId
+        (item) => item.productId === newItem.productId,
       );
 
       if (existingItem) {
@@ -89,27 +79,20 @@ const cartSlice = createSlice({
       }
 
       // Number of different items
-      state.cart._count.items =
-        state.cart.items.length;
+      state.cart._count.items = state.cart.items.length;
     },
 
     /**
      * Remove an item from cart.
      */
-    removeItem: (
-      state,
-      action: PayloadAction<number>
-    ) => {
+    removeItem: (state, action: PayloadAction<number>) => {
       if (!state.cart) return;
 
-      state.cart.items =
-        state.cart.items.filter(
-          (item) =>
-            item.id !== action.payload
-        );
+      state.cart.items = state.cart.items.filter(
+        (item) => item.id !== action.payload,
+      );
 
-      state.cart._count.items =
-        state.cart.items.length;
+      state.cart._count.items = state.cart.items.length;
     },
 
     /**
@@ -120,45 +103,36 @@ const cartSlice = createSlice({
       action: PayloadAction<{
         itemId: number;
         qty: number;
-      }>
+      }>,
     ) => {
       if (!state.cart) return;
 
       const item = state.cart.items.find(
-        (item) =>
-          item.id === action.payload.itemId
+        (item) => item.id === action.payload.itemId,
       );
 
       if (!item) return;
 
       // Don't allow zero or negative quantity
       if (action.payload.qty <= 0) {
-        state.cart.items =
-          state.cart.items.filter(
-            (item) =>
-              item.id !==
-              action.payload.itemId
-          );
+        state.cart.items = state.cart.items.filter(
+          (item) => item.id !== action.payload.itemId,
+        );
 
-        state.cart._count.items =
-          state.cart.items.length;
+        state.cart._count.items = state.cart.items.length;
 
         return;
       }
 
       item.qty = action.payload.qty;
 
-      item.updatedAt =
-        new Date().toISOString();
+      item.updatedAt = new Date().toISOString();
     },
 
     /**
      * Set loading state.
      */
-    setLoading: (
-      state,
-      action: PayloadAction<boolean>
-    ) => {
+    setLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
     },
   },

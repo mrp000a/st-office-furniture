@@ -117,15 +117,15 @@ export default function ProfileHome({
       {/* PROFILE HEADER */}
       {/* ========================================================= */}
 
-      <section className="relative overflow-hidden rounded-2xl border bg-background shadow-sm">
+      <section className="bg-background relative overflow-hidden rounded-2xl border shadow-sm">
         {/* Background */}
-        <div className="h-32 bg-gradient-to-r from-blue-primary/20 via-blue-primary/10 to-background sm:h-40" />
+        <div className="from-blue-primary/20 via-blue-primary/10 to-background h-32 bg-gradient-to-r sm:h-40" />
 
         <div className="relative px-5 pb-6 sm:px-8">
           {/* Avatar */}
           <div className="-mt-12 flex flex-col gap-5 sm:-mt-16 sm:flex-row sm:items-end sm:justify-between">
             <div className="flex items-end gap-4">
-              <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-full border-4 border-background bg-muted shadow-lg sm:h-32 sm:w-32">
+              <div className="border-background bg-muted relative h-24 w-24 shrink-0 overflow-hidden rounded-full border-4 shadow-lg sm:h-32 sm:w-32">
                 {user.image ? (
                   <Image
                     unoptimized
@@ -136,7 +136,7 @@ export default function ProfileHome({
                     className="object-cover"
                   />
                 ) : (
-                  <div className="flex h-full w-full items-center justify-center text-2xl font-bold text-muted-foreground sm:text-3xl">
+                  <div className="text-muted-foreground flex h-full w-full items-center justify-center text-2xl font-bold sm:text-3xl">
                     {initials}
                   </div>
                 )}
@@ -149,11 +149,11 @@ export default function ProfileHome({
                   </h1>
 
                   {user.verified && (
-                    <ShieldCheck className="h-5 w-5 fill-blue-500 text-background" />
+                    <ShieldCheck className="text-background h-5 w-5 fill-blue-500" />
                   )}
                 </div>
 
-                <p className="text-sm text-muted-foreground">
+                <p className="text-muted-foreground text-sm">
                   {user.role || "Customer"}
                 </p>
               </div>
@@ -233,15 +233,15 @@ export default function ProfileHome({
             </CardHeader>
 
             <CardContent>
-              <div className="flex gap-4 rounded-xl border bg-muted/30 p-4">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-primary/10 text-blue-primary">
+              <div className="bg-muted/30 flex gap-4 rounded-xl border p-4">
+                <div className="bg-blue-primary/10 text-blue-primary flex h-10 w-10 shrink-0 items-center justify-center rounded-lg">
                   <MapPin className="h-5 w-5" />
                 </div>
 
                 <div>
                   <p className="mb-1 text-sm font-medium">Default Address</p>
 
-                  <p className="text-sm leading-6 text-muted-foreground">
+                  <p className="text-muted-foreground text-sm leading-6">
                     {user.address || "No delivery address added yet."}
                   </p>
                 </div>
@@ -265,11 +265,11 @@ export default function ProfileHome({
             <CardContent className="space-y-3">
               {recentOrders.length === 0 ? (
                 <div className="flex flex-col items-center justify-center rounded-xl border border-dashed py-10 text-center">
-                  <Package className="mb-3 h-10 w-10 text-muted-foreground" />
+                  <Package className="text-muted-foreground mb-3 h-10 w-10" />
 
                   <h3 className="font-semibold">No orders yet</h3>
 
-                  <p className="mt-1 text-sm text-muted-foreground">
+                  <p className="text-muted-foreground mt-1 text-sm">
                     Your recent orders will appear here.
                   </p>
 
@@ -282,10 +282,10 @@ export default function ProfileHome({
                   <Link
                     key={order.id}
                     href={`/profile/orders/${order.id}`}
-                    className="group flex items-center justify-between gap-4 rounded-xl border p-4 transition-colors hover:bg-muted/50"
+                    className="group hover:bg-muted/50 flex items-center justify-between gap-4 rounded-xl border p-4 transition-colors"
                   >
                     <div className="flex min-w-0 items-center gap-4">
-                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-muted">
+                      <div className="bg-muted flex h-11 w-11 shrink-0 items-center justify-center rounded-lg">
                         <Package className="h-5 w-5" />
                       </div>
 
@@ -294,7 +294,7 @@ export default function ProfileHome({
                           {order.orderNumber || `Order #${order.id}`}
                         </p>
 
-                        <p className="mt-1 text-xs text-muted-foreground">
+                        <p className="text-muted-foreground mt-1 text-xs">
                           {formatDate(order.createdAt)}
                         </p>
                       </div>
@@ -362,12 +362,12 @@ export default function ProfileHome({
 
             <CardContent className="space-y-4">
               <div className="flex items-center gap-3">
-                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-muted">
+                <div className="bg-muted flex h-9 w-9 items-center justify-center rounded-lg">
                   <CalendarDays className="h-4 w-4" />
                 </div>
 
                 <div>
-                  <p className="text-xs text-muted-foreground">Member Since</p>
+                  <p className="text-muted-foreground text-xs">Member Since</p>
 
                   <p className="text-sm font-medium">
                     {formatDate(user.createdAt)}
@@ -378,12 +378,12 @@ export default function ProfileHome({
               <Separator />
 
               <div className="flex items-center gap-3">
-                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-muted">
+                <div className="bg-muted flex h-9 w-9 items-center justify-center rounded-lg">
                   <ShieldCheck className="h-4 w-4" />
                 </div>
 
                 <div>
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-muted-foreground text-xs">
                     Account Status
                   </p>
 
@@ -400,19 +400,19 @@ export default function ProfileHome({
             <CardContent className="p-0">
               <Link
                 href="/products"
-                className="group block bg-gradient-to-br from-blue-primary/10 via-background to-background p-6"
+                className="group from-blue-primary/10 via-background to-background block bg-gradient-to-br p-6"
               >
-                <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-blue-primary/10 text-blue-primary">
+                <div className="bg-blue-primary/10 text-blue-primary mb-4 flex h-11 w-11 items-center justify-center rounded-xl">
                   <CreditCard className="h-5 w-5" />
                 </div>
 
                 <h3 className="font-semibold">Continue Shopping</h3>
 
-                <p className="mt-1 text-sm text-muted-foreground">
+                <p className="text-muted-foreground mt-1 text-sm">
                   Discover comfortable chairs and quality office furniture.
                 </p>
 
-                <div className="mt-4 flex items-center text-sm font-semibold text-blue-primary">
+                <div className="text-blue-primary mt-4 flex items-center text-sm font-semibold">
                   Browse Products
                   <ChevronRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </div>
@@ -441,12 +441,12 @@ function StatCard({
   return (
     <Card className="transition-shadow hover:shadow-md">
       <CardContent className="flex items-center gap-3 p-3">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-primary/10 text-blue-primary">
+        <div className="bg-blue-primary/10 text-blue-primary flex h-10 w-10 shrink-0 items-center justify-center rounded-xl">
           <Icon className="h-5 w-5" />
         </div>
 
         <div className="min-w-0">
-          <p className="truncate text-xs text-muted-foreground sm:text-sm">
+          <p className="text-muted-foreground truncate text-xs sm:text-sm">
             {title}
           </p>
 
@@ -472,12 +472,12 @@ function InfoItem({
 }) {
   return (
     <div className="flex items-start gap-3">
-      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-muted">
-        <Icon className="h-4 w-4 text-muted-foreground" />
+      <div className="bg-muted flex h-10 w-10 shrink-0 items-center justify-center rounded-lg">
+        <Icon className="text-muted-foreground h-4 w-4" />
       </div>
 
       <div className="min-w-0">
-        <p className="text-xs text-muted-foreground">{label}</p>
+        <p className="text-muted-foreground text-xs">{label}</p>
 
         <p className="mt-1 truncate text-sm font-medium">
           {value || "Not provided"}
@@ -505,19 +505,19 @@ function QuickAction({
   return (
     <Link
       href={href}
-      className="group flex items-center gap-3 rounded-xl p-3 transition-colors hover:bg-muted"
+      className="group hover:bg-muted flex items-center gap-3 rounded-xl p-3 transition-colors"
     >
-      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-muted transition-colors group-hover:bg-background">
+      <div className="bg-muted group-hover:bg-background flex h-10 w-10 shrink-0 items-center justify-center rounded-lg transition-colors">
         <Icon className="h-4 w-4" />
       </div>
 
       <div className="min-w-0 flex-1">
         <p className="text-sm font-medium">{title}</p>
 
-        <p className="truncate text-xs text-muted-foreground">{description}</p>
+        <p className="text-muted-foreground truncate text-xs">{description}</p>
       </div>
 
-      <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-1" />
+      <ChevronRight className="text-muted-foreground h-4 w-4 shrink-0 transition-transform group-hover:translate-x-1" />
     </Link>
   );
 }

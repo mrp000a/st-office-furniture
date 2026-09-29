@@ -68,19 +68,19 @@ const PageProfileOrders = ({
           <div>
             <h1 className="text-2xl font-bold tracking-tight">Orders</h1>
 
-            <p className="mt-1 text-sm text-muted-foreground">
+            <p className="text-muted-foreground mt-1 text-sm">
               View your orders, your past experience.
             </p>
           </div>
         </div>
 
         {/* search bar */}
-        <div className="gap-1 flex items-center justify-end flex-wrap sm:w-full ">
+        <div className="flex flex-wrap items-center justify-end gap-1 sm:w-full">
           <div className="sm:flex-1">
             <SearchLayout />
           </div>
-          <div className="flex items-center gap-2 rounded-lg border bg-card px-4 py-1 max-sm:hidden">
-            <FaTruck className="size-5 text-primary" />
+          <div className="bg-card flex items-center gap-2 rounded-lg border px-4 py-1 max-sm:hidden">
+            <FaTruck className="text-primary size-5" />
 
             <div>
               <p className="font-medium">2 Orders</p>
@@ -88,10 +88,10 @@ const PageProfileOrders = ({
           </div>
         </div>
       </div>
-      <hr className=" inline-block w-full" />
+      <hr className="inline-block w-full" />
 
       {/* order status tabs */}
-      <div className="w-full flex flex-wrap gap-1 md:gap-2 items-center justify-start pb-2">
+      <div className="flex w-full flex-wrap items-center justify-start gap-1 pb-2 md:gap-2">
         {orderStatuses &&
           orderStatuses.map(({ value, label }, index) => (
             <Button
@@ -146,8 +146,8 @@ const PageProfileOrders = ({
                     <TableCell className="font-medium">#{id}</TableCell>
 
                     <TableCell>
-                      <div className="flex items-center justify-start  gap-1">
-                        <span className="min-w-6 max-w-6  min-h-6 max-h-6 relative z-10 inline-block rounded-full  overflow-hidden">
+                      <div className="flex items-center justify-start gap-1">
+                        <span className="relative z-10 inline-block max-h-6 min-h-6 max-w-6 min-w-6 overflow-hidden rounded-full">
                           {user?.image ? (
                             <Image
                               unoptimized
@@ -155,7 +155,7 @@ const PageProfileOrders = ({
                               alt={user.email}
                               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                               fill
-                              className="object-cover w-full h-full"
+                              className="h-full w-full object-cover"
                             />
                           ) : (
                             <FaUserCircle className="h-full w-full" />
@@ -163,11 +163,11 @@ const PageProfileOrders = ({
                         </span>
                         <div>
                           <p className="font-medium">{receiverName}</p>
-                          <div className="text-[10px] flex flex-wrap items-center gap-x-2">
-                            <p className=" text-muted-foreground">
+                          <div className="flex flex-wrap items-center gap-x-2 text-[10px]">
+                            <p className="text-muted-foreground">
                               {receiverEmail}
                             </p>
-                            <p className=" text-muted-foreground">
+                            <p className="text-muted-foreground">
                               {receiverPhone}
                             </p>
                           </div>

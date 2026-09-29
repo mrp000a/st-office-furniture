@@ -26,7 +26,7 @@ import { Separator } from "@/components/ui/separator";
 
 export default function AdminSettingsPage() {
   return (
-    <main className="mx-auto w-full  space-y-8 p-4 sm:p-6 lg:p-8">
+    <main className="mx-auto w-full space-y-8 p-4 sm:p-6 lg:p-8">
       {/* ========================================================= */}
       {/* HEADER */}
       {/* ========================================================= */}
@@ -34,7 +34,7 @@ export default function AdminSettingsPage() {
       <section>
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <div className="mb-2 flex items-center gap-2 text-sm text-muted-foreground">
+            <div className="text-muted-foreground mb-2 flex items-center gap-2 text-sm">
               <Settings className="h-4 w-4" />
               <span>Administration</span>
               <ChevronRight className="h-4 w-4" />
@@ -45,7 +45,7 @@ export default function AdminSettingsPage() {
               Admin Settings
             </h1>
 
-            <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
+            <p className="text-muted-foreground mt-1 max-w-2xl text-sm">
               Manage your store, administration, security, notifications,
               delivery and system preferences from one place.
             </p>
@@ -281,14 +281,14 @@ export default function AdminSettingsPage() {
 
             <CardContent className="space-y-4">
               <div className="flex items-center gap-3">
-                <div className="flex h-11 w-11 items-center justify-center rounded-full bg-blue-primary/10 text-blue-primary">
+                <div className="bg-blue-primary/10 text-blue-primary flex h-11 w-11 items-center justify-center rounded-full">
                   <ShieldCheck className="h-5 w-5" />
                 </div>
 
                 <div className="min-w-0">
                   <p className="truncate font-semibold">Administrator</p>
 
-                  <p className="truncate text-xs text-muted-foreground">
+                  <p className="text-muted-foreground truncate text-xs">
                     Full administrative access
                   </p>
                 </div>
@@ -313,7 +313,7 @@ export default function AdminSettingsPage() {
 
               <Link
                 href="/profile/settings"
-                className="flex items-center justify-between rounded-lg border p-3 text-sm font-medium transition-colors hover:bg-muted"
+                className="hover:bg-muted flex items-center justify-between rounded-lg border p-3 text-sm font-medium transition-colors"
               >
                 Manage My Account
                 <ChevronRight className="h-4 w-4" />
@@ -351,7 +351,7 @@ export default function AdminSettingsPage() {
             </CardHeader>
 
             <CardContent>
-              <p className="text-sm leading-6 text-muted-foreground">
+              <p className="text-muted-foreground text-sm leading-6">
                 Some administrative actions can affect the entire store or
                 customer data. Review them carefully before proceeding.
               </p>
@@ -392,14 +392,14 @@ function SettingsSection({
     <Card id={id} className="scroll-mt-24">
       <CardHeader>
         <div className="flex items-start gap-3">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-primary/10 text-blue-primary">
+          <div className="bg-blue-primary/10 text-blue-primary flex h-10 w-10 shrink-0 items-center justify-center rounded-xl">
             <Icon className="h-5 w-5" />
           </div>
 
           <div>
             <CardTitle className="text-lg">{title}</CardTitle>
 
-            <p className="mt-1 text-sm text-muted-foreground">{description}</p>
+            <p className="text-muted-foreground mt-1 text-sm">{description}</p>
           </div>
         </div>
       </CardHeader>
@@ -429,21 +429,21 @@ function SettingsItem({
   return (
     <Link
       href={href}
-      className="group flex items-center gap-4 p-4 transition-colors hover:bg-muted/50 sm:p-5"
+      className="group hover:bg-muted/50 flex items-center gap-4 p-4 transition-colors sm:p-5"
     >
-      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-muted transition-colors group-hover:bg-background">
+      <div className="bg-muted group-hover:bg-background flex h-10 w-10 shrink-0 items-center justify-center rounded-lg transition-colors">
         <Icon className="h-4 w-4" />
       </div>
 
       <div className="min-w-0 flex-1">
         <h3 className="text-sm font-semibold">{title}</h3>
 
-        <p className="mt-1 text-xs leading-5 text-muted-foreground sm:text-sm">
+        <p className="text-muted-foreground mt-1 text-xs leading-5 sm:text-sm">
           {description}
         </p>
       </div>
 
-      <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-1" />
+      <ChevronRight className="text-muted-foreground h-4 w-4 shrink-0 transition-transform group-hover:translate-x-1" />
     </Link>
   );
 }
@@ -466,15 +466,15 @@ function OverviewCard({
   return (
     <a
       href={href}
-      className="group rounded-xl border bg-background p-4 transition-all hover:-translate-y-0.5 hover:shadow-md sm:p-5"
+      className="group bg-background rounded-xl border p-4 transition-all hover:-translate-y-0.5 hover:shadow-md sm:p-5"
     >
-      <div className="mb-3 flex h-9 w-9 items-center justify-center rounded-lg bg-blue-primary/10 text-blue-primary">
+      <div className="bg-blue-primary/10 text-blue-primary mb-3 flex h-9 w-9 items-center justify-center rounded-lg">
         <Icon className="h-4 w-4" />
       </div>
 
       <p className="font-semibold">{title}</p>
 
-      <p className="mt-1 text-xs text-muted-foreground">{description}</p>
+      <p className="text-muted-foreground mt-1 text-xs">{description}</p>
     </a>
   );
 }

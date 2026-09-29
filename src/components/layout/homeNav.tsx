@@ -47,23 +47,23 @@ const HomeNav = () => {
   return (
     <>
       <header
-        className={`bg-background/50 backdrop-blur-xl   sticky w-full z-50 top-0 border border-gray-secondary/80 box-border`}
+        className={`bg-background/50 border-gray-secondary/80 sticky top-0 z-50 box-border w-full border backdrop-blur-xl`}
       >
         {/* <div className="absolute pointer-events-none inset-0 bg-background/60 backdrop-blur-2xl backdrop-saturate-150" /> */}
         <div className="w-full">
-          <div className="w-full  py-2 px-1 sm:px-3 h-full justify-center items-center   flex relative">
-            <div className="max-w-384 w-full mx-auto flex justify-between items-center">
+          <div className="relative flex h-full w-full items-center justify-center px-1 py-2 sm:px-3">
+            <div className="mx-auto flex w-full max-w-384 items-center justify-between">
               {/* logo left of navbar and menu  */}
               <div className="flex-center gap-3">
                 <button
                   onClick={() => setOpenMobNav((e) => !e)}
-                  className=" flex justify-center items-center box-border p-2 rounded-md hover:bg-secondary active:bg-secondary/20 active:translate-y-px transition-all"
+                  className="hover:bg-secondary active:bg-secondary/20 box-border flex items-center justify-center rounded-md p-2 transition-all active:translate-y-px"
                 >
                   <Menu />
                 </button>
                 <Link
                   href={"/#"}
-                  className="h-16 w-48  relative z-30 mix-blend-darken dark:mix-blend-lighten  rounded-sm overflow-hidden block max-[500px]:hidden"
+                  className="relative z-30 block h-16 w-48 overflow-hidden rounded-sm mix-blend-darken max-[500px]:hidden dark:mix-blend-lighten"
                 >
                   <Image
                     unoptimized
@@ -71,7 +71,7 @@ const HomeNav = () => {
                     alt={coreInfo.name}
                     sizes="(max-width: 768px) 40vw, (max-width: 1200px) 30vw, 33vw"
                     fill
-                    className="object-contain object-center dark:hidden "
+                    className="object-contain object-center dark:hidden"
                   />
                   <Image
                     unoptimized
@@ -80,12 +80,12 @@ const HomeNav = () => {
                     // loading="eager"
                     sizes="(max-width: 768px) 40vw, (max-width: 1200px) 30vw, 33vw"
                     fill
-                    className="object-contain object-center hidden dark:block "
+                    className="hidden object-contain object-center dark:block"
                   />
                 </Link>
                 <Link
                   href={"/#"}
-                  className="size-16 rounded-full  relative z-30 overflow-hidden hidden max-[500px]:block"
+                  className="relative z-30 hidden size-16 overflow-hidden rounded-full max-[500px]:block"
                 >
                   <Image
                     unoptimized
@@ -93,7 +93,7 @@ const HomeNav = () => {
                     alt={coreInfo.name}
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     fill
-                    className="object-cover object-center "
+                    className="object-cover object-center"
                   />
                 </Link>
               </div>
@@ -101,9 +101,9 @@ const HomeNav = () => {
               {/* right of navbar  */}
 
               {/* log in / reg button and profile button */}
-              <div className="space-x-3 flex justify-center items-center px-3 box-border">
+              <div className="box-border flex items-center justify-center space-x-3 px-3">
                 <button
-                  className="md:hidden "
+                  className="md:hidden"
                   onClick={() => {
                     setShowSearchBar((e) => !e);
                     focusSearchInput.current?.focus();
@@ -153,24 +153,23 @@ const HomeNav = () => {
                   onClick={() => {
                     setOpenCart((e) => !e);
                   }}
-                  className={` flex-center ${shakeCart ? "animate-cart-shake shadow-2xl bg-blue-primary/40 shadow-blue-primary " : ""}relative flex-col flex-1 rounded-md p-1 px-2 hover:bg-background bg-background/50 transition-all hover:outline hover:outline-gray-primary/40 border border-gray-primary cursor-pointer `}
+                  className={`flex-center ${shakeCart ? "animate-cart-shake bg-blue-primary/40 shadow-blue-primary shadow-2xl" : ""}relative hover:bg-background bg-background/50 hover:outline-gray-primary/40 border-gray-primary flex-1 cursor-pointer flex-col rounded-md border p-1 px-2 transition-all hover:outline`}
                 >
-                  <span className="absolute -top-2 -right-2 text-xs dark:text-foreground font-semibold text-background bg-green-primary rounded-full px-1 outline-2 outline-gray-secondary">
+                  <span className="dark:text-foreground text-background bg-green-primary outline-gray-secondary absolute -top-2 -right-2 rounded-full px-1 text-xs font-semibold outline-2">
                     {cart && cart.items.length > 0 ? cart.items.length : 0}
                   </span>
-                  <ShoppingCart className="w-6 h-6" />
-                  <span className="text-[8px] ">{"Cart"}</span>
+                  <ShoppingCart className="h-6 w-6" />
+                  <span className="text-[8px]">{"Cart"}</span>
                 </button>
               </div>
             </div>
             <>
               <div
-                className={`absolute justify-between px-3 transition-all duration-500 z-40 items-center gap-3 w-full max-w-140 md:hidden
-              ${
-                showSearchBar
-                  ? "flex translate-y-8 opacity-100"
-                  : "pointer-events-none opacity-0 translate-y-0"
-              }`}
+                className={`absolute z-40 w-full max-w-140 items-center justify-between gap-3 px-3 transition-all duration-500 md:hidden ${
+                  showSearchBar
+                    ? "flex translate-y-8 opacity-100"
+                    : "pointer-events-none translate-y-0 opacity-0"
+                }`}
               >
                 <ProductSearchContainer
                   focusRef={focusSearchInput}
@@ -183,10 +182,10 @@ const HomeNav = () => {
                   setShowSearchBar(false);
                   focusSearchInput.current?.focus();
                 }}
-                className={`absolute backdrop-blur-lg   top-0 left-0 z-30  w-screen h-screen min-h-screen  overflow-hidden bg-background/90 transition-color  ${showSearchBar ? "" : "hidden "}`}
+                className={`bg-background/90 transition-color absolute top-0 left-0 z-30 h-screen min-h-screen w-screen overflow-hidden backdrop-blur-lg ${showSearchBar ? "" : "hidden"}`}
               ></button>
               <div
-                className={`absolute flex flex-wrap justify-between transition-all duration-500 z-40 items-center gap-3 w-full lg:max-w-130 md:max-w-80 max-md:hidden`}
+                className={`absolute z-40 flex w-full flex-wrap items-center justify-between gap-3 transition-all duration-500 max-md:hidden md:max-w-80 lg:max-w-130`}
               >
                 <ProductSearchContainer />
                 {/* <nav className="">
@@ -204,7 +203,7 @@ const HomeNav = () => {
 
           {(user?.role === "ADMIN" || user?.role === "SUPER_ADMIN") && (
             <Link
-              className="absolute top-0 right-0 text-[9px] rounded-lg border box-border border-gray-primary px-2 py-1 bg-background/60 hover:bg-background active:bg-violet-primary"
+              className="border-gray-primary bg-background/60 hover:bg-background active:bg-violet-primary absolute top-0 right-0 box-border rounded-lg border px-2 py-1 text-[9px]"
               href={"/dashboard"}
             >
               {user?.email}

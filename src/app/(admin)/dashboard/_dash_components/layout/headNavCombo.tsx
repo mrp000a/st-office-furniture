@@ -12,9 +12,9 @@ export default function HeadNavCombo({
     <div className="pb-20">
       <DashHeader />
       <PathOptions forceShow={true} />
-      <div className="flex justify-start items-start gap-1 w-full box-border p-1">
+      <div className="box-border flex w-full items-start justify-start gap-1 p-1">
         <DashNavButtons />
-        <div className="p-2 lg:p-3 border border-gray-secondary bg-background rounded-md overflow-auto w-full">
+        <div className="border-gray-secondary bg-background w-full overflow-auto rounded-md border p-2 lg:p-3">
           {children}
         </div>
       </div>

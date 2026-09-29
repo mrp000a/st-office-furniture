@@ -36,17 +36,17 @@ const ProductSearchContainer = ({
   }, [loadProducts]);
 
   return (
-    <div className="grid grid-cols-1 space-y-1 flex-1 w-full max-w-280 relative ">
-      <div className="flex w-full rounded-full h-8 focus-within:outline-3 transition-all outline outline-gray-secondary overflow-hidden">
+    <div className="relative grid w-full max-w-280 flex-1 grid-cols-1 space-y-1">
+      <div className="outline-gray-secondary flex h-8 w-full overflow-hidden rounded-full outline transition-all focus-within:outline-3">
         <input
           ref={focusRef}
-          className={`w-full bg-background/50 backdrop-blur-sm outline-none px-4 flex-1 bg-none`}
+          className={`bg-background/50 w-full flex-1 bg-none px-4 backdrop-blur-sm outline-none`}
           value={productSearchString}
           onChange={(e) => setProductSearchString(e.target.value)}
           placeholder="Search Products!"
         />{" "}
         <button
-        className="px-3 h-full bg-gray-primary  dark:bg-gray-secondary"
+          className="bg-gray-primary dark:bg-gray-secondary h-full px-3"
           type="button"
           onClick={() => {
             if (productSearchString.length === 0) return;
@@ -58,7 +58,7 @@ const ProductSearchContainer = ({
         </button>
       </div>
       <div
-        className={`${productSearchString.length > 0 ? "" : "hidden"} flex flex-col  gap-2 p-2 w-full absolute top-full bg-background z-30  max-h-125 overflow-y-auto overflow-x-hidden`}
+        className={`${productSearchString.length > 0 ? "" : "hidden"} bg-background absolute top-full z-30 flex max-h-125 w-full flex-col gap-2 overflow-x-hidden overflow-y-auto p-2`}
       >
         {products && productSearchString.length > 0 && products.length > 0 ? (
           products.map((item, index) => (
@@ -69,9 +69,9 @@ const ProductSearchContainer = ({
                 setProductSearchString("");
                 if (typeof overLayer !== "undefined") overLayer(false);
               }}
-              className="flex hover:-translate-y-0.5 cursor-pointer hover:bg-violet-primary/30 min-h-14 justify-start items-center gap-2 overflow-hidden px-2 py-1 rounded-md border box-border border-gray-secondary "
+              className="hover:bg-violet-primary/30 border-gray-secondary box-border flex min-h-14 cursor-pointer items-center justify-start gap-2 overflow-hidden rounded-md border px-2 py-1 hover:-translate-y-0.5"
             >
-              <div className=" relative h-10 w-10 min-h-10 min-w-10 overflow-hidden rounded-sm border border-green-primary">
+              <div className="border-green-primary relative h-10 min-h-10 w-10 min-w-10 overflow-hidden rounded-sm border">
                 <Image
                   unoptimized
                   fill

@@ -5,7 +5,11 @@ import ProductsSections from "./productsSection";
 // import { getProducts } from "@/lib/api";
 
 const ExecutiveChairProducts = async () => {
-  const filterOption: filterProductType = { limit: 10, order: "asc", category: "executive-chair" };
+  const filterOption: filterProductType = {
+    limit: 10,
+    order: "asc",
+    category: "executive-chair",
+  };
   // fetch data
   const data = await fetch(
     `${process.env.NEXT_PUBLIC_URL_SITE}/api/products?limit=${filterOption.limit}&order=${filterOption.order}&category=${filterOption.category}`,

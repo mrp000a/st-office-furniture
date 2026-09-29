@@ -1,10 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { Order, OrderItem, OrderStatus, Product } from "@/generated/prisma";
-import {
-  DeliveryAreas,
-  orderStatuses2,
-} from "@/components/data/core";
+import { DeliveryAreas, orderStatuses2 } from "@/components/data/core";
 import { getSession, getUserId, requireRole } from "@/lib/serverAuth";
 import { orderConfirmationEmail } from "../../../components/uiComponent/order-confirm-email";
 import { Resend } from "resend";

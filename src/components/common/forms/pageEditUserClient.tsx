@@ -174,8 +174,8 @@ const PageEditUserClient = ({
   };
 
   return (
-    <div className="w-full flex-center">
-      <div className="rounded-md bg-background  w-full flex-col sm:flex-row flex items-stretch overflow-hidden">
+    <div className="flex-center w-full">
+      <div className="bg-background flex w-full flex-col items-stretch overflow-hidden rounded-md sm:flex-row">
         <div className="w-full p-4">
           <form onSubmit={handleSubmit(handleSubmitData)}>
             <div className="mt-3 flex flex-col gap-2">
@@ -189,8 +189,8 @@ const PageEditUserClient = ({
                 </span>
               </div> */}
               {/* sec1  */}
-              <div className="flex items-start justify-between gap-4 flex-col sm:flex-row">
-                <div className="grid grid-cols-1 space-y-1 flex-1 w-full">
+              <div className="flex flex-col items-start justify-between gap-4 sm:flex-row">
+                <div className="grid w-full flex-1 grid-cols-1 space-y-1">
                   <label htmlFor="firstName">Name:</label>
                   <Input
                     id="name"
@@ -209,7 +209,7 @@ const PageEditUserClient = ({
                     </InputErrorMessage>
                   )}
                 </div>
-                <div className="grid grid-cols-1 space-y-1 flex-1 w-full">
+                <div className="grid w-full flex-1 grid-cols-1 space-y-1">
                   <label htmlFor="email">Email:</label>
                   <Input
                     id="email"
@@ -228,8 +228,8 @@ const PageEditUserClient = ({
                 </div>
               </div>
               {/* sec2 */}
-              <div className="flex items-start justify-between gap-4 flex-col sm:flex-row">
-                <div className="grid grid-cols-1 space-y-1 flex-1 w-full">
+              <div className="flex flex-col items-start justify-between gap-4 sm:flex-row">
+                <div className="grid w-full flex-1 grid-cols-1 space-y-1">
                   <label htmlFor="phone">Phone:</label>
                   <Input
                     id="phone"
@@ -256,7 +256,7 @@ const PageEditUserClient = ({
                     </InputErrorMessage>
                   )}
                 </div>
-                <div className="grid grid-cols-1 space-y-1 flex-1 w-full">
+                <div className="grid w-full flex-1 grid-cols-1 space-y-1">
                   <label htmlFor="address">Address:</label>
                   <Input
                     id="address"
@@ -278,8 +278,8 @@ const PageEditUserClient = ({
               </div>
 
               {/* sec 5 */}
-              <div className="flex items-start justify-between gap-4 flex-col ">
-                <div className="grid grid-cols-1 space-y-1 flex-1 w-full">
+              <div className="flex flex-col items-start justify-between gap-4">
+                <div className="grid w-full flex-1 grid-cols-1 space-y-1">
                   <div className="flex-center w-fit gap-3">
                     <label htmlFor="image">Image:</label>
                     <Popover>
@@ -301,7 +301,7 @@ const PageEditUserClient = ({
                   <input
                     id="image"
                     type="file"
-                    className="block w-full text-sm text-gray-primary file:mr-4 file:p-2 file:rounded-full file:px-4 file:border file:text-xs "
+                    className="text-gray-primary block w-full text-sm file:mr-4 file:rounded-full file:border file:p-2 file:px-4 file:text-xs"
                     placeholder="Upload Image"
                     {...register("image")}
                   />
@@ -313,10 +313,10 @@ const PageEditUserClient = ({
                     ""
                   )}
                 </div>
-                <div className="grid grid-cols-1 space-y-1 flex-1 w-full">
+                <div className="grid w-full flex-1 grid-cols-1 space-y-1">
                   <div>Select Gender:</div>
-                  <div className="flex items-center gap-x-8 bg-gray-secondary/5 rounded-md px-3 box-border flex-wrap outline outline-gray-primary/20">
-                    <div className="flex-center w-fit gap-3 ">
+                  <div className="bg-gray-secondary/5 outline-gray-primary/20 box-border flex flex-wrap items-center gap-x-8 rounded-md px-3 outline">
+                    <div className="flex-center w-fit gap-3">
                       <Input
                         id="male"
                         type="radio"
@@ -330,7 +330,7 @@ const PageEditUserClient = ({
                       />
                       <label htmlFor="male">Male</label>
                     </div>
-                    <div className="flex-center w-fit gap-3 ">
+                    <div className="flex-center w-fit gap-3">
                       <Input
                         id="female"
                         type="radio"
@@ -344,7 +344,7 @@ const PageEditUserClient = ({
                       />
                       <label htmlFor="female">Female</label>
                     </div>{" "}
-                    <div className="flex-center w-fit gap-3 ">
+                    <div className="flex-center w-fit gap-3">
                       <Input
                         id="other"
                         type="radio"
@@ -370,13 +370,13 @@ const PageEditUserClient = ({
 
               {/* sec 8 */}
               <hr />
-              <span className="text-xs text-gray-secondary">
+              <span className="text-gray-secondary text-xs">
                 Enter Password if you want to change password.
               </span>
-              <div className="flex items-start justify-between gap-4 flex-col sm:flex-row">
-                <div className="grid grid-cols-1 space-y-1 flex-1 w-full">
+              <div className="flex flex-col items-start justify-between gap-4 sm:flex-row">
+                <div className="grid w-full flex-1 grid-cols-1 space-y-1">
                   <label htmlFor="password">Password:</label>
-                  <div className="relative flex-center">
+                  <div className="flex-center relative">
                     <Input
                       id="password"
                       type={showPass ? "text" : "password"}
@@ -410,7 +410,7 @@ const PageEditUserClient = ({
                     </InputErrorMessage>
                   )}
                 </div>
-                <div className="grid grid-cols-1 space-y-1 flex-1 w-full">
+                <div className="grid w-full flex-1 grid-cols-1 space-y-1">
                   <label htmlFor="confirmPassword">Confirm Password:</label>
                   <Input
                     id="confirmPassword"
@@ -436,7 +436,7 @@ const PageEditUserClient = ({
                 </div>
               </div>
             </div>
-            <div className="w-full flex justify-end items-center flex-wrap gap-2 pt-4">
+            <div className="flex w-full flex-wrap items-center justify-end gap-2 pt-4">
               <Button
                 onClick={() => setOpen(false)}
                 variant={"destructive"}

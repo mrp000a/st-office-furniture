@@ -26,11 +26,11 @@ export default function RatingStars({ rating, size = 16 }: RatingStarsProps) {
             }}
           >
             {/* Empty star */}
-            <FaRegStar size={size} className="absolute " />
+            <FaRegStar size={size} className="absolute" />
 
             {/* Filled part */}
             <div
-              className="absolute left-0 top-0 overflow-hidden"
+              className="absolute top-0 left-0 overflow-hidden"
               style={{
                 width: `${fill * 100}%`,
                 height: size,

@@ -3,34 +3,34 @@ import React from "react";
 
 const OrderLoadinglayout = () => {
   return (
-    <div className="max-w-384 mx-auto bg-background">
-      <div className="flex justify-start items-start flex-col md:flex-row p-3 gap-4">
-        <div className="flex flex-1 items-center flex-col   gap-2   w-full border rounded-md p-6">
-          <div className="w-full flex-center flex-col gap-2">
-            <Skeleton className="max-w-full box-border  w-64   min-h-10"></Skeleton>
-            <Skeleton className="max-w-full box-border  w-36 min-h-8"></Skeleton>
+    <div className="bg-background mx-auto max-w-384">
+      <div className="flex flex-col items-start justify-start gap-4 p-3 md:flex-row">
+        <div className="flex w-full flex-1 flex-col items-center gap-2 rounded-md border p-6">
+          <div className="flex-center w-full flex-col gap-2">
+            <Skeleton className="box-border min-h-10 w-64 max-w-full"></Skeleton>
+            <Skeleton className="box-border min-h-8 w-36 max-w-full"></Skeleton>
           </div>
-          <Skeleton className="max-w-full box-border  w-full min-h-50"></Skeleton>
-          <div className="flex  w-full">
-            <Skeleton className="w-48 h-7" />
+          <Skeleton className="box-border min-h-50 w-full max-w-full"></Skeleton>
+          <div className="flex w-full">
+            <Skeleton className="h-7 w-48" />
           </div>
           <div className="w-full space-y-3">
-            <Skeleton className="max-w-full box-border w-full min-h-10 "></Skeleton>
-            <Skeleton className="max-w-full box-border w-full min-h-10 "></Skeleton>
-            <Skeleton className="max-w-full box-border w-full min-h-10 "></Skeleton>
-            <Skeleton className="max-w-full box-border w-full min-h-10 "></Skeleton>
+            <Skeleton className="box-border min-h-10 w-full max-w-full"></Skeleton>
+            <Skeleton className="box-border min-h-10 w-full max-w-full"></Skeleton>
+            <Skeleton className="box-border min-h-10 w-full max-w-full"></Skeleton>
+            <Skeleton className="box-border min-h-10 w-full max-w-full"></Skeleton>
           </div>
-          
-          <div className="flex items-end justify-end w-full">
-            <Skeleton className="w-48 h-12" />
+
+          <div className="flex w-full items-end justify-end">
+            <Skeleton className="h-12 w-48" />
           </div>
         </div>
 
-        <div className="flex flex-1 max-w-lg items-center gap-2 w-full border p-5 rounded-md">
+        <div className="flex w-full max-w-lg flex-1 items-center gap-2 rounded-md border p-5">
           <div className="w-full space-y-5">
-            <Skeleton className="max-w-full box-border w-full h-36"></Skeleton>
-            <Skeleton className="max-w-full box-border w-full h-36"></Skeleton>
-            <Skeleton className="max-w-full box-border w-full h-36"></Skeleton>
+            <Skeleton className="box-border h-36 w-full max-w-full"></Skeleton>
+            <Skeleton className="box-border h-36 w-full max-w-full"></Skeleton>
+            <Skeleton className="box-border h-36 w-full max-w-full"></Skeleton>
           </div>
         </div>
       </div>

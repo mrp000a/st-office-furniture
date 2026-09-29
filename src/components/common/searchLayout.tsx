@@ -43,14 +43,14 @@ export default function SearchLayout() {
 
   return (
     <>
-      <div className="hidden sm:flex justify-center items-center focus-within:ring-2 max-w-full w-full focus-within:ring-gray-secondary/80 transition-all ring-gray-secondary/50 ring rounded-md overflow-hidden  gap-1">
-        <button className=" h-full w-fit p-0.5 px-2">
+      <div className="focus-within:ring-gray-secondary/80 ring-gray-secondary/50 hidden w-full max-w-full items-center justify-center gap-1 overflow-hidden rounded-md ring transition-all focus-within:ring-2 sm:flex">
+        <button className="h-full w-fit p-0.5 px-2">
           <Search />
         </button>
         <input
           value={searchStringValue ?? ""}
           onChange={(e) => handleSearch(e.target.value)}
-          className="focus:bg-none max-w-full focus:outline-none flex-1"
+          className="max-w-full flex-1 focus:bg-none focus:outline-none"
           placeholder="Search Item"
         />
       </div>
@@ -66,15 +66,15 @@ export default function SearchLayout() {
 
       {/* mobile search overlay */}
       <div
-        className={`absolute gap-2 right-2 w-full max-w-[calc(100vw-50px)] pl-8  rounded-sm  py-1 box-border flex justify-end items-center transition-all duration-300 sm:hidden z-30 ${
+        className={`absolute right-2 z-30 box-border flex w-full max-w-[calc(100vw-50px)] items-center justify-end gap-2 rounded-sm py-1 pl-8 transition-all duration-300 sm:hidden ${
           isSearchOpen
-            ? "opacity-100 pointer-events-auto translate-y-0"
-            : "opacity-0 pointer-events-none -translate-y-8"
+            ? "pointer-events-auto translate-y-0 opacity-100"
+            : "pointer-events-none -translate-y-8 opacity-0"
         }`}
       >
-        <div className="bg-background w-full  flex-center focus-within:ring-2 max-w-full focus-within:ring-gray-secondary/80 transition-all ring-gray-secondary/50 ring rounded-md overflow-hidden  gap-1">
+        <div className="bg-background flex-center focus-within:ring-gray-secondary/80 ring-gray-secondary/50 w-full max-w-full gap-1 overflow-hidden rounded-md ring transition-all focus-within:ring-2">
           <button
-            className=" h-full w-fit p-0.5 px-2"
+            className="h-full w-fit p-0.5 px-2"
             onClick={async () => console.log("object")}
           >
             <Search />
@@ -83,7 +83,7 @@ export default function SearchLayout() {
             ref={inputRef}
             value={searchStringValue ?? ""}
             onChange={(e) => handleSearch(e.target.value)}
-            className="focus:bg-none w-full focus:outline-none flex-1"
+            className="w-full flex-1 focus:bg-none focus:outline-none"
             placeholder="Search Item"
           />
         </div>
@@ -92,7 +92,7 @@ export default function SearchLayout() {
           variant={"outline"}
           // size={"icon-lg"}
           onClick={async () => setIsSearchOpen((e) => !e)}
-          className="sm:hidden "
+          className="sm:hidden"
         >
           <X />
         </Button>

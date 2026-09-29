@@ -7,8 +7,8 @@ import {
   TimelineItem,
   TimelineSeparator,
   TimelineTitle,
-} from "@/components/reui/timeline"
-import { CheckIcon } from "lucide-react"
+} from "@/components/reui/timeline";
+import { CheckIcon } from "lucide-react";
 
 const orderStatus = [
   {
@@ -35,7 +35,7 @@ const orderStatus = [
     title: "Delivered",
     description: "Package successfully delivered to the recipient.",
   },
-]
+];
 
 export function Pattern() {
   return (
@@ -58,5 +58,5 @@ export function Pattern() {
         </TimelineItem>
       ))}
     </Timeline>
-  )
+  );
 }

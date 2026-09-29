@@ -27,11 +27,11 @@ const ProductClient = ({
   );
 
   return (
-    <div className="hover:shadow-2xl group bg-background dark:bg-background hover:translate-y-0.5 duration-300 shadow-blue-primary/40 hover:ring-3 hover:ring-gray-secondary  transition-all flex flex-col max-w-full box-border w-full justify-start items-start gap-2 ring-2 ring-green-primary p-1 rounded-sm relative">
+    <div className="group bg-background dark:bg-background shadow-blue-primary/40 hover:ring-gray-secondary ring-green-primary relative box-border flex w-full max-w-full flex-col items-start justify-start gap-2 rounded-sm p-1 ring-2 transition-all duration-300 hover:translate-y-0.5 hover:shadow-2xl hover:ring-3">
       {/* main image and discount red  */}
       <Link
         href={`/products/${item.productCode.toLowerCase()}`}
-        className=" relative block w-full aspect-square overflow-hidden rounded-md border border-gray-secondary bg-white"
+        className="border-gray-secondary relative block aspect-square w-full overflow-hidden rounded-md border bg-white"
       >
         <Image
           unoptimized
@@ -39,16 +39,16 @@ const ProductClient = ({
           alt={item.title}
           fill
           sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1200px) 25vw, 20vw"
-          className="   object-contain   transition-transform   duration-700   ease-in-out   group-hover:scale-110 "
+          className="object-contain transition-transform duration-700 ease-in-out group-hover:scale-110"
         />
         <span
-          className={`bg-red-primary flex-center flex-col font-bold  text-background dark:text-foreground rounded-md text-xs ring-2 ring-gray-secondary px-2 py-1  absolute right-0 top-0 z-20 ${item.discount ? "" : "hidden"}`}
+          className={`bg-red-primary flex-center text-background dark:text-foreground ring-gray-secondary absolute top-0 right-0 z-20 flex-col rounded-md px-2 py-1 text-xs font-bold ring-2 ${item.discount ? "" : "hidden"}`}
         >
           <span className="font-bold">{Number(item.discount)}%</span>
           <span className="text-xs">Off</span>
         </span>
         <span
-          className={`bg-red-primary flex-center flex-col  font-bold text-background dark:text-foreground  text-xs ring-2 ring-gray-secondary px-5 py-1  absolute -left-[18px]  -rotate-45 top-0 z-20 ${new Date(item.createdAt) > sevenDaysAgo ? "" : "hidden"}`}
+          className={`bg-red-primary flex-center text-background dark:text-foreground ring-gray-secondary absolute top-0 -left-[18px] z-20 -rotate-45 flex-col px-5 py-1 text-xs font-bold ring-2 ${new Date(item.createdAt) > sevenDaysAgo ? "" : "hidden"}`}
         >
           New
         </span>
@@ -57,16 +57,16 @@ const ProductClient = ({
         <FaHeart size={4} className="size-8 fill-red-primary" />
       </span> */}
 
-      <div className="flex flex-col w-full">
+      <div className="flex w-full flex-col">
         <Link
           href={`/products/${item.productCode.toLowerCase()}`}
-          className="line-clamp-2 font-semibold  text-justify"
+          className="line-clamp-2 text-justify font-semibold"
         >
           {item.title}
         </Link>
         <Link
           href={`/c/${item.category?.name.trim() ?? ""}`}
-          className="font-semibold text-gray-secondary text-[10px] w-fit"
+          className="text-gray-secondary w-fit text-[10px] font-semibold"
         >
           {item.category?.name ?? "N/A"}
         </Link>
@@ -78,7 +78,7 @@ const ProductClient = ({
             <span>({item._count?.reviews})</span>
           </span>
         </div>
-        <div className=" font-bold flex flex-wrap justify-between items-center">
+        <div className="flex flex-wrap items-center justify-between font-bold">
           <div className="space-x-2">
             <span className="text-gray-primary">Price:</span>{" "}
             <span className="font-semibold">
@@ -88,7 +88,7 @@ const ProductClient = ({
                 : Number(item.price).toFixed(2)}
             </span>
             <span
-              className={`text-xs text-gray-primary line-through px-1 ${item.discount ? "" : "hidden"}`}
+              className={`text-gray-primary px-1 text-xs line-through ${item.discount ? "" : "hidden"}`}
             >
               ৳{Number(item.price).toFixed(2)}
             </span>
@@ -96,7 +96,7 @@ const ProductClient = ({
         </div>
 
         {/* buttons - add to cart and order now  */}
-        <div className="flex  flex-wrap gap-2 p-2 justify-around">
+        <div className="flex flex-wrap justify-around gap-2 p-2">
           <Button
             onClick={async () => {
               if (!session || !session.data?.user?.id) {

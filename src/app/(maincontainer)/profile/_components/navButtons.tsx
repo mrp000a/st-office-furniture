@@ -12,13 +12,13 @@ const ProfileHeader = () => {
   const pathname = usePathname();
 
   return (
-    <div className="max-w-384 md:w-48 border mx-auto space-y-2 px-1 bg-card p-3 rounded-md ">
-      <div className="text-gray-primary text-xs text-center ">
+    <div className="bg-card mx-auto max-w-384 space-y-2 rounded-md border p-3 px-1 md:w-48">
+      <div className="text-gray-primary text-center text-xs">
         Profile Navigation
       </div>
-      <div className="flex flex-row md:flex-col flex-wrap   justify-start gap-2 ">
+      <div className="flex flex-row flex-wrap justify-start gap-2 md:flex-col">
         <Button
-          className={"flex justify-between items-center cursor-pointer"}
+          className={"flex cursor-pointer items-center justify-between"}
           variant={
             pathname.startsWith("/profile")
               ? pathname.startsWith("/profile/")
@@ -40,7 +40,7 @@ const ProfileHeader = () => {
             onClick={() => {
               router.push(`/profile/${tab}`);
             }}
-            className={`flex items-center justify-between cursor-pointer`}
+            className={`flex cursor-pointer items-center justify-between`}
             variant={
               pathname.startsWith(`/profile/${tab}`) ? "destructive" : "outline"
             }

@@ -54,14 +54,14 @@ const ProductsPageTest = ({
 }) => {
   const router = useRouter();
   return (
-    <div className=" w-full space-y-1">
+    <div className="w-full space-y-1">
       {/* header */}
-      <div className="py-2 px-3 relative w-full flex box-border border bg-background rounded-md  justify-between border-b border-b-gray-secondary/50 items-center flex-wrap max-w-384 mx-auto ">
+      <div className="bg-background border-b-gray-secondary/50 relative mx-auto box-border flex w-full max-w-384 flex-wrap items-center justify-between rounded-md border border-b px-3 py-2">
         <div>
           <h2 className="text-2xl font-bold">Products</h2>
         </div>
-        <div className="gap-1 flex items-center flex-wrap">
-          <div className=" flex-1">
+        <div className="flex flex-wrap items-center gap-1">
+          <div className="flex-1">
             <SearchLayout />
           </div>
           {/* buttons  */}
@@ -76,20 +76,20 @@ const ProductsPageTest = ({
         </div>
       </div>
 
-      <div className="w-full max-w-382 mx-auto">
+      <div className="mx-auto w-full max-w-382">
         <SearchShowClient pathnameSend="/products" />
       </div>
 
-      <div className="max-w-384 flex-center w-full mx-auto ">
+      <div className="flex-center mx-auto w-full max-w-384">
         {/* <Button onClick={loadProduct}>Set product</Button> */}
         {products && products.length > 0 ? (
-          <div className="w-full max-[500px]:max-w-90 grid min-[500px]:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5  2xl:grid-cols-5  justify-items-center items-stretch  px-3 py-2 box-border  gap-3">
+          <div className="box-border grid w-full items-stretch justify-items-center gap-3 px-3 py-2 max-[500px]:max-w-90 min-[500px]:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5">
             {products.map((item, index) => (
               <ProductClient item={item} key={index} />
             ))}
           </div>
         ) : (
-          <div className="w-full h-full">
+          <div className="h-full w-full">
             <ProductsNotFound />
           </div>
         )}{" "}

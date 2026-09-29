@@ -145,27 +145,27 @@ const Page = () => {
   };
 
   return (
-    <div className="w-full min-h-[calc(100vh-300px)] flex-center  max-w-7xl mx-auto p-2">
+    <div className="flex-center mx-auto min-h-[calc(100vh-300px)] w-full max-w-7xl p-2">
       <form
         onSubmit={handleSubmit(handleSubmitData)}
-        className="rounded-md  h-full max-h-full p-2 gap-5 box-border flex-col-reverse   w-full md:flex-row flex  overflow-hidden"
+        className="box-border flex h-full max-h-full w-full flex-col-reverse gap-5 overflow-hidden rounded-md p-2 md:flex-row"
       >
         {/* left side  */}
-        <div className="w-full flex-1 flex flex-col gap-5">
+        <div className="flex w-full flex-1 flex-col gap-5">
           {/* user form */}
-          <div className="w-full bg-background pb-5 shadow-lg shadow-foreground/20 py-2 gap-3 flex-1 flex flex-col px-3 border border-gray-secondary/40 rounded-md">
-            <div className="gap-3 flex flex-col">
-              <div className="py-3 gap-2 border-b border-b-gray-secondary">
-                <h2 className="text-xl text-blue-secondary dark:text-gray-primary font-bold flex items-center gap-2">
+          <div className="bg-background shadow-foreground/20 border-gray-secondary/40 flex w-full flex-1 flex-col gap-3 rounded-md border px-3 py-2 pb-5 shadow-lg">
+            <div className="flex flex-col gap-3">
+              <div className="border-b-gray-secondary gap-2 border-b py-3">
+                <h2 className="text-blue-secondary dark:text-gray-primary flex items-center gap-2 text-xl font-bold">
                   <Truck className="text-green-primary" />
                   <span>Shipping and Billing Information</span>
                 </h2>
               </div>
 
               {/* sec a */}
-              <div className="flex items-start justify-between gap-4 flex-col">
+              <div className="flex flex-col items-start justify-between gap-4">
                 <div className="flex w-full gap-3">
-                  <div className="flex flex-col space-y-1 flex-1 w-full">
+                  <div className="flex w-full flex-1 flex-col space-y-1">
                     <label htmlFor="receiverName">{"Receiver's Name:*"}</label>
                     <Input
                       className="h-10 text-lg"
@@ -183,7 +183,7 @@ const Page = () => {
                     )}
                   </div>
 
-                  <div className="flex flex-col space-y-1 flex-1 w-full">
+                  <div className="flex w-full flex-1 flex-col space-y-1">
                     <label htmlFor="receiverPhone">
                       {"Receiver's Phone:*"}
                     </label>
@@ -214,7 +214,7 @@ const Page = () => {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 space-y-1 flex-1 w-full">
+                <div className="grid w-full flex-1 grid-cols-1 space-y-1">
                   <label htmlFor="email">{"Receiver's Email (optimal):"}</label>
                   <Input
                     className="h-10 text-lg"
@@ -230,7 +230,7 @@ const Page = () => {
                   )}
                 </div>
 
-                <div className="grid grid-cols-1 space-y-1 flex-1 w-full">
+                <div className="grid w-full flex-1 grid-cols-1 space-y-1">
                   <label htmlFor="address">
                     {"Receiver's Full Address:*"}{" "}
                   </label>
@@ -252,7 +252,7 @@ const Page = () => {
                   )}
                 </div>
 
-                <div className="grid grid-cols-1 space-y-1 flex-1 w-full">
+                <div className="grid w-full flex-1 grid-cols-1 space-y-1">
                   <label htmlFor="address">{"Delivery Area:*"} </label>
                   <Controller
                     control={control}
@@ -265,7 +265,7 @@ const Page = () => {
                         value={field.value ?? ""}
                         onValueChange={field.onChange}
                       >
-                        <SelectTrigger className="w-full h-10!">
+                        <SelectTrigger className="h-10! w-full">
                           <SelectValue placeholder="Select Delivery Area" />
                         </SelectTrigger>
 
@@ -293,7 +293,7 @@ const Page = () => {
                   )}
                 </div>
 
-                <div className="grid grid-cols-1 space-y-1 flex-1 w-full">
+                <div className="grid w-full flex-1 grid-cols-1 space-y-1">
                   <label htmlFor="customerNote">Note (optimal):</label>
                   <Textarea
                     id="customerNote"
@@ -317,10 +317,10 @@ const Page = () => {
           </div>
 
           {/* Payment methods add */}
-          <div className="w-full py-2 bg-background shadow-lg pb-5 shadow-foreground/20 gap-3 flex-1 flex flex-col px-3 border border-gray-secondary/40 rounded-md">
-            <div className="gap-3 flex flex-col">
-              <div className="py-3 gap-2 border-b border-b-gray-secondary">
-                <h2 className="text-xl text-blue-secondary dark:text-gray-primary font-bold flex items-center gap-2">
+          <div className="bg-background shadow-foreground/20 border-gray-secondary/40 flex w-full flex-1 flex-col gap-3 rounded-md border px-3 py-2 pb-5 shadow-lg">
+            <div className="flex flex-col gap-3">
+              <div className="border-b-gray-secondary gap-2 border-b py-3">
+                <h2 className="text-blue-secondary dark:text-gray-primary flex items-center gap-2 text-xl font-bold">
                   <Wallet className="text-green-primary" />
                   <span>Select Payment Method</span>
                 </h2>
@@ -333,16 +333,16 @@ const Page = () => {
                       key={index}
                       type="button"
                       onClick={() => console.log(value)}
-                      className="flex bg-violet-primary/20 justify-between cursor-pointer items-center border-2 px-3 py-1 rounded-md  border-green-primary"
+                      className="bg-violet-primary/20 border-green-primary flex cursor-pointer items-center justify-between rounded-md border-2 px-3 py-1"
                     >
                       <div className="flex items-center justify-start gap-2">
                         <span className="text-4xl">
                           <Icon />
                         </span>
 
-                        <span className="flex flex-col justify-center items-start ">
+                        <span className="flex flex-col items-start justify-center">
                           <span className="text-2xl font-bold">{label}</span>
-                          <span className="text-sm text-gray-secondary">
+                          <span className="text-gray-secondary text-sm">
                             {description}
                           </span>
                         </span>
@@ -357,7 +357,7 @@ const Page = () => {
           </div>
 
           {/* order button */}
-          <div className={`w-full flex-center flex-col gap-2 flex md:hidden`}>
+          <div className={`flex-center flex w-full flex-col gap-2 md:hidden`}>
             <button
               className="w-full disabled:invert-25"
               disabled={isSubmitting || cart?.items.length === 0 || !cart}
@@ -365,7 +365,7 @@ const Page = () => {
               onClick={() => console.log("object")}
             >
               <SpeacialOrderButton>
-                <div className="flex items-center w-fit gap-2">
+                <div className="flex w-fit items-center gap-2">
                   {isSubmitting && (
                     <span className="animate-spin">
                       <Loader />
@@ -380,7 +380,7 @@ const Page = () => {
                 Please Add Item to Your Cart
               </InputErrorMessage>
             )}
-            <span className="flex items-center text-gray-secondary text-sm">
+            <span className="text-gray-secondary flex items-center text-sm">
               <RiLockFill />
               <span>100% Secure Checkout Process</span>
             </span>
@@ -388,22 +388,22 @@ const Page = () => {
         </div>
 
         {/* Right side */}
-        <div className="w-full md:w-1/3 h-fit shadow-lg shadow-foreground/20 lg:max-w-2/5  bg-background py-3  overflow-x-hidden overflow-y-auto scrollbar-thumb-gray-secondary/50 px-3  flex flex-col border border-gray-secondary/40 rounded-md ">
-          <div className="border-b border-b-gray-secondary">
+        <div className="shadow-foreground/20 bg-background scrollbar-thumb-gray-secondary/50 border-gray-secondary/40 flex h-fit w-full flex-col overflow-x-hidden overflow-y-auto rounded-md border px-3 py-3 shadow-lg md:w-1/3 lg:max-w-2/5">
+          <div className="border-b-gray-secondary border-b">
             <div>
-              <div className="flex justify-between items-center text-blue-secondary dark:text-gray-primary">
-                <span className="text-xl py-3 font-bold flex items-center gap-2">
-                  <Handbag className="text-green-primary " />
+              <div className="text-blue-secondary dark:text-gray-primary flex items-center justify-between">
+                <span className="flex items-center gap-2 py-3 text-xl font-bold">
+                  <Handbag className="text-green-primary" />
                   <span>Order Summery</span>
                 </span>
                 <div></div>
               </div>
             </div>
           </div>
-          <div className="py-3  h-full max-h-110 w-full  overflow-x-hidden overflow-y-auto  max-w-full  flex flex-col  gap-3 box-border">
+          <div className="box-border flex h-full max-h-110 w-full max-w-full flex-col gap-3 overflow-x-hidden overflow-y-auto py-3">
             {cart && cart.items.length > 0 ? (
               cart.items.map(({ title, product, qty, id }, index) => (
-                <div key={index} className="w-full flex flex-col">
+                <div key={index} className="flex w-full flex-col">
                   <CartProductItemOrder
                     deleteCartItem={handleDeleteCartItem}
                     id={id ? id : 0}
@@ -420,7 +420,7 @@ const Page = () => {
             ) : (
               <>
                 <NoItemsFound />
-                <Button asChild className="w-fit mx-auto">
+                <Button asChild className="mx-auto w-fit">
                   <Link href={"/products"}>Continue Shopping</Link>
                 </Button>
               </>
@@ -430,10 +430,10 @@ const Page = () => {
 
           <hr className="py-1" />
 
-          <div className=" flex flex-col gap-2 ">
-            <div className="flex justify-between items-center flex-col">
+          <div className="flex flex-col gap-2">
+            <div className="flex flex-col items-center justify-between">
               {/* sub total */}
-              <div className=" space-x-2 flex w-full justify-between items-center">
+              <div className="flex w-full items-center justify-between space-x-2">
                 <span className="text-gray-secondary font-semibold">
                   Sub Total
                 </span>
@@ -453,7 +453,7 @@ const Page = () => {
                 </span>
               </div>
               {/* Delivery */}
-              <div className=" space-x-2 flex w-full justify-between items-center">
+              <div className="flex w-full items-center justify-between space-x-2">
                 <span className="text-gray-secondary font-semibold">
                   Delivery Charge
                 </span>
@@ -462,10 +462,10 @@ const Page = () => {
                 </span>
               </div>
 
-              <hr className="w-full bg-foreground text-foreground" />
+              <hr className="bg-foreground text-foreground w-full" />
               {/* total  */}
-              <div className=" space-x-2 flex w-full justify-between items-center text-lg text-blue-secondary dark:text-gray-primary py-2">
-                <span className=" font-bold">Grand Total</span>
+              <div className="text-blue-secondary dark:text-gray-primary flex w-full items-center justify-between space-x-2 py-2 text-lg">
+                <span className="font-bold">Grand Total</span>
                 <span className="font-bold">
                   ৳
                   {(cart?.items.reduce(
@@ -482,7 +482,7 @@ const Page = () => {
             </div>
           </div>
           {/* order button */}
-          <div className={`w-full flex-center flex-col gap-2 hidden md:flex`}>
+          <div className={`flex-center hidden w-full flex-col gap-2 md:flex`}>
             <button
               className="w-full disabled:invert-25"
               disabled={isSubmitting || cart?.items.length === 0 || !cart}
@@ -490,7 +490,7 @@ const Page = () => {
               onClick={() => console.log("object")}
             >
               <SpeacialOrderButton>
-                <div className="flex items-center w-fit gap-2">
+                <div className="flex w-fit items-center gap-2">
                   {isSubmitting && (
                     <span className="animate-spin">
                       <Loader />
@@ -505,7 +505,7 @@ const Page = () => {
                 Please Add Item to Your Cart
               </InputErrorMessage>
             )}
-            <span className="flex items-center text-gray-secondary text-sm">
+            <span className="text-gray-secondary flex items-center text-sm">
               <RiLockFill />
               <span>100% Secure Checkout Process</span>
             </span>

@@ -37,7 +37,7 @@ const workspaceSolutions = [
 
 export function WorkspaceSolutions() {
   return (
-    <section className="relative overflow-hidden bg-background py-20 sm:py-24 lg:py-32">
+    <section className="bg-background relative overflow-hidden py-20 sm:py-24 lg:py-32">
       <div className="mx-auto max-w-384 px-4 sm:px-6 lg:px-8">
         {/* ================= HEADER ================= */}
 
@@ -45,9 +45,9 @@ export function WorkspaceSolutions() {
           <div className="max-w-2xl">
             {/* Eyebrow */}
             <div className="mb-4 flex items-center gap-3">
-              <span className="h-px w-9 bg-primary" />
+              <span className="bg-primary h-px w-9" />
 
-              <span className="text-xs font-semibold uppercase tracking-[0.25em] text-primary">
+              <span className="text-primary text-xs font-semibold tracking-[0.25em] uppercase">
                 Workspace Solutions
               </span>
             </div>
@@ -58,7 +58,7 @@ export function WorkspaceSolutions() {
               <span className="text-primary">workspace solution.</span>
             </h2>
 
-            <p className="mt-4 max-w-xl text-sm leading-6 text-muted-foreground sm:text-base">
+            <p className="text-muted-foreground mt-4 max-w-xl text-sm leading-6 sm:text-base">
               Whether you're working from home, building a growing team, or
               welcoming clients, find furniture designed for the space you want
               to create.
@@ -68,20 +68,10 @@ export function WorkspaceSolutions() {
           {/* Desktop link */}
           <Link
             href="/workspace-solutions"
-            className="
-              group hidden items-center gap-2
-              text-sm font-semibold
-              sm:inline-flex
-            "
+            className="group hidden items-center gap-2 text-sm font-semibold sm:inline-flex"
           >
             Explore all solutions
-            <ArrowRight
-              className="
-                size-4
-                transition-transform duration-300
-                group-hover:translate-x-1
-              "
-            />
+            <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
           </Link>
         </div>
 
@@ -92,14 +82,7 @@ export function WorkspaceSolutions() {
             <Link
               key={solution.title}
               href={solution.href}
-              className="
-                group relative
-                h-[430px]
-                overflow-hidden rounded-2xl
-                bg-zinc-900
-                sm:h-[470px]
-                lg:h-[500px]
-              "
+              className="group relative h-[430px] overflow-hidden rounded-2xl bg-zinc-900 sm:h-[470px] lg:h-[500px]"
             >
               {/* Image */}
               <Image
@@ -107,12 +90,7 @@ export function WorkspaceSolutions() {
                 src={solution.image}
                 alt={solution.title}
                 fill
-                className="
-                  object-cover
-                  transition-transform duration-700
-                  ease-out
-                  group-hover:scale-105
-                "
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 sizes="
                   (max-width: 768px) 100vw,
                   (max-width: 1280px) 33vw,
@@ -121,36 +99,14 @@ export function WorkspaceSolutions() {
               />
 
               {/* Dark overlay */}
-              <div
-                className="
-                  absolute inset-0
-                  bg-gradient-to-t
-                  from-black via-black/45
-                  to-black/5
-                  transition-opacity duration-500
-                  group-hover:from-black/90
-                "
-              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/45 to-black/5 transition-opacity duration-500 group-hover:from-black/90" />
 
               {/* Hover glow */}
-              <div
-                className="
-                  absolute inset-0
-                  bg-primary/0
-                  transition-colors duration-500
-                  group-hover:bg-primary/5
-                "
-              />
+              <div className="bg-primary/0 group-hover:bg-primary/5 absolute inset-0 transition-colors duration-500" />
 
               {/* Number */}
-              <div className="absolute right-5 top-5">
-                <span
-                  className="
-                    text-xs font-medium
-                    tracking-[0.2em]
-                    text-white/60
-                  "
-                >
+              <div className="absolute top-5 right-5">
+                <span className="text-xs font-medium tracking-[0.2em] text-white/60">
                   {solution.number}
                 </span>
               </div>
@@ -158,21 +114,10 @@ export function WorkspaceSolutions() {
               {/* Content */}
               <div className="absolute inset-x-0 bottom-0 p-6 sm:p-7 lg:p-8">
                 {/* Small line */}
-                <div
-                  className="
-                    mb-4 h-px w-8 bg-primary
-                    transition-all duration-500
-                    group-hover:w-14
-                  "
-                />
+                <div className="bg-primary mb-4 h-px w-8 transition-all duration-500 group-hover:w-14" />
 
                 {/* Title */}
-                <h3
-                  className="
-                    text-2xl font-bold capitalize
-                    text-white sm:text-3xl
-                  "
-                >
+                <h3 className="text-2xl font-bold text-white capitalize sm:text-3xl">
                   {solution.title}
                 </h3>
 
@@ -182,13 +127,7 @@ export function WorkspaceSolutions() {
                 </p>
 
                 {/* Description */}
-                <div
-                  className="
-                    grid grid-rows-[0fr]
-                    transition-all duration-500
-                    group-hover:grid-rows-[1fr]
-                  "
-                >
+                <div className="grid grid-rows-[0fr] transition-all duration-500 group-hover:grid-rows-[1fr]">
                   <div className="overflow-hidden">
                     <p className="mt-3 max-w-sm text-sm leading-6 text-white/65">
                       {solution.description}
@@ -200,21 +139,8 @@ export function WorkspaceSolutions() {
                 <div className="mt-5 flex items-center gap-2 text-sm font-semibold text-white">
                   <span>Explore solution</span>
 
-                  <span
-                    className="
-                      flex size-8 items-center justify-center
-                      rounded-full bg-white/10
-                      transition-all duration-300
-                      group-hover:bg-primary
-                    "
-                  >
-                    <ArrowUpRight
-                      className="
-                        size-4
-                        transition-transform duration-300
-                        group-hover:rotate-45
-                      "
-                    />
+                  <span className="group-hover:bg-primary flex size-8 items-center justify-center rounded-full bg-white/10 transition-all duration-300">
+                    <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:rotate-45" />
                   </span>
                 </div>
               </div>
@@ -226,19 +152,10 @@ export function WorkspaceSolutions() {
         <div className="mt-8 sm:hidden">
           <Link
             href="/workspace-solutions"
-            className="
-              group inline-flex items-center gap-2
-              text-sm font-semibold
-            "
+            className="group inline-flex items-center gap-2 text-sm font-semibold"
           >
             Explore all solutions
-            <ArrowRight
-              className="
-                size-4
-                transition-transform duration-300
-                group-hover:translate-x-1
-              "
-            />
+            <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
           </Link>
         </div>
       </div>

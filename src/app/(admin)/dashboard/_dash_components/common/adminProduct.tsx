@@ -58,7 +58,7 @@ const ProductAdmin = ({ item }: { item: AdminProductItem }) => {
   };
 
   return (
-    <article className="group w-full  overflow-hidden rounded-xl border border-green-primary/70 bg-violet-primary/5 p-1.5 text-xs shadow-sm shadow-blue-primary/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-primary/20 hover:ring-2 hover:ring-gray-secondary">
+    <article className="group border-green-primary/70 bg-violet-primary/5 shadow-blue-primary/20 hover:shadow-blue-primary/20 hover:ring-gray-secondary w-full overflow-hidden rounded-xl border p-1.5 text-xs shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:ring-2">
       {/* Actions */}
       <div className="mb-1.5 flex w-full items-center justify-end gap-1.5">
         <Button
@@ -77,7 +77,7 @@ const ProductAdmin = ({ item }: { item: AdminProductItem }) => {
           onClick={handleDelete}
           variant="default"
           size="sm"
-          className="h-8 cursor-pointer bg-red-primary px-2 text-xs dark:text-foreground"
+          className="bg-red-primary dark:text-foreground h-8 cursor-pointer px-2 text-xs"
         >
           <RiDeleteBinFill className="h-3.5 w-3.5" />
           <span>Delete</span>
@@ -87,7 +87,7 @@ const ProductAdmin = ({ item }: { item: AdminProductItem }) => {
       {/* Product Image */}
       <Link
         href={`/products/${item.productCode.toLowerCase()}`}
-        className="relative block aspect-video w-full overflow-hidden rounded-lg border border-gray-secondary/60 bg-background"
+        className="border-gray-secondary/60 bg-background relative block aspect-video w-full overflow-hidden rounded-lg border"
       >
         <Image
           unoptimized
@@ -95,17 +95,17 @@ const ProductAdmin = ({ item }: { item: AdminProductItem }) => {
           alt={item.title}
           sizes="256px"
           fill
-          className="object-contain bg-white transition-transform duration-500 ease-in-out group-hover:scale-110"
+          className="bg-white object-contain transition-transform duration-500 ease-in-out group-hover:scale-110"
         />
 
         {discount > 0 && (
-          <span className="absolute right-1.5 top-1.5 z-20 flex flex-col items-center justify-center rounded-md bg-red-primary px-2 py-1 text-background shadow-sm ring-1 ring-gray-secondary dark:text-foreground">
+          <span className="bg-red-primary text-background ring-gray-secondary dark:text-foreground absolute top-1.5 right-1.5 z-20 flex flex-col items-center justify-center rounded-md px-2 py-1 shadow-sm ring-1">
             <span className="font-bold">{discount}%</span>
             <span className="text-[9px]">OFF</span>
           </span>
         )}
 
-        <span className="absolute bottom-1.5 left-1.5 flex items-center gap-1 rounded-full bg-background/90 px-2 py-1 text-[9px] font-medium text-foreground shadow-sm backdrop-blur">
+        <span className="bg-background/90 text-foreground absolute bottom-1.5 left-1.5 flex items-center gap-1 rounded-full px-2 py-1 text-[9px] font-medium shadow-sm backdrop-blur">
           <Package className="h-3 w-3" />
           {item.images?.length || 0} images
         </span>
@@ -117,14 +117,14 @@ const ProductAdmin = ({ item }: { item: AdminProductItem }) => {
         <div>
           <Link
             href={`/products/${item.productCode.toLowerCase()}`}
-            className="line-clamp-2 text-sm font-semibold leading-5 transition-colors hover:text-primary"
+            className="hover:text-primary line-clamp-2 text-sm leading-5 font-semibold transition-colors"
           >
             {item.title}
           </Link>
 
           <Link
             href={`/c/${item.category?.name?.toLowerCase() ?? ""}`}
-            className="mt-0.5 inline-flex items-center gap-1 text-[11px] font-medium text-gray-secondary transition-colors hover:text-primary"
+            className="text-gray-secondary hover:text-primary mt-0.5 inline-flex items-center gap-1 text-[11px] font-medium transition-colors"
           >
             <Tag className="h-3 w-3" />
             {item.category?.name ?? "Uncategorized"}
@@ -132,20 +132,20 @@ const ProductAdmin = ({ item }: { item: AdminProductItem }) => {
         </div>
 
         {/* Price */}
-        <div className="rounded-md border-y border-border/70 py-1.5">
+        <div className="border-border/70 rounded-md border-y py-1.5">
           <div className="flex items-end justify-between gap-2">
             <div className="min-w-0">
-              <span className="block text-[9px] font-medium uppercase tracking-wider text-gray-secondary">
+              <span className="text-gray-secondary block text-[9px] font-medium tracking-wider uppercase">
                 Selling Price
               </span>
 
               <div className="flex flex-wrap items-baseline gap-1.5">
-                <span className="text-base font-bold text-gray-primary sm:text-lg">
+                <span className="text-gray-primary text-base font-bold sm:text-lg">
                   ৳{finalPrice.toFixed(2)}
                 </span>
 
                 {discount > 0 && (
-                  <span className="text-[10px] font-medium text-gray-secondary line-through">
+                  <span className="text-gray-secondary text-[10px] font-medium line-through">
                     ৳{price.toFixed(2)}
                   </span>
                 )}
@@ -162,7 +162,7 @@ const ProductAdmin = ({ item }: { item: AdminProductItem }) => {
 
         {/* Stock Status */}
         <div className="flex items-center justify-between gap-2">
-          <div className="flex items-center gap-1.5 text-gray-secondary">
+          <div className="text-gray-secondary flex items-center gap-1.5">
             <Boxes className="h-3.5 w-3.5" />
             <span>Inventory</span>
           </div>
@@ -176,16 +176,16 @@ const ProductAdmin = ({ item }: { item: AdminProductItem }) => {
 
         {/* Stock + Brand */}
         <div className="grid grid-cols-2 gap-1.5">
-          <div className="rounded-md bg-muted/40 px-2 py-1.5">
-            <span className="block text-[9px] uppercase tracking-wide text-gray-secondary">
+          <div className="bg-muted/40 rounded-md px-2 py-1.5">
+            <span className="text-gray-secondary block text-[9px] tracking-wide uppercase">
               Stock
             </span>
 
             <span className="block truncate font-semibold">{stock} units</span>
           </div>
 
-          <div className="min-w-0 rounded-md bg-muted/40 px-2 py-1.5">
-            <span className="block text-[9px] uppercase tracking-wide text-gray-secondary">
+          <div className="bg-muted/40 min-w-0 rounded-md px-2 py-1.5">
+            <span className="text-gray-secondary block text-[9px] tracking-wide uppercase">
               Brand
             </span>
 
@@ -196,7 +196,7 @@ const ProductAdmin = ({ item }: { item: AdminProductItem }) => {
         </div>
 
         {/* Product Metadata */}
-        <div className="rounded-md border border-border/60 bg-background/30 px-2 py-1.5">
+        <div className="border-border/60 bg-background/30 rounded-md border px-2 py-1.5">
           <div className="flex items-center justify-between gap-2">
             <span className="text-gray-secondary">Product Code</span>
             <span
@@ -216,14 +216,14 @@ const ProductAdmin = ({ item }: { item: AdminProductItem }) => {
         </div>
 
         {/* Dates */}
-        <div className="border-t border-border/60 pt-1.5 text-[9px] text-gray-secondary">
+        <div className="border-border/60 text-gray-secondary border-t pt-1.5 text-[9px]">
           <div className="flex items-center justify-between gap-2">
             <span className="flex items-center gap-1">
               <CalendarDays className="h-3 w-3" />
               Created
             </span>
 
-            <span className="font-medium text-gray-primary">
+            <span className="text-gray-primary font-medium">
               {new Date(item.createdAt).toLocaleDateString()}
             </span>
           </div>
@@ -234,7 +234,7 @@ const ProductAdmin = ({ item }: { item: AdminProductItem }) => {
               Updated
             </span>
 
-            <span className="font-medium text-gray-primary">
+            <span className="text-gray-primary font-medium">
               {new Date(item.updatedAt).toLocaleDateString()}
             </span>
           </div>

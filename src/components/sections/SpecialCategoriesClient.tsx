@@ -36,17 +36,17 @@ const SpecialCategoriesClient = ({
 
   return (
     <section>
-      <div className=" relative  max-w-384 mx-auto w-full rounded-md p-2 bg-background/30 border ">
-        <div className="flex items-center justify-between flex-wrap gap-2  ">
+      <div className="bg-background/30 relative mx-auto w-full max-w-384 rounded-md border p-2">
+        <div className="flex flex-wrap items-center justify-between gap-2">
           <span className="flex items-center gap-2">
-            <div className="relative text-green-primary">
+            <div className="text-green-primary relative">
               <BiCategory
                 name="category"
-                className="animate-ping absolute fill-yellow-400 opacity-50 h-8 w-8"
+                className="absolute h-8 w-8 animate-ping fill-yellow-400 opacity-50"
               />
               <BiCategory name="category" className="h-8 w-8 fill-yellow-400" />
             </div>
-            <h2 className="font-bold text-lg">Shop By Categories</h2>
+            <h2 className="text-lg font-bold">Shop By Categories</h2>
           </span>
           <span>
             <Button variant={"destructive"} asChild>
@@ -59,19 +59,19 @@ const SpecialCategoriesClient = ({
         </div>
         <div
           ref={scrollContainerRef}
-          className="relative flex items-stretch p-2 h-100  gap-3 w-full scrollbar-none   overflow-x-auto overflow-y-hidden"
+          className="relative flex h-100 w-full scrollbar-none items-stretch gap-3 overflow-x-auto overflow-y-hidden p-2"
         >
           {categories &&
             categories.length > 0 &&
             categories.map(({ name, description, image }, index) => (
               <div
                 key={index}
-                className="min-w-68 w-68 hover:shadow-lg  flex group  rounded-md ring-2 ring-green-primary hover:ring-gray-secondary hover:ring-4 p-2 box-border transition-all hover:-translate-y-0.5"
+                className="group ring-green-primary hover:ring-gray-secondary box-border flex w-68 min-w-68 rounded-md p-2 ring-2 transition-all hover:-translate-y-0.5 hover:shadow-lg hover:ring-4"
               >
-                <div className="flex flex-col w-full h-full  gap-2">
+                <div className="flex h-full w-full flex-col gap-2">
                   <Link
                     href={`/c/${name}`}
-                    className="w-full box-border min-h-60 h-60 relative z-10 inline-block rounded-md border border-gray-primary overflow-hidden"
+                    className="border-gray-primary relative z-10 box-border inline-block h-60 min-h-60 w-full overflow-hidden rounded-md border"
                   >
                     {image ? (
                       <Image
@@ -80,7 +80,7 @@ const SpecialCategoriesClient = ({
                         alt={name}
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         fill
-                        className="object-contain bg-white group-hover:scale-115 object-center w-full h-full cursor-pointer  transition-all duration-500"
+                        className="h-full w-full cursor-pointer bg-white object-contain object-center transition-all duration-500 group-hover:scale-115"
                       />
                     ) : (
                       <TbCategoryPlus
@@ -89,15 +89,15 @@ const SpecialCategoriesClient = ({
                       />
                     )}
                   </Link>
-                  <div className="flex flex-col flex-1 items-start">
+                  <div className="flex flex-1 flex-col items-start">
                     <Link
                       href={`/c/${name}`}
-                      className="text-base font-bold line-clamp-2 cursor-pointer"
+                      className="line-clamp-2 cursor-pointer text-base font-bold"
                     >
                       {name}
                     </Link>
                     {description && (
-                      <span className="line-clamp-2 text-[10px] ">
+                      <span className="line-clamp-2 text-[10px]">
                         Description:{description}
                       </span>
                     )}
@@ -105,10 +105,10 @@ const SpecialCategoriesClient = ({
                   <Button variant={"outline"} asChild>
                     <Link
                       href={`/c/${name}`}
-                      className="text-base font-bold line-clamp-2 cursor-pointer"
+                      className="line-clamp-2 cursor-pointer text-base font-bold"
                     >
                       View Now
-                      <span className="size-5 group-hover:bg-yellow-400  bg-gray-secondary/60 flex-center group-hover:rotate-0 transition-all -rotate-45 rounded-full text-blue-primary">
+                      <span className="bg-gray-secondary/60 flex-center text-blue-primary size-5 -rotate-45 rounded-full transition-all group-hover:rotate-0 group-hover:bg-yellow-400">
                         <ArrowRight size={3.3} className="" />
                       </span>
                     </Link>
@@ -117,10 +117,10 @@ const SpecialCategoriesClient = ({
               </div>
             ))}
         </div>
-        <div className="text-4xl  font-bold flex-center">
+        <div className="flex-center text-4xl font-bold">
           <button
             onClick={() => scroll("left")}
-            className="showPrevSlide absolute left-0 top-1/2 z-20  bg-gray-secondary/50 rounded-md px-2 py-3 backdrop-blur-sm"
+            className="showPrevSlide bg-gray-secondary/50 absolute top-1/2 left-0 z-20 rounded-md px-2 py-3 backdrop-blur-sm"
           >
             <ChevronLeft className="" />
           </button>
@@ -128,7 +128,7 @@ const SpecialCategoriesClient = ({
             onClick={() => {
               scroll("right");
             }}
-            className="showPrevSlide absolute right-0 top-1/2 z-20  bg-gray-secondary/50 rounded-md px-2 py-3  backdrop-blur-sm"
+            className="showPrevSlide bg-gray-secondary/50 absolute top-1/2 right-0 z-20 rounded-md px-2 py-3 backdrop-blur-sm"
           >
             <ChevronRight />
           </button>

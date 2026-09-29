@@ -184,14 +184,14 @@ export default function AdminDashboardPage({
   };
 
   return (
-    <main className="mx-auto w-full  space-y-6 p-3">
+    <main className="mx-auto w-full space-y-6 p-3">
       {/* ============================================================
           HEADER
       ============================================================ */}
 
       <section className="flex flex-col lg:items-center lg:justify-between">
-        <div className="flex justify-between items-center w-full">
-          <div className="mb-2 flex items-center gap-2 text-sm text-muted-foreground">
+        <div className="flex w-full items-center justify-between">
+          <div className="text-muted-foreground mb-2 flex items-center gap-2 text-sm">
             <Store className="h-4 w-4" />
             <span>ST Office Furniture</span>
             <ChevronRight className="h-4 w-4" />
@@ -201,7 +201,7 @@ export default function AdminDashboardPage({
             <Clock />
           </div>
         </div>
-        <div className="flex justify-between items-center w-full">
+        <div className="flex w-full items-center justify-between">
           <div className="">
             <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
               {getGreeting()},{" "}
@@ -211,18 +211,22 @@ export default function AdminDashboardPage({
               👋
             </h1>
 
-            <p className="mt-1 text-sm text-muted-foreground">
+            <p className="text-muted-foreground mt-1 text-sm">
               Here&apos;s what&apos;s happening with your store today.
             </p>
           </div>
 
           <div className="flex flex-wrap gap-2">
-            <Button onClick={() => router.refresh()} variant="outline">
+            <Button
+              name={"refresh"}
+              onClick={() => router.refresh()}
+              variant="outline"
+            >
               <RefreshCcw className="mr-2 h-4 w-4" />
               Refresh
             </Button>
 
-            <Button asChild>
+            <Button name={"add product"} asChild>
               <Link href="/dashboard/products/add">
                 <Plus className="mr-2 h-4 w-4" />
                 Add Product
@@ -298,13 +302,13 @@ export default function AdminDashboardPage({
             <div>
               <CardTitle>Revenue Overview</CardTitle>
 
-              <p className="mt-1 text-sm text-muted-foreground">
+              <p className="text-muted-foreground mt-1 text-sm">
                 Monthly revenue performance
               </p>
             </div>
 
-            <Button variant="outline" size="sm">
-              <CalendarDays className="mr-2 h-4 w-4 " />
+            <Button name={"this year"} variant="outline" size="sm">
+              <CalendarDays className="mr-2 h-4 w-4" />
               This Year
             </Button>
           </CardHeader>
@@ -322,14 +326,14 @@ export default function AdminDashboardPage({
                 </p>
               </div>
 
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <div className="text-muted-foreground flex items-center gap-2 text-sm">
                 <div className="h-2.5 w-2.5 rounded-full bg-blue-500" />
                 Revenue
               </div>
             </div>
 
             {/* Simple chart */}
-            <div className="flex h-70  items-end gap-2 overflow-hidden border-b pb-0 sm:gap-3">
+            <div className="flex h-70 items-end gap-2 overflow-hidden border-b pb-0 sm:gap-3">
               {/* {salesData.map((item) => {
                 const height = `${Math.max((item.total_sales / maxSales) * 100, 8)}%`;
 
@@ -367,7 +371,7 @@ export default function AdminDashboardPage({
           <CardHeader>
             <CardTitle>Order Status</CardTitle>
 
-            <p className="text-sm text-muted-foreground">
+            <p className="text-muted-foreground text-sm">
               Current order distribution
             </p>
           </CardHeader>
@@ -402,7 +406,7 @@ export default function AdminDashboardPage({
         <div className="mb-4">
           <h2 className="text-lg font-semibold">Store Performance</h2>
 
-          <p className="text-sm text-muted-foreground">
+          <p className="text-muted-foreground text-sm">
             Key metrics from your store
           </p>
         </div>
@@ -447,12 +451,12 @@ export default function AdminDashboardPage({
           <div>
             <CardTitle>Recent Orders</CardTitle>
 
-            <p className="mt-1 text-sm text-muted-foreground">
+            <p className="text-muted-foreground mt-1 text-sm">
               Latest orders from your customers
             </p>
           </div>
 
-          <Button asChild variant="outline" size="sm">
+          <Button name={"view all orders"} asChild variant="outline" size="sm">
             <Link href="/dashboard/orders">
               View All Orders
               <ArrowRight className="ml-2 h-4 w-4" />
@@ -490,13 +494,13 @@ export default function AdminDashboardPage({
                       <div>
                         <p className="font-medium">{order.customer}</p>
 
-                        <p className="text-xs text-muted-foreground">
+                        <p className="text-muted-foreground text-xs">
                           {order.email}
                         </p>
                       </div>
                     </TableCell>
 
-                    <TableCell className="whitespace-nowrap text-muted-foreground">
+                    <TableCell className="text-muted-foreground whitespace-nowrap">
                       {order.date}
                     </TableCell>
 
@@ -509,7 +513,12 @@ export default function AdminDashboardPage({
                     </TableCell>
 
                     <TableCell>
-                      <Button asChild variant="ghost" size="icon">
+                      <Button
+                        name={"view order"}
+                        asChild
+                        variant="ghost"
+                        size="icon"
+                      >
                         <Link href={`/dashboard/orders/${order.id}`}>
                           <Eye className="h-4 w-4" />
                         </Link>
@@ -534,12 +543,12 @@ export default function AdminDashboardPage({
             <div>
               <CardTitle>Top Selling Products</CardTitle>
 
-              <p className="mt-1 text-sm text-muted-foreground">
+              <p className="text-muted-foreground mt-1 text-sm">
                 Products generating the most sales
               </p>
             </div>
 
-            <Button asChild variant="ghost" size="icon">
+            <Button name={"more"} asChild variant="ghost" size="icon">
               <Link href="/dashboard/products">
                 <MoreHorizontal className="h-5 w-5" />
               </Link>
@@ -550,9 +559,9 @@ export default function AdminDashboardPage({
             {topProducts.map((product, index) => (
               <div
                 key={product.id}
-                className={`flex  items-center gap-3 rounded-xl border p-3 transition-colors hover:bg-muted/40 ${index === 0 ? "bg-violet-primary/20" : ""} ${index === 1 ? "bg-violet-primary/10" : ""} ${index === 2 ? "bg-violet-primary/5" : ""}`}
+                className={`hover:bg-muted/40 flex items-center gap-3 rounded-xl border p-3 transition-colors ${index === 0 ? "bg-violet-primary/20" : ""} ${index === 1 ? "bg-violet-primary/10" : ""} ${index === 2 ? "bg-violet-primary/5" : ""}`}
               >
-                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-muted text-xs font-bold">
+                <div className="bg-muted flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-xs font-bold">
                   #{index + 1}
                 </div>
 
@@ -564,7 +573,7 @@ export default function AdminDashboardPage({
                     {product.name}
                   </Link>
 
-                  <p className="mt-1 text-xs text-muted-foreground">
+                  <p className="text-muted-foreground mt-1 text-xs">
                     {product.code} • {product.category}
                   </p>
                 </div>
@@ -577,7 +586,7 @@ export default function AdminDashboardPage({
                     </span>
                   </div>
 
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-muted-foreground text-xs">
                     {product.sold} sold
                   </p>
                 </div>
@@ -608,7 +617,7 @@ export default function AdminDashboardPage({
             <div>
               <CardTitle>Low Stock</CardTitle>
 
-              <p className="mt-1 text-sm text-muted-foreground">
+              <p className="text-muted-foreground mt-1 text-sm">
                 Products requiring attention
               </p>
             </div>
@@ -624,7 +633,7 @@ export default function AdminDashboardPage({
                 <div key={product.id}>
                   <div className="mb-2 flex items-start justify-between gap-3">
                     <div className="min-w-0">
-                      <Button variant={"link"} asChild>
+                      <Button name={product.name} variant={"link"} asChild>
                         <Link
                           href={`/products/${product.code}`}
                           className="line-clamp-1 text-sm font-medium"
@@ -633,7 +642,7 @@ export default function AdminDashboardPage({
                         </Link>
                       </Button>
 
-                      <p className="text-xs text-muted-foreground">
+                      <p className="text-muted-foreground text-xs">
                         {product.code}
                       </p>
                     </div>
@@ -648,7 +657,12 @@ export default function AdminDashboardPage({
               );
             })}
 
-            <Button asChild variant="outline" className="mt-2 w-full">
+            <Button
+              name={"manage inventory"}
+              asChild
+              variant="outline"
+              className="mt-2 w-full"
+            >
               <Link href="/dashboard/products?filter=low-stock">
                 Manage Inventory
                 <ChevronRight className="ml-2 h-4 w-4" />
@@ -668,7 +682,7 @@ export default function AdminDashboardPage({
           <CardHeader>
             <CardTitle>Recent Activity</CardTitle>
 
-            <p className="text-sm text-muted-foreground">
+            <p className="text-muted-foreground text-sm">
               Latest activity across your store
             </p>
           </CardHeader>
@@ -681,7 +695,7 @@ export default function AdminDashboardPage({
                     <ActivityIcon type={activity.type} />
 
                     {index !== recentActivities.length - 1 && (
-                      <div className="absolute left-1/2 top-10 h-full w-px -translate-x-1/2 bg-border" />
+                      <div className="bg-border absolute top-10 left-1/2 h-full w-px -translate-x-1/2" />
                     )}
                   </div>
 
@@ -689,12 +703,12 @@ export default function AdminDashboardPage({
                     <div className="flex flex-col justify-between gap-1 sm:flex-row">
                       <p className="text-sm font-semibold">{activity.title}</p>
 
-                      <span className="text-xs text-muted-foreground">
+                      <span className="text-muted-foreground text-xs">
                         {new Date(activity.createdAt).toDateString()}
                       </span>
                     </div>
 
-                    <p className="mt-1 text-sm text-muted-foreground">
+                    <p className="text-muted-foreground mt-1 text-sm">
                       {activity.description}
                     </p>
                   </div>
@@ -709,7 +723,7 @@ export default function AdminDashboardPage({
           <CardHeader>
             <CardTitle>Quick Actions</CardTitle>
 
-            <p className="text-sm text-muted-foreground">
+            <p className="text-muted-foreground text-sm">
               Frequently used administration tools
             </p>
           </CardHeader>
@@ -764,7 +778,7 @@ export default function AdminDashboardPage({
             <div>
               <CardTitle>System Status</CardTitle>
 
-              <p className="mt-1 text-sm text-muted-foreground">
+              <p className="text-muted-foreground mt-1 text-sm">
                 Current health of your application services
               </p>
             </div>
@@ -836,11 +850,12 @@ function SummaryCard({
     <Card className="group transition-all hover:-translate-y-0.5 hover:shadow-md">
       <CardContent className="p-5">
         <div className="flex items-start justify-between">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-primary/10 text-blue-primary">
+          <div className="bg-blue-primary/10 text-blue-primary flex h-10 w-10 items-center justify-center rounded-xl">
             <Icon name={title} className="h-5 w-5" />
           </div>
 
           <Button
+            name={"view more"}
             asChild
             variant="ghost"
             size="icon"
@@ -852,7 +867,7 @@ function SummaryCard({
           </Button>
         </div>
 
-        <p className="mt-4 text-sm text-muted-foreground">{title}</p>
+        <p className="text-muted-foreground mt-4 text-sm">{title}</p>
 
         <p className="mt-1 text-2xl font-bold tracking-tight">{value}</p>
 
@@ -880,18 +895,18 @@ function MetricCard({
     <Card>
       <CardContent className="p-5">
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-muted">
+          <div className="bg-muted flex h-10 w-10 items-center justify-center rounded-xl">
             <Icon className="h-5 w-5" />
           </div>
 
           <div className="min-w-0">
-            <p className="text-xs text-muted-foreground">{title}</p>
+            <p className="text-muted-foreground text-xs">{title}</p>
 
             <p className="mt-0.5 text-xl font-bold">{value}</p>
           </div>
         </div>
 
-        <p className="mt-3 text-xs text-muted-foreground">{description}</p>
+        <p className="text-muted-foreground mt-3 text-xs">{description}</p>
       </CardContent>
     </Card>
   );
@@ -929,7 +944,7 @@ function AlertCard({
       <div className="min-w-0">
         <p className="text-sm font-semibold">{title}</p>
 
-        <p className="mt-1 text-xs leading-5 text-muted-foreground">
+        <p className="text-muted-foreground mt-1 text-xs leading-5">
           {description}
         </p>
       </div>
@@ -1042,15 +1057,20 @@ function QuickAction({
   title: string;
 }) {
   return (
-    <Button asChild variant="ghost" className="h-auto justify-start p-3">
+    <Button
+      name={title}
+      asChild
+      variant="ghost"
+      className="h-auto justify-start p-3"
+    >
       <Link href={href}>
-        <div className="mr-3 flex h-9 w-9 items-center justify-center rounded-lg bg-muted">
+        <div className="bg-muted mr-3 flex h-9 w-9 items-center justify-center rounded-lg">
           <Icon className="h-4 w-4" />
         </div>
 
         <span className="flex-1 text-left">{title}</span>
 
-        <ChevronRight className="h-4 w-4 text-muted-foreground" />
+        <ChevronRight className="text-muted-foreground h-4 w-4" />
       </Link>
     </Button>
   );
@@ -1069,14 +1089,14 @@ function SystemStatus({
 }) {
   return (
     <div className="flex items-center gap-3 rounded-xl border p-4">
-      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-muted">
+      <div className="bg-muted flex h-10 w-10 shrink-0 items-center justify-center rounded-lg">
         <Icon className="h-4 w-4" />
       </div>
 
       <div className="min-w-0 flex-1">
         <p className="text-sm font-semibold">{title}</p>
 
-        <p className="text-xs text-muted-foreground">{description}</p>
+        <p className="text-muted-foreground text-xs">{description}</p>
       </div>
 
       <div className="flex items-center gap-1.5 text-xs font-medium text-green-600">

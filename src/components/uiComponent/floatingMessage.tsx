@@ -11,36 +11,32 @@ const FloatingMessage = ({}) => {
       {/* Floating Action Button (FAB) */}
       <div
         onClick={() => setShowMessagesBar((e) => !e)}
-        className={`fixed bottom-16 right-4 md:bottom-8  md:right-8   z-50 p-2 h-14 w-14 bg-green-600 border border-gray-primary hover:bg-green-800 flex-center rounded-full cursor-pointer
-      transition-all duration-300 ease-in-out
-      ${showMessagesBar ? "opacity-0 scale-50 pointer-events-none invisible" : "opacity-100 scale-100 visible"}`}
+        className={`border-gray-primary flex-center fixed right-4 bottom-16 z-50 h-14 w-14 cursor-pointer rounded-full border bg-green-600 p-2 transition-all duration-300 ease-in-out hover:bg-green-800 md:right-8 md:bottom-8 ${showMessagesBar ? "pointer-events-none invisible scale-50 opacity-0" : "visible scale-100 opacity-100"}`}
       >
-        <AiFillMessage className="animate-bounce h-7 w-7 text-background dark:text-foreground" />
+        <AiFillMessage className="text-background dark:text-foreground h-7 w-7 animate-bounce" />
       </div>
 
       {/* Open Bar Options Panel */}
       <div
-        className={`fixed bottom-16 right-4 md:bottom-8  md:right-8 z-50 space-y-3 flex flex-col items-center
-      transition-all duration-300 ease-in-out origin-bottom
-      ${showMessagesBar ? "opacity-100 scale-100 translate-y-0 visible" : "opacity-0 scale-75 translate-y-4 pointer-events-none invisible"}`}
+        className={`fixed right-4 bottom-16 z-50 flex origin-bottom flex-col items-center space-y-3 transition-all duration-300 ease-in-out md:right-8 md:bottom-8 ${showMessagesBar ? "visible translate-y-0 scale-100 opacity-100" : "pointer-events-none invisible translate-y-4 scale-75 opacity-0"}`}
       >
         {ContactInfoFloating &&
           ContactInfoFloating.map(({ href, icon: Icon }, index) => (
             <Link
               target="_blank"
-              className="sm:p-2 p-1 box-border h-14 w-14 bg-green-600 border border-gray-primary hover:bg-green-800 transition-all flex-center rounded-full cursor-pointer"
+              className="border-gray-primary flex-center box-border h-14 w-14 cursor-pointer rounded-full border bg-green-600 p-1 transition-all hover:bg-green-800 sm:p-2"
               href={href}
               key={index}
             >
-              <Icon className="h-7 w-7 text-background dark:text-foreground" />
+              <Icon className="text-background dark:text-foreground h-7 w-7" />
             </Link>
           ))}
 
         <div
           onClick={() => setShowMessagesBar((e) => !e)}
-          className="p-2 h-14 w-14 bg-red-600 border border-gray-primary hover:bg-green-800 transition-all flex-center rounded-full cursor-pointer"
+          className="border-gray-primary flex-center h-14 w-14 cursor-pointer rounded-full border bg-red-600 p-2 transition-all hover:bg-green-800"
         >
-          <IoMdCloseCircle className="h-7 w-7 text-background dark:text-foreground" />
+          <IoMdCloseCircle className="text-background dark:text-foreground h-7 w-7" />
         </div>
       </div>
     </div>

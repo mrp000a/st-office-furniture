@@ -30,6 +30,8 @@ import { OrderStatusBadge } from "@/components/uiComponent/order-status-badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ordersType } from "@/components/data/types";
 import { getImageUrlProduct } from "@/lib/getImageUrl";
+import MobileOrderCard from "./MobileOrderCard";
+import DesktopOrderCard from "./DesktopOrderCard";
 
 const PageOrders = ({
   orders,
@@ -66,9 +68,9 @@ const PageOrders = ({
   return (
     <div className="">
       {/* header */}
-      <div className="flex justify-between items-center flex-wrap relative">
-        <h2 className="text-2xl font-bold font-mono">Orders</h2>
-        <div className="gap-1 flex items-center flex-wrap">
+      <div className="relative flex flex-wrap items-center justify-between">
+        <h2 className="font-mono text-2xl font-bold">Orders</h2>
+        <div className="flex flex-wrap items-center gap-1">
           {/* search bar */}
           <OrdersSearch />
           <Button onClick={() => router.refresh()} variant={"outline"}>
@@ -76,9 +78,9 @@ const PageOrders = ({
           </Button>
         </div>
       </div>
-      <hr className=" inline-block w-full" />
+      <hr className="inline-block w-full" />
       <SearchShowClient />
-      <div className="w-full flex flex-wrap gap-1 md:gap-2 items-center justify-start pb-2">
+      <div className="flex w-full flex-wrap items-center justify-start gap-1 pb-2 md:gap-2">
         {orderStatuses &&
           orderStatuses.map(({ value, label }, index) => (
             <Button
@@ -96,128 +98,36 @@ const PageOrders = ({
       </div>
       {/* main data table */}
       {orders && orders.length > 0 ? (
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Order Id</TableHead>
-              {/* <TableHead>Order Id</TableHead> */}
-              <TableHead>Customer</TableHead>
-              {/* <TableHead>User Email</TableHead> */}
-              <TableHead>Address</TableHead>
-              <TableHead>Items</TableHead>
-              <TableHead>Total</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Date</TableHead>
-              <TableHead>Buttons</TableHead>
-            </TableRow>
-          </TableHeader>
+        <>
+          {/* desktop order */}
+          <Table className="max-lg:hidden">
+            <TableHeader>
+              <TableRow>
+                <TableHead>Order Id</TableHead>
+                {/* <TableHead>Order Id</TableHead> */}
+                <TableHead>Customer</TableHead>
+                {/* <TableHead>User Email</TableHead> */}
+                <TableHead>Address</TableHead>
+                <TableHead>Items</TableHead>
+                <TableHead>Total</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Date</TableHead>
+                <TableHead>Buttons</TableHead>
+              </TableRow>
+            </TableHeader>
 
-          <TableBody className="">
-            {orders.map(
-              (
-                {
-                  id,
-                  receiverName,
-                  receiverEmail,
-                  receiverPhone,
-                  address,
-                  user,
-                  status,
-                  total,
-                  _count,
-                  createdAt,
-                  publicId,
-                },
-                index,
-              ) => (
-                <TableRow key={index} className="">
-                  <TableCell className="font-medium">#{id}</TableCell>
-
-                  <TableCell>
-                    <div className="flex items-center justify-start  gap-1">
-                      <span className="min-w-6 max-w-6  min-h-6 max-h-6 relative z-10 inline-block rounded-full  overflow-hidden">
-                        <Avatar className="size-6">
-                          <AvatarImage src={getImageUrlProduct(user?.image)} />
-                          <AvatarFallback>
-                            {receiverName?.charAt(0).toUpperCase() ?? "U"}
-                          </AvatarFallback>
-                        </Avatar>
-                      </span>
-                      <div>
-                        <p className="font-medium">{receiverName}</p>
-                        <div className="text-[10px] flex flex-wrap items-center gap-x-2">
-                          <p className=" text-muted-foreground">
-                            {receiverEmail}
-                          </p>
-                          <p className=" text-muted-foreground">
-                            {receiverPhone}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </TableCell>
-
-                  {/* <TableCell>{user?.email ?? "N/A"}</TableCell> */}
-                  <TableCell>
-                    <p className="max-w-60 min-w-48 whitespace-normal wrap-break-word">
-                      {address ?? "N/A"}
-                    </p>
-                  </TableCell>
-                  <TableCell>{Number(_count.items)}</TableCell>
-
-                  <TableCell>৳{Number(total).toLocaleString()}</TableCell>
-
-                  <TableCell>
-                    <OrderStatusBadge status={status} />
-                  </TableCell>
-
-                  <TableCell>
-                    {new Date(createdAt).toISOString().split(".")[0]}
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex items-center gap-2">
-                      <Button
-                        // onClick={() => setOpenEditOrder(true)}
-                        variant={"destructive"}
-                        size={"icon"}
-                        asChild
-                      >
-                        <Link href={`/dashboard/orders/${id}`}>
-                          <Edit3Icon />
-                        </Link>
-                      </Button>
-                      <Button
-                        onClick={async () => {
-                          const isConfirm = await confirm({
-                            confirmText: "Delete",
-                            description:
-                              "Are you sure? The item will be deleted!",
-                            title: "This action can't be undone!",
-                          });
-                          if (!isConfirm) return;
-                          await deleteOrder({
-                            id: id,
-                          });
-                          console.log("Order Deleted!");
-                          // if (loadOrder) loadOrder();
-                          router.refresh();
-                        }}
-                        size={"icon"}
-                        variant={"default"}
-                        className="bg-green-primary cursor-pointer"
-                      >
-                        <RiDeleteBin6Fill />
-                      </Button>
-                      <Button asChild>
-                        <Link href={`/order/${publicId}`}>View</Link>
-                      </Button>
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ),
-            )}
-          </TableBody>
-        </Table>
+            <TableBody className="">
+              {orders.map((item, index) => (
+                <DesktopOrderCard key={index} order={item} />
+              ))}
+            </TableBody>
+          </Table>
+          <div className="space-y-2 lg:hidden">
+            {orders.map((item, index) => (
+              <MobileOrderCard key={index} order={item} />
+            ))}
+          </div>
+        </>
       ) : (
         <NoItemsFound />
       )}

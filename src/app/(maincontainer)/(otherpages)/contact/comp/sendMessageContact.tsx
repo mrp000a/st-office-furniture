@@ -9,7 +9,7 @@ const SendMessageContact = () => {
       <div className="grid gap-12 lg:grid-cols-[0.75fr_1.25fr] lg:gap-20">
         {/* Left information */}
         <div>
-          <span className="text-xs font-bold uppercase tracking-[0.2em] text-green-primary">
+          <span className="text-green-primary text-xs font-bold tracking-[0.2em] uppercase">
             Send Us a Message
           </span>
 
@@ -17,7 +17,7 @@ const SendMessageContact = () => {
             How can we help?
           </h2>
 
-          <p className="mt-5 text-sm leading-7 text-gray-primary sm:text-base">
+          <p className="text-gray-primary mt-5 text-sm leading-7 sm:text-base">
             Tell us what you need and our team will get back to you with the
             information you need.
           </p>
@@ -41,7 +41,7 @@ const SendMessageContact = () => {
               description="Planning an office setup? Contact us with your furniture requirements."
             />
           </div>
-          <div className="w-full mt-5">
+          <div className="mt-5 w-full">
             <BrandCard />
           </div>
         </div>
@@ -66,14 +66,14 @@ function ContactInfo({
 }) {
   return (
     <div className="flex gap-4">
-      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-green-primary/10">
-        <Icon className="h-4 w-4 text-green-primary" />
+      <div className="bg-green-primary/10 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg">
+        <Icon className="text-green-primary h-4 w-4" />
       </div>
 
       <div>
         <h3 className="text-sm font-semibold">{title}</h3>
 
-        <p className="mt-1 text-sm leading-6 text-gray-primary">
+        <p className="text-gray-primary mt-1 text-sm leading-6">
           {description}
         </p>
       </div>

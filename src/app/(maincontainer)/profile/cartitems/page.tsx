@@ -1,6 +1,5 @@
 "use client";
 
-
 import { ProductDefaultImage } from "@/components/data/core";
 import { Button } from "@/components/ui/button";
 import { CartProductItemOrder } from "@/components/uiComponent/CartRelated";
@@ -22,23 +21,23 @@ const CartItems = () => {
           <div>
             <h1 className="text-2xl font-bold tracking-tight">Cart</h1>
 
-            <p className="mt-1 text-sm text-muted-foreground">
+            <p className="text-muted-foreground mt-1 text-sm">
               View your the product you added to the cart.
             </p>
           </div>
 
-          <div className="flex items-center gap-2 rounded-lg border bg-card px-4 py-2">
-            <ShoppingCart className="size-5 text-primary" />
+          <div className="bg-card flex items-center gap-2 rounded-lg border px-4 py-2">
+            <ShoppingCart className="text-primary size-5" />
             <p>{cart?.items.length ?? 0}</p>
           </div>
         </div>
 
         <hr />
         {/* main items */}
-        <div className="py-3  h-full max-h-110 w-full  overflow-x-hidden overflow-y-auto  max-w-full  flex flex-col  gap-3 box-border">
+        <div className="box-border flex h-full max-h-110 w-full max-w-full flex-col gap-3 overflow-x-hidden overflow-y-auto py-3">
           {cart && cart.items.length > 0 ? (
             cart.items.map(({ title, product, qty, id }, index) => (
-              <div key={index} className="w-full flex flex-col">
+              <div key={index} className="flex w-full flex-col">
                 <CartProductItemOrder
                   deleteCartItem={handleDeleteCartItem}
                   id={id ? id : 0}
@@ -55,13 +54,13 @@ const CartItems = () => {
           ) : (
             <>
               <NoItemsFound />
-              <Button asChild className="w-fit mx-auto">
+              <Button asChild className="mx-auto w-fit">
                 <Link href={"/products"}>Continue Shopping</Link>
               </Button>
             </>
           )}
         </div>
-        <div className="w-full flex items-end justify-end">
+        <div className="flex w-full items-end justify-end">
           <Button asChild>
             <Link href={"/checkout"} className="">
               Checkout

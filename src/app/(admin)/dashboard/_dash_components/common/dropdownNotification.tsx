@@ -26,10 +26,10 @@ export function DropdownMenuNotification() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <button className="relative">
-          <span className="relative rounded-full hover:outline outline-gray-primary/50 transition-all  py-1 hover:bg-background/80">
-            <MdNotifications className="h-8 w-8 text-gray-primary" />
+          <span className="outline-gray-primary/50 hover:bg-background/80 relative rounded-full py-1 transition-all hover:outline">
+            <MdNotifications className="text-gray-primary h-8 w-8" />
             <span className="absolute top-0 right-1">
-              <GoDotFill className="rounded-full text-green-primary" />
+              <GoDotFill className="text-green-primary rounded-full" />
             </span>
           </span>
         </button>

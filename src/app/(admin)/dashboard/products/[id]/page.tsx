@@ -336,10 +336,10 @@ const PageEditProduct = ({
   };
 
   return (
-    <div className="w-full min-h-[calc(100vh - 300px)] flex-center flex-col space-y-1">
-      <div className="flex justify-between items-center flex-wrap box-border w-full">
-        <h2 className="text-2xl font-bold font-mono">Products</h2>
-        <div className="gap-1 flex items-center flex-wrap">
+    <div className="min-h-[calc(100vh - 300px)] flex-center w-full flex-col space-y-1">
+      <div className="box-border flex w-full flex-wrap items-center justify-between">
+        <h2 className="font-mono text-2xl font-bold">Products</h2>
+        <div className="flex flex-wrap items-center gap-1">
           <Button variant={"default"} asChild>
             <Link href={"/dashboard/products/add"}>
               <CirclePlus /> <span>Add </span>
@@ -355,12 +355,12 @@ const PageEditProduct = ({
         <h3 className="text-lg font-semibold">Edit Product</h3>
       </div>
       {productCode && item ? (
-        <div className="rounded-md   w-full">
+        <div className="w-full rounded-md">
           <form onSubmit={handleSubmit(handleSubmitData)}>
-            <div className=" flex flex-col gap-2">
+            <div className="flex flex-col gap-2">
               {/* sec1  title  and code */}
-              <div className="flex items-start justify-between gap-4 flex-col sm:flex-row">
-                <div className="grid grid-cols-1 space-y-1 flex-1 w-full">
+              <div className="flex flex-col items-start justify-between gap-4 sm:flex-row">
+                <div className="grid w-full flex-1 grid-cols-1 space-y-1">
                   <label htmlFor="title">Title:</label>
                   <Input
                     id="title"
@@ -379,7 +379,7 @@ const PageEditProduct = ({
                     </InputErrorMessage>
                   )}
                 </div>
-                <div className="grid grid-cols-1 space-y-1 flex-1 w-full">
+                <div className="grid w-full flex-1 grid-cols-1 space-y-1">
                   <label htmlFor="code">Product Code:</label>
                   <Input
                     disabled
@@ -408,8 +408,8 @@ const PageEditProduct = ({
               </div>
 
               {/* sec2 --- category & brand  */}
-              <div className="flex items-start justify-between gap-4 flex-col sm:flex-row">
-                <div className="grid grid-cols-1 space-y-1 flex-1 w-full">
+              <div className="flex flex-col items-start justify-between gap-4 sm:flex-row">
+                <div className="grid w-full flex-1 grid-cols-1 space-y-1">
                   <label htmlFor="batchId">Select Product Category:</label>
                   <Controller
                     control={control}
@@ -448,7 +448,7 @@ const PageEditProduct = ({
                     </InputErrorMessage>
                   )}
                 </div>
-                <div className="grid grid-cols-1 space-y-1 flex-1 w-full">
+                <div className="grid w-full flex-1 grid-cols-1 space-y-1">
                   <label htmlFor="brand">Brand:</label>
                   <Input
                     placeholder="Enter Brand Name"
@@ -470,8 +470,8 @@ const PageEditProduct = ({
               </div>
 
               {/* sec 3 -- images and key features */}
-              <div className="flex items-start box-border gap-4 flex-col sm:flex-row w-full">
-                <div className="flex flex-col justify-between  items-start space-y-1 flex-1  w-full">
+              <div className="box-border flex w-full flex-col items-start gap-4 sm:flex-row">
+                <div className="flex w-full flex-1 flex-col items-start justify-between space-y-1">
                   <div className="flex-center gap-3">
                     <label htmlFor="image">Images:</label>
                     <Popover>
@@ -490,7 +490,7 @@ const PageEditProduct = ({
                       </PopoverContent>
                     </Popover>
                   </div>
-                  <div className="border  rounded-md p-1 space-y-1 w-full">
+                  <div className="w-full space-y-1 rounded-md border p-1">
                     <div className="">
                       {/* item &&
                       item.images &&
@@ -500,10 +500,10 @@ const PageEditProduct = ({
                         formValues.oldImages.length > 0 &&
                         formValues.oldImages.map((item, index) => (
                           <div
-                            className="flex flex-wrap justify-between gap-2 items-center"
+                            className="flex flex-wrap items-center justify-between gap-2"
                             key={index}
                           >
-                            <div className="relative w-8 h-8">
+                            <div className="relative h-8 w-8">
                               <Image
                                 unoptimized
                                 fill
@@ -517,7 +517,7 @@ const PageEditProduct = ({
                             <Button
                               type="button"
                               onClick={() => removeExistingImage(index)}
-                              className="flex items-center gap-1 bg-green-primary"
+                              className="bg-green-primary flex items-center gap-1"
                             >
                               <RiDeleteBinFill />
                               {/* <span>Delete</span> */}
@@ -527,9 +527,9 @@ const PageEditProduct = ({
                     </div>
                     {imageFields.map((item, index) => (
                       <div key={index} className="w-full">
-                        <div className="flex items-center gap-2 justify-between">
+                        <div className="flex items-center justify-between gap-2">
                           <input
-                            className="block w-full outline rounded-md   text-sm text-gray-primary file:mr-2 file:p-1 file:rounded-full file:px-2 file:border file:text-xs "
+                            className="text-gray-primary block w-full rounded-md text-sm outline file:mr-2 file:rounded-full file:border file:p-1 file:px-2 file:text-xs"
                             placeholder="Upload Image"
                             accept={"images/*"}
                             id={`title-${index}`}
@@ -588,14 +588,14 @@ const PageEditProduct = ({
                     <CirclePlus /> Add More
                   </Button>
                 </div>
-                <div className="flex justify-between items-start   flex-col space-y-1 flex-1  w-full">
+                <div className="flex w-full flex-1 flex-col items-start justify-between space-y-1">
                   <label htmlFor="role">Key Features:</label>
-                  <div className="border w-full  rounded-md p-1 space-y-1">
+                  <div className="w-full space-y-1 rounded-md border p-1">
                     {keyFeaturesFields.map((item, index) => (
                       <div key={index} className="w-full">
                         <div className="flex items-center justify-between gap-2">
                           <Input
-                            className="block w-full text-sm text-gray-primary file:mr-2 file:p-1 file:rounded-full file:px-2 file:border file:text-xs "
+                            className="text-gray-primary block w-full text-sm file:mr-2 file:rounded-full file:border file:p-1 file:px-2 file:text-xs"
                             placeholder="Enter Key Feature"
                             id={`title-${index}`}
                             type="text"
@@ -642,13 +642,13 @@ const PageEditProduct = ({
               </div>
 
               {/* sec4 - descriptions  */}
-              <div className="grid-cols-1 space-y-1 items-start gap-3">
+              <div className="grid-cols-1 items-start gap-3 space-y-1">
                 <label htmlFor="description">Descriptions:</label>
-                <div className="border w-full  rounded-md p-1 space-y-1">
+                <div className="w-full space-y-1 rounded-md border p-1">
                   {descriptionsFields.map((item, index) => (
                     <div key={index}>
-                      <div className="flex items-start justify-between gap-1 flex-col sm:flex-row">
-                        <div className="grid grid-cols-1 space-y-1 flex-1 w-full">
+                      <div className="flex flex-col items-start justify-between gap-1 sm:flex-row">
+                        <div className="grid w-full flex-1 grid-cols-1 space-y-1">
                           <Input
                             id={`title-${index}`}
                             placeholder="Enter title"
@@ -673,7 +673,7 @@ const PageEditProduct = ({
                           )}
                         </div>
                         <div
-                          className="grid grid-cols-1 space-y-1 flex-1 w-full"
+                          className="grid w-full flex-1 grid-cols-1 space-y-1"
                           key={index}
                         >
                           <Textarea
@@ -708,7 +708,7 @@ const PageEditProduct = ({
                           <RiDeleteBinFill />
                         </Button>
                       </div>
-                      <hr className="p-[0.5px] my-2 bg-gray-secondary/80 sm:hidden " />
+                      <hr className="bg-gray-secondary/80 my-2 p-[0.5px] sm:hidden" />
                     </div>
                   ))}
                 </div>
@@ -725,8 +725,8 @@ const PageEditProduct = ({
               </div>
 
               {/* sec 5 --- price & discount price */}
-              <div className="flex items-start justify-between gap-4 flex-col sm:flex-row">
-                <div className="grid grid-cols-1 space-y-1 flex-1 w-full">
+              <div className="flex flex-col items-start justify-between gap-4 sm:flex-row">
+                <div className="grid w-full flex-1 grid-cols-1 space-y-1">
                   <label htmlFor="price">Price:</label>
                   <Input
                     id="price"
@@ -745,7 +745,7 @@ const PageEditProduct = ({
                     </InputErrorMessage>
                   )}
                 </div>
-                <div className="grid grid-cols-1 space-y-1 flex-1 w-full">
+                <div className="grid w-full flex-1 grid-cols-1 space-y-1">
                   <label htmlFor="discountPrice">Discount Price:</label>
                   <Input
                     id="discountPrice"
@@ -767,8 +767,8 @@ const PageEditProduct = ({
               </div>
 
               {/* sec 6 --- discount & stock */}
-              <div className="flex items-start justify-between gap-4 flex-col sm:flex-row">
-                <div className="grid grid-cols-1 space-y-1 flex-1 w-full">
+              <div className="flex flex-col items-start justify-between gap-4 sm:flex-row">
+                <div className="grid w-full flex-1 grid-cols-1 space-y-1">
                   <label htmlFor="discount">Discount:</label>
                   <Input
                     id="discount"
@@ -787,7 +787,7 @@ const PageEditProduct = ({
                     </InputErrorMessage>
                   )}
                 </div>
-                <div className="grid grid-cols-1 space-y-1 flex-1 w-full">
+                <div className="grid w-full flex-1 grid-cols-1 space-y-1">
                   <label htmlFor="stock">Stock:</label>
                   <Input
                     id="stock"
@@ -809,7 +809,7 @@ const PageEditProduct = ({
               </div>
             </div>
 
-            <div className="w-full flex gap-3 justify-end flex-wrap pt-4">
+            <div className="flex w-full flex-wrap justify-end gap-3 pt-4">
               <Button
                 onClick={() => setOpenDialog && setOpenDialog(false)}
                 variant="outline"

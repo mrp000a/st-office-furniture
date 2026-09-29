@@ -16,7 +16,7 @@ import SendMessageContact from "./(otherpages)/contact/comp/sendMessageContact";
 
 const Page = () => {
   return (
-    <div className="w-full  mx-auto">
+    <div className="mx-auto w-full">
       <HeroSectionA />
       <FeaturedProducts />
       <SpecialCategories />
@@ -26,9 +26,9 @@ const Page = () => {
       <WorkspaceSolutions />
       <NewArivalsProducts />
       <ReviewsSection />
-      <div className="py-6 bg-violet-primary/20">
-        <div className="text-center mb-5">
-          <span className="text-xs font-bold uppercase tracking-[0.2em] text-green-primary">
+      <div className="bg-violet-primary/20 py-6">
+        <div className="mb-5 text-center">
+          <span className="text-green-primary text-xs font-bold tracking-[0.2em] uppercase">
             FAQ
           </span>
 

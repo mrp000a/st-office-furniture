@@ -25,9 +25,12 @@ export default function Clock() {
   }, []);
 
   return (
-    <Badge variant={"outline"} className="min-w-45 relative flex justify-between items-center pl-4 bg-red-primary/10 font-medium">
-      <span className="size-2 bg-red-primary animate-ping absolute left-1 rounded-full"></span>
-      <span className="size-2 bg-red-primary  absolute left-1 rounded-full"></span>
+    <Badge
+      variant={"outline"}
+      className="bg-red-primary/10 relative flex min-w-45 items-center justify-between pl-4 font-medium"
+    >
+      <span className="bg-red-primary absolute left-1 size-2 animate-ping rounded-full"></span>
+      <span className="bg-red-primary absolute left-1 size-2 rounded-full"></span>
       <div>{new Date().toDateString()}</div>
       <span>{time}</span>
     </Badge>

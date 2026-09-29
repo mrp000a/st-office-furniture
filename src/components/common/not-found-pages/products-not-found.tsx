@@ -24,7 +24,7 @@ export default function ProductsNotFound({
   const isSearch = Boolean(searchQuery);
 
   return (
-    <section className="relative isolate flex min-h-155 items-center justify-center overflow-hidden  px-5 py-20">
+    <section className="relative isolate flex min-h-155 items-center justify-center overflow-hidden px-5 py-20">
       {/* Grid */}
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.025] dark:opacity-[0.04]"
@@ -41,12 +41,12 @@ export default function ProductsNotFound({
       <div className="relative z-10 mx-auto w-full max-w-2xl text-center">
         {/* Icon */}
         <div className="mx-auto mb-8">
-          <div className="relative mx-auto flex h-24 w-24 items-center justify-center rounded-[2rem] border border-border bg-card shadow-xl">
+          <div className="border-border bg-card relative mx-auto flex h-24 w-24 items-center justify-center rounded-[2rem] border shadow-xl">
             <div className="absolute inset-0 rounded-[2rem] bg-lime-400/10 blur-xl" />
 
-            <ShoppingBag className="relative h-9 w-9 text-foreground/70" />
+            <ShoppingBag className="text-foreground/70 relative h-9 w-9" />
 
-            <div className="absolute -right-2 -top-2 flex h-8 w-8 items-center justify-center rounded-full border border-border  shadow-lg">
+            <div className="border-border absolute -top-2 -right-2 flex h-8 w-8 items-center justify-center rounded-full border shadow-lg">
               <Sparkles className="h-3.5 w-3.5 text-lime-500" />
             </div>
           </div>
@@ -56,7 +56,7 @@ export default function ProductsNotFound({
         <div>
           {isSearch ? (
             <>
-              <p className="mb-3 text-sm font-medium uppercase tracking-[0.18em] text-muted-foreground">
+              <p className="text-muted-foreground mb-3 text-sm font-medium tracking-[0.18em] uppercase">
                 Search results
               </p>
 
@@ -74,10 +74,10 @@ export default function ProductsNotFound({
         {/* Search query */}
         {searchQuery && (
           <div className="mt-5">
-            <div className="mx-auto inline-flex max-w-full items-center gap-2 rounded-full border border-border bg-muted/50 px-4 py-2 text-sm">
-              <Search className="h-4 w-4 shrink-0 text-muted-foreground" />
+            <div className="border-border bg-muted/50 mx-auto inline-flex max-w-full items-center gap-2 rounded-full border px-4 py-2 text-sm">
+              <Search className="text-muted-foreground h-4 w-4 shrink-0" />
 
-              <span className="truncate text-muted-foreground">
+              <span className="text-muted-foreground truncate">
                 {searchQuery}
               </span>
             </div>
@@ -85,7 +85,7 @@ export default function ProductsNotFound({
         )}
 
         {/* Description */}
-        <p className="mx-auto mt-6 max-w-lg text-sm leading-7 text-muted-foreground sm:text-base">
+        <p className="text-muted-foreground mx-auto mt-6 max-w-lg text-sm leading-7 sm:text-base">
           {description ??
             (isSearch
               ? "Try checking your spelling, using fewer words, or searching for something more general."
@@ -96,7 +96,7 @@ export default function ProductsNotFound({
         <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <Link
             href="/products"
-            className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-foreground px-6 py-3.5 text-sm font-medium text-background shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl sm:w-auto"
+            className="group bg-foreground text-background inline-flex w-full items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-medium shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl sm:w-auto"
           >
             Explore all products
             <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
@@ -104,7 +104,7 @@ export default function ProductsNotFound({
 
           <Link
             href="/"
-            className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-border bg-background/70 px-6 py-3.5 text-sm font-medium backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:bg-muted sm:w-auto"
+            className="border-border bg-background/70 hover:bg-muted inline-flex w-full items-center justify-center gap-2 rounded-full border px-6 py-3.5 text-sm font-medium backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 sm:w-auto"
           >
             <ArrowLeft className="h-4 w-4" />
             Back to home
@@ -114,7 +114,7 @@ export default function ProductsNotFound({
         {/* Search suggestions */}
         {isSearch && (
           <div className="mt-12">
-            <p className="mb-4 text-xs font-medium uppercase tracking-[0.15em] text-muted-foreground">
+            <p className="text-muted-foreground mb-4 text-xs font-medium tracking-[0.15em] uppercase">
               You could try
             </p>
 
@@ -123,7 +123,7 @@ export default function ProductsNotFound({
                 <Link
                   key={item}
                   href={`/products?search=${encodeURIComponent(item)}`}
-                  className="rounded-full border border-border px-4 py-2 text-xs text-muted-foreground transition hover:border-foreground/30 hover:text-foreground"
+                  className="border-border text-muted-foreground hover:border-foreground/30 hover:text-foreground rounded-full border px-4 py-2 text-xs transition"
                 >
                   {item}
                 </Link>

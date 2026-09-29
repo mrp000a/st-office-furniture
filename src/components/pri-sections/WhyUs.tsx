@@ -15,10 +15,10 @@ const reasons = [
 
 export function WhySTOfficeFurniture() {
   return (
-    <section className="relative overflow-hidden bg-muted/30 py-16 sm:py-20 lg:py-28">
+    <section className="bg-muted/30 relative overflow-hidden py-16 sm:py-20 lg:py-28">
       {/* Decorative background */}
-      <div className="pointer-events-none absolute -left-32 top-20 size-72 rounded-full bg-primary/5 blur-3xl" />
-      <div className="pointer-events-none absolute -right-32 bottom-0 size-80 rounded-full bg-primary/5 blur-3xl" />
+      <div className="bg-primary/5 pointer-events-none absolute top-20 -left-32 size-72 rounded-full blur-3xl" />
+      <div className="bg-primary/5 pointer-events-none absolute -right-32 bottom-0 size-80 rounded-full blur-3xl" />
 
       <div className="relative mx-auto max-w-384 px-4 sm:px-6 lg:px-8">
         <div className="grid items-center gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
@@ -32,11 +32,7 @@ export function WhySTOfficeFurniture() {
                 alt="ST Office Furniture"
                 fill
                 priority={false}
-                className="
-                  object-cover
-                  transition-transform duration-700
-                  group-hover:scale-105
-                "
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
                 sizes="
                   (max-width: 768px) 100vw,
                   (max-width: 1024px) 50vw,
@@ -61,16 +57,16 @@ export function WhySTOfficeFurniture() {
             </div>
 
             {/* Decorative border */}
-            <div className="pointer-events-none absolute -bottom-3 -right-3 -z-10 size-full rounded-3xl border border-primary/20" />
+            <div className="border-primary/20 pointer-events-none absolute -right-3 -bottom-3 -z-10 size-full rounded-3xl border" />
           </div>
 
           {/* ================= CONTENT ================= */}
           <div className="lg:pl-4">
             {/* Eyebrow */}
             <div className="mb-4 flex items-center gap-2">
-              <span className="h-px w-8 bg-primary" />
+              <span className="bg-primary h-px w-8" />
 
-              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+              <span className="text-primary text-xs font-semibold tracking-[0.2em] uppercase">
                 Why Choose Us
               </span>
             </div>
@@ -81,7 +77,7 @@ export function WhySTOfficeFurniture() {
             </h2>
 
             {/* Description */}
-            <p className="mt-5 max-w-xl text-base leading-7 text-muted-foreground sm:text-lg">
+            <p className="text-muted-foreground mt-5 max-w-xl text-base leading-7 sm:text-lg">
               Better furniture starts with better decisions. We bring together
               quality, comfort, style, and value to help you create workspaces
               that people enjoy working in.
@@ -92,30 +88,11 @@ export function WhySTOfficeFurniture() {
               {reasons.map((reason) => (
                 <div
                   key={reason}
-                  className="
-                    group flex items-center gap-3
-                    rounded-xl border bg-background/70
-                    px-4 py-3
-                    transition-all duration-300
-                    hover:-translate-y-0.5
-                    hover:border-primary/30
-                    hover:shadow-sm
-                  "
+                  className="group bg-background/70 hover:border-primary/30 flex items-center gap-3 rounded-xl border px-4 py-3 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-sm"
                 >
-                  <div
-                    className="
-                      flex size-7 shrink-0 items-center justify-center
-                      rounded-full bg-primary/10
-                      transition-colors duration-300
-                      group-hover:bg-primary
-                    "
-                  >
+                  <div className="bg-primary/10 group-hover:bg-primary flex size-7 shrink-0 items-center justify-center rounded-full transition-colors duration-300">
                     <Check
-                      className="
-                        size-4 text-primary
-                        transition-colors duration-300
-                        group-hover:text-primary-foreground
-                      "
+                      className="text-primary group-hover:text-primary-foreground size-4 transition-colors duration-300"
                       strokeWidth={2.5}
                     />
                   </div>
@@ -131,25 +108,10 @@ export function WhySTOfficeFurniture() {
             <div className="mt-9">
               <Link
                 href="/about"
-                className="
-                  group inline-flex items-center gap-2
-                  rounded-xl bg-primary
-                  px-5 py-3
-                  text-sm font-semibold text-primary-foreground
-                  shadow-sm
-                  transition-all duration-300
-                  hover:-translate-y-0.5
-                  hover:shadow-lg
-                "
+                className="group bg-primary text-primary-foreground inline-flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
               >
                 Learn About Us
-                <ArrowRight
-                  className="
-                    size-4
-                    transition-transform duration-300
-                    group-hover:translate-x-1
-                  "
-                />
+                <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </div>
           </div>

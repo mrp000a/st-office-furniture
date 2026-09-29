@@ -10,7 +10,6 @@ const Page = () => {
 
   return (
     <div className="">
-      
       <div>
         <SettingsPage />
       </div>

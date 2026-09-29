@@ -79,13 +79,13 @@ export default function MessagesPage({
             <h1 className="text-2xl font-bold tracking-tight">Messages</h1>
 
             <span
-              className={`rounded-full bg-primary/10 px-2.5 py-1 text-xs font-semibold text-primary ${unreadMessage ? "" : "hidden"}`}
+              className={`bg-primary/10 text-primary rounded-full px-2.5 py-1 text-xs font-semibold ${unreadMessage ? "" : "hidden"}`}
             >
               {unreadMessage} unread
             </span>
           </div>
         </div>
-        <div className="flex items-center gap-2 max-w-full flex-wrap">
+        <div className="flex max-w-full flex-wrap items-center gap-2">
           <div className="max-w-full flex-1">
             <SearchLayout />
           </div>
@@ -96,8 +96,8 @@ export default function MessagesPage({
       </div>
 
       {/* Search & Filter */}
-      <div className="flex flex-col gap-3 sm:flex-row flex-wrap">
-        <div className="flex items-center ">
+      <div className="flex flex-col flex-wrap gap-3 sm:flex-row">
+        <div className="flex items-center">
           {messagesFilter.map(({ label, icon: Icon, value }, index) => (
             <Button
               onClick={() => handleFilter(value)}
@@ -113,11 +113,11 @@ export default function MessagesPage({
       </div>
 
       {/* Desktop Table */}
-      <div className="hidden overflow-hidden rounded-xl border bg-card md:block">
+      <div className="bg-card hidden overflow-hidden rounded-xl border md:block">
         {messages && messages.length > 0 ? (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
-              <thead className="border-b bg-muted/40">
+              <thead className="bg-muted/40 border-b">
                 <tr>
                   <th className="px-5 py-4 text-left font-semibold">Name</th>
                   <th className="px-5 py-4 text-left font-semibold">Email</th>
@@ -144,14 +144,14 @@ export default function MessagesPage({
                   }) => (
                     <tr
                       key={id}
-                      className={`transition hover:bg-muted/50 ${
+                      className={`hover:bg-muted/50 transition ${
                         !isRead ? "bg-violet-primary/10" : ""
                       }`}
                     >
                       {/* Name */}
-                      <td className="whitespace-nowrap px-5 py-4">
+                      <td className="px-5 py-4 whitespace-nowrap">
                         <div className="flex items-center gap-3">
-                          <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold text-primary">
+                          <div className="bg-primary/10 text-primary flex size-9 shrink-0 items-center justify-center rounded-full text-sm font-semibold">
                             {name?.charAt(0)}
                           </div>
 
@@ -165,8 +165,8 @@ export default function MessagesPage({
                             </p>
 
                             {!isRead && (
-                              <span className="mt-0.5 inline-flex items-center gap-1 text-[11px] font-medium text-primary">
-                                <span className="size-1.5 rounded-full bg-primary" />
+                              <span className="text-primary mt-0.5 inline-flex items-center gap-1 text-[11px] font-medium">
+                                <span className="bg-primary size-1.5 rounded-full" />
                                 Unread
                               </span>
                             )}
@@ -175,7 +175,7 @@ export default function MessagesPage({
                       </td>
 
                       {/* Email */}
-                      <td className="whitespace-nowrap px-5 py-4 text-muted-foreground">
+                      <td className="text-muted-foreground px-5 py-4 whitespace-nowrap">
                         {email}
                       </td>
 
@@ -192,13 +192,13 @@ export default function MessagesPage({
 
                       {/* Message */}
                       <td className="max-w-80 px-5 py-4">
-                        <p className="line-clamp-2 text-muted-foreground">
+                        <p className="text-muted-foreground line-clamp-2">
                           {message}
                         </p>
                       </td>
 
                       {/* Date */}
-                      <td className="whitespace-nowrap px-5 py-4 text-xs text-muted-foreground">
+                      <td className="text-muted-foreground px-5 py-4 text-xs whitespace-nowrap">
                         {new Date(createdAt).toDateString() +
                           "__" +
                           new Date(createdAt).toTimeString().split("GMT")[0]}
@@ -224,7 +224,7 @@ export default function MessagesPage({
                             }}
                             type="button"
                             title="View message"
-                            className="flex size-9 items-center justify-center rounded-md text-muted-foreground transition hover:bg-primary/10 hover:text-primary"
+                            className="text-muted-foreground hover:bg-primary/10 hover:text-primary flex size-9 items-center justify-center rounded-md transition"
                           >
                             <FaReadme className="size-4" />
                           </button>
@@ -240,7 +240,7 @@ export default function MessagesPage({
                             }}
                             type="button"
                             title={isRead ? "Mark as unread" : "Mark as read"}
-                            className="flex size-9 items-center justify-center rounded-md text-muted-foreground transition hover:bg-primary/10 hover:text-primary"
+                            className="text-muted-foreground hover:bg-primary/10 hover:text-primary flex size-9 items-center justify-center rounded-md transition"
                           >
                             {isRead ? (
                               <MailOpen className="size-4" />
@@ -262,7 +262,7 @@ export default function MessagesPage({
                             }}
                             type="button"
                             title="Delete message"
-                            className="flex size-9 items-center justify-center rounded-md text-muted-foreground transition hover:bg-destructive/10 hover:text-destructive"
+                            className="text-muted-foreground hover:bg-destructive/10 hover:text-destructive flex size-9 items-center justify-center rounded-md transition"
                           >
                             <Trash2 className="size-4" />
                           </button>
@@ -295,27 +295,27 @@ export default function MessagesPage({
             }) => (
               <div
                 key={id}
-                className={`rounded-xl border bg-card p-4 ${
+                className={`bg-card rounded-xl border p-4 ${
                   !isRead ? "border-primary/30 bg-violet-primary/9" : ""
                 }`}
               >
                 {/* Top */}
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex min-w-0 items-center gap-3">
-                    <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary/10 font-semibold text-primary">
+                    <div className="bg-primary/10 text-primary flex size-10 shrink-0 items-center justify-center rounded-full font-semibold">
                       {name.charAt(0)}
                     </div>
 
                     <div className="min-w-0">
                       <p className="truncate font-semibold">{name}</p>
-                      <p className="truncate text-xs text-muted-foreground">
+                      <p className="text-muted-foreground truncate text-xs">
                         {email}
                       </p>
                     </div>
                   </div>
 
                   {!isRead && (
-                    <span className="size-2 shrink-0 rounded-full bg-green-primary" />
+                    <span className="bg-green-primary size-2 shrink-0 rounded-full" />
                   )}
                 </div>
 
@@ -323,11 +323,11 @@ export default function MessagesPage({
                 <div className="mt-4 space-y-2">
                   <p className="font-medium">{subject}</p>
 
-                  <p className="line-clamp-3 text-sm leading-6 text-muted-foreground">
+                  <p className="text-muted-foreground line-clamp-3 text-sm leading-6">
                     {message}
                   </p>
 
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-muted-foreground text-xs">
                     {new Date(createdAt).toDateString() +
                       "__" +
                       new Date(createdAt).toTimeString().split("GMT")[0]}
@@ -351,7 +351,7 @@ export default function MessagesPage({
                       setOpenEditCategory(true);
                     }}
                     type="button"
-                    className="flex items-center gap-2 rounded-md border px-3 py-2 text-xs font-medium transition hover:bg-muted"
+                    className="hover:bg-muted flex items-center gap-2 rounded-md border px-3 py-2 text-xs font-medium transition"
                   >
                     <FaReadme className="size-3.5" />
                     View
@@ -366,7 +366,7 @@ export default function MessagesPage({
                       router.refresh();
                     }}
                     type="button"
-                    className="flex size-8 items-center justify-center rounded-md border transition hover:bg-muted"
+                    className="hover:bg-muted flex size-8 items-center justify-center rounded-md border transition"
                     title={isRead ? "Mark as unread" : "Mark as read"}
                   >
                     {isRead ? (
@@ -387,7 +387,7 @@ export default function MessagesPage({
                       router.refresh();
                     }}
                     type="button"
-                    className="flex size-8 items-center justify-center rounded-md border text-destructive transition hover:bg-destructive/10"
+                    className="text-destructive hover:bg-destructive/10 flex size-8 items-center justify-center rounded-md border transition"
                     title="Delete message"
                   >
                     <Trash2 className="size-3.5" />
@@ -409,11 +409,11 @@ export default function MessagesPage({
         onOpenChange={setOpenEditCategory}
         // modal={false}
       >
-        <DialogContent className="sm:max-w-lg max-h-[calc(100vh-20px)] px-2 flex flex-col">
+        <DialogContent className="flex max-h-[calc(100vh-20px)] flex-col px-2 sm:max-w-lg">
           <DialogHeader>
             <DialogTitle>
-              <div className="relative w-full flex items-center gap-1">
-                <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary/10 font-semibold text-primary">
+              <div className="relative flex w-full items-center gap-1">
+                <div className="bg-primary/10 text-primary flex size-10 shrink-0 items-center justify-center rounded-full font-semibold">
                   {editCategoryData?.name.charAt(0)}
                 </div>
                 <div>
@@ -421,7 +421,7 @@ export default function MessagesPage({
                   <Link
                     target="_blank"
                     href={`mailto:${editCategoryData?.email}`}
-                    className="text-xs font-light "
+                    className="text-xs font-light"
                   >
                     {editCategoryData?.email}
                   </Link>
@@ -441,11 +441,11 @@ export default function MessagesPage({
             <div>
               <div>
                 <span className="text-gray-primary">Subject:</span>
-                <span className="font-semibold text-foreground">
+                <span className="text-foreground font-semibold">
                   {editCategoryData?.subject}
                 </span>
               </div>
-              <div className="text-[10px] font-light ">
+              <div className="text-[10px] font-light">
                 {editCategoryData?.createdAt &&
                   new Date(editCategoryData.createdAt).toDateString() +
                     "__" +
@@ -457,15 +457,15 @@ export default function MessagesPage({
             {/* </DialogDescription> */}
             <div className="font-semibold">Message:</div>
           </DialogHeader>
-          <div className="flex h-full overflow-auto items-start justify-between border border-gray-secondary rounded-md p-1">
-            <div className="flex flex-col  w-full">
-              <span className="text-sm  whitespace-pre-line">
+          <div className="border-gray-secondary flex h-full items-start justify-between overflow-auto rounded-md border p-1">
+            <div className="flex w-full flex-col">
+              <span className="text-sm whitespace-pre-line">
                 {editCategoryData?.message}
               </span>
             </div>
           </div>
           <DialogFooter>
-            <div className="w-full flex justify-end items-start gap-1 lg:gap-2">
+            <div className="flex w-full items-start justify-end gap-1 lg:gap-2">
               <Button
                 onClick={async () => {
                   if (!editCategoryData?.id) return;

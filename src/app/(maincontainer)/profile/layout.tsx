@@ -17,11 +17,10 @@ export default function RootLayout({
   return (
     <>
       <Suspense>
-        <div className="flex flex-col gap-2 md:flex-row items-start justify-start max-w-384 mx-auto">
+        <div className="mx-auto flex max-w-384 flex-col items-start justify-start gap-2 md:flex-row">
           <ProfileHeader />
-          <div className="flex-1 bg-background rounded-md border w-full">
-
-          {children}
+          <div className="bg-background w-full flex-1 rounded-md border">
+            {children}
           </div>
         </div>
       </Suspense>

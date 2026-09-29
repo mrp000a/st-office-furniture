@@ -22,14 +22,14 @@ export function DropdownMenuHeader() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild className="flex-center rounded-full">
         <button>
-          <span className="size-12 relative z-10 inline-block rounded-full border border-gray-primary overflow-hidden">
+          <span className="border-gray-primary relative z-10 inline-block size-12 overflow-hidden rounded-full border">
             <Image
               unoptimized
               src={getImageUrl(data?.user?.image)}
               alt={data?.user?.name ?? ""}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               fill
-              className="object-cover w-full h-full"
+              className="h-full w-full object-cover"
             />
           </span>
         </button>

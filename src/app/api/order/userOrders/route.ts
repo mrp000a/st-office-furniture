@@ -7,7 +7,7 @@ export async function GET(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams;
 
   const receiverName = searchParams.get("name");
-  const userId = searchParams.get("userId") ;
+  const userId = searchParams.get("userId");
 
   const limit = searchParams.get("limit") ?? 100;
 

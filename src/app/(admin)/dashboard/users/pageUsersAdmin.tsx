@@ -71,9 +71,9 @@ const PageUsersAdmin = ({
     <div className="w-full">
       {/* header */}
       <section className="w-full">
-        <div className="flex  w-full gap-1  items-center justify-between">
+        <div className="flex w-full items-center justify-between gap-1">
           <div>
-            <div className="mb-2 flex items-center gap-2 text-sm text-muted-foreground">
+            <div className="text-muted-foreground mb-2 flex items-center gap-2 text-sm">
               <Settings className="h-4 w-4" />
               <span>Administration</span>
               <ChevronRight className="h-4 w-4" />
@@ -84,13 +84,13 @@ const PageUsersAdmin = ({
               Users
             </h1>
 
-            <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
+            <p className="text-muted-foreground mt-1 max-w-2xl text-sm">
               Manage your users from one place.
             </p>
           </div>
-          <div className="flex justify-between items-center  relative ">
-            <div className="gap-1 flex items-center max-[400px]:flex-wrap">
-              <div className=" flex-1">
+          <div className="relative flex items-center justify-between">
+            <div className="flex items-center gap-1 max-[400px]:flex-wrap">
+              <div className="flex-1">
                 <SearchLayout />
               </div>
               <Button
@@ -107,7 +107,7 @@ const PageUsersAdmin = ({
           </div>
         </div>
       </section>
-      <hr className="py-1 inline-block w-full" />
+      <hr className="inline-block w-full py-1" />
       <SearchShowClient />
       {users && users.length > 0 ? (
         <div className="w-full">
@@ -149,10 +149,13 @@ const PageUsersAdmin = ({
                     <TableCell className="font-medium">#{id}</TableCell>
 
                     <TableCell>
-                      <div className="flex items-center justify-start  gap-1">
-                        <span className="min-w-6 max-w-6  min-h-6 max-h-6 relative z-10 inline-block rounded-full  overflow-hidden">
+                      <div className="flex items-center justify-start gap-1">
+                        <span className="relative z-10 inline-block max-h-6 min-h-6 max-w-6 min-w-6 overflow-hidden rounded-full">
                           <Avatar className="size-6">
-                            <AvatarImage src={getImageUrlProduct(image)} />
+                            <AvatarImage
+                              alt="userImage"
+                              src={getImageUrlProduct(image)}
+                            />
                             <AvatarFallback>
                               {name?.charAt(0).toUpperCase() ?? "U"}
                             </AvatarFallback>
@@ -160,8 +163,8 @@ const PageUsersAdmin = ({
                         </span>
                         <div>
                           <p className="font-medium">{name}</p>
-                          <div className="text-[10px] flex flex-wrap items-center gap-x-2">
-                            <p className=" text-muted-foreground">{email}</p>
+                          <div className="flex flex-wrap items-center gap-x-2 text-[10px]">
+                            <p className="text-muted-foreground">{email}</p>
                           </div>
                         </div>
                       </div>
@@ -170,7 +173,7 @@ const PageUsersAdmin = ({
                     <TableCell>{phone}</TableCell>
 
                     <TableCell className="">
-                      <p className="max-w-60 min-w-48 whitespace-normal wrap-break-word">
+                      <p className="max-w-60 min-w-48 wrap-break-word whitespace-normal">
                         {address ?? "N/A"}
                       </p>
                     </TableCell>
@@ -264,7 +267,7 @@ const PageUsersAdmin = ({
           onOpenChange={setOpenAddUser}
           // modal={false}
         >
-          <DialogContent className="sm:max-w-lg max-h-screen overflow-auto">
+          <DialogContent className="max-h-screen overflow-auto sm:max-w-lg">
             <DialogHeader>
               <DialogTitle>Add User</DialogTitle>
               <DialogDescription>
@@ -282,7 +285,7 @@ const PageUsersAdmin = ({
           onOpenChange={setOpenEditUser}
           // modal={false}
         >
-          <DialogContent className="sm:max-w-lg  max-h-screen overflow-auto">
+          <DialogContent className="max-h-screen overflow-auto sm:max-w-lg">
             <DialogHeader>
               <DialogTitle>Edit User</DialogTitle>
               <DialogDescription>

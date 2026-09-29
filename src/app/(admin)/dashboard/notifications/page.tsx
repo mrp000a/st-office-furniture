@@ -66,20 +66,20 @@ export default function AdminNotifications() {
       <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
         <div>
           <div className="flex items-center gap-2">
-            <Bell className="h-5 w-5 text-green-primary" />
+            <Bell className="text-green-primary h-5 w-5" />
             <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
               Notifications
             </h1>
           </div>
 
-          <p className="mt-1 text-sm text-muted-foreground">
+          <p className="text-muted-foreground mt-1 text-sm">
             Send promotions, announcements and important updates to your
             customers.
           </p>
         </div>
 
-        <div className="flex items-center gap-2 rounded-lg border border-border bg-card px-3 py-2 text-sm">
-          <Bell className="h-4 w-4 text-green-primary" />
+        <div className="border-border bg-card flex items-center gap-2 rounded-lg border px-3 py-2 text-sm">
+          <Bell className="text-green-primary h-4 w-4" />
           <span className="font-medium">Push notifications</span>
           <span className="h-2 w-2 rounded-full bg-green-500" />
           <span className="text-muted-foreground">Active</span>
@@ -117,16 +117,16 @@ export default function AdminNotifications() {
       {/* Main */}
       <div className="grid gap-6 xl:grid-cols-[minmax(0,1.15fr)_minmax(360px,0.85fr)]">
         {/* Create Notification */}
-        <section className="rounded-xl border border-border bg-card shadow-sm">
-          <div className="border-b border-border p-4 sm:p-5">
+        <section className="border-border bg-card rounded-xl border shadow-sm">
+          <div className="border-border border-b p-4 sm:p-5">
             <div className="flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-green-primary/10">
-                <Send className="h-4 w-4 text-green-primary" />
+              <div className="bg-green-primary/10 flex h-9 w-9 items-center justify-center rounded-lg">
+                <Send className="text-green-primary h-4 w-4" />
               </div>
 
               <div>
                 <h2 className="font-semibold">Create Notification</h2>
-                <p className="text-xs text-muted-foreground">
+                <p className="text-muted-foreground text-xs">
                   Compose a notification for your customers.
                 </p>
               </div>
@@ -182,7 +182,7 @@ export default function AdminNotifications() {
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <label htmlFor="notification-title">Notification Title</label>
-                <span className="text-[11px] text-muted-foreground">
+                <span className="text-muted-foreground text-[11px]">
                   Maximum 60 characters
                 </span>
               </div>
@@ -198,7 +198,7 @@ export default function AdminNotifications() {
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <label htmlFor="notification-message">Message</label>
-                <span className="text-[11px] text-muted-foreground">
+                <span className="text-muted-foreground text-[11px]">
                   Maximum 180 characters
                 </span>
               </div>
@@ -215,12 +215,12 @@ export default function AdminNotifications() {
             <div className="space-y-2">
               <label>Notification Image</label>
 
-              <label className="flex min-h-28 cursor-pointer flex-col items-center justify-center rounded-lg border border-dashed border-border bg-muted/20 px-4 text-center transition-colors hover:bg-muted/40">
-                <ImagePlus className="mb-2 h-6 w-6 text-muted-foreground" />
+              <label className="border-border bg-muted/20 hover:bg-muted/40 flex min-h-28 cursor-pointer flex-col items-center justify-center rounded-lg border border-dashed px-4 text-center transition-colors">
+                <ImagePlus className="text-muted-foreground mb-2 h-6 w-6" />
 
                 <span className="text-sm font-medium">Upload an image</span>
 
-                <span className="mt-1 text-xs text-muted-foreground">
+                <span className="text-muted-foreground mt-1 text-xs">
                   Optional · JPG, PNG or WebP
                 </span>
 
@@ -237,7 +237,7 @@ export default function AdminNotifications() {
               <label htmlFor="notification-url">Action URL</label>
 
               <div className="relative">
-                <ExternalLink className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                <ExternalLink className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
 
                 <Input
                   id="notification-url"
@@ -246,7 +246,7 @@ export default function AdminNotifications() {
                 />
               </div>
 
-              <p className="text-[11px] text-muted-foreground">
+              <p className="text-muted-foreground text-[11px]">
                 Where should the customer go when they click the notification?
               </p>
             </div>
@@ -276,31 +276,31 @@ export default function AdminNotifications() {
             </div>
 
             {/* Preview */}
-            <div className="rounded-xl border border-border bg-muted/20 p-4">
+            <div className="border-border bg-muted/20 rounded-xl border p-4">
               <div className="mb-3 flex items-center justify-between">
-                <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                <span className="text-muted-foreground text-xs font-semibold tracking-wider uppercase">
                   Preview
                 </span>
 
-                <span className="text-[10px] text-muted-foreground">
+                <span className="text-muted-foreground text-[10px]">
                   Push notification
                 </span>
               </div>
 
-              <div className="flex gap-3 rounded-lg border border-border bg-background p-3 shadow-sm">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-green-primary/10">
-                  <Bell className="h-5 w-5 text-green-primary" />
+              <div className="border-border bg-background flex gap-3 rounded-lg border p-3 shadow-sm">
+                <div className="bg-green-primary/10 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg">
+                  <Bell className="text-green-primary h-5 w-5" />
                 </div>
 
                 <div className="min-w-0">
                   <p className="truncate text-sm font-semibold">
                     20% Off on All Office Chairs
                   </p>
-                  <p className="mt-0.5 line-clamp-2 text-xs text-muted-foreground">
+                  <p className="text-muted-foreground mt-0.5 line-clamp-2 text-xs">
                     Upgrade your workspace with our latest office chairs.
                     Limited time offer.
                   </p>
-                  <p className="mt-1 text-[10px] text-muted-foreground">
+                  <p className="text-muted-foreground mt-1 text-[10px]">
                     ST Office Furniture · now
                   </p>
                 </div>
@@ -308,7 +308,7 @@ export default function AdminNotifications() {
             </div>
 
             {/* Buttons */}
-            <div className="flex flex-col-reverse gap-2 border-t border-border pt-5 sm:flex-row sm:justify-end">
+            <div className="border-border flex flex-col-reverse gap-2 border-t pt-5 sm:flex-row sm:justify-end">
               <Button type="button" variant="outline">
                 Save Draft
               </Button>
@@ -320,7 +320,7 @@ export default function AdminNotifications() {
 
               <Button
                 type="submit"
-                className="bg-green-primary text-white hover:bg-green-primary/90"
+                className="bg-green-primary hover:bg-green-primary/90 text-white"
               >
                 <Send className="h-4 w-4" />
                 Send Notification
@@ -330,11 +330,11 @@ export default function AdminNotifications() {
         </section>
 
         {/* Recent Notifications */}
-        <section className="h-fit rounded-xl border border-border bg-card shadow-sm">
-          <div className="flex items-center justify-between border-b border-border p-4 sm:p-5">
+        <section className="border-border bg-card h-fit rounded-xl border shadow-sm">
+          <div className="border-border flex items-center justify-between border-b p-4 sm:p-5">
             <div>
               <h2 className="font-semibold">Recent Notifications</h2>
-              <p className="mt-0.5 text-xs text-muted-foreground">
+              <p className="text-muted-foreground mt-0.5 text-xs">
                 Your latest notification activity.
               </p>
             </div>
@@ -344,7 +344,7 @@ export default function AdminNotifications() {
             </Button>
           </div>
 
-          <div className="divide-y divide-border">
+          <div className="divide-border divide-y">
             {notifications.map((notification) => (
               <NotificationItem
                 key={notification.id}
@@ -370,18 +370,18 @@ function StatCard({
   description: string;
 }) {
   return (
-    <div className="rounded-xl border border-border bg-card p-4 shadow-sm">
+    <div className="border-border bg-card rounded-xl border p-4 shadow-sm">
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <p className="text-xs text-muted-foreground">{label}</p>
+          <p className="text-muted-foreground text-xs">{label}</p>
           <p className="mt-1 text-2xl font-bold tracking-tight">{value}</p>
-          <p className="mt-1 truncate text-[10px] text-muted-foreground">
+          <p className="text-muted-foreground mt-1 truncate text-[10px]">
             {description}
           </p>
         </div>
 
-        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-green-primary/10">
-          <Icon className="h-4 w-4 text-green-primary" />
+        <div className="bg-green-primary/10 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg">
+          <Icon className="text-green-primary h-4 w-4" />
         </div>
       </div>
     </div>
@@ -412,7 +412,7 @@ function NotificationItem({
   const StatusIcon = config.icon;
 
   return (
-    <div className="group p-4 transition-colors hover:bg-muted/30">
+    <div className="group hover:bg-muted/30 p-4 transition-colors">
       <div className="flex gap-3">
         <div
           className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${config.className}`}
@@ -426,12 +426,12 @@ function NotificationItem({
               {notification.title}
             </h3>
 
-            <span className="shrink-0 text-[10px] text-muted-foreground">
+            <span className="text-muted-foreground shrink-0 text-[10px]">
               {notification.time}
             </span>
           </div>
 
-          <div className="mt-1 flex flex-wrap items-center gap-1.5 text-[10px] text-muted-foreground">
+          <div className="text-muted-foreground mt-1 flex flex-wrap items-center gap-1.5 text-[10px]">
             <span>{notification.type}</span>
             <span>•</span>
             <span>{notification.audience}</span>

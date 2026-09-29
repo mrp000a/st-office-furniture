@@ -66,21 +66,21 @@ const MessageForm = () => {
   };
 
   return (
-    <div className=" h-full w-full">
-      <div className="w-full max-w-384 mx-auto p-3 lg:p-6  rounded-md bg-background border-gray-secondary/80 shadow-lg shadow-foreground/20  border">
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 ">
+    <div className="h-full w-full">
+      <div className="bg-background border-gray-secondary/80 shadow-foreground/20 mx-auto w-full max-w-384 rounded-md border p-3 shadow-lg lg:p-6">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div className="mb-7">
             <h2 className="text-xl font-bold sm:text-2xl">Send an inquiry</h2>
 
-            <p className="mt-1 text-sm text-gray-primary">
+            <p className="text-gray-primary mt-1 text-sm">
               {"Fill out the form and we'll get back to you."}
             </p>
           </div>
 
-          <div className="space-y-4 w-full">
+          <div className="w-full space-y-4">
             {/* name and email section  */}
-            <div className="flex flex-col md:flex-row items-start justify-between w-full gap-3">
-              <div className="grid grid-cols-1 space-y-2 w-full flex-1">
+            <div className="flex w-full flex-col items-start justify-between gap-3 md:flex-row">
+              <div className="grid w-full flex-1 grid-cols-1 space-y-2">
                 <label htmlFor="name" className="text-sm font-medium">
                   Full Name
                 </label>
@@ -97,7 +97,7 @@ const MessageForm = () => {
                   <InputErrorMessage>{errors.name.message}</InputErrorMessage>
                 )}
               </div>
-              <div className="grid grid-cols-1 space-y-2 w-full flex-1">
+              <div className="grid w-full flex-1 grid-cols-1 space-y-2">
                 <label htmlFor="email" className="text-sm font-medium">
                   Phone
                 </label>
@@ -120,7 +120,7 @@ const MessageForm = () => {
               </div>
             </div>
             {/* email */}
-            <div className="grid grid-cols-1 space-y-2 w-full flex-1">
+            <div className="grid w-full flex-1 grid-cols-1 space-y-2">
               <label htmlFor="email" className="text-sm font-medium">
                 Email
               </label>
@@ -164,7 +164,7 @@ const MessageForm = () => {
                 <label htmlFor="message" className="text-sm font-medium">
                   Message
                 </label>
-                <span className="text-[11px] text-gray-primary font-light">
+                <span className="text-gray-primary text-[11px] font-light">
                   Tell us what you need.
                 </span>
               </div>
@@ -174,7 +174,7 @@ const MessageForm = () => {
                 {...register("message", {
                   required: { value: true, message: "Message is required!" },
                 })}
-                className="max-h-36 h-36 overflow-auto"
+                className="h-36 max-h-36 overflow-auto"
               />
               {errors.message && (
                 <InputErrorMessage>{errors.message.message}</InputErrorMessage>
@@ -193,7 +193,7 @@ const MessageForm = () => {
             />
             Send Message
           </Button>
-          <p className="text-center text-[11px] leading-5 text-gray-primary">
+          <p className="text-gray-primary text-center text-[11px] leading-5">
             By submitting this form, you agree that we may use your information
             to respond to your inquiry.
           </p>

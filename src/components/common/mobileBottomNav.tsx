@@ -8,7 +8,7 @@ const MobileBottomNav = () => {
   const pathname = usePathname();
 
   return (
-    <div className="md:hidden fixed bottom-0 min-w-full bg-background/80 z-50 backdrop-blur-md border border-gray-600 box-border p-1 ">
+    <div className="bg-background/80 fixed bottom-0 z-50 box-border min-w-full border border-gray-600 p-1 backdrop-blur-md md:hidden">
       <div className="flex w-full justify-between gap-2 overflow-visible">
         {MobNavItems.map(({ href, label, Logo: Logo }, index) => (
           <button
@@ -16,11 +16,11 @@ const MobileBottomNav = () => {
               router.push(href);
             }}
             key={index}
-            className={` ${label.toLowerCase() == "home" ? "relative z-30 rounded-full bg-green-primary text-background  p-1 px-2  ring ring-gray-primary shadow-lg shadow-yellow-500 -translate-y-4" : `px-2 py-1 text-foreground flex-center flex-col flex-1 rounded-sm hover:bg-background active:bg-violet-primary transition-all hover:outline hover:outline-gray-primary/40 border border-gray-primary  cursor-pointer ${pathname.startsWith(href) ? "bg-blue-secondary text-background" : " bg-background"} `}`}
+            className={` ${label.toLowerCase() == "home" ? "bg-green-primary text-background ring-gray-primary relative z-30 -translate-y-4 rounded-full p-1 px-2 shadow-lg ring shadow-yellow-500" : `text-foreground flex-center hover:bg-background active:bg-violet-primary hover:outline-gray-primary/40 border-gray-primary flex-1 cursor-pointer flex-col rounded-sm border px-2 py-1 transition-all hover:outline ${pathname.startsWith(href) ? "bg-blue-secondary text-background" : "bg-background"} `}`}
           >
             {Logo && (
               <Logo
-                className={`font-bold ${label.toLowerCase() == "home" ? "text-background dark:text-foreground w-8 h-8 " : "text-green-primary w-6 h-6 "}`}
+                className={`font-bold ${label.toLowerCase() == "home" ? "text-background dark:text-foreground h-8 w-8" : "text-green-primary h-6 w-6"}`}
               />
             )}
             <span

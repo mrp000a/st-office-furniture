@@ -56,15 +56,15 @@ const ProductsSections = ({
 
   return (
     <section>
-      <div className=" relative  max-w-384 mx-auto w-full rounded-md p-2 bg-background/30 border ">
-        <div className="flex items-center justify-between flex-wrap gap-2  ">
+      <div className="bg-background/30 relative mx-auto w-full max-w-384 rounded-md border p-2">
+        <div className="flex flex-wrap items-center justify-between gap-2">
           <div>
             <span className="flex items-center gap-2">
-              <div className="relative text-green-primary">
-                <Icon className="animate-ping fill-yellow-500 absolute opacity-50 h-8 w-8" />
+              <div className="text-green-primary relative">
+                <Icon className="absolute h-8 w-8 animate-ping fill-yellow-500 opacity-50" />
                 <Icon className="h-8 w-8 fill-yellow-400" />
               </div>
-              <h2 className="font-bold text-lg">{title ?? "Products"}</h2>
+              <h2 className="text-lg font-bold">{title ?? "Products"}</h2>
             </span>
             <span className="text-gray-primary text-xs">
               {subTitle ?? "Designed for better work."}
@@ -81,7 +81,7 @@ const ProductsSections = ({
         </div>
         <div
           ref={scrollContainerRef}
-          className="relative flex items-stretch p-2 h-110  gap-3 w-full   overflow-x-auto scrollbar-none overflow-y-hidden"
+          className="relative flex h-110 w-full scrollbar-none items-stretch gap-3 overflow-x-auto overflow-y-hidden p-2"
         >
           {products &&
             products.length > 0 &&
@@ -93,19 +93,16 @@ const ProductsSections = ({
                 discount: Number(item.discount),
               };
               return (
-                <div
-                  key={index}
-                  className="min-w-65 max-w-65  w-65 flex h-full"
-                >
+                <div key={index} className="flex h-full w-65 max-w-65 min-w-65">
                   <ProductClient item={sanitize} />
                 </div>
               );
             })}
         </div>
-        <div className="text-4xl  font-bold flex-center">
+        <div className="flex-center text-4xl font-bold">
           <button
             onClick={() => scroll("left")}
-            className="showPrevSlide absolute left-0 top-1/2 z-20  bg-gray-secondary/50 rounded-md px-2 py-3 backdrop-blur-sm"
+            className="showPrevSlide bg-gray-secondary/50 absolute top-1/2 left-0 z-20 rounded-md px-2 py-3 backdrop-blur-sm"
           >
             <ChevronLeft className="" />
           </button>
@@ -113,7 +110,7 @@ const ProductsSections = ({
             onClick={() => {
               scroll("right");
             }}
-            className="showPrevSlide absolute right-0 top-1/2 z-20  bg-gray-secondary/50 rounded-md px-2 py-3  backdrop-blur-sm"
+            className="showPrevSlide bg-gray-secondary/50 absolute top-1/2 right-0 z-20 rounded-md px-2 py-3 backdrop-blur-sm"
           >
             <ChevronRight />
           </button>

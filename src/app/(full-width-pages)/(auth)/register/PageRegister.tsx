@@ -165,8 +165,8 @@ const PageRegisterForm = () => {
   };
 
   return (
-    <div className="flex flex-col flex-1 lg:w-1/2 w-full overflow-y-auto no-scrollbar">
-      <div className="w-full max-w-lg sm:pt-10 mx-auto">
+    <div className="no-scrollbar flex w-full flex-1 flex-col overflow-y-auto lg:w-1/2">
+      <div className="mx-auto w-full max-w-lg sm:pt-10">
         <Link
           href="/"
           className="inline-flex items-center text-sm text-gray-500 transition-colors hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
@@ -175,10 +175,10 @@ const PageRegisterForm = () => {
           Back to home
         </Link>
       </div>
-      <div className="flex flex-col justify-center flex-1 w-full max-w-lg px-2 max-sm:px-0  mx-auto py-5">
+      <div className="mx-auto flex w-full max-w-lg flex-1 flex-col justify-center px-2 py-5 max-sm:px-0">
         <div>
           <div className="">
-            <h1 className="mb-2 font-semibold text-gray-800 text-title-sm dark:text-white/90 sm:text-title-md">
+            <h1 className="text-title-sm sm:text-title-md mb-2 font-semibold text-gray-800 dark:text-white/90">
               Sign Up
             </h1>
             <p className="text-sm text-gray-500 dark:text-gray-400">
@@ -242,10 +242,10 @@ const PageRegisterForm = () => {
             </div>
              */}
             <form onSubmit={handleSubmit(handleSubmitData)}>
-              <div className="space-y-1 w-full ">
+              <div className="w-full space-y-1">
                 {/* sec1  */}
-                <div className="flex items-start justify-between flex-col ">
-                  <div className="grid grid-cols-1 space-y-1 flex-1 w-full">
+                <div className="flex flex-col items-start justify-between">
+                  <div className="grid w-full flex-1 grid-cols-1 space-y-1">
                     <label htmlFor="firstName">Name:</label>
                     <Input
                       id="name"
@@ -264,7 +264,7 @@ const PageRegisterForm = () => {
                       </InputErrorMessage>
                     )}
                   </div>
-                  <div className="grid grid-cols-1 space-y-1 flex-1 w-full">
+                  <div className="grid w-full flex-1 grid-cols-1 space-y-1">
                     <label htmlFor="email">Email:</label>
                     <Input
                       id="email"
@@ -285,8 +285,8 @@ const PageRegisterForm = () => {
                   </div>
                 </div>
                 {/* sec2 */}
-                <div className="flex items-start justify-between  flex-col ">
-                  <div className="grid grid-cols-1 space-y-1 flex-1 w-full">
+                <div className="flex flex-col items-start justify-between">
+                  <div className="grid w-full flex-1 grid-cols-1 space-y-1">
                     <label htmlFor="phone">Phone:</label>
                     <Input
                       id="phone"
@@ -313,7 +313,7 @@ const PageRegisterForm = () => {
                       </InputErrorMessage>
                     )}
                   </div>
-                  <div className="grid grid-cols-1 space-y-1 flex-1 w-full">
+                  <div className="grid w-full flex-1 grid-cols-1 space-y-1">
                     <label htmlFor="address">Address:</label>
                     <Input
                       id="address"
@@ -335,8 +335,8 @@ const PageRegisterForm = () => {
                 </div>
 
                 {/* sec 5 */}
-                <div className="flex items-start justify-between  flex-col ">
-                  <div className="grid grid-cols-1 space-y-1 flex-1 w-full">
+                <div className="flex flex-col items-start justify-between">
+                  <div className="grid w-full flex-1 grid-cols-1 space-y-1">
                     <div className="flex-center w-fit gap-3">
                       <label htmlFor="image">Image:</label>
                       <Popover>
@@ -358,7 +358,7 @@ const PageRegisterForm = () => {
                     <input
                       id="image"
                       type="file"
-                      className="block w-full text-sm text-gray-primary file:mr-4 file:p-2 file:rounded-full file:px-4 file:border file:text-xs "
+                      className="text-gray-primary block w-full text-sm file:mr-4 file:rounded-full file:border file:p-2 file:px-4 file:text-xs"
                       placeholder="Upload Image"
                       {...register("image")}
                     />
@@ -370,10 +370,10 @@ const PageRegisterForm = () => {
                       ""
                     )}
                   </div>
-                  <div className="grid grid-cols-1 space-y-1 flex-1 w-full">
+                  <div className="grid w-full flex-1 grid-cols-1 space-y-1">
                     <div>Select Gender:</div>
-                    <div className="flex items-center gap-x-8 bg-gray-secondary/5 rounded-md px-3 box-border flex-wrap outline outline-gray-primary/20">
-                      <div className="flex-center w-fit gap-3 ">
+                    <div className="bg-gray-secondary/5 outline-gray-primary/20 box-border flex flex-wrap items-center gap-x-8 rounded-md px-3 outline">
+                      <div className="flex-center w-fit gap-3">
                         <Input
                           id="male"
                           type="radio"
@@ -387,7 +387,7 @@ const PageRegisterForm = () => {
                         />
                         <label htmlFor="male">Male</label>
                       </div>
-                      <div className="flex-center w-fit gap-3 ">
+                      <div className="flex-center w-fit gap-3">
                         <Input
                           id="female"
                           type="radio"
@@ -401,7 +401,7 @@ const PageRegisterForm = () => {
                         />
                         <label htmlFor="female">Female</label>
                       </div>{" "}
-                      <div className="flex-center w-fit gap-3 ">
+                      <div className="flex-center w-fit gap-3">
                         <Input
                           id="other"
                           type="radio"
@@ -426,10 +426,10 @@ const PageRegisterForm = () => {
                 </div>
 
                 {/* sec 8 */}
-                <div className="flex items-start justify-between  flex-col ">
-                  <div className="grid grid-cols-1 space-y-1 flex-1 w-full">
+                <div className="flex flex-col items-start justify-between">
+                  <div className="grid w-full flex-1 grid-cols-1 space-y-1">
                     <label htmlFor="password">Password:</label>
-                    <div className="relative flex-center">
+                    <div className="flex-center relative">
                       <Input
                         id="password"
                         type={showPass ? "text" : "password"}
@@ -463,7 +463,7 @@ const PageRegisterForm = () => {
                       </InputErrorMessage>
                     )}
                   </div>
-                  <div className="grid grid-cols-1 space-y-1 flex-1 w-full">
+                  <div className="grid w-full flex-1 grid-cols-1 space-y-1">
                     <label htmlFor="confirmPassword">Confirm Password:</label>
                     <Input
                       id="confirmPassword"
@@ -493,7 +493,7 @@ const PageRegisterForm = () => {
                 </div>
 
                 {/* <!-- Button --> */}
-                <div className="w-full flex-center pt-4">
+                <div className="flex-center w-full pt-4">
                   <Button
                     disabled={isSubmitting}
                     type="submit"
@@ -511,7 +511,7 @@ const PageRegisterForm = () => {
             </form>
 
             <div className="mt-5">
-              <p className="text-sm font-normal text-center text-gray-700 dark:text-gray-400 sm:text-start">
+              <p className="text-center text-sm font-normal text-gray-700 sm:text-start dark:text-gray-400">
                 Already have an account?
                 <Button asChild variant={"link"}>
                   <Link

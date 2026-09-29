@@ -66,12 +66,12 @@ const Page = () => {
   return (
     <div className="w-full">
       {/* header */}
-      <div className="flex justify-between items-center flex-wrap relative">
-        <h2 className="text-2xl font-bold font-mono">Orders</h2>
-        <div className="gap-1 flex items-center flex-wrap">
+      <div className="relative flex flex-wrap items-center justify-between">
+        <h2 className="font-mono text-2xl font-bold">Orders</h2>
+        <div className="flex flex-wrap items-center gap-1">
           {/* search bar */}
           <div
-            className={`${openSearchBar ? "max-sm:opacity-100 max-sm:top-full max-sm:right-0" : "max-sm:opacity-0 max-sm:-top-8 max-sm:z-0 max-sm:right-0"} absolute  bg-background z-30  sm:relative  flex justify-center items-center  transition-all focus-within:ring-2 max-w-full focus-within:ring-gray-secondary/80 duration-500 ring-gray-secondary/50 ring rounded-md overflow-hidden  gap-1`}
+            className={`${openSearchBar ? "max-sm:top-full max-sm:right-0 max-sm:opacity-100" : "max-sm:-top-8 max-sm:right-0 max-sm:z-0 max-sm:opacity-0"} bg-background focus-within:ring-gray-secondary/80 ring-gray-secondary/50 absolute z-30 flex max-w-full items-center justify-center gap-1 overflow-hidden rounded-md ring transition-all duration-500 focus-within:ring-2 sm:relative`}
           >
             <button
               className="bg-gray-secondary/20 h-full w-fit p-1 px-2"
@@ -85,7 +85,7 @@ const Page = () => {
             <input
               value={searchUserString ?? ""}
               onChange={(e) => setSearchUserString(e.target.value)}
-              className="focus:bg-none max-w-full focus:outline-none"
+              className="max-w-full focus:bg-none focus:outline-none"
               placeholder="Search User"
             />
           </div>
@@ -103,9 +103,9 @@ const Page = () => {
           </Button>
         </div>
       </div>
-      <hr className=" inline-block w-full" />
+      <hr className="inline-block w-full" />
       {/* <SearchShowClient pathnameSend="/profile?tab=order" /> */}
-      <div className="w-full flex flex-wrap gap-1 md:gap-2 items-center justify-start pb-2">
+      <div className="flex w-full flex-wrap items-center justify-start gap-1 pb-2 md:gap-2">
         {orderStatuses &&
           orderStatuses.map(({ value, label }, index) => (
             <Button
@@ -163,8 +163,8 @@ const Page = () => {
                     <TableCell className="font-medium">#{id}</TableCell>
 
                     <TableCell>
-                      <div className="flex items-center justify-start  gap-1">
-                        <span className="min-w-6 max-w-6  min-h-6 max-h-6 relative z-10 inline-block rounded-full  overflow-hidden">
+                      <div className="flex items-center justify-start gap-1">
+                        <span className="relative z-10 inline-block max-h-6 min-h-6 max-w-6 min-w-6 overflow-hidden rounded-full">
                           {user?.image ? (
                             <Image
                               unoptimized
@@ -172,7 +172,7 @@ const Page = () => {
                               alt={user.email}
                               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                               fill
-                              className="object-cover w-full h-full"
+                              className="h-full w-full object-cover"
                             />
                           ) : (
                             <FaUserCircle className="h-full w-full" />
@@ -180,11 +180,11 @@ const Page = () => {
                         </span>
                         <div>
                           <p className="font-medium">{receiverName}</p>
-                          <div className="text-[10px] flex flex-wrap items-center gap-x-2">
-                            <p className=" text-muted-foreground">
+                          <div className="flex flex-wrap items-center gap-x-2 text-[10px]">
+                            <p className="text-muted-foreground">
                               {receiverEmail}
                             </p>
-                            <p className=" text-muted-foreground">
+                            <p className="text-muted-foreground">
                               {receiverPhone}
                             </p>
                           </div>

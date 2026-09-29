@@ -1,7 +1,4 @@
-import {
-  Gender,
-  PaymentMethods,
-} from "@/generated/prisma";
+import { Gender, PaymentMethods } from "@/generated/prisma";
 import { PiMoneyWavyFill } from "react-icons/pi";
 
 export type UserFormData = {

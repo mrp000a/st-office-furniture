@@ -18,11 +18,11 @@ export default function CategoryHeader({
 }: CategoryHeaderProps) {
   return (
     <section className=" ">
-      <div className="mx-auto max-w-384 px-5 py-10 sm:px-8 lg:px-12 lg:py-16 bg-background border rounded-md">
+      <div className="bg-background mx-auto max-w-384 rounded-md border px-5 py-10 sm:px-8 lg:px-12 lg:py-16">
         <div className="mb-8">
           <Link
             href="/c"
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
+            className="text-muted-foreground hover:text-foreground inline-flex items-center gap-2 text-sm transition-colors"
           >
             <ArrowLeft className="h-4 w-4" />
             All categories
@@ -31,7 +31,7 @@ export default function CategoryHeader({
 
         <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-20">
           <div className="max-w-2xl">
-            <p className="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
+            <p className="text-muted-foreground mb-4 text-xs font-medium tracking-[0.2em] uppercase">
               Category
             </p>
 
@@ -40,20 +40,20 @@ export default function CategoryHeader({
             </h1>
 
             {description && (
-              <p className="mt-6 max-w-xl text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
+              <p className="text-muted-foreground mt-6 max-w-xl text-base leading-7 sm:text-lg sm:leading-8">
                 {description}
               </p>
             )}
 
             {typeof productCount === "number" && (
-              <div className="mt-8 inline-flex items-center gap-2 rounded-full border border-border bg-background px-4 py-2 text-sm text-muted-foreground">
+              <div className="border-border bg-background text-muted-foreground mt-8 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm">
                 <Package className="h-4 w-4" />
                 {productCount} {productCount === 1 ? "product" : "products"}
               </div>
             )}
           </div>
 
-          <div className="relative aspect-[16/10] bg-white  overflow-hidden rounded-[2rem] border border-border  shadow-sm">
+          <div className="border-border relative aspect-[16/10] overflow-hidden rounded-[2rem] border bg-white shadow-sm">
             {image ? (
               <Image
                 unoptimized
@@ -66,7 +66,7 @@ export default function CategoryHeader({
               />
             ) : (
               <div className="flex h-full items-center justify-center">
-                <Package className="h-16 w-16 text-muted-foreground/30" />
+                <Package className="text-muted-foreground/30 h-16 w-16" />
               </div>
             )}
 

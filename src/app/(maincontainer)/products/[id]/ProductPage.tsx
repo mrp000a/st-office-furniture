@@ -121,13 +121,13 @@ const AProductPage = ({
     <>
       {productInfo ? (
         <div>
-          <div className="max-w-384 mx-auto p-1 space-y-3">
-            <div className="flex flex-col md:flex-row gap-1 md:gap-4 bg-background p-1 md:p-2  rounded-md border">
+          <div className="mx-auto max-w-384 space-y-3 p-1">
+            <div className="bg-background flex flex-col gap-1 rounded-md border p-1 md:flex-row md:gap-4 md:p-2">
               {/* Left side images and something */}
-              <div className="space-y-3 max-w-125 mx-auto w-full md:m-0">
-                <div className=" rounded-md  overflow-hidden w-full   lg:max-w-125 mx-auto aspect-5/4 bg-white shadow-2xl relative flex-center">
+              <div className="mx-auto w-full max-w-125 space-y-3 md:m-0">
+                <div className="flex-center relative mx-auto aspect-5/4 w-full overflow-hidden rounded-md bg-white shadow-2xl lg:max-w-125">
                   <span
-                    className={`bg-red-primary font-bold dark:text-foreground flex-center flex-col  text-background rounded-md text-xl ring-2 ring-gray-secondary px-2 py-1  absolute right-0 top-0 z-20 ${productInfo.discount ? "" : "hidden"}`}
+                    className={`bg-red-primary dark:text-foreground flex-center text-background ring-gray-secondary absolute top-0 right-0 z-20 flex-col rounded-md px-2 py-1 text-xl font-bold ring-2 ${productInfo.discount ? "" : "hidden"}`}
                   >
                     <span className="font-bold">
                       {Number(productInfo.discount)}%
@@ -136,7 +136,7 @@ const AProductPage = ({
                   </span>
 
                   <span
-                    className={`bg-red-primary font-bold flex-center flex-col  text-background dark:text-foreground  text-xs ring-2 ring-gray-secondary px-5 py-1  absolute -left-4.5  -rotate-45 top-0 z-20 ${new Date(productInfo.createdAt) > sevenDaysAgo ? "" : "hidden"}`}
+                    className={`bg-red-primary flex-center text-background dark:text-foreground ring-gray-secondary absolute top-0 -left-4.5 z-20 -rotate-45 flex-col px-5 py-1 text-xs font-bold ring-2 ${new Date(productInfo.createdAt) > sevenDaysAgo ? "" : "hidden"}`}
                   >
                     New
                   </span>
@@ -146,7 +146,7 @@ const AProductPage = ({
                       <Button
                         size={"icon-lg"}
                         onClick={() => swiperInstance?.slidePrev()}
-                        className="showPrevSlide absolute left-0 z-20 bg-background/20 backdrop-blur-md"
+                        className="showPrevSlide bg-background/20 absolute left-0 z-20 backdrop-blur-md"
                         variant={"secondary"}
                       >
                         <ArrowLeft />
@@ -156,7 +156,7 @@ const AProductPage = ({
                         onClick={() => {
                           swiperInstance?.slideNext();
                         }}
-                        className="showNextSlide absolute right-0 z-20 bg-background/20 backdrop-blur-md"
+                        className="showNextSlide bg-background/20 absolute right-0 z-20 backdrop-blur-md"
                         variant={"secondary"}
                       >
                         <ArrowRight />
@@ -183,10 +183,10 @@ const AProductPage = ({
                       {productInfo.images.map((item, index) => (
                         <SwiperSlide
                           key={index}
-                          className="flex w-full h-full items-center justify-center text-2xl font-bold"
+                          className="flex h-full w-full items-center justify-center text-2xl font-bold"
                         >
                           <div
-                            className={` relative  h-full w-full  overflow-hidden text-shadow-2xs text-shadow-blue-primary group`}
+                            className={`text-shadow-blue-primary group relative h-full w-full overflow-hidden text-shadow-2xs`}
                             onMouseMove={handleMouseMove}
                             // onMouseMove={(e)=> console.log("object")}
                             onMouseLeave={handleMouseLeave}
@@ -196,7 +196,7 @@ const AProductPage = ({
                                 unoptimized
                                 fill
                                 style={zoomStyle}
-                                className={`object-contain object-center overflow-hidden transition-transform duration-150 ease-out group-hover:scale-170`}
+                                className={`overflow-hidden object-contain object-center transition-transform duration-150 ease-out group-hover:scale-170`}
                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
                                 src={getImageUrlProduct(item)}
                                 alt={item}
@@ -208,12 +208,12 @@ const AProductPage = ({
                     </Swiper>
                   ) : (
                     <div
-                      className={` relative  h-full w-full  min-w-full  overflow-hidden text-shadow-2xs text-shadow-blue-primary`}
+                      className={`text-shadow-blue-primary relative h-full w-full min-w-full overflow-hidden text-shadow-2xs`}
                     >
                       <Image
                         unoptimized
                         fill
-                        className={`object-contain object-center overflow-hidden  relative w-200 h-300 `}
+                        className={`relative h-300 w-200 overflow-hidden object-contain object-center`}
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
                         src={getImageUrlProduct(ProductDefaultImage)}
                         alt={"default image"}
@@ -222,22 +222,22 @@ const AProductPage = ({
                   )}
                 </div>
 
-                <div className="flex justify-center gap-3 flex-wrap">
+                <div className="flex flex-wrap justify-center gap-3">
                   {productInfo.images.map((item, index) => (
                     <button
                       key={index}
                       onMouseEnter={() => handleThumbnailClick(index)}
                       onClick={() => handleThumbnailClick(index)}
-                      className={` w-10 bg-background aspect-square relative overflow-hidden rounded-lg border-2 transition-all duration-200 ${
+                      className={`bg-background relative aspect-square w-10 overflow-hidden rounded-lg border-2 transition-all duration-200 ${
                         activeIndex === index
-                          ? "border-blue-500 scale-105"
+                          ? "scale-105 border-blue-500"
                           : "border-transparent opacity-60 hover:opacity-100"
                       }`}
                     >
                       <Image
                         unoptimized
                         fill
-                        className={`object-contain object-center overflow-hidden   `}
+                        className={`overflow-hidden object-contain object-center`}
                         sizes="10vw"
                         src={getImageUrlProduct(item)}
                         alt={item}
@@ -249,7 +249,7 @@ const AProductPage = ({
               {/* right side price and more */}
               <div className="p-2">
                 <div className="flex flex-col gap-1">
-                  <h2 className="line-clamp-2 text-2xl font-bold ">
+                  <h2 className="line-clamp-2 text-2xl font-bold">
                     {productInfo.title}
                   </h2>
 
@@ -269,7 +269,7 @@ const AProductPage = ({
                     </SimpleBubble>
                     <SimpleBubble>
                       <span className="text-gray-primary">Status:</span>{" "}
-                      <span className="font-semibold ">
+                      <span className="font-semibold">
                         <span className={`text-foreground font-bold`}>
                           {productInfo.stock && productInfo.stock > 0
                             ? "In Stock"
@@ -291,7 +291,7 @@ const AProductPage = ({
                   </div>
 
                   {/* price */}
-                  <div className="text-2xl rounded-md p-2 border border-l-green-primary border-l-4 border-gray-secondary w-fit">
+                  <div className="border-l-green-primary border-gray-secondary w-fit rounded-md border border-l-4 p-2 text-2xl">
                     <span className="text-gray-primary">Price:</span>{" "}
                     <span className="font-semibold">
                       ৳
@@ -300,14 +300,14 @@ const AProductPage = ({
                         : Number(productInfo.price).toFixed(2)}
                     </span>
                     <span
-                      className={`text-sm line-through px-1 ${productInfo.discount ? "" : "hidden"}`}
+                      className={`px-1 text-sm line-through ${productInfo.discount ? "" : "hidden"}`}
                     >
                       ৳{Number(productInfo.price).toFixed(2)}
                     </span>
                   </div>
 
                   {/* ratings */}
-                  <span className="flex items-center text-base gap-1 flex-wrap">
+                  <span className="flex flex-wrap items-center gap-1 text-base">
                     <div className="flex items-center gap-1">
                       <RatingStars
                         rating={productInfo.averageRating}
@@ -324,7 +324,7 @@ const AProductPage = ({
 
                   <div>
                     <h4 className="text-lg font-semibold">Key Features</h4>
-                    <div className="flex flex-col items-start justify-start gap-1  ">
+                    <div className="flex flex-col items-start justify-start gap-1">
                       {productInfo.keyFeatures.map((item, index) => (
                         <span key={index} className="flex-center gap-1">
                           <ChevronRight /> <span>{item}</span>
@@ -337,7 +337,7 @@ const AProductPage = ({
                   </div>
 
                   {/* Buttons */}
-                  <div className="flex-center gap-1 w-fit p-1 rounded-md bg-gray-secondary/10 outline">
+                  <div className="flex-center bg-gray-secondary/10 w-fit gap-1 rounded-md p-1 outline">
                     Qty:
                     <Button
                       disabled={itemQty === 1}
@@ -363,7 +363,7 @@ const AProductPage = ({
                   </div>
 
                   {/* add to cart and order now button */}
-                  <div className="flex flex-wrap gap-2 p-2 ">
+                  <div className="flex flex-wrap gap-2 p-2">
                     <Button
                       onClick={async () => {
                         if (!session || !user?.id) {
@@ -401,7 +401,7 @@ const AProductPage = ({
                       type="button"
                       size={"lg"}
                       variant={"secondary"}
-                      className="hover:bg-red-primary  hover:text-background dark:hover:text-foreground text-base cursor-pointer"
+                      className="hover:bg-red-primary hover:text-background dark:hover:text-foreground cursor-pointer text-base"
                     >
                       <CirclePlus /> Add to Cart
                     </Button>
@@ -451,7 +451,7 @@ const AProductPage = ({
                       disabled={productInfo.stock < 1}
                       type="button"
                       size={"lg"}
-                      className="bg-red-primary text-background dark:text-foreground text-base cursor-pointer"
+                      className="bg-red-primary text-background dark:text-foreground cursor-pointer text-base"
                     >
                       <Banknote /> Order Now
                     </Button>
@@ -462,24 +462,24 @@ const AProductPage = ({
             {/* descriptions and more */}
             <div
               id="descriptions"
-              className="p-1 md:p-2 rounded-md border bg-background "
+              className="bg-background rounded-md border p-1 md:p-2"
             >
-              <div className="flex flex-col p-2 gap-3">
-                <h2 className="text-2xl font-bold border-l-4 border-l-green-primary px-3 rounded-md">
+              <div className="flex flex-col gap-3 p-2">
+                <h2 className="border-l-green-primary rounded-md border-l-4 px-3 text-2xl font-bold">
                   Descriptions
                 </h2>
-                <span className="text-gray-secondary font-semibold text-lg">
+                <span className="text-gray-secondary text-lg font-semibold">
                   Product Name:{" "}
                   <span className="text-gray-primary">{productInfo.title}</span>
                 </span>
-                <div className="space-y-2 ">
+                <div className="space-y-2">
                   {productInfo.descriptions.map(
                     ({ title, description }, index) => (
                       <div key={index} className="">
-                        <h3 className="text-lg font-semibold rounded-md">
+                        <h3 className="rounded-md text-lg font-semibold">
                           {title}
                         </h3>
-                        <p className="text-justify pl-2 whitespace-pre-line">
+                        <p className="pl-2 text-justify whitespace-pre-line">
                           {" "}
                           {description}
                         </p>
@@ -491,19 +491,19 @@ const AProductPage = ({
             </div>
             <div
               id="reviews"
-              className="flex items-start justify-start flex-col md:flex-row-reverse gap-2 px-1"
+              className="flex flex-col items-start justify-start gap-2 px-1 md:flex-row-reverse"
             >
               <ProductReviewForm
                 productCode={productInfo.productCode}
                 productId={productInfo.id}
               />
-              <div className="max-w-200 w-full rounded-md bg-background p-2 shadow-md ">
+              <div className="bg-background w-full max-w-200 rounded-md p-2 shadow-md">
                 <div className="flex items-center justify-between">
-                  <h4 className=" font-semibold">Customer Reviews</h4>
+                  <h4 className="font-semibold">Customer Reviews</h4>
                   {/* <Button>Put a Review</Button> */}
                 </div>
                 <hr />
-                <div className="p-1 border rounded-md">
+                <div className="rounded-md border p-1">
                   {productInfo && productInfo.reviews.length > 0 ? (
                     productInfo.reviews.map((item, index) => (
                       <ReviewCard review={item} key={index} />

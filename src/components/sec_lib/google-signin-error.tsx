@@ -31,7 +31,7 @@ export default function GoogleLoginMessage() {
   }
 
   return (
-    <div className="mb-4 rounded-lg border border-destructive/30 bg-destructive/10 px-4 py-3 text-sm text-destructive">
+    <div className="border-destructive/30 bg-destructive/10 text-destructive mb-4 rounded-lg border px-4 py-3 text-sm">
       {message}
     </div>
   );

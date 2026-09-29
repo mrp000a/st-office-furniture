@@ -55,10 +55,10 @@ const PageMessagesAdmin = ({
 
   return (
     <div className="">
-      <div className="flex justify-between items-center flex-wrap">
-        <h2 className="text-2xl font-bold font-mono">Messages</h2>
-        <div className="gap-1 flex items-center flex-wrap">
-          <div className=" flex-1">
+      <div className="flex flex-wrap items-center justify-between">
+        <h2 className="font-mono text-2xl font-bold">Messages</h2>
+        <div className="flex flex-wrap items-center gap-1">
+          <div className="flex-1">
             <SearchLayout />
           </div>
           <Button
@@ -72,9 +72,9 @@ const PageMessagesAdmin = ({
           </Button>
         </div>
       </div>
-      <hr className="py-1 inline-block w-full" />
+      <hr className="inline-block w-full py-1" />
       <SearchShowClient />
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2 ">
+      <div className="grid grid-cols-1 gap-2 md:grid-cols-2 xl:grid-cols-3">
         {categories &&
           categories.length > 0 &&
           categories.map(
@@ -92,32 +92,32 @@ const PageMessagesAdmin = ({
               index,
             ) => (
               <div
-                className="flex items-start justify-between border border-gray-secondary rounded-md p-1"
+                className="border-gray-secondary flex items-start justify-between rounded-md border p-1"
                 key={index}
               >
-                <div className="flex flex-col  w-full">
-                  <div className="flex  justify-between items-center w-full">
+                <div className="flex w-full flex-col">
+                  <div className="flex w-full items-center justify-between">
                     {/* nameemail */}
                     <div>
-                      <span className="text-base font-bold line-clamp-1">
+                      <span className="line-clamp-1 text-base font-bold">
                         {name}
                       </span>
                       <Link
                         target="_blank"
                         href={`mailto:${email}`}
-                        className="text-xs text-gray-primary line-clamp-1"
+                        className="text-gray-primary line-clamp-1 text-xs"
                       >
                         {email}
                       </Link>
                     </div>
                     {/* buttons */}
-                    <div className="flex flex-col  items-end">
+                    <div className="flex flex-col items-end">
                       <div className="text-xs">
                         <Badge variant={"destructive"}>
                           {new Date(createdAt).toISOString()}
                         </Badge>
                       </div>
-                      <div className="flex items-center flex-wrap gap-2">
+                      <div className="flex flex-wrap items-center gap-2">
                         <Button
                           onClick={async () => {
                             await editMessages({ id, isRead: !isRead });
@@ -175,12 +175,12 @@ const PageMessagesAdmin = ({
                     </div>
                   </div>
 
-                  <div className=" flex flex-col gap-1">
-                    <span className="text-sm ">
+                  <div className="flex flex-col gap-1">
+                    <span className="text-sm">
                       <span className="font-semibold">Subject: </span>
                       <span className="font-medium">{subject} </span>
                     </span>
-                    <span className="text-sm line-clamp-3 whitespace-pre-line">
+                    <span className="line-clamp-3 text-sm whitespace-pre-line">
                       {message}
                     </span>
                   </div>
@@ -222,38 +222,38 @@ const PageMessagesAdmin = ({
           onOpenChange={setOpenEditCategory}
           // modal={false}
         >
-          <DialogContent className="sm:max-w-lg max-h-screen flex flex-col">
+          <DialogContent className="flex max-h-screen flex-col sm:max-w-lg">
             <DialogHeader>
               <DialogTitle>View Message</DialogTitle>
               <DialogDescription>
                 Read your messages here. Click ok when you&apos;re done.
               </DialogDescription>
             </DialogHeader>
-            <div className="flex h-full overflow-auto items-start justify-between border border-gray-secondary rounded-md p-1">
-              <div className="flex flex-col  w-full">
-                <div className="flex  justify-between items-center w-full">
+            <div className="border-gray-secondary flex h-full items-start justify-between overflow-auto rounded-md border p-1">
+              <div className="flex w-full flex-col">
+                <div className="flex w-full items-center justify-between">
                   {/* nameemail */}
                   <div>
-                    <span className="text-base font-bold line-clamp-1">
+                    <span className="line-clamp-1 text-base font-bold">
                       {editCategoryData?.name}
                     </span>
                     <Link
                       target="_blank"
                       href={`mailto:${editCategoryData?.email}`}
-                      className="text-xs text-gray-primary line-clamp-1"
+                      className="text-gray-primary line-clamp-1 text-xs"
                     >
                       {editCategoryData?.email}
                     </Link>
                   </div>
                   {/* buttons */}
-                  <div className="flex flex-col  items-end">
+                  <div className="flex flex-col items-end">
                     <div className="text-xs">
                       <Badge variant={"destructive"}>
                         {editCategoryData?.createdAt &&
                           new Date(editCategoryData?.createdAt).toISOString()}
                       </Badge>
                     </div>
-                    <div className="flex items-center flex-wrap gap-2">
+                    <div className="flex flex-wrap items-center gap-2">
                       <Button
                         onClick={async () => {
                           if (!editCategoryData?.id) return;
@@ -311,21 +311,21 @@ const PageMessagesAdmin = ({
                   </div>
                 </div>
 
-                <div className=" flex flex-col gap-1">
-                  <span className="text-sm ">
+                <div className="flex flex-col gap-1">
+                  <span className="text-sm">
                     <span className="font-semibold">Subject: </span>
                     <span className="font-medium">
                       {editCategoryData?.subject}{" "}
                     </span>
                   </span>
-                  <span className="text-sm  whitespace-pre-line">
+                  <span className="text-sm whitespace-pre-line">
                     {editCategoryData?.message}
                   </span>
                 </div>
               </div>
             </div>
             <DialogFooter>
-              <div className="w-full flex items-end justify-end">
+              <div className="flex w-full items-end justify-end">
                 <Button
                   variant={"outline"}
                   onClick={() => setOpenEditCategory(false)}

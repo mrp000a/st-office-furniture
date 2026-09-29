@@ -59,10 +59,10 @@ function RatingStars({ rating }: { rating: number }) {
 
 export function ReviewsSection() {
   return (
-    <section className="relative overflow-hidden bg-muted/30 py-20 sm:py-24 lg:py-32">
+    <section className="bg-muted/30 relative overflow-hidden py-20 sm:py-24 lg:py-32">
       {/* Background decoration */}
-      <div className="pointer-events-none absolute left-0 top-20 size-80 rounded-full bg-primary/5 blur-[100px]" />
-      <div className="pointer-events-none absolute bottom-0 right-0 size-96 rounded-full bg-primary/5 blur-[120px]" />
+      <div className="bg-primary/5 pointer-events-none absolute top-20 left-0 size-80 rounded-full blur-[100px]" />
+      <div className="bg-primary/5 pointer-events-none absolute right-0 bottom-0 size-96 rounded-full blur-[120px]" />
 
       <div className="relative mx-auto max-w-384 px-4 sm:px-6 lg:px-8">
         {/* ================= HEADER ================= */}
@@ -70,9 +70,9 @@ export function ReviewsSection() {
         <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
           <div className="max-w-2xl">
             <div className="mb-4 flex items-center gap-3">
-              <span className="h-px w-9 bg-primary" />
+              <span className="bg-primary h-px w-9" />
 
-              <span className="text-xs font-semibold uppercase tracking-[0.25em] text-primary">
+              <span className="text-primary text-xs font-semibold tracking-[0.25em] uppercase">
                 Customer Stories
               </span>
             </div>
@@ -82,26 +82,26 @@ export function ReviewsSection() {
               <span className="text-primary">value better workspaces.</span>
             </h2>
 
-            <p className="mt-5 max-w-xl text-sm leading-7 text-muted-foreground sm:text-base">
+            <p className="text-muted-foreground mt-5 max-w-xl text-sm leading-7 sm:text-base">
               From home offices to professional workplaces, our customers choose
               ST Office Furniture for comfort, quality, and dependable service.
             </p>
           </div>
 
           {/* Overall rating */}
-          <div className="flex shrink-0 items-center gap-4 rounded-2xl border bg-background px-5 py-4 shadow-sm">
+          <div className="bg-background flex shrink-0 items-center gap-4 rounded-2xl border px-5 py-4 shadow-sm">
             <div>
               <div className="text-3xl font-bold tracking-tight">4.8</div>
 
               <RatingStars rating={5} />
             </div>
 
-            <div className="h-10 w-px bg-border" />
+            <div className="bg-border h-10 w-px" />
 
             <div>
               <p className="text-sm font-semibold">Excellent</p>
 
-              <p className="text-xs text-muted-foreground">Customer rating</p>
+              <p className="text-muted-foreground text-xs">Customer rating</p>
             </div>
           </div>
         </div>
@@ -112,45 +112,33 @@ export function ReviewsSection() {
           {reviews.map((review) => (
             <article
               key={review.name}
-              className="
-                group relative flex h-full flex-col
-                rounded-2xl border bg-background
-                p-6
-                shadow-sm
-                transition-all duration-300
-                hover:-translate-y-1
-                hover:shadow-xl
-                sm:p-7
-              "
+              className="group bg-background relative flex h-full flex-col rounded-2xl border p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl sm:p-7"
             >
               {/* Quote icon */}
-              <div
-                className="
-                  absolute right-6 top-6
-                  flex size-9 items-center justify-center
-                  rounded-full bg-primary/10
-                "
-              >
-                <Quote className="size-4 text-primary" />
+              <div className="bg-primary/10 absolute top-6 right-6 flex size-9 items-center justify-center rounded-full">
+                <Quote className="text-primary size-4" />
               </div>
 
               {/* Rating */}
               <RatingStars rating={review.rating} />
 
               {/* Review */}
-              <blockquote className="mt-5 flex-1 text-sm leading-7 text-foreground/80 sm:text-[15px]">
+              <blockquote className="text-foreground/80 mt-5 flex-1 text-sm leading-7 sm:text-[15px]">
                 “{review.review}”
               </blockquote>
 
               {/* Divider */}
-              <div className="my-6 h-px bg-border" />
+              <div className="bg-border my-6 h-px" />
 
               {/* Customer */}
               <div className="flex items-center gap-3">
                 {/* Avatar */}
-                <div className="relative size-11 shrink-0 overflow-hidden rounded-full bg-muted">
+                <div className="bg-muted relative size-11 shrink-0 overflow-hidden rounded-full">
                   <Avatar className="size-full">
-                    <AvatarImage src={getImageUrl(review.image)} />
+                    <AvatarImage
+                      alt="userImage"
+                      src={getImageUrl(review.image)}
+                    />
                     <AvatarFallback>
                       {review?.name?.charAt(0).toUpperCase() ?? "U"}
                     </AvatarFallback>
@@ -166,25 +154,25 @@ export function ReviewsSection() {
 
                     {review.verified && (
                       <BadgeCheck
-                        className="size-4 shrink-0 text-primary"
+                        className="text-primary size-4 shrink-0"
                         fill="currentColor"
                         strokeWidth={1.5}
                       />
                     )}
                   </div>
 
-                  <p className="text-xs text-muted-foreground">{review.role}</p>
+                  <p className="text-muted-foreground text-xs">{review.role}</p>
                 </div>
 
-                <span className="ml-auto text-[11px] text-muted-foreground">
+                <span className="text-muted-foreground ml-auto text-[11px]">
                   {review.date}
                 </span>
               </div>
 
               {/* Verified */}
               {review.verified && (
-                <div className="mt-4 flex items-center gap-1.5 text-[11px] font-medium text-muted-foreground">
-                  <BadgeCheck className="size-3.5 text-primary" />
+                <div className="text-muted-foreground mt-4 flex items-center gap-1.5 text-[11px] font-medium">
+                  <BadgeCheck className="text-primary size-3.5" />
                   Verified purchase
                 </div>
               )}
@@ -194,37 +182,23 @@ export function ReviewsSection() {
 
         {/* ================= BOTTOM CTA ================= */}
 
-        <div className="mt-10 flex flex-col items-center justify-between gap-5 rounded-2xl border bg-background px-6 py-6 sm:flex-row sm:px-8">
+        <div className="bg-background mt-10 flex flex-col items-center justify-between gap-5 rounded-2xl border px-6 py-6 sm:flex-row sm:px-8">
           <div>
             <p className="text-sm font-semibold">
               See what our customers are saying
             </p>
 
-            <p className="mt-1 text-xs text-muted-foreground sm:text-sm">
+            <p className="text-muted-foreground mt-1 text-xs sm:text-sm">
               Explore more verified customer experiences.
             </p>
           </div>
 
           <Link
             href="/reviews"
-            className="
-              group inline-flex shrink-0 items-center gap-2
-              rounded-xl border
-              px-5 py-3
-              text-sm font-semibold
-              transition-all duration-300
-              hover:border-primary/40
-              hover:bg-primary/5
-            "
+            className="group hover:border-primary/40 hover:bg-primary/5 inline-flex shrink-0 items-center gap-2 rounded-xl border px-5 py-3 text-sm font-semibold transition-all duration-300"
           >
             View All Reviews
-            <ArrowRight
-              className="
-                size-4
-                transition-transform duration-300
-                group-hover:translate-x-1
-              "
-            />
+            <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
           </Link>
         </div>
       </div>

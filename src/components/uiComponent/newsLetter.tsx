@@ -21,7 +21,7 @@ const NewsLetter = () => {
     <div className="w-full">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-90 flex gap-2 items-center  p-1 rounded-md"
+        className="flex w-full max-w-90 items-center gap-2 rounded-md p-1"
       >
         <Input
           className="bg-background/90"

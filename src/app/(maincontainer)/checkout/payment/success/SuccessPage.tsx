@@ -26,7 +26,7 @@ export default function PaymentSuccess({ order }: Props) {
   const amount = Number(order.total);
 
   return (
-    <main className="min-h-[80vh] bg-muted/20 px-4 py-12 sm:py-20">
+    <main className="bg-muted/20 min-h-[80vh] px-4 py-12 sm:py-20">
       <div className="mx-auto max-w-xl">
         {/* Success */}
 
@@ -50,7 +50,7 @@ export default function PaymentSuccess({ order }: Props) {
             Payment Successful
           </h1>
 
-          <p className="mt-3 text-muted-foreground">
+          <p className="text-muted-foreground mt-3">
             Thank you, {order.receiverName}. Your order has been successfully
             confirmed.
           </p>
@@ -58,16 +58,16 @@ export default function PaymentSuccess({ order }: Props) {
 
         {/* Order Reference */}
 
-        <section className="mt-8 rounded-2xl border bg-background p-6 shadow-sm">
+        <section className="bg-background mt-8 rounded-2xl border p-6 shadow-sm">
           <div className="flex items-center justify-between gap-4">
             <div>
-              <p className="text-sm text-muted-foreground">Order number</p>
+              <p className="text-muted-foreground text-sm">Order number</p>
 
               <p className="mt-1 text-lg font-bold">#{order.id}</p>
             </div>
 
             <div className="text-right">
-              <p className="text-sm text-muted-foreground">Amount paid</p>
+              <p className="text-muted-foreground text-sm">Amount paid</p>
 
               <p className="mt-1 text-lg font-bold">
                 ৳
@@ -81,16 +81,16 @@ export default function PaymentSuccess({ order }: Props) {
 
         {/* What's next */}
 
-        <section className="mt-4 rounded-2xl border bg-background p-6 shadow-sm">
+        <section className="bg-background mt-4 rounded-2xl border p-6 shadow-sm">
           <div className="flex gap-4">
-            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10">
-              <PackageCheck className="h-5 w-5 text-primary" />
+            <div className="bg-primary/10 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl">
+              <PackageCheck className="text-primary h-5 w-5" />
             </div>
 
             <div>
               <h2 className="font-semibold">What happens next?</h2>
 
-              <p className="mt-2 text-sm leading-6 text-muted-foreground">
+              <p className="text-muted-foreground mt-2 text-sm leading-6">
                 {
                   "We've received your payment and confirmed your order. We'll begin preparing your order and contact you before dispatch."
                 }
@@ -120,7 +120,7 @@ export default function PaymentSuccess({ order }: Props) {
 
           <div className="ml-3 h-6 border-l" />
 
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <div className="text-muted-foreground flex items-center gap-2 text-sm">
             <div className="flex h-6 w-6 items-center justify-center rounded-full border">
               3
             </div>
@@ -134,7 +134,7 @@ export default function PaymentSuccess({ order }: Props) {
         <div className="mt-6 grid gap-3 sm:grid-cols-2">
           <Link
             href={`/order/${order.publicId}`}
-            className="group flex items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3.5 font-medium text-primary-foreground transition hover:opacity-90"
+            className="group bg-primary text-primary-foreground flex items-center justify-center gap-2 rounded-xl px-5 py-3.5 font-medium transition hover:opacity-90"
           >
             View Order Details
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -142,7 +142,7 @@ export default function PaymentSuccess({ order }: Props) {
 
           <Link
             href="/products"
-            className="flex items-center justify-center gap-2 rounded-xl border bg-background px-5 py-3.5 font-medium transition hover:bg-muted"
+            className="bg-background hover:bg-muted flex items-center justify-center gap-2 rounded-xl border px-5 py-3.5 font-medium transition"
           >
             <ShoppingBag className="h-4 w-4" />
             Continue Shopping
@@ -151,11 +151,11 @@ export default function PaymentSuccess({ order }: Props) {
 
         {/* Support */}
 
-        <p className="mt-7 text-center text-sm text-muted-foreground">
+        <p className="text-muted-foreground mt-7 text-center text-sm">
           Need help with your order?{" "}
           <Link
             href="/contact"
-            className="font-medium text-foreground underline underline-offset-4"
+            className="text-foreground font-medium underline underline-offset-4"
           >
             Contact us
           </Link>

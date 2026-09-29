@@ -12,7 +12,7 @@ export function OrderStatusBadge({ status, className }: OrderStatusBadgeProps) {
   const config = orderStatusConfig[status];
 
   return (
-    <Badge variant="outline" className={`${config.className}  ${className}`}>
+    <Badge variant="outline" className={`${config.className} ${className}`}>
       {config.label}
     </Badge>
   );

@@ -43,22 +43,22 @@ const PageTrackOrder = () => {
   };
 
   return (
-    <div className="w-full min-h-[calc(100vh-300px)] flex-center  max-w-5xl mx-auto p-2 py-4 ">
-      <div className="rounded-md bg-background outline-2 outline-gray-secondary shadow-2xl shadow-foreground/40 w-full flex-col sm:flex-row flex items-stretch overflow-hidden">
-        <div className="w-full overflow-hidden relative hidden sm:flex">
-          <div className="absolute w-full h-full flex-1 overflow-hidden ">
+    <div className="flex-center mx-auto min-h-[calc(100vh-300px)] w-full max-w-5xl p-2 py-4">
+      <div className="bg-background outline-gray-secondary shadow-foreground/40 flex w-full flex-col items-stretch overflow-hidden rounded-md shadow-2xl outline-2 sm:flex-row">
+        <div className="relative hidden w-full overflow-hidden sm:flex">
+          <div className="absolute h-full w-full flex-1 overflow-hidden">
             <Image
               unoptimized
               fill
-              className={`object-cover object-center overflow-hidden relative`}
+              className={`relative overflow-hidden object-cover object-center`}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               src={LoginAndRegisterPageImages.login}
               alt=""
             />
           </div>
-          <div className="relative h-full pt-24 w-full bg-foreground/30 z-20  flex justify-end p-5 items-center flex-col text-background">
+          <div className="bg-foreground/30 text-background relative z-20 flex h-full w-full flex-col items-center justify-end p-5 pt-24">
             <h2 className="text-2xl font-bold">Track Your Order!</h2>
-            <span className="text-center font-bangla">
+            <span className="font-bangla text-center">
               কোথাও যাওয়ার প্রয়োজন নেই। ঘরে বসেই এক ক্লিকে জানুন আপনার পণ্য এখন
               কোথায় আছে।
             </span>
@@ -66,19 +66,19 @@ const PageTrackOrder = () => {
         </div>
         <div className="w-full p-4">
           <form onSubmit={handleSubmit(handleSubmitData)} className="space-y-8">
-            <div className=" gap-2">
-              <h2 className="text-2xl font-bold flex items-center gap-3 ">
+            <div className="gap-2">
+              <h2 className="flex items-center gap-3 text-2xl font-bold">
                 <MdVerifiedUser className="text-green-primary" />{" "}
                 <span>Track Order!</span>
               </h2>
-              <span className="text-center text-gray-secondary">
+              <span className="text-gray-secondary text-center">
                 Enjoy your shopping experience.
               </span>
             </div>
 
             {/* sec 8 */}
-            <div className="flex items-start justify-between gap-12 flex-col ">
-              <div className="grid grid-cols-1 space-y-1 flex-1 w-full">
+            <div className="flex flex-col items-start justify-between gap-12">
+              <div className="grid w-full flex-1 grid-cols-1 space-y-1">
                 <label htmlFor="phone">Phone:</label>
                 <Input
                   id="phone"
@@ -93,7 +93,7 @@ const PageTrackOrder = () => {
                   <InputErrorMessage>{errors.phone.message}</InputErrorMessage>
                 )}
               </div>
-              <div className="grid grid-cols-1 space-y-1 flex-1 w-full">
+              <div className="grid w-full flex-1 grid-cols-1 space-y-1">
                 <label htmlFor="password">Invoice Id:</label>
                 <Input
                   id="invoiceId"
@@ -120,13 +120,13 @@ const PageTrackOrder = () => {
               </div>
             </div>
 
-            <div className="w-full flex-center pt-4">
+            <div className="flex-center w-full pt-4">
               <Button
                 disabled={isSubmitting}
                 size={"lg"}
                 variant={"default"}
                 type="submit"
-                className="w-full bg-green-primary"
+                className="bg-green-primary w-full"
               >
                 {isSubmitting && (
                   <span className="animate-spin">

@@ -79,24 +79,24 @@ const process = [
 
 export default function AboutPage() {
   return (
-    <main className="w-full overflow-hidden bg-background">
+    <main className="bg-background w-full overflow-hidden">
       {/* Hero */}
-      <section className="relative border-b border-border">
-        <div className="absolute inset-0 bg-linear-to-br from-green-primary/10 via-background to-foreground/20" />
+      <section className="border-border relative border-b">
+        <div className="from-green-primary/10 via-background to-foreground/20 absolute inset-0 bg-linear-to-br" />
 
         <div className="relative mx-auto grid min-h-[520px] w-full max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:px-8 lg:py-20">
           <div className="max-w-2xl">
-            <span className="inline-flex items-center gap-2 rounded-full border border-green-primary/20 bg-green-primary/10 px-3 py-1.5 text-xs font-semibold text-green-primary">
+            <span className="border-green-primary/20 bg-green-primary/10 text-green-primary inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-semibold">
               <Sparkles className="h-3.5 w-3.5" />
               About ST Office Furniture
             </span>
 
-            <h1 className="mt-5 text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+            <h1 className="text-foreground mt-5 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
               Better furniture for
-              <span className="block text-green-primary">better working.</span>
+              <span className="text-green-primary block">better working.</span>
             </h1>
 
-            <p className="mt-5 max-w-xl text-sm leading-7 text-gray-primary sm:text-base">
+            <p className="text-gray-primary mt-5 max-w-xl text-sm leading-7 sm:text-base">
               We believe a workspace should be more than a place to work. It
               should be comfortable, functional, professional, and designed to
               help people do their best work.
@@ -105,7 +105,7 @@ export default function AboutPage() {
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
                 href="/products"
-                className="inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-green-primary px-6 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:shadow-lg"
+                className="bg-green-primary inline-flex h-11 items-center justify-center gap-2 rounded-lg px-6 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:shadow-lg"
               >
                 Explore Products
                 <ArrowRight className="h-4 w-4" />
@@ -113,7 +113,7 @@ export default function AboutPage() {
 
               <Link
                 href="/contact"
-                className="inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-border bg-background px-6 text-sm font-semibold transition-colors hover:bg-muted"
+                className="border-border bg-background hover:bg-muted inline-flex h-11 items-center justify-center gap-2 rounded-lg border px-6 text-sm font-semibold transition-colors"
               >
                 Talk to Us
               </Link>
@@ -121,9 +121,9 @@ export default function AboutPage() {
           </div>
 
           <div className="relative mx-auto w-full max-w-xl">
-            <div className="absolute -inset-4 rounded-[2rem] bg-green-primary/10 blur-3xl" />
+            <div className="bg-green-primary/10 absolute -inset-4 rounded-[2rem] blur-3xl" />
 
-            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border bg-muted shadow-2xl">
+            <div className="border-border bg-muted relative aspect-[4/3] overflow-hidden rounded-2xl border shadow-2xl">
               <Image
                 src={aboutHeroImage}
                 alt="Modern office workspace with ST Office Furniture"
@@ -134,14 +134,14 @@ export default function AboutPage() {
               />
             </div>
 
-            <div className="absolute -bottom-5 -left-3 rounded-xl border border-border bg-background/95 p-4 shadow-xl backdrop-blur-xl sm:-left-6">
+            <div className="border-border bg-background/95 absolute -bottom-5 -left-3 rounded-xl border p-4 shadow-xl backdrop-blur-xl sm:-left-6">
               <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-green-primary/10">
-                  <PackageCheck className="h-5 w-5 text-green-primary" />
+                <div className="bg-green-primary/10 flex h-10 w-10 items-center justify-center rounded-lg">
+                  <PackageCheck className="text-green-primary h-5 w-5" />
                 </div>
 
                 <div>
-                  <p className="text-xs text-gray-primary">Our promise</p>
+                  <p className="text-gray-primary text-xs">Our promise</p>
                   <p className="text-sm font-bold">
                     Better Seating. Better Working.
                   </p>
@@ -153,10 +153,10 @@ export default function AboutPage() {
       </section>
 
       {/* Values */}
-      <section className="border-y border-border bg-violet-primary/10">
+      <section className="border-border bg-violet-primary/10 border-y">
         <div className="mx-auto w-full max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-24">
           <div className="mx-auto max-w-2xl text-center">
-            <span className="text-xs font-bold uppercase tracking-[0.2em] text-green-primary">
+            <span className="text-green-primary text-xs font-bold tracking-[0.2em] uppercase">
               What We Stand For
             </span>
 
@@ -164,7 +164,7 @@ export default function AboutPage() {
               Built around the way people work.
             </h2>
 
-            <p className="mt-4 text-sm leading-7 text-gray-primary sm:text-base">
+            <p className="text-gray-primary mt-4 text-sm leading-7 sm:text-base">
               Every part of our approach comes back to one simple idea:
               furniture should make working better.
             </p>
@@ -177,15 +177,15 @@ export default function AboutPage() {
               return (
                 <div
                   key={value.title}
-                  className="group rounded-2xl border border-border bg-background p-6 transition-all duration-300 hover:-translate-y-1 hover:border-green-primary/30 hover:shadow-xl"
+                  className="group border-border bg-background hover:border-green-primary/30 rounded-2xl border p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
                 >
-                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-green-primary/10 transition-colors group-hover:bg-green-primary">
-                    <Icon className="h-5 w-5 text-green-primary transition-colors group-hover:text-white" />
+                  <div className="bg-green-primary/10 group-hover:bg-green-primary flex h-11 w-11 items-center justify-center rounded-xl transition-colors">
+                    <Icon className="text-green-primary h-5 w-5 transition-colors group-hover:text-white" />
                   </div>
 
                   <h3 className="mt-5 text-lg font-semibold">{value.title}</h3>
 
-                  <p className="mt-2 text-sm leading-6 text-gray-primary">
+                  <p className="text-gray-primary mt-2 text-sm leading-6">
                     {value.description}
                   </p>
                 </div>
@@ -198,7 +198,7 @@ export default function AboutPage() {
       {/* Process */}
       <section className="mx-auto w-full max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-24">
         <div className="mx-auto max-w-2xl text-center">
-          <span className="text-xs font-bold uppercase tracking-[0.2em] text-green-primary">
+          <span className="text-green-primary text-xs font-bold tracking-[0.2em] uppercase">
             Simple Experience
           </span>
 
@@ -208,17 +208,17 @@ export default function AboutPage() {
         </div>
 
         <div className="relative mt-12 grid gap-8 md:grid-cols-4">
-          <div className="absolute left-[12%] right-[12%] top-7 hidden h-px bg-border md:block" />
+          <div className="bg-border absolute top-7 right-[12%] left-[12%] hidden h-px md:block" />
 
           {process.map((item) => (
             <div key={item.number} className="relative text-center">
-              <div className="relative mx-auto flex h-14 w-14 items-center justify-center rounded-full border-4 border-background bg-green-primary text-sm font-bold text-white shadow-md">
+              <div className="border-background bg-green-primary relative mx-auto flex h-14 w-14 items-center justify-center rounded-full border-4 text-sm font-bold text-white shadow-md">
                 {item.number}
               </div>
 
               <h3 className="mt-5 text-lg font-semibold">{item.title}</h3>
 
-              <p className="mt-2 text-sm leading-6 text-gray-primary">
+              <p className="text-gray-primary mt-2 text-sm leading-6">
                 {item.description}
               </p>
             </div>
@@ -233,7 +233,7 @@ function Stat({ value, label }: { value: string; label: string }) {
   return (
     <div className="px-3 py-6 text-center sm:px-6 sm:py-8">
       <p className="text-2xl font-bold tracking-tight sm:text-3xl">{value}</p>
-      <p className="mt-1 text-[10px] font-medium uppercase tracking-wider text-gray-primary sm:text-xs">
+      <p className="text-gray-primary mt-1 text-[10px] font-medium tracking-wider uppercase sm:text-xs">
         {label}
       </p>
     </div>
@@ -264,13 +264,13 @@ function WorkspaceCard({
 
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
-      <div className="absolute bottom-0 left-0 right-0 p-6">
+      <div className="absolute right-0 bottom-0 left-0 p-6">
         <h3 className="text-xl font-bold">{title}</h3>
         <p className="mt-2 max-w-sm text-sm leading-6 text-white/70">
           {description}
         </p>
 
-        <span className="mt-4 inline-flex items-center gap-2 text-xs font-semibold text-green-primary">
+        <span className="text-green-primary mt-4 inline-flex items-center gap-2 text-xs font-semibold">
           Explore
           <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
         </span>

@@ -91,14 +91,14 @@ const faqs = [
 
 export default function ContactPage() {
   return (
-    <main className="w-full overflow-hidden bg-background">
+    <main className="bg-background w-full overflow-hidden">
       {/* =========================================================
           INQUIRY TYPES
       ========================================================= */}
-      <section className="border-y border-border bg-muted/20">
+      <section className="border-border bg-muted/20 border-y">
         <div className="mx-auto w-full max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-24">
           <div className="mx-auto max-w-2xl text-center">
-            <span className="text-xs font-bold uppercase tracking-[0.2em] text-green-primary">
+            <span className="text-green-primary text-xs font-bold tracking-[0.2em] uppercase">
               {"We're Here to Help"}
             </span>
 
@@ -106,7 +106,7 @@ export default function ContactPage() {
               {"Whatever you need, let's talk."}
             </h2>
 
-            <p className="mt-4 text-sm leading-7 text-gray-primary sm:text-base">
+            <p className="text-gray-primary mt-4 text-sm leading-7 sm:text-base">
               {
                 "Whether you're buying one chair or planning an entire workspace,we're happy to help."
               }
@@ -120,15 +120,15 @@ export default function ContactPage() {
               return (
                 <div
                   key={item.title}
-                  className="group rounded-2xl border border-border bg-background p-6 transition-all duration-300 hover:-translate-y-1 hover:border-green-primary/30 hover:shadow-xl"
+                  className="group border-border bg-background hover:border-green-primary/30 rounded-2xl border p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
                 >
-                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-green-primary/10 transition-colors group-hover:bg-green-primary">
-                    <Icon className="h-5 w-5 text-green-primary transition-colors group-hover:text-white" />
+                  <div className="bg-green-primary/10 group-hover:bg-green-primary flex h-11 w-11 items-center justify-center rounded-xl transition-colors">
+                    <Icon className="text-green-primary h-5 w-5 transition-colors group-hover:text-white" />
                   </div>
 
                   <h3 className="mt-5 text-base font-semibold">{item.title}</h3>
 
-                  <p className="mt-2 text-sm leading-6 text-gray-primary">
+                  <p className="text-gray-primary mt-2 text-sm leading-6">
                     {item.description}
                   </p>
                 </div>
@@ -145,12 +145,12 @@ export default function ContactPage() {
         id="location"
         className="mx-auto w-full max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-24"
       >
-        <div className="grid overflow-hidden rounded-2xl border border-border bg-card lg:grid-cols-2">
+        <div className="border-border bg-card grid overflow-hidden rounded-2xl border lg:grid-cols-2">
           {/* Map */}
-          <div className="relative min-h-[350px] bg-muted lg:min-h-[450px]">
-            <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-green-primary/10 via-muted to-muted">
+          <div className="bg-muted relative min-h-[350px] lg:min-h-[450px]">
+            <div className="from-green-primary/10 via-muted to-muted absolute inset-0 flex items-center justify-center bg-gradient-to-br">
               <div className="text-center">
-                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-green-primary text-white shadow-lg">
+                <div className="bg-green-primary mx-auto flex h-14 w-14 items-center justify-center rounded-full text-white shadow-lg">
                   <MapPin className="h-6 w-6" />
                 </div>
 
@@ -158,7 +158,7 @@ export default function ContactPage() {
                   ST Office Furniture
                 </p>
 
-                <p className="mt-1 text-xs text-gray-primary">
+                <p className="text-gray-primary mt-1 text-xs">
                   Rajshahi, Bangladesh
                 </p>
               </div>
@@ -167,7 +167,7 @@ export default function ContactPage() {
 
           {/* Location information */}
           <div className="flex flex-col justify-center p-7 sm:p-10 lg:p-14">
-            <span className="text-xs font-bold uppercase tracking-[0.2em] text-green-primary">
+            <span className="text-green-primary text-xs font-bold tracking-[0.2em] uppercase">
               Visit Us
             </span>
 
@@ -175,7 +175,7 @@ export default function ContactPage() {
               Come and talk to us.
             </h2>
 
-            <p className="mt-4 text-sm leading-7 text-gray-primary">
+            <p className="text-gray-primary mt-4 text-sm leading-7">
               {
                 "If you prefer discussing your requirements in person, we'd be happy to help you explore suitable furniture solutions."
               }
@@ -183,22 +183,22 @@ export default function ContactPage() {
 
             <div className="mt-8 space-y-5">
               <div className="flex gap-4">
-                <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-green-primary" />
+                <MapPin className="text-green-primary mt-0.5 h-5 w-5 shrink-0" />
 
                 <div>
                   <p className="text-sm font-semibold">Our Location</p>
-                  <p className="mt-1 text-sm leading-6 text-gray-primary">
+                  <p className="text-gray-primary mt-1 text-sm leading-6">
                     Rajshahi, Bangladesh
                   </p>
                 </div>
               </div>
 
               <div className="flex gap-4">
-                <Clock3 className="mt-0.5 h-5 w-5 shrink-0 text-green-primary" />
+                <Clock3 className="text-green-primary mt-0.5 h-5 w-5 shrink-0" />
 
                 <div>
                   <p className="text-sm font-semibold">Business Hours</p>
-                  <p className="mt-1 text-sm leading-6 text-gray-primary">
+                  <p className="text-gray-primary mt-1 text-sm leading-6">
                     Please contact us for current business hours.
                   </p>
                 </div>
@@ -209,7 +209,7 @@ export default function ContactPage() {
               href="https://maps.google.com/?q=Rajshahi,Bangladesh"
               target="_blank"
               rel="noreferrer"
-              className="mt-8 inline-flex h-11 w-fit items-center gap-2 rounded-lg border border-border px-5 text-sm font-semibold transition-colors hover:bg-muted"
+              className="border-border hover:bg-muted mt-8 inline-flex h-11 w-fit items-center gap-2 rounded-lg border px-5 text-sm font-semibold transition-colors"
             >
               Open in Google Maps
               <ArrowRight className="h-4 w-4" />
@@ -221,10 +221,10 @@ export default function ContactPage() {
       {/* =========================================================
           FAQ
       ========================================================= */}
-      <section className="border-t border-border bg-muted/20">
+      <section className="border-border bg-muted/20 border-t">
         <div className="mx-auto w-full max-w-4xl px-4 py-20 sm:px-6 lg:py-24">
           <div className="text-center">
-            <span className="text-xs font-bold uppercase tracking-[0.2em] text-green-primary">
+            <span className="text-green-primary text-xs font-bold tracking-[0.2em] uppercase">
               FAQ
             </span>
 
@@ -233,7 +233,7 @@ export default function ContactPage() {
             </h2>
           </div>
 
-          <div className="mt-10 divide-y divide-border rounded-2xl border border-border bg-background">
+          <div className="divide-border border-border bg-background mt-10 divide-y rounded-2xl border">
             <FaqQuestion />
           </div>
         </div>
@@ -243,8 +243,8 @@ export default function ContactPage() {
           FINAL CTA
       ========================================================= */}
       <section className="px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
-        <div className="relative mx-auto max-w-7xl overflow-hidden rounded-3xl bg-green-primary px-6 py-14 text-center text-white sm:px-10 lg:px-16 lg:py-20">
-          <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
+        <div className="bg-green-primary relative mx-auto max-w-7xl overflow-hidden rounded-3xl px-6 py-14 text-center text-white sm:px-10 lg:px-16 lg:py-20">
+          <div className="absolute -top-20 -right-20 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
           <div className="absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-black/10 blur-3xl" />
 
           <div className="relative mx-auto max-w-2xl">
@@ -263,7 +263,7 @@ export default function ContactPage() {
             <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
               <Link
                 href="/products"
-                className="inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-white px-6 text-sm font-semibold text-green-primary transition-all hover:-translate-y-0.5 hover:shadow-lg"
+                className="text-green-primary inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-white px-6 text-sm font-semibold transition-all hover:-translate-y-0.5 hover:shadow-lg"
               >
                 Explore Products
                 <ArrowRight className="h-4 w-4" />

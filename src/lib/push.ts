@@ -17,7 +17,7 @@ export async function sendPushNotification(
     body: string;
     url?: string;
     icon?: string;
-    image?: string,
+    image?: string;
   },
 ) {
   return webpush.sendNotification(

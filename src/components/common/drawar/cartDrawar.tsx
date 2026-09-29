@@ -57,10 +57,10 @@ const CartDrawar = ({
   return (
     <div>
       <Drawer open={openCart} direction="right" onOpenChange={setOpenCart}>
-        <DrawerContent className="z-9999 px-3 py-2 min-[400px]:min-w-sm md:min-w-md lg:min-w-lg max-w-[100vw]">
-          <DrawerHeader className="border-b border-b-gray-secondary">
+        <DrawerContent className="z-9999 max-w-[100vw] px-3 py-2 min-[400px]:min-w-sm md:min-w-md lg:min-w-lg">
+          <DrawerHeader className="border-b-gray-secondary border-b">
             <DrawerTitle>
-              <div className="flex justify-between items-center">
+              <div className="flex items-center justify-between">
                 <span>Cart</span>
                 <div>
                   <Button
@@ -83,11 +83,11 @@ const CartDrawar = ({
                 </div>
               </div>
             </DrawerTitle>
-            <span className="w-full text-gray-secondary ">
+            <span className="text-gray-secondary w-full">
               All your cart items are shown below.
             </span>
           </DrawerHeader>
-          <div className=" w-full p-2 overflow-x-hidden overflow-y-auto  max-w-full  flex flex-col gap-3 box-border">
+          <div className="box-border flex w-full max-w-full flex-col gap-3 overflow-x-hidden overflow-y-auto p-2">
             {cart && cart.items.length > 0 ? (
               cart.items.map(({ title, product, qty, id }, index) => (
                 <CartProductItem
@@ -108,7 +108,7 @@ const CartDrawar = ({
               <div className="flex-center w-full flex-col">
                 <NoItemsFound />
                 <Button
-                  className="w-fit mx-auto"
+                  className="mx-auto w-fit"
                   variant={"default"}
                   onClick={() => {
                     router.push(`/products/`);
@@ -124,9 +124,9 @@ const CartDrawar = ({
               </div>
             )}
           </div>
-          <DrawerFooter className="border-t border-gray-secondary">
-            <div className="flex justify-between items-center">
-              <div className=" space-x-2">
+          <DrawerFooter className="border-gray-secondary border-t">
+            <div className="flex items-center justify-between">
+              <div className="space-x-2">
                 <span className="text-gray-secondary font-semibold">
                   Total Price:
                 </span>
@@ -143,7 +143,7 @@ const CartDrawar = ({
                   )}
                 </span>
               </div>{" "}
-              <div className="space-x-2 flex flex-wrap">
+              <div className="flex flex-wrap space-x-2">
                 <span className="text-gray-secondary font-semibold">
                   Total Qty:
                 </span>

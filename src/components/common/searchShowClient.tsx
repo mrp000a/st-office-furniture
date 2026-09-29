@@ -30,7 +30,7 @@ const SearchShowClient = ({ pathnameSend }: { pathnameSend?: string }) => {
   return (
     <div>
       <div
-        className={` w-full  rounded-md gap-2 flex flex-wrap text-gray-primary/80 `}
+        className={`text-gray-primary/80 flex w-full flex-wrap gap-2 rounded-md`}
       >
         <span className={`${searchString ? "" : "hidden"}`}>
           Showing result for {`"${searchString}"`}

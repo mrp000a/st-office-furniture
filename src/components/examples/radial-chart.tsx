@@ -1,13 +1,13 @@
-"use client"
+"use client";
 
-import { TrendingUp } from "lucide-react"
+import { TrendingUp } from "lucide-react";
 import {
   Label,
   PolarGrid,
   PolarRadiusAxis,
   RadialBar,
   RadialBarChart,
-} from "recharts"
+} from "recharts";
 
 import {
   Card,
@@ -16,17 +16,17 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/components/ui/card";
 import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
   type ChartConfig,
-} from "@/components/ui/chart"
+} from "@/components/ui/chart";
 
-export const description = "A radial chart with stacked sections"
+export const description = "A radial chart with stacked sections";
 
-const chartData = [{ month: "january", mobile: 570, desktop: 1260 }]
+const chartData = [{ month: "january", mobile: 570, desktop: 1260 }];
 
 const chartConfig = {
   desktop: {
@@ -37,10 +37,10 @@ const chartConfig = {
     label: "Mobile",
     color: "var(--chart-2)",
   },
-} satisfies ChartConfig
+} satisfies ChartConfig;
 
 export function ChartRadialStacked() {
-  const totalVisitors = chartData[0].desktop + chartData[0].mobile
+  const totalVisitors = chartData[0].desktop + chartData[0].mobile;
 
   return (
     <Card className="flex flex-col">
@@ -98,7 +98,7 @@ export function ChartRadialStacked() {
                           Visitors
                         </tspan>
                       </text>
-                    )
+                    );
                   }
                 }}
               />
@@ -110,10 +110,10 @@ export function ChartRadialStacked() {
         <div className="flex items-center gap-2 leading-none font-medium">
           Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
         </div>
-        <div className="leading-none text-muted-foreground">
+        <div className="text-muted-foreground leading-none">
           Showing total visitors for the last 6 months
         </div>
       </CardFooter>
     </Card>
-  )
+  );
 }

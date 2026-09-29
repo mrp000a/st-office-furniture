@@ -146,7 +146,7 @@ const OrderLogForm = ({ orderId }: { orderId: number }) => {
             id="customerNote"
             placeholder="Enter your note..."
             disabled={isSubmitting}
-            className="min-h-20 max-h-32 resize-none"
+            className="max-h-32 min-h-20 resize-none"
             {...register("note", {
               maxLength: {
                 value: 200,

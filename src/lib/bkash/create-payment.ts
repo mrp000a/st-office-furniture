@@ -20,48 +20,40 @@ export async function createBkashPayment({
 }: CreatePaymentParams): Promise<BkashCreatePaymentResponse> {
   const token = await getBkashToken();
 
-  const callbackURL =
-    `${process.env.NEXT_PUBLIC_URL_SITE}/api/payment/bkash/callback`;
+  const callbackURL = `${process.env.NEXT_PUBLIC_URL_SITE}/api/payment/bkash/callback`;
 
-  const response = await fetch(
-    `${process.env.BKASH_BASE_URL}/create`,
-    {
-      method: "POST",
+  const response = await fetch(`${process.env.BKASH_BASE_URL}/create`, {
+    method: "POST",
 
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: token,
-        "X-App-Key": process.env.BKASH_APP_KEY!,
-      },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token,
+      "X-App-Key": process.env.BKASH_APP_KEY!,
+    },
 
-      body: JSON.stringify({
-        mode: "0011",
-        payerReference: invoice,
-        callbackURL,
+    body: JSON.stringify({
+      mode: "0011",
+      payerReference: invoice,
+      callbackURL,
 
-        amount: amount.toFixed(2),
+      amount: amount.toFixed(2),
 
-        currency: "BDT",
+      currency: "BDT",
 
-        intent: "sale",
+      intent: "sale",
 
-        merchantInvoiceNumber: invoice,
-      }),
+      merchantInvoiceNumber: invoice,
+    }),
 
-      cache: "no-store",
-    }
-  );
+    cache: "no-store",
+  });
 
-  const data =
-    (await response.json()) as BkashCreatePaymentResponse;
+  const data = (await response.json()) as BkashCreatePaymentResponse;
 
   if (!response.ok || !data.paymentID) {
     console.error("bKash create payment error:", data);
 
-    throw new Error(
-      data.statusMessage ||
-      "Failed to create bKash payment"
-    );
+    throw new Error(data.statusMessage || "Failed to create bKash payment");
   }
 
   return data;

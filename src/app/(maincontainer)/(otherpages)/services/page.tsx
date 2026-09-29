@@ -5,9 +5,9 @@ import React from "react";
 const Page = () => {
   return (
     <div>
-      <div className="flex-center flex-col max-w-384 mx-auto p-2 bg-background shadow-md shadow-background dark:shadow-foreground/69 rounded-md">
+      <div className="flex-center bg-background shadow-background dark:shadow-foreground/69 mx-auto max-w-384 flex-col rounded-md p-2 shadow-md">
         <span className="text-lg font-bold">Our Services</span>
-        <div className="w-full text-justify space-y-2">
+        <div className="w-full space-y-2 text-justify">
           <p>Here is what we offer:</p>
           <p>
             1. manufacture furniture using highly skilled craftsmen and provide

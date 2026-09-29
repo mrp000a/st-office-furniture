@@ -40,7 +40,7 @@ export const CartProductItem = ({
   const dispatch = useDispatch();
   const session = useSession();
   return (
-    <div className="flex justify-between items-center gap-2 border p-1 rounded-sm relative">
+    <div className="relative flex items-center justify-between gap-2 rounded-sm border p-1">
       <div
         onClick={() => {
           router.push(`/products/${productCode.toLowerCase()}`);
@@ -49,7 +49,7 @@ export const CartProductItem = ({
             clearTimeout(timer);
           }, 500);
         }}
-        className="h-15 cursor-pointer w-15 relative border box-border border-gray-secondary rounded-md overflow-hidden"
+        className="border-gray-secondary relative box-border h-15 w-15 cursor-pointer overflow-hidden rounded-md border"
       >
         <Image
           unoptimized
@@ -69,15 +69,15 @@ export const CartProductItem = ({
               clearTimeout(timer);
             }, 500);
           }}
-          className="line-clamp-1 font-semibold text-sm text-justify cursor-pointer"
+          className="line-clamp-1 cursor-pointer text-justify text-sm font-semibold"
         >
           {title}
         </div>
-        <div className="flex justify-between items-center">
-          <span className="text-gray-secondary text-xs line-clamp-2">
+        <div className="flex items-center justify-between">
+          <span className="text-gray-secondary line-clamp-2 text-xs">
             Unit Price ৳{Number(price).toFixed(2)} * Qty. {qty}
           </span>
-          <div className="text-sm font-bold self-center">৳{price * qty}</div>
+          <div className="self-center text-sm font-bold">৳{price * qty}</div>
         </div>
         {/* Buttons */}
         {/* <div className="flex-center justify-end  gap-1 text-sm w-fit px-2 rounded-md bg-gray-secondary/10 outline">
@@ -118,7 +118,7 @@ export const CartProductItem = ({
           }}
           variant={"outline"}
         >
-          <Trash2 className="w-5 h-5 text-green-primary" />
+          <Trash2 className="text-green-primary h-5 w-5" />
         </Button>
       </div>
     </div>
@@ -153,7 +153,7 @@ export const CartProductItemOrder = ({
   const dispatch = useDispatch();
   const session = useSession();
   return (
-    <div className="flex justify-between items-center gap-2 border p-1 rounded-sm relative">
+    <div className="relative flex items-center justify-between gap-2 rounded-sm border p-1">
       <button
         onClick={() => {
           router.push(`/products/${productCode.toLowerCase()}`);
@@ -162,7 +162,7 @@ export const CartProductItemOrder = ({
             clearTimeout(timer);
           }, 500);
         }}
-        className="h-15 cursor-pointer w-15 relative border box-border border-gray-secondary rounded-md overflow-hidden"
+        className="border-gray-secondary relative box-border h-15 w-15 cursor-pointer overflow-hidden rounded-md border"
       >
         <Image
           unoptimized
@@ -182,18 +182,18 @@ export const CartProductItemOrder = ({
               clearTimeout(timer);
             }, 500);
           }}
-          className="line-clamp-1 font-semibold text-sm text-justify cursor-pointer"
+          className="line-clamp-1 cursor-pointer text-justify text-sm font-semibold"
         >
           {title}
         </div>
-        <div className="flex justify-between items-center">
-          <span className="text-gray-secondary text-xs line-clamp-2">
+        <div className="flex items-center justify-between">
+          <span className="text-gray-secondary line-clamp-2 text-xs">
             Unit Price ৳{Number(price).toFixed(2)} * Qty. {qty}
           </span>
-          <div className="text-sm font-bold self-center">৳{price * qty}</div>
+          <div className="self-center text-sm font-bold">৳{price * qty}</div>
         </div>
         {/* Buttons */}
-        <div className="flex-center justify-end  gap-1 text-sm w-fit px-2 rounded-md bg-gray-secondary/10 outline">
+        <div className="flex-center bg-gray-secondary/10 w-fit justify-end gap-1 rounded-md px-2 text-sm outline">
           Qty:
           <Button
             disabled={qty === 1}
@@ -232,7 +232,7 @@ export const CartProductItemOrder = ({
           type="button"
           variant={"outline"}
         >
-          <Trash2 className="w-5 h-5 text-green-primary" />
+          <Trash2 className="text-green-primary h-5 w-5" />
         </Button>
       </div>
     </div>

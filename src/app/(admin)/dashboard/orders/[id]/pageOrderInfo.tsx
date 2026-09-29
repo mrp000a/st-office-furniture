@@ -49,14 +49,14 @@ const PageOrderInfo = ({
   const router = useRouter();
 
   return (
-    <div className="max-w-300 mx-auto">
-      <hr className=" inline-block w-full" />
+    <div className="mx-auto max-w-300">
+      <hr className="inline-block w-full" />
 
       {order ? (
-        <div className="flex gap-3 w-full flex-col md:flex-row px-2">
+        <div className="flex w-full flex-col gap-3 px-2 md:flex-row">
           {/* info container */}
-          <div className="max-w-200 flex-1  w-full bg-violet-primary/5 rounded-sm shadow shadow-foreground p-2 space-y-3 h-fit">
-            <div className="flex-center ">
+          <div className="bg-violet-primary/5 shadow-foreground h-fit w-full max-w-200 flex-1 space-y-3 rounded-sm p-2 shadow">
+            <div className="flex-center">
               <h2 className="text-lg font-semibold">
                 Order Information #{order.id}
               </h2>
@@ -64,18 +64,18 @@ const PageOrderInfo = ({
             <div className="flex-center">
               <OrderStatusBadge
                 status={order.status}
-                className="font-semibold text-base px-3 py-2"
+                className="px-3 py-2 text-base font-semibold"
               />
             </div>
 
             {/* billing info and price */}
-            <div className="flex flex-wrap w-full sm:flex-row flex-col gap-2 p-2 bg-violet-primary/15 border rounded-sm text-sm">
+            <div className="bg-violet-primary/15 flex w-full flex-col flex-wrap gap-2 rounded-sm border p-2 text-sm sm:flex-row">
               {/* info */}
-              <div className="space-y-3 p-2 rounded-sm flex-1">
-                <h3 className="text-sm font-semibold w-full text-center">
+              <div className="flex-1 space-y-3 rounded-sm p-2">
+                <h3 className="w-full text-center text-sm font-semibold">
                   Shipping Address
                 </h3>
-                <div className="flex flex-col text-foreground">
+                <div className="text-foreground flex flex-col">
                   <span className="space-x-1">
                     <span className="text-gray-primary">Name:</span>{" "}
                     <span>{order.receiverName}</span>
@@ -99,8 +99,8 @@ const PageOrderInfo = ({
                   {/* <span>{order.customerNote}</span> */}
                 </div>
               </div>
-              <div className="space-y-3 p-2 rounded-sm flex-1">
-                <h3 className="text-sm font-semibold w-full text-center">
+              <div className="flex-1 space-y-3 rounded-sm p-2">
+                <h3 className="w-full text-center text-sm font-semibold">
                   Order Summery
                 </h3>
                 <div className="flex flex-col gap-1">
@@ -134,14 +134,14 @@ const PageOrderInfo = ({
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-gray-primary">Discount:</span>
-                    <span className="font-semibold text-gray-primary">
+                    <span className="text-gray-primary font-semibold">
                       -৳{Number(order.discountAmount).toFixed(2)}
                     </span>
                   </div>
                   <div className="bg-green-primary h-[0.3px]"></div>
                   <div className="flex items-center justify-between">
                     <span className="text-gray-primary">Due:</span>
-                    <span className="font-semibold text-green-primary dark:bg-foreground bg-background px-2  rounded-sm">
+                    <span className="text-green-primary dark:bg-foreground bg-background rounded-sm px-2 font-semibold">
                       ৳
                       {(
                         Number(order.total) - Number(order.discountAmount)
@@ -152,9 +152,9 @@ const PageOrderInfo = ({
               </div>
             </div>
 
-            <div className="p-1 w-full space-y-2">
-              <h3 className="text-sm font-semibold w-full">Products</h3>
-              <div className=" w-full min-w-0 bg-violet-primary/10 rounded-md border overflow-x-auto">
+            <div className="w-full space-y-2 p-1">
+              <h3 className="w-full text-sm font-semibold">Products</h3>
+              <div className="bg-violet-primary/10 w-full min-w-0 overflow-x-auto rounded-md border">
                 {order.items ? (
                   <Table className="">
                     <TableHeader>
@@ -172,7 +172,7 @@ const PageOrderInfo = ({
                         ({ product, price, productId, qty, title }, index) => (
                           <TableRow
                             key={index}
-                            className="odd:bg-gray-secondary/25  even:bg-gray-secondary/10"
+                            className="odd:bg-gray-secondary/25 even:bg-gray-secondary/10"
                           >
                             <TableCell className="font-medium">
                               #{productId}
@@ -181,23 +181,23 @@ const PageOrderInfo = ({
                             <TableCell align="left" className="max-w-sm">
                               <Link
                                 href={`${product?.productCode ? `/products/${product?.productCode}` : "#"}`}
-                                className="flex items-center justify-start gap-2 w-full min-w-0"
+                                className="flex w-full min-w-0 items-center justify-start gap-2"
                               >
                                 {/* Product image */}
-                                <span className="min-w-10 max-w-10 min-h-10 max-h-10 relative z-10 inline-block rounded-sm border overflow-hidden">
+                                <span className="relative z-10 inline-block max-h-10 min-h-10 max-w-10 min-w-10 overflow-hidden rounded-sm border">
                                   <Image
                                     unoptimized
                                     src={getImageUrlProduct(product?.images[0])}
                                     alt={title}
                                     sizes="40px"
                                     fill
-                                    className="object-cover w-full h-full"
+                                    className="h-full w-full object-cover"
                                   />
                                 </span>
 
                                 {/* Product title */}
 
-                                <p className="max-w-60 min-w-38 w-full whitespace-normal wrap-break-word">
+                                <p className="w-full max-w-60 min-w-38 wrap-break-word whitespace-normal">
                                   {title ?? "Title"}
                                 </p>
                               </Link>
@@ -221,20 +221,20 @@ const PageOrderInfo = ({
               </div>
 
               {order.customerNote && (
-                <div className="text-xs text-foreground space-x-2 pt-4">
+                <div className="text-foreground space-x-2 pt-4 text-xs">
                   <span className="text-gray-primary">Customer Note:</span>
                   <span>{order.customerNote}</span>
                 </div>
               )}
 
-              <div className="flex justify-end items-end w-full">
+              <div className="flex w-full items-end justify-end">
                 <Button onClick={() => router.back()} variant={"outline"}>
                   Continue
                 </Button>
               </div>
             </div>
 
-            <div className="bg-red-primary/10 p-2 rounded-md border flex-center flex-col px-4 gap-2">
+            <div className="bg-red-primary/10 flex-center flex-col gap-2 rounded-md border p-2 px-4">
               <h3>Testing Payment Methods</h3>
               <BkashButton orderId={order.id} />
               <StripeButton orderId={order.id} />
@@ -242,11 +242,11 @@ const PageOrderInfo = ({
             </div>
           </div>
           {/* log container */}
-          <div className="md:max-w-100 flex-1  bg-violet-primary/5 rounded-sm shadow shadow-foreground p-2 px-4 space-y-3 h-fit ">
+          <div className="bg-violet-primary/5 shadow-foreground h-fit flex-1 space-y-3 rounded-sm p-2 px-4 shadow md:max-w-100">
             {/* log form */}
             <OrderLogForm orderId={order.id} />
             <hr />
-            <Timeline defaultValue={3} className="w-full max-w-md ">
+            <Timeline defaultValue={3} className="w-full max-w-md">
               {order.logs
                 .toReversed()
                 .map(({ status, createdAt, note, id }, index) => (
@@ -271,11 +271,11 @@ const PageOrderInfo = ({
                         status !== "RETURNED" ? (
                           <>
                             <span className="bg-gray-primary h-full w-full rounded-full"></span>
-                            <span className="bg-gray-primary h-full w-full rounded-full animate-ping absolute "></span>
+                            <span className="bg-gray-primary absolute h-full w-full animate-ping rounded-full"></span>
                           </>
                         ) : (
                           <>
-                            <CheckIcon className="size-4 " />
+                            <CheckIcon className="size-4" />
                             {/* <CheckIcon className="size-4 animate-ping" /> */}
                           </>
                         )}

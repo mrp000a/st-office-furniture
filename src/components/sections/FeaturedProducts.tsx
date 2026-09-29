@@ -24,16 +24,15 @@ const FeaturedProducts = async () => {
   }
 
   return (
-    <div className="w-full bg-violet-primary/10 py-2">
-
-   
-    <ProductsSections
-      products={featuredProducts}
-      title="Featured Products"
-      subTitle="Designed for better work."
-      href={`/products?category=${filterOption.category}`}
-      icon="star"
-    /> </div>
+    <div className="bg-violet-primary/10 w-full py-2">
+      <ProductsSections
+        products={featuredProducts}
+        title="Featured Products"
+        subTitle="Designed for better work."
+        href={`/products?category=${filterOption.category}`}
+        icon="star"
+      />{" "}
+    </div>
   );
 };
 

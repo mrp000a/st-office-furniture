@@ -106,8 +106,8 @@ export default function SignInForm() {
   };
 
   return (
-    <div className="flex flex-col flex-1 lg:w-1/2 w-full overflow-y-auto no-scrollbar relative z-20">
-      <div className="w-full max-w-lg sm:pt-10 mx-auto">
+    <div className="no-scrollbar relative z-20 flex w-full flex-1 flex-col overflow-y-auto lg:w-1/2">
+      <div className="mx-auto w-full max-w-lg sm:pt-10">
         <Link
           href="/"
           className="inline-flex items-center text-sm text-gray-500 transition-colors hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
@@ -117,10 +117,10 @@ export default function SignInForm() {
         </Link>
       </div>
       {/* <GridShape /> */}
-      <div className="flex flex-col justify-center flex-1 w-full max-w-lg mx-auto ">
+      <div className="mx-auto flex w-full max-w-lg flex-1 flex-col justify-center">
         <div>
           <div className="">
-            <h1 className="mb-2 font-semibold text-gray-800 text-title-sm dark:text-white/90 sm:text-title-md">
+            <h1 className="text-title-sm sm:text-title-md mb-2 font-semibold text-gray-800 dark:text-white/90">
               Sign In
             </h1>
             <p className="text-sm text-gray-500 dark:text-gray-400">
@@ -129,7 +129,7 @@ export default function SignInForm() {
           </div>
           <div>
             <GoogleLoginMessage />
-            <div className="flex items-center justify-between gap-3 mt-5">
+            <div className="mt-5 flex items-center justify-between gap-3">
               <GoogleButton />
               {/*
               <button className="inline-flex items-center justify-center gap-3 py-3 text-sm font-normal text-gray-700 transition-colors bg-gray-100 rounded-lg px-7 hover:bg-gray-200 hover:text-gray-800 dark:bg-white/5 dark:text-white/90 dark:hover:bg-white/10">
@@ -179,7 +179,7 @@ export default function SignInForm() {
                 <div className="w-full border-t border-gray-200 dark:border-gray-800"></div>
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="p-2 text-gray-400 bg-white dark:bg-gray-900 sm:px-5 sm:py-2">
+                <span className="bg-white p-2 text-gray-400 sm:px-5 sm:py-2 dark:bg-gray-900">
                   Or
                 </span>
               </div>
@@ -187,8 +187,8 @@ export default function SignInForm() {
             <form onSubmit={handleSubmit(handleSubmitData)}>
               <div className="space-y-6">
                 {/* sec 8 */}
-                <div className="flex items-start justify-between gap-4 flex-col">
-                  <div className="grid grid-cols-1 space-y-1 flex-1 w-full">
+                <div className="flex flex-col items-start justify-between gap-4">
+                  <div className="grid w-full flex-1 grid-cols-1 space-y-1">
                     <label htmlFor="email">Phone / Email:</label>
                     <Input
                       id="email"
@@ -207,7 +207,7 @@ export default function SignInForm() {
                       </InputErrorMessage>
                     )}
                   </div>
-                  <div className="grid grid-cols-1 space-y-1 flex-1 w-full">
+                  <div className="grid w-full flex-1 grid-cols-1 space-y-1">
                     <label htmlFor="password">Password:</label>
                     <div className="flex-center relative w-full">
                       <Input
@@ -255,19 +255,19 @@ export default function SignInForm() {
                     />
                     <label
                       htmlFor="keep-logged"
-                      className="block font-normal text-gray-700 text-theme-sm dark:text-gray-400"
+                      className="text-theme-sm block font-normal text-gray-700 dark:text-gray-400"
                     >
                       Keep me logged in
                     </label>
                   </div>
                   <Link
                     href="#"
-                    className="text-sm text-brand-500 hover:text-brand-600 dark:text-brand-400"
+                    className="text-brand-500 hover:text-brand-600 dark:text-brand-400 text-sm"
                   >
                     Forgot password?
                   </Link>
                 </div>
-                <div className="w-full flex-center pt-4">
+                <div className="flex-center w-full pt-4">
                   <Button
                     disabled={isSubmitting}
                     type="submit"
@@ -283,7 +283,7 @@ export default function SignInForm() {
                 </div>
                 <div>
                   {varifyEmail && (
-                    <span className="w-full flex items-center justify-between flex-wrap">
+                    <span className="flex w-full flex-wrap items-center justify-between">
                       <InputErrorMessage>
                         Please varify your email first!
                       </InputErrorMessage>
@@ -302,7 +302,7 @@ export default function SignInForm() {
             </form>
 
             <div className="mt-5">
-              <p className="text-sm font-normal text-center text-gray-700 dark:text-gray-400 sm:text-start">
+              <p className="text-center text-sm font-normal text-gray-700 sm:text-start dark:text-gray-400">
                 Don&apos;t have an account? {""}
                 <Button asChild variant={"link"}>
                   <Link

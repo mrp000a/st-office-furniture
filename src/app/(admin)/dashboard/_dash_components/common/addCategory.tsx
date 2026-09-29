@@ -145,8 +145,8 @@ const PageAddCategory = ({
   };
 
   return (
-    <div className="w-full   flex-center">
-      <div className="rounded-md w-full flex-col sm:flex-row flex items-stretch overflow-hidden">
+    <div className="flex-center w-full">
+      <div className="flex w-full flex-col items-stretch overflow-hidden rounded-md sm:flex-row">
         <div className="w-full">
           <form
             onSubmit={handleSubmit(
@@ -155,8 +155,8 @@ const PageAddCategory = ({
           >
             <div className="mt-3 flex flex-col gap-2">
               {/* sec1  */}
-              <div className="flex items-start justify-between gap-4 flex-col sm:flex-row">
-                <div className="grid grid-cols-1 space-y-1 flex-1 w-full">
+              <div className="flex flex-col items-start justify-between gap-4 sm:flex-row">
+                <div className="grid w-full flex-1 grid-cols-1 space-y-1">
                   <label htmlFor="firstName">Name:</label>
                   <Input
                     id="name"
@@ -177,8 +177,8 @@ const PageAddCategory = ({
                 </div>
               </div>
               {/* sec2 */}
-              <div className="flex items-start justify-between gap-4 flex-col sm:flex-row">
-                <div className="grid grid-cols-1 space-y-1 flex-1 w-full">
+              <div className="flex flex-col items-start justify-between gap-4 sm:flex-row">
+                <div className="grid w-full flex-1 grid-cols-1 space-y-1">
                   <label htmlFor="description">Description:</label>
                   <Textarea
                     id="description"
@@ -199,8 +199,8 @@ const PageAddCategory = ({
               </div>
 
               {/* sec 5 */}
-              <div className="flex items-start justify-between gap-4 flex-col ">
-                <div className="grid grid-cols-1 space-y-1 flex-1 w-full">
+              <div className="flex flex-col items-start justify-between gap-4">
+                <div className="grid w-full flex-1 grid-cols-1 space-y-1">
                   <div className="flex-center w-fit gap-3">
                     <label htmlFor="image">Image:</label>
                     <Popover>
@@ -222,7 +222,7 @@ const PageAddCategory = ({
                   <input
                     id="image"
                     type="file"
-                    className="block w-full text-sm text-gray-primary file:mr-4 file:p-2 file:rounded-full file:px-4 file:border file:text-xs "
+                    className="text-gray-primary block w-full text-sm file:mr-4 file:rounded-full file:border file:p-2 file:px-4 file:text-xs"
                     placeholder="Upload Image"
                     {...register("image", {
                       validate: {
@@ -260,7 +260,7 @@ const PageAddCategory = ({
                 </div>
               </div>
             </div>
-            <div className="w-full flex justify-end flex-wrap gap-3 pt-4">
+            <div className="flex w-full flex-wrap justify-end gap-3 pt-4">
               <Button
                 type="button"
                 onClick={() => setOpenAddCategory(false)}

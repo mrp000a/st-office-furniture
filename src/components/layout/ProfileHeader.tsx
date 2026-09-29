@@ -27,30 +27,30 @@ const ProfileHeader = ({
   const router = useRouter();
 
   return (
-    <div className="max-w-384 mx-auto space-y-2 px-1">
+    <div className="mx-auto max-w-384 space-y-2 px-1">
       {/* user profile header */}
-      <div className="flex justify-between items-center px-2 py-1 box-border rounded-md border border-gray-secondary shadow-xl bg-background">
-        <div className=" flex justify-between w-full flex-wrap items-center gap-2 bg-background rounded-lg p-2 ">
+      <div className="border-gray-secondary bg-background box-border flex items-center justify-between rounded-md border px-2 py-1 shadow-xl">
+        <div className="bg-background flex w-full flex-wrap items-center justify-between gap-2 rounded-lg p-2">
           <div className="flex flex-col items-center">
-            <span className="flex flex-wrap justify-center gap-2 items-center">
-              <span className="w-12 h-12 relative z-10 inline-block rounded-full border border-gray-primary overflow-hidden">
+            <span className="flex flex-wrap items-center justify-center gap-2">
+              <span className="border-gray-primary relative z-10 inline-block h-12 w-12 overflow-hidden rounded-full border">
                 <Image
                   unoptimized
                   src={getImageUrl(user?.image)}
                   alt={user?.name ?? ""}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   fill
-                  className="object-cover w-full h-full"
+                  className="h-full w-full object-cover"
                 />
               </span>
-              <div className="flex flex-col justify-start items-start">
+              <div className="flex flex-col items-start justify-start">
                 <h3 className="text-lg font-bold">{user?.name}</h3>
                 <span className="text-xs">{user?.email}</span>
               </div>{" "}
             </span>
           </div>
           {/* more button */}
-          <div className="flex  gap-1 flex-wrap ">
+          <div className="flex flex-wrap gap-1">
             <Button
               onClick={() => setEditProfile((e) => !e)}
               variant={"default"}
@@ -68,7 +68,7 @@ const ProfileHeader = ({
             <Button
               variant={"default"}
               disabled
-              className="cursor-pointer bg-green-primary"
+              className="bg-green-primary cursor-pointer"
             >
               Delete Account
             </Button>
@@ -76,18 +76,18 @@ const ProfileHeader = ({
         </div>
       </div>
 
-      <div className="flex gap-2 items-start  flex-col sm:flex-row">
+      <div className="flex flex-col items-start gap-2 sm:flex-row">
         {/* profile navigarion buttons */}
         <div
-          className={`px-1 py-1 border border-gray-secondary rounded-md bg-background w-fit`}
+          className={`border-gray-secondary bg-background w-fit rounded-md border px-1 py-1`}
         >
-          <div className="flex sm:flex-col flex-wrap   justify-start gap-2 ">
+          <div className="flex flex-wrap justify-start gap-2 sm:flex-col">
             <Button
               onClick={() => {
                 setProfileTab("profile");
                 router.push("/profile");
               }}
-              className={"flex justify-between items-center cursor-pointer"}
+              className={"flex cursor-pointer items-center justify-between"}
               variant={
                 profileTab === "profile" || !profileTab ? "default" : "outline"
               }
@@ -104,7 +104,7 @@ const ProfileHeader = ({
                   setProfileTab(tab);
                   router.push(`/profile?tab=${tab}`);
                 }}
-                className={`flex items-center justify-between cursor-pointer`}
+                className={`flex cursor-pointer items-center justify-between`}
                 variant={profileTab === tab ? "default" : "outline"}
                 key={index}
                 size={"lg"}
@@ -120,7 +120,7 @@ const ProfileHeader = ({
         </div>
 
         {/* profile content page */}
-        <div className="flex-1 w-full bg-background border border-gray-secondary shadow-lg rounded-md p-2">
+        <div className="bg-background border-gray-secondary w-full flex-1 rounded-md border p-2 shadow-lg">
           {children}
         </div>
       </div>

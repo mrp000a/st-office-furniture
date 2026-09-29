@@ -60,7 +60,7 @@ const ProductsPageTest = ({
       <section>
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <div className="mb-2 flex items-center gap-2 text-sm text-muted-foreground">
+            <div className="text-muted-foreground mb-2 flex items-center gap-2 text-sm">
               <Settings className="h-4 w-4" />
               <span>Administration</span>
               <ChevronRight className="h-4 w-4" />
@@ -71,15 +71,15 @@ const ProductsPageTest = ({
               Admin Products
             </h1>
 
-            <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
+            <p className="text-muted-foreground mt-1 max-w-2xl text-sm">
               Manage your products from one place.
             </p>
           </div>
         </div>
       </section>
-      <div className="flex justify-between items-center flex-wrap box-border relative">
-        <div className="gap-1 flex items-center flex-wrap w-full ">
-          <div className=" flex-1">
+      <div className="relative box-border flex flex-wrap items-center justify-between">
+        <div className="flex w-full flex-wrap items-center gap-1">
+          <div className="flex-1">
             <SearchLayout />
           </div>
           <Button variant={"default"} asChild>
@@ -92,16 +92,16 @@ const ProductsPageTest = ({
           </Button>
         </div>
       </div>
-      <hr className="py-1 inline-block w-full" />
+      <hr className="inline-block w-full py-1" />
       <SearchShowClient />
 
       {/* main  */}
       <div className="flex-center">
-        <div className="flex flex-wrap  items-stretch gap-4 max-sm:flex-center w-full  flex-center">
+        <div className="max-sm:flex-center flex-center flex w-full flex-wrap items-stretch gap-4">
           {products &&
             products.length > 0 &&
             products.map((item, index) => (
-              <div key={index} className="w-full max-w-70 max-sm:max-w-65 flex">
+              <div key={index} className="flex w-full max-w-70 max-sm:max-w-65">
                 <ProductAdmin item={item} />
               </div>
             ))}

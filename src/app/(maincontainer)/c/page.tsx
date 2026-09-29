@@ -65,7 +65,6 @@ export default async function CategoriesPage({ searchParams }: Props) {
   });
 
   return (
-    
     <CategoriesPageClient
       key={11}
       totalItems={allItems}

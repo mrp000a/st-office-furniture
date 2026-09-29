@@ -13,18 +13,18 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="relative p-6 bg-white z-1 dark:bg-gray-900 sm:p-0">
+    <div className="relative z-1 bg-white p-6 sm:p-0 dark:bg-gray-900">
       <ThemeProvider>
-        <div className="relative z-10 flex lg:flex-row w-full h-screen justify-center flex-col   sm:p-0">
+        <div className="relative z-10 flex h-screen w-full flex-col justify-center sm:p-0 lg:flex-row">
           {children}
           {/* <!-- ===== Common Grid Shape Start ===== --> */}
           <GridShape />
-          <div className="lg:w-1/2 w-full h-full bg-brand-950  lg:grid items-center hidden">
-            <div className=" items-center justify-center h-full   flex ">
+          <div className="bg-brand-950 hidden h-full w-full items-center lg:grid lg:w-1/2">
+            <div className="flex h-full items-center justify-center">
               <div className=" ">
                 <Link
                   href={"/#"}
-                  className="h-20 w-60  relative z-30  rounded-sm overflow-hidden block max-[500px]:hidden"
+                  className="relative z-30 block h-20 w-60 overflow-hidden rounded-sm max-[500px]:hidden"
                 >
                   <Image
                     unoptimized
@@ -32,7 +32,7 @@ export default function AuthLayout({
                     alt={coreInfo.name}
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     fill
-                    className="object-contain object-center dark:hidden "
+                    className="object-contain object-center dark:hidden"
                   />
                   <Image
                     unoptimized
@@ -40,17 +40,17 @@ export default function AuthLayout({
                     alt={coreInfo.name}
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     fill
-                    className="object-contain object-center hidden dark:block "
+                    className="hidden object-contain object-center dark:block"
                   />
                 </Link>
 
-                <p className="text-center text-gray-400 dark:text-white/60 ">
+                <p className="text-center text-gray-400 dark:text-white/60">
                   Log in to your account! Get access to many protential offer.
                 </p>
               </div>
             </div>
           </div>
-          <div className="fixed bottom-6 right-6 z-50 hidden sm:block">
+          <div className="fixed right-6 bottom-6 z-50 hidden sm:block">
             <ThemeTogglerTwo />
           </div>
         </div>

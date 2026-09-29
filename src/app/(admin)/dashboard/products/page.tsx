@@ -31,7 +31,7 @@ export default async function ProductsPage({ searchParams }: Props) {
                   mode: "insensitive",
                 },
               },
-               {
+              {
                 productCode: {
                   contains: search,
                   mode: "insensitive",

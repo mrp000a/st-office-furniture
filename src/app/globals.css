@@ -154,8 +154,6 @@
   --green-primary: #117c36;
   --red-primary: #a02231;
   --violet-primary: #c15dc1;
-
-
 }
 
 @layer base {
@@ -164,26 +162,23 @@
   }
 
   body {
-    @apply bg-[#f7f6f6] text-foreground;
+    @apply text-foreground bg-[#f7f6f6];
   }
 
   html {
     @apply font-sans;
     scroll-behavior: smooth;
-
   }
 }
 
-
 @utility flex-center {
-  @apply flex justify-center items-center
+  @apply flex items-center justify-center;
 }
 
 @theme {
   --animate-cart-shake: cart-shake 0.5s ease-in-out;
 
   @keyframes cart-shake {
-
     0%,
     100% {
       transform: translateX(0);
@@ -206,7 +201,6 @@
     }
   }
 }
-
 
 /* new items  */
 

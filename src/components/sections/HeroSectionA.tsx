@@ -35,7 +35,7 @@ const HeroSectionA = () => {
     <div>
       {/* hero section  */}
       <section className="py-2">
-        <div className=" rounded-md  overflow-hidden w-full max-w-384 max-[600]:max-h-full    mx-auto  bg-background shadow-2xl relative flex-center">
+        <div className="bg-background flex-center relative mx-auto w-full max-w-384 overflow-hidden rounded-md shadow-2xl max-[600]:max-h-full">
           <Swiper
             onSwiper={setSwiperInstance}
             modules={[Navigation, Pagination, Autoplay]}
@@ -44,21 +44,21 @@ const HeroSectionA = () => {
             loop={true}
             pagination={{ clickable: true }}
             autoplay={{ delay: 4000 }}
-            className="w-full aspect-[1376/680] rounded-lg"
+            className="aspect-[1376/680] w-full rounded-lg"
           >
             {HeroSectionSlides.map(
               ({ image, title, subtitle, description }, index) => (
                 <SwiperSlide
                   key={index}
-                  className={`flex relative w-full   items-center justify-center text-2xl font-bold `}
+                  className={`relative flex w-full items-center justify-center text-2xl font-bold`}
                 >
                   <div
-                    className={` relative  h-full w-full  overflow-hidden text-shadow-2xs text-shadow-blue-primary `}
+                    className={`text-shadow-blue-primary relative h-full w-full overflow-hidden text-shadow-2xs`}
                   >
                     <Image
                       unoptimized
                       fill
-                      className={`object-cover object-center overflow-hidden hero-image`}
+                      className={`hero-image overflow-hidden object-cover object-center`}
                       sizes="80vw"
                       src={image}
                       priority={index === 0}
@@ -68,23 +68,23 @@ const HeroSectionA = () => {
                   </div>
 
                   {/* Text */}
-                  <div className="absolute inset-0 flex items-center w-full h-full bg-foreground/30 dark:bg-background/30">
-                    <div className="hero-text flex flex-col items-end justify-end mx-auto w-full max-w-7xl px-6 ">
-                      <p className="hero-subtitle mb-3 text-[10px] sm:text-base md:text-lg lg:text-xl font-medium uppercase text-end tracking-widest text-white">
+                  <div className="bg-foreground/30 dark:bg-background/30 absolute inset-0 flex h-full w-full items-center">
+                    <div className="hero-text mx-auto flex w-full max-w-7xl flex-col items-end justify-end px-6">
+                      <p className="hero-subtitle mb-3 text-end text-[10px] font-medium tracking-widest text-white uppercase sm:text-base md:text-lg lg:text-xl">
                         {subtitle}
                       </p>
 
-                      <h1 className="hero-title max-w-2xl text-xl sm:text-2xl lg:text-5xl font-bold text-white md:text-6xl text-end">
+                      <h1 className="hero-title max-w-2xl text-end text-xl font-bold text-white sm:text-2xl md:text-6xl lg:text-5xl">
                         {title}
                       </h1>
 
-                      <p className="hero-description mt-4 max-w-xl text-xs sm:text-sm md:text-base lg:text-lg text-white/90  text-end">
+                      <p className="hero-description mt-4 max-w-xl text-end text-xs text-white/90 sm:text-sm md:text-base lg:text-lg">
                         {description}
                       </p>
 
                       <button
                         onClick={() => router.push("/products")}
-                        className="hero-button mt-6 cursor-pointer rounded-md text-end text-sm lg:text-2xl bg-white px-3 py-1 md:px-6 md:py-3 font-semibold hover:bg-green-primary/60 hover:text-white transition-all duration-200 active:-translate-y-1 text-black"
+                        className="hero-button hover:bg-green-primary/60 mt-6 cursor-pointer rounded-md bg-white px-3 py-1 text-end text-sm font-semibold text-black transition-all duration-200 hover:text-white active:-translate-y-1 md:px-6 md:py-3 lg:text-2xl"
                       >
                         Shop Now
                       </button>
@@ -96,10 +96,10 @@ const HeroSectionA = () => {
           </Swiper>
 
           {/* change button  */}
-          <div className="text-4xl font-bold flex-center">
+          <div className="flex-center text-4xl font-bold">
             <button
               onClick={() => swiperInstance?.slidePrev()}
-              className="showPrevSlide absolute left-0 z-20  bg-gray-secondary/30 rounded-md lg:px-3 px-1 py-2 lg:py-5  backdrop-blur-xs"
+              className="showPrevSlide bg-gray-secondary/30 absolute left-0 z-20 rounded-md px-1 py-2 backdrop-blur-xs lg:px-3 lg:py-5"
             >
               <ChevronLeft className="" />
             </button>
@@ -107,7 +107,7 @@ const HeroSectionA = () => {
               onClick={() => {
                 swiperInstance?.slideNext();
               }}
-              className="showPrevSlide absolute right-0 z-20  bg-gray-secondary/30 rounded-md lg:px-3 px-1 py-2 lg:py-5  backdrop-blur-xs"
+              className="showPrevSlide bg-gray-secondary/30 absolute right-0 z-20 rounded-md px-1 py-2 backdrop-blur-xs lg:px-3 lg:py-5"
             >
               <ChevronRight />
             </button>
