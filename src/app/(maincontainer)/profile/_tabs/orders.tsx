@@ -146,6 +146,7 @@ const Page = () => {
                 (
                   {
                     id,
+                    publicId,
                     receiverName,
                     receiverEmail,
                     receiverPhone,
@@ -218,7 +219,7 @@ const Page = () => {
                     <TableCell>
                       <div className="flex items-center gap-2">
                         <Button className="" asChild>
-                          <Link href={`/order/${id}`}>View</Link>
+                          <Link href={`/order/${publicId}`}>View</Link>
                         </Button>
                       </div>
                     </TableCell>

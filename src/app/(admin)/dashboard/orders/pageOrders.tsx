@@ -4,20 +4,10 @@ import { Button } from "@/components/ui/button";
 import { IoReload } from "react-icons/io5";
 
 import { deleteOrder } from "@/lib/api";
-import {
-  Gender,
-  OrderStatus,
-  PaymentMethods,
-  PaymentStatus,
-  UserRole,
-} from "@/generated/prisma";
+import { OrderStatus } from "@/generated/prisma";
 
 import { useAlertDialog } from "@/components/hooks/use-alert-dialog";
-import {
-  orderStatuses,
-  ProductDefaultImage,
-  ProfileDefaultImage,
-} from "@/components/data/core";
+import { orderStatuses } from "@/components/data/core";
 
 import { NoItemsFound } from "@/components/uiComponent/uiCom";
 import { Edit3Icon } from "lucide-react";
@@ -30,9 +20,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import Image from "next/image";
-import { FaUserCircle } from "react-icons/fa";
-import { Badge } from "@/components/ui/badge";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -139,6 +126,7 @@ const PageOrders = ({
                   total,
                   _count,
                   createdAt,
+                  publicId,
                 },
                 index,
               ) => (
@@ -149,9 +137,7 @@ const PageOrders = ({
                     <div className="flex items-center justify-start  gap-1">
                       <span className="min-w-6 max-w-6  min-h-6 max-h-6 relative z-10 inline-block rounded-full  overflow-hidden">
                         <Avatar className="size-6">
-                          <AvatarImage
-                            src={getImageUrlProduct(user?.image)}
-                          />
+                          <AvatarImage src={getImageUrlProduct(user?.image)} />
                           <AvatarFallback>
                             {receiverName?.charAt(0).toUpperCase() ?? "U"}
                           </AvatarFallback>
@@ -194,6 +180,7 @@ const PageOrders = ({
                         // onClick={() => setOpenEditOrder(true)}
                         variant={"destructive"}
                         size={"icon"}
+                        asChild
                       >
                         <Link href={`/dashboard/orders/${id}`}>
                           <Edit3Icon />
@@ -221,8 +208,8 @@ const PageOrders = ({
                       >
                         <RiDeleteBin6Fill />
                       </Button>
-                      <Button className="" asChild>
-                        <Link href={`/order/${id}`}>View</Link>
+                      <Button asChild>
+                        <Link href={`/order/${publicId}`}>View</Link>
                       </Button>
                     </div>
                   </TableCell>

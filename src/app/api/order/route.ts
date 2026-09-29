@@ -184,7 +184,7 @@ export async function POST(req: Request) {
           subtotal: subTotalPrice,
           total: totalPrice,
           deliveryCharge: deliveryCharge,
-          orderUrl: `${process.env.NEXT_PUBLIC_URL_SITE}/order/${createOrder.id}`,
+          orderUrl: `${process.env.NEXT_PUBLIC_URL_SITE}/order/${createOrder.publicId}`,
           status: "PENDING",
           items: sanitizedItems.map((item) => {
             return { title: item.title, price: item.price, quantity: item.qty };

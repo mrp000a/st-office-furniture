@@ -116,7 +116,7 @@ const Page = () => {
         action: {
           label: "View now!",
           onClick: () => {
-            router.push(`/order/${CreateOrder.result?.id}`);
+            router.push(`/order/${CreateOrder.result?.publicId}`);
           },
         },
       });
@@ -138,7 +138,7 @@ const Page = () => {
         title: `Ordered Successful! Your order Id is "${CreateOrder.result?.id}" .`,
         description: "Please, Remember you order id for track your order",
       });
-      if (view) router.push(`/order/${CreateOrder.result?.id}`);
+      if (view) router.push(`/order/${CreateOrder.result?.publicId}`);
     } else {
       toast.error(CreateOrder.message ?? "Error on order adding!");
     }

@@ -5,6 +5,7 @@ import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { SessionContextValue } from "next-auth/react";
 import { toast } from "sonner";
 import { getSession, getUserId } from "./serverAuth";
+import { prisma } from "./prisma";
 
 interface UploadReturnType {
   success: boolean;
@@ -147,14 +148,11 @@ export async function FindCategoryExists({
 }
 
 export async function getCategories() {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_URL_SITE}/api/c`,
-    {
-      method: "GET",
-      redirect: "follow",
-      next: { revalidate: 300 },
-    },
-  );
+  const res = await fetch(`${process.env.NEXT_PUBLIC_URL_SITE}/api/c`, {
+    method: "GET",
+    redirect: "follow",
+    next: { revalidate: 300 },
+  });
   if (!res.ok) {
     return { success: false, message: "Server Error-" };
   }
@@ -163,14 +161,11 @@ export async function getCategories() {
 }
 
 export async function getCategoriesClient() {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_URL_SITE}/api/c`,
-    {
-      method: "GET",
-      redirect: "follow",
-      next: { revalidate: 600 },
-    },
-  );
+  const res = await fetch(`${process.env.NEXT_PUBLIC_URL_SITE}/api/c`, {
+    method: "GET",
+    redirect: "follow",
+    next: { revalidate: 600 },
+  });
   if (!res.ok) {
     return { success: false, message: "Server Error-" };
   }
@@ -222,13 +217,10 @@ export async function editCategories({
   description?: string;
   image?: string;
 }) {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_URL_SITE}/api/c`,
-    {
-      method: "PUT",
-      redirect: "follow",
-    },
-  );
+  const res = await fetch(`${process.env.NEXT_PUBLIC_URL_SITE}/api/c`, {
+    method: "PUT",
+    redirect: "follow",
+  });
   if (!res.ok) {
     return { success: false, message: "Server Error-" };
   }
@@ -638,6 +630,7 @@ export async function checkSingleOrder({
 }) {
   if (!orderId || !phone)
     return { success: false, message: "order id is required", result: null }; //toast.error("Order Id is required!");
+
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_URL_SITE}/api/order/check?orderId=${orderId}&phone=${phone}`,
     {
@@ -645,10 +638,14 @@ export async function checkSingleOrder({
       redirect: "follow",
     },
   );
-
   const data: { success: boolean; message: null | string; result: any } =
     await res.json();
-  return data;
+
+  return {
+    success: data.success,
+    message: data.message ?? "Order not found!",
+    result: data.result as string,
+  };
 }
 
 export async function deleteOrder({ id }: { id: number }) {

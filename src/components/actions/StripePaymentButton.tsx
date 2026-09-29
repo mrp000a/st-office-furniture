@@ -1,9 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { useAlertDialog } from "../hooks/use-alert-dialog";
 
 export default function StripeButton({ orderId }: { orderId: number }) {
   const [loading, setLoading] = useState(false);
+  const { alert } = useAlertDialog();
 
   const handlePayment = async () => {
     try {
@@ -33,9 +35,11 @@ export default function StripeButton({ orderId }: { orderId: number }) {
 
       window.location.href = data.checkoutUrl;
     } catch (error) {
-      console.error(error);
+      console.log(error);
 
-      alert(error instanceof Error ? error.message : "Payment failed");
+      alert({
+        title: error instanceof Error ? error.message : "Payment failed",
+      });
     } finally {
       setLoading(false);
     }

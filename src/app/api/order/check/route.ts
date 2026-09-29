@@ -15,26 +15,57 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const orders = await prisma.order.findUniqueOrThrow({
-      where: { id: Number(id) },
-      select: { id: true, receiverPhone: true },
-    });
+    const orderIdNumber = Number(id);
 
-    if (!orders) {
+    // Keep only digits
+    const normalizedPhone = String(phone).replace(/\D/g, "");
+
+    // Last 9 digits
+    const last9 = normalizedPhone.slice(-9);
+
+    if (last9.length !== 9) {
       return NextResponse.json({
         success: false,
-        message: "Order Not found.",
-      });
-    } else if (phone && orders && orders.receiverPhone.endsWith(phone)) {
-      return NextResponse.json({
-        success: true,
-        message: "Order found.",
+        message: "Invalid phone number",
       });
     }
 
+    const order = await prisma.order.findFirst({
+      where: {
+        id: orderIdNumber,
+        OR: [
+          {
+            receiverPhone: {
+              endsWith: last9,
+            },
+          },
+          {
+            user: {
+              phone: {
+                endsWith: last9,
+              },
+            },
+          },
+        ],
+      },
+
+      include: {
+        user: {
+          select: {
+            phone: true,
+          },
+        },
+      },
+    });
+    if (!order || !order.publicId || !order.id)
+      return NextResponse.json({
+        success: false,
+        message: "Order Not Found",
+      });
+
     return NextResponse.json({
-      success: false,
-      //   result: orders,
+      success: true,
+      result: order.publicId,
       message: "Orders Not Found.",
     });
   } catch (err: any) {

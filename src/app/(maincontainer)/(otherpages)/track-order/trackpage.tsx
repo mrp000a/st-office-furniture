@@ -34,7 +34,7 @@ const PageTrackOrder = () => {
     });
     if (order.success) {
       //   toast.success(email, { description: new Date().toDateString() });
-      router.push(`/order/${invoiceId}`);
+      router.push(`/order/${order.result}`);
     } else {
       toast.error("Not found your order.", {
         description: new Date().toDateString(),

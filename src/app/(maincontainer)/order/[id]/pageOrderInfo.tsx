@@ -12,7 +12,12 @@ import {
   TimelineTitle,
 } from "@/components/reui/timeline";
 
-import { Order, OrderItem, OrderLog, User } from "@/generated/prisma";
+import {
+  DeliveryAreas,
+  OrderStatus,
+  PaymentMethods,
+  PaymentStatus,
+} from "@/generated/prisma";
 
 import { NoItemsFound } from "@/components/uiComponent/uiCom";
 import { CheckIcon } from "lucide-react";
@@ -26,25 +31,61 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import Image from "next/image";
-import { FaUserCircle } from "react-icons/fa";
 import Link from "next/link";
 import { OrderStatusBadge } from "@/components/uiComponent/order-status-badge";
-import { HtmlProps } from "next/dist/shared/lib/html-context.shared-runtime";
 import { getImageUrlProduct } from "@/lib/getImageUrl";
 import { Badge } from "@/components/ui/badge";
 
-const PageOrderInfo = ({
-  order,
-}: {
-  order: Order & {
-    _count: { items: number };
-    user: User;
-    logs: OrderLog[];
-    items: (OrderItem & {
-      product: { images: string[]; productCode: string };
-    })[];
-  };
-}) => {
+type sanitizeOrder = {
+  id: number;
+
+  subtotal: number;
+  shippingCost: number;
+  discountAmount: number;
+  total: number;
+  paidAmount: number;
+
+  receiverName: string;
+  receiverPhone: string;
+  receiverEmail: string | null;
+  customerNote: string | null;
+
+  transactionId: string | null;
+  paidAt: Date | null;
+
+  address: string;
+  createdAt: Date;
+  updatedAt: Date;
+  userId: number | null;
+  publicId: string | null;
+  status: OrderStatus;
+  paymentMethod: PaymentMethods;
+  paymentStatus: PaymentStatus;
+  paymentId: string | null;
+
+  deliveryArea: DeliveryAreas;
+  items: {
+    product: { productCode?: string | null; image?: string | null };
+    price: number;
+    id: number;
+    createdAt: Date;
+    updatedAt: Date;
+    title: string;
+    productId: number | null;
+    qty: number;
+    orderId: number;
+  }[];
+  logs: {
+    id: number;
+    createdAt: Date;
+    updatedAt: Date;
+    status: OrderStatus;
+    note: string | null;
+    orderId: number;
+    updatedBy: string | null;
+  }[];
+};
+const PageOrderInfo = ({ order }: { order: sanitizeOrder }) => {
   const router = useRouter();
 
   return (
@@ -198,7 +239,7 @@ const PageOrderInfo = ({
                                 <span className="min-w-10 max-w-10 min-h-10 max-h-10 relative z-10 inline-block rounded-sm border overflow-hidden">
                                   <Image
                                     unoptimized
-                                    src={getImageUrlProduct(product?.images[0])}
+                                    src={getImageUrlProduct(product?.image)}
                                     alt={title}
                                     sizes="40px"
                                     fill

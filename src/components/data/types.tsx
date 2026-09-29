@@ -1,7 +1,10 @@
-import { Gender, OrderStatus, PaymentMethods, PaymentStatus, UserRole } from "@/generated/prisma";
-
-
-
+import {
+  Gender,
+  OrderStatus,
+  PaymentMethods,
+  PaymentStatus,
+  UserRole,
+} from "@/generated/prisma";
 
 export type ordersType = {
   subtotal: number;
@@ -35,4 +38,5 @@ export type ordersType = {
   userId: number | null;
   paymentStatus: PaymentStatus;
   paymentMethod: PaymentMethods;
+  publicId: string | null;
 };

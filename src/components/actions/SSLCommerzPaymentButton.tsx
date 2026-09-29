@@ -31,7 +31,7 @@ export function SslCommerzButton({ orderId }: { orderId: number }) {
 
       window.location.href = data.paymentUrl;
     } catch (error) {
-      console.error(error);
+      console.log(error);
 
       alert({
         title: error instanceof Error ? error.message : "Payment failed",

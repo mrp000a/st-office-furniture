@@ -18,6 +18,7 @@ type Props = {
     status: string;
     paymentMethod: string | null;
     paidAt: Date | null;
+    publicId: string | null;
   };
 };
 
@@ -132,7 +133,7 @@ export default function PaymentSuccess({ order }: Props) {
 
         <div className="mt-6 grid gap-3 sm:grid-cols-2">
           <Link
-            href={`/order/${order.id}`}
+            href={`/order/${order.publicId}`}
             className="group flex items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3.5 font-medium text-primary-foreground transition hover:opacity-90"
           >
             View Order Details

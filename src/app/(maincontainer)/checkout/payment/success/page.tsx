@@ -31,6 +31,7 @@ export default async function SuccessPage({ searchParams }: Props) {
       paymentStatus: true,
       status: true,
       paymentMethod: true,
+      publicId: true,
       paidAt: true,
     },
   });

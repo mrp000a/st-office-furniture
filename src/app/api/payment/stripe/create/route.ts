@@ -9,21 +9,8 @@ export async function POST(request: NextRequest) {
 
     const orderId = Number(body.orderId);
 
-    // testing for development
-
-    const getTestOrderId = await prisma.order.findMany({
-      where: {
-        paymentStatus: { equals: "PENDING" },
-      },
-      take: 10,
-      orderBy: { id: "asc" },
-      select: { id: true },
-    });
-
-    console.log({ getTestOrderId });
-
     // testing
-    if (!orderId || !getTestOrderId[0]?.id) {
+    if (!orderId) {
       return NextResponse.json(
         {
           success: false,
@@ -37,9 +24,7 @@ export async function POST(request: NextRequest) {
 
     const order = await prisma.order.findUnique({
       where: {
-        // testing
-        id: getTestOrderId[0]?.id,
-        // id: orderId,
+        id: orderId,
       },
       include: { user: { select: { email: true, phone: true } } },
     });
@@ -82,17 +67,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    /*
-     * Stripe uses the smallest currency unit.
-     *
-     * Example:
-     *
-     * $10.50
-     *
-     * becomes:
-     *
-     * 1050
-     */
 
     const amountInCents = Math.round(amount * 100);
 

@@ -294,7 +294,7 @@ export default function ProfileHome({
                 recentOrders.map((order) => (
                   <Link
                     key={order.id}
-                    href={`/order/${order.id}`}
+                    href={`/dashboard/orders/${order.id}`}
                     className="group flex items-center justify-between gap-4 rounded-xl border p-4 transition-colors hover:bg-muted/50"
                   >
                     <div className="flex min-w-0 items-center gap-4">
