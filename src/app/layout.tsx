@@ -12,8 +12,7 @@ import { Toaster } from "@/components/ui/sonner";
 import Providers from "@/lib/providers";
 import { coreInfo } from "@/components/data/core";
 import { GoogleAnalytics } from "@next/third-parties/google";
-import { Suspense } from "react";
-import AnalyticsTracker from "@/components/actions/CombinedTracker";
+
 // import siteImage from '@/components/images/siteImage.png'
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
