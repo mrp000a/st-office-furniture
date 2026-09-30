@@ -103,7 +103,7 @@ export default async function PaymentFailedPage({ searchParams }: Props) {
               className="bg-primary text-primary-foreground flex items-center justify-center gap-2 rounded-xl px-5 py-3.5 font-medium transition hover:opacity-90"
             >
               <RefreshCcw className="h-4 w-4" />
-              Return to Checkout
+              Return to Order
             </Link>
           )}
 

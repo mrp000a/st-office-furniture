@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { coreInfo } from "@/components/data/core";
-import PageOrderInfo from "./pageOrderInfo";
+import PageOrderInfo from "./PageOrderClient";
 import OrderNotFound from "@/components/uiComponent/orderNotFound";
 import { prisma } from "@/lib/prisma";
 

@@ -71,6 +71,7 @@ export async function POST(req: Request) {
       userId,
       userEmail,
       customerNote,
+      paymentMethod,
     } = body as Order & {
       items: Array<OrderItem & { product: Product }>;
       userEmail: string;
@@ -131,6 +132,7 @@ export async function POST(req: Request) {
         receiverEmail,
         customerNote,
         deliveryArea,
+        paymentMethod,
         subtotal: subTotalPrice,
         total: totalPrice,
         items: {

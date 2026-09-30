@@ -1,4 +1,5 @@
 import { Gender, PaymentMethods } from "@/generated/prisma";
+import { IconType } from "react-icons/lib";
 import { PiMoneyWavyFill } from "react-icons/pi";
 
 export type UserFormData = {
@@ -64,12 +65,35 @@ export type OrderFormData = {
   paymentMethod: PaymentMethods;
 };
 
-export const PaymentMethodsInfo = [
+export const PaymentMethodsInfo: {
+  label: string;
+  description?: string;
+  icon?: IconType;
+  value: PaymentMethods;
+}[] = [
   {
     label: "Cash on Delivery",
     description: "Pay with cash upon delivery.",
     icon: PiMoneyWavyFill,
     value: "COD",
+  },
+  {
+    label: "Bkash",
+    description: "Pay with Bkash.",
+    icon: PiMoneyWavyFill,
+    value: "BKASH",
+  },
+  {
+    label: "Stripe",
+    description: "Pay with Stripe.",
+    icon: PiMoneyWavyFill,
+    value: "STRIPE",
+  },
+  {
+    label: "SSLCommerz",
+    description: "Pay with card, MFS, Online Banking, etc..",
+    icon: PiMoneyWavyFill,
+    value: "SSLCOMMERZ",
   },
 ];
 

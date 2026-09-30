@@ -30,9 +30,12 @@ import Link from "next/link";
 import { OrderStatusBadge } from "@/components/uiComponent/order-status-badge";
 import OrderLogForm from "../../_dash_components/common/logForm";
 import { getImageUrlProduct } from "@/lib/getImageUrl";
-import BkashButton from "@/components/actions/BkashPaymentButton";
-import StripeButton from "@/components/actions/StripePaymentButton";
-import { SslCommerzButton } from "@/components/actions/SSLCommerzPaymentButton";
+
+import {
+  SslCommerzButton,
+  StripeButton,
+  BkashButton,
+} from "@/components/actions/Payment/Buttons";
 
 const PageOrderInfo = ({
   order,
