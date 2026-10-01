@@ -3,8 +3,8 @@
 // https://chatgpt.com/s/t_6a8c7b9a15a881919178fdfa19367d46 home layout page
 
 import { StaticImageData } from "next/image";
-import StOfficeLogo from "@/components/images/Home/St-Office-Logo-Light.png";
-import StOfficeLogoDark from "@/components/images/Home/St-Office-Logo-Dark.png";
+import StOfficeLogo from "@/components/images/Logos/St-logo-sec.png";
+import StOfficeLogoDark from "@/components/images/Logos/st-logo-darkmode.png";
 import StOfficeLogoMain from "@/components/images/Home/LogoStOfficeFur.jpg";
 import StOfficeBanner from "@/components/images/Home/IMG-20260816-WA0001.jpg";
 // slide images
