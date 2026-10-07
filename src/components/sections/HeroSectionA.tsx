@@ -30,7 +30,7 @@ const HeroSectionA = () => {
           speed={1100}
           autoplay={{ delay: 5500, disableOnInteraction: false, pauseOnMouseEnter: true }}
           pagination={{ clickable: true }}
-          className="hero-swiper aspect-[1376/680] w-full"
+          className="hero-swiper aspect-1376/720 w-full"
         >
           {/* Main animated Hero */}
           <SwiperSlide className="relative overflow">
@@ -73,21 +73,21 @@ const HeroSectionA = () => {
                     </div>
 
                     {/* Title */}
-                    <h1 className="hero-title max-w-2xl text-3xl leading-[1.05] font-bold tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
+                    <h1 className="hero-title max-w-2xl text-2xl leading-[1.05] font-bold tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
                       {title}
                     </h1>
 
                     {/* Description */}
-                    <p className="hero-description mt-5 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base md:text-lg">
+                    <p className="hero-description mt-2 lg:mt-5 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base md:text-lg">
                       {description}
                     </p>
 
                     {/* CTA */}
-                    <div className="hero-button mt-7 flex items-center gap-3">
+                    <div className="hero-button lg:mt-7 mt-2 flex items-center gap-3">
                       <button
                         type="button"
                         onClick={() => router.push("/products")}
-                        className="group/cta flex cursor-pointer items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-black shadow-xl transition-all duration-300 hover:gap-3 hover:bg-green-primary hover:text-white hover:shadow-2xl active:scale-95 sm:px-6 sm:py-3 md:text-base"
+                        className="group/cta flex cursor-pointer items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-black shadow-xl transition-all duration-300  hover:bg-green-primary hover:text-white hover:shadow-2xl active:scale-95 sm:px-6 sm:py-3 md:text-base"
                       >
                         Explore Collection
                         <ArrowUpRight className="size-4 transition-transform duration-300 group-hover/cta:rotate-45" />
