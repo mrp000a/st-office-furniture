@@ -1,141 +1,228 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-// import VideoPlayer from "@/components/ui/youtubePlayer";
-import { useSession } from "next-auth/react";
 import Image from "next/image";
-
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { Swiper as SwiperType } from "swiper/types";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import { Autoplay, Pagination } from "swiper/modules";
+import { ChevronLeft, ChevronRight, ArrowUpRight } from "lucide-react";
 
-// Import Swiper styles
 import "swiper/css";
-import "swiper/css/navigation";
 import "swiper/css/pagination";
-import {
-  ArrowLeft,
-  ArrowRight,
-  ChevronLeft,
-  ChevronRight,
-  DeleteIcon,
-  Trash2,
-} from "lucide-react";
-import { coreInfo, HeroSectionSlides } from "@/components/data/core";
-import { useState } from "react";
-import styles from "./home.module.css";
-import { useRouter } from "next/navigation";
+
+import { HeroSectionSlides } from "@/components/data/core";
+import { Hero } from "../pri-sections/home-hero-anim";
 
 const HeroSectionA = () => {
   const router = useRouter();
   const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null);
-  // const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <div>
-      {/* hero section  */}
-      <section className="py-2">
-        <div className="bg-background flex-center relative mx-auto w-full max-w-384 overflow-hidden rounded-md shadow-2xl max-[600]:max-h-full">
-          <Swiper
-            onSwiper={setSwiperInstance}
-            modules={[Navigation, Pagination, Autoplay]}
-            spaceBetween={10}
-            slidesPerView={1}
-            loop={true}
-            pagination={{ clickable: true }}
-            autoplay={{ delay: 4000 }}
-            className="aspect-[1376/680] w-full rounded-lg"
-          >
-            {HeroSectionSlides.map(
-              ({ image, title, subtitle, description }, index) => (
-                <SwiperSlide
-                  key={index}
-                  className={`relative flex w-full items-center justify-center text-2xl font-bold`}
-                >
-                  <div
-                    className={`text-shadow-blue-primary relative h-full w-full overflow-hidden text-shadow-2xs`}
-                  >
-                    <Image
-                      unoptimized
-                      fill
-                      className={`hero-image overflow-hidden object-cover object-center`}
-                      sizes="80vw"
-                      src={image}
-                      priority={index === 0}
-                      alt={"Hero images"}
-                      loading={"eager"}
-                    />
-                  </div>
+    <section className="px-2 py-2 sm:px-3 lg:px-4">
+      <div className="group relative mx-auto w-full max-w-384 overflow-hidden rounded-2xl border border-border/40 bg-background shadow-2xl shadow-black/10">
+        <Swiper
+          onSwiper={setSwiperInstance}
+          modules={[Autoplay, Pagination]}
+          spaceBetween={0}
+          slidesPerView={1}
+          loop
+          speed={1100}
+          autoplay={{ delay: 5500, disableOnInteraction: false, pauseOnMouseEnter: true }}
+          pagination={{ clickable: true }}
+          className="hero-swiper aspect-[1376/680] w-full"
+        >
+          {/* Main animated Hero */}
+          <SwiperSlide className="relative overflow">
+            <Hero />
+          </SwiperSlide>
 
-                  {/* Text */}
-                  <div className="bg-foreground/30 dark:bg-background/30 absolute inset-0 flex h-full w-full items-center">
-                    <div className="hero-text mx-auto flex w-full max-w-7xl flex-col items-end justify-end px-6">
-                      <p className="hero-subtitle mb-3 text-end text-[10px] font-medium tracking-widest text-white uppercase sm:text-base md:text-lg lg:text-xl">
+          {/* Image Slides */}
+          {HeroSectionSlides.map(({ image, title, subtitle, description }, index) => (
+            <SwiperSlide key={`${image}-${index}`} className="relative overflow-hidden">
+              {/* Image */}
+              <div className="absolute inset-0">
+                <Image
+                  unoptimized
+                  fill
+                  src={image}
+                  alt={title || "ST Office Furniture"}
+                  priority={index === 0}
+                  loading={index === 0 ? "eager" : "lazy"}
+                  sizes="100vw"
+                  className="hero-image object-cover object-center"
+                />
+              </div>
+
+              {/* Image overlay */}
+              <div className="absolute inset-0 bg-linear-to-r from-black/65 via-black/30 to-black/10" />
+
+              {/* Bottom subtle gradient */}
+              <div className="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-black/35 to-transparent" />
+
+              {/* Content */}
+              <div className="relative z-10 flex h-full w-full items-center">
+                <div className="mx-auto w-full max-w-384 px-6 sm:px-10 md:px-14 lg:px-20">
+                  <div className="max-w-2xl">
+                    {/* Eyebrow */}
+                    <div className="hero-eyebrow mb-4 flex items-center gap-3">
+                      <span className="h-px w-8 bg-white/80 sm:w-12" />
+                      <span className="text-[10px] font-semibold tracking-[0.28em] text-white/90 uppercase sm:text-xs">
                         {subtitle}
-                      </p>
+                      </span>
+                    </div>
 
-                      <h1 className="hero-title max-w-2xl text-end text-xl font-bold text-white sm:text-2xl md:text-6xl lg:text-5xl">
-                        {title}
-                      </h1>
+                    {/* Title */}
+                    <h1 className="hero-title max-w-2xl text-3xl leading-[1.05] font-bold tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
+                      {title}
+                    </h1>
 
-                      <p className="hero-description mt-4 max-w-xl text-end text-xs text-white/90 sm:text-sm md:text-base lg:text-lg">
-                        {description}
-                      </p>
+                    {/* Description */}
+                    <p className="hero-description mt-5 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base md:text-lg">
+                      {description}
+                    </p>
 
+                    {/* CTA */}
+                    <div className="hero-button mt-7 flex items-center gap-3">
                       <button
+                        type="button"
                         onClick={() => router.push("/products")}
-                        className="hero-button hover:bg-green-primary/60 mt-6 cursor-pointer rounded-md bg-white px-3 py-1 text-end text-sm font-semibold text-black transition-all duration-200 hover:text-white active:-translate-y-1 md:px-6 md:py-3 lg:text-2xl"
+                        className="group/cta flex cursor-pointer items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-black shadow-xl transition-all duration-300 hover:gap-3 hover:bg-green-primary hover:text-white hover:shadow-2xl active:scale-95 sm:px-6 sm:py-3 md:text-base"
                       >
-                        Shop Now
+                        Explore Collection
+                        <ArrowUpRight className="size-4 transition-transform duration-300 group-hover/cta:rotate-45" />
                       </button>
+
+                      <span className="hidden text-xs font-medium text-white/60 sm:block">
+                        Quality furniture for better workspaces
+                      </span>
                     </div>
                   </div>
-                </SwiperSlide>
-              ),
-            )}
-          </Swiper>
+                </div>
+              </div>
 
-          {/* change button  */}
-          <div className="flex-center text-4xl font-bold">
-            <button
-              onClick={() => swiperInstance?.slidePrev()}
-              className="showPrevSlide bg-gray-secondary/30 absolute left-0 z-20 rounded-md px-1 py-2 backdrop-blur-xs lg:px-3 lg:py-5"
-            >
-              <ChevronLeft className="" />
-            </button>
-            <button
-              onClick={() => {
-                swiperInstance?.slideNext();
-              }}
-              className="showPrevSlide bg-gray-secondary/30 absolute right-0 z-20 rounded-md px-1 py-2 backdrop-blur-xs lg:px-3 lg:py-5"
-            >
-              <ChevronRight />
-            </button>
-          </div>
-          {/* text for hero */}
-          {/* <div className="absolute flex-center flex-col gap-2 h-full w-full ">
-            <h2
-              className={`absolute bottom-20 left-3 z-30 font-bold text-3xl text-foreground/80 bg-background/40 backdrop-blur-md px-3 py-2 rounded-md ${styles.slideTrack}`}
-            >
-              {coreInfo.name.toUpperCase()}
-            </h2>
-            <p className="absolute bottom-3 left-3 z-30 font-semibold text-gray-primary bg-background/40 backdrop-blur-md px-3 py-2 rounded-md">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia
-              aliquam, provident iste aut obcaecati esse nobis ipsum, a enim,
-              blanditiis voluptatem maxime magni.
-            </p>
-          </div> */}
+              {/* Slide number */}
+              <div className="absolute right-5 bottom-5 z-10 hidden items-center gap-2 text-white/70 sm:flex">
+                <span className="text-xs font-medium">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <span className="h-px w-8 bg-white/40" />
+                <span className="text-xs">ST OFFICE</span>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+
+        {/* Navigation */}
+        <div className="absolute right-4 bottom-4 z-30 flex items-center gap-2 sm:right-6 sm:bottom-6">
+          <button
+            type="button"
+            onClick={() => swiperInstance?.slidePrev()}
+            aria-label="Previous slide"
+            className="flex size-10 cursor-pointer items-center justify-center rounded-full border border-white/25 bg-black/20 text-white backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-white hover:text-black active:scale-95 sm:size-11"
+          >
+            <ChevronLeft className="size-5" />
+          </button>
+
+          <button
+            type="button"
+            onClick={() => swiperInstance?.slideNext()}
+            aria-label="Next slide"
+            className="flex size-10 cursor-pointer items-center justify-center rounded-full border border-white/25 bg-black/20 text-white backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-white hover:text-black active:scale-95 sm:size-11"
+          >
+            <ChevronRight className="size-5" />
+          </button>
         </div>
-      </section>
-
-      {/* next section  */}
-      <section></section>
-
-      <div className="w-full max-w-300">
-        {/* <VideoPlayer  url="https://youtu.be/ozrwrDpYkuk?si=HpOWaoNWdikQxa2Y" /> */}
-        {/* <VideoPlayer url="https://www.pexels.com/download/video/6672457/" /> */}
       </div>
-    </div>
+
+      {/* <style jsx global>{`
+        .hero-swiper .swiper-pagination {
+          left: 24px !important;
+          right: auto !important;
+          bottom: 24px !important;
+          width: auto !important;
+          display: flex;
+          align-items: center;
+          gap: 6px;
+        }
+
+        .hero-swiper .swiper-pagination-bullet {
+          width: 7px;
+          height: 7px;
+          margin: 0 !important;
+          opacity: 0.45;
+          background: white;
+          transition: all 0.4s ease;
+        }
+
+        .hero-swiper .swiper-pagination-bullet-active {
+          width: 26px;
+          border-radius: 999px;
+          opacity: 1;
+        }
+
+        .hero-swiper .swiper-slide .hero-image {
+          transform: scale(1.08);
+          transition: transform 7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .hero-swiper .swiper-slide-active .hero-image {
+          transform: scale(1);
+        }
+
+        .hero-swiper .swiper-slide .hero-eyebrow {
+          opacity: 0;
+          transform: translateY(22px);
+        }
+
+        .hero-swiper .swiper-slide .hero-title {
+          opacity: 0;
+          transform: translateY(35px);
+        }
+
+        .hero-swiper .swiper-slide .hero-description {
+          opacity: 0;
+          transform: translateY(28px);
+        }
+
+        .hero-swiper .swiper-slide .hero-button {
+          opacity: 0;
+          transform: translateY(24px);
+        }
+
+        .hero-swiper .swiper-slide-active .hero-eyebrow {
+          opacity: 1;
+          transform: translateY(0);
+          transition:
+            opacity 0.7s ease 0.25s,
+            transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.25s;
+        }
+
+        .hero-swiper .swiper-slide-active .hero-title {
+          opacity: 1;
+          transform: translateY(0);
+          transition:
+            opacity 0.8s ease 0.4s,
+            transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s;
+        }
+
+        .hero-swiper .swiper-slide-active .hero-description {
+          opacity: 1;
+          transform: translateY(0);
+          transition:
+            opacity 0.7s ease 0.65s,
+            transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.65s;
+        }
+
+        .hero-swiper .swiper-slide-active .hero-button {
+          opacity: 1;
+          transform: translateY(0);
+          transition:
+            opacity 0.7s ease 0.85s,
+            transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.85s;
+        }
+      `}</style> */}
+    </section>
   );
 };
 

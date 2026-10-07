@@ -20,8 +20,8 @@ const Page = () => {
   return (
     <div className="mx-auto w-full">
       {/* <Hero2 products={[{ id: 122, price: 223, title: "Product", images: [""] }, { id: 12, price: 223, title: "Product", images: [""] }, { id: 129, price: 223, title: "Product", images: [""] },]} /> */}
-      <Hero />
-      {/* <HeroSectionA /> */}
+      <HeroSectionA />
+      {/* <Hero /> */}
       <FeaturedProducts />
       <SpecialCategories />
       <TrustStrip />
