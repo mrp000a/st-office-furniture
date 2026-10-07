@@ -65,37 +65,41 @@ export type OrderFormData = {
   paymentMethod: PaymentMethods;
 };
 
+// payment methods info
+
 export const PaymentMethodsInfo: {
   label: string;
   description?: string;
   icon?: IconType;
   value: PaymentMethods;
 }[] = [
-  {
-    label: "Cash on Delivery",
-    description: "Pay with cash upon delivery.",
-    icon: PiMoneyWavyFill,
-    value: "COD",
-  },
-  {
-    label: "Bkash",
-    description: "Pay with Bkash.",
-    icon: PiMoneyWavyFill,
-    value: "BKASH",
-  },
-  {
-    label: "Stripe",
-    description: "Pay with Stripe.",
-    icon: PiMoneyWavyFill,
-    value: "STRIPE",
-  },
-  {
-    label: "SSLCommerz",
-    description: "Pay with card, MFS, Online Banking, etc..",
-    icon: PiMoneyWavyFill,
-    value: "SSLCOMMERZ",
-  },
-];
+    {
+      label: "Cash on Delivery",
+      description: "Pay with cash upon delivery.",
+      icon: PiMoneyWavyFill,
+      value: "COD",
+    },
+    /*
+    {
+      label: "Bkash",
+      description: "Pay with Bkash.",
+      icon: PiMoneyWavyFill,
+      value: "BKASH",
+    },
+    {
+      label: "Stripe",
+      description: "Pay with Stripe.",
+      icon: PiMoneyWavyFill,
+      value: "STRIPE",
+    },
+    {
+      label: "SSLCommerz",
+      description: "Pay with card, MFS, Online Banking, etc..",
+      icon: PiMoneyWavyFill,
+      value: "SSLCOMMERZ",
+    },
+    */
+  ];
 
 export type MessageFormData = {
   name: string;

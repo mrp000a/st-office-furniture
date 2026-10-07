@@ -65,7 +65,7 @@ const PageOrderInfo = ({ order }: { order: sanitizeOrder }) => {
   const latestLog = order.logs?.[order.logs.length - 1];
 
   return (
-    <main className="bg-background min-h-screen">
+    <main className=" min-h-screen">
       <div className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
         {/* ========================================================= */}
         {/* BACK / BREADCRUMB                                         */}
@@ -127,11 +127,10 @@ const PageOrderInfo = ({ order }: { order: sanitizeOrder }) => {
             <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
               <div className="flex items-center gap-2">
                 <div
-                  className={`flex size-8 items-center justify-center rounded-full ${
-                    order.paymentStatus === "PAID"
-                      ? "bg-emerald-500/10 text-emerald-600"
-                      : "bg-amber-500/10 text-amber-600"
-                  }`}
+                  className={`flex size-8 items-center justify-center rounded-full ${order.paymentStatus === "PAID"
+                    ? "bg-emerald-500/10 text-emerald-600"
+                    : "bg-amber-500/10 text-amber-600"
+                    }`}
                 >
                   <CreditCard className="size-4" />
                 </div>
@@ -200,7 +199,7 @@ const PageOrderInfo = ({ order }: { order: sanitizeOrder }) => {
             {/* ORDER PROGRESS                                        */}
             {/* ===================================================== */}
 
-            <section className="bg-card rounded-2xl border p-5 shadow-sm sm:p-6">
+            <section className="bg-background rounded-2xl border p-5 shadow-sm sm:p-6">
               <div className="mb-6 flex items-start justify-between gap-4">
                 <div>
                   <p className="text-primary text-xs font-semibold tracking-wider uppercase">
@@ -242,17 +241,19 @@ const PageOrderInfo = ({ order }: { order: sanitizeOrder }) => {
 
                         {/* indicator */}
                         <div
-                          className={`relative z-10 flex size-8 shrink-0 items-center justify-center rounded-full border-2 ${
-                            isLatest
-                              ? "border-primary bg-primary text-primary-foreground shadow-sm"
-                              : "border-border bg-background text-muted-foreground"
-                          }`}
+                          className={`relative z-10 flex size-8 shrink-0 items-center justify-center rounded-full border-2 ${isLatest
+                            ? "border-primary bg-primary text-primary-foreground shadow-sm"
+                            : "border-border bg-background text-muted-foreground"
+                            }`}
                         >
                           {isLatest ? (
                             isFinal ? (
                               <Check className="size-4" />
                             ) : (
-                              <Clock3 className="size-4" />
+                              <>
+                                <span className="absolute size-8 rounded-full bg-primary/30 animate-ping" />
+                                <Clock3 className="size-4" />
+                              </>
                             )
                           ) : (
                             <Check className="size-4" />
@@ -264,11 +265,10 @@ const PageOrderInfo = ({ order }: { order: sanitizeOrder }) => {
                           <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
                             <div className="flex flex-wrap items-center gap-2">
                               <h3
-                                className={`font-semibold ${
-                                  isLatest
-                                    ? "text-foreground"
-                                    : "text-muted-foreground"
-                                }`}
+                                className={`font-semibold ${isLatest
+                                  ? "text-foreground"
+                                  : "text-muted-foreground"
+                                  }`}
                               >
                                 {status}
                               </h3>
@@ -596,9 +596,8 @@ const PageOrderInfo = ({ order }: { order: sanitizeOrder }) => {
                     <span className="font-semibold">Due</span>
 
                     <span
-                      className={`text-xl font-bold ${
-                        due > 0 ? "text-amber-600" : "text-emerald-600"
-                      }`}
+                      className={`text-xl font-bold ${due > 0 ? "text-amber-600" : "text-emerald-600"
+                        }`}
                     >
                       {formatMoney(due)}
                     </span>

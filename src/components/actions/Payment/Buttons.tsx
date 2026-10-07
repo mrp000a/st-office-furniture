@@ -169,7 +169,7 @@ export function SslCommerzButton({ orderId }: { orderId: number }) {
       disabled={loading}
       className="w-full rounded-xl bg-green-600 px-5 py-3 font-semibold text-white disabled:opacity-50"
     >
-      {loading ? "Connecting to SSLCOMMERZ..." : "Pay Online"}
+      {loading ? "Connecting to SSLCOMMERZ..." : "Pay with SSLCommerz"}
     </button>
   );
 }
@@ -185,7 +185,7 @@ export function StripeButton({ orderId }: { orderId: number }) {
       disabled={loading}
       className="w-full rounded-lg bg-black px-4 py-3 text-white disabled:opacity-50"
     >
-      {loading ? "Connecting to Stripe..." : "Pay with Card"}
+      {loading ? "Connecting to Stripe..." : "Pay with Stripe"}
     </button>
   );
 }

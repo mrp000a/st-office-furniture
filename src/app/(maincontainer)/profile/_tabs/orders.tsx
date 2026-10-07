@@ -26,15 +26,16 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import SearchShowClient from "@/components/common/searchShowClient";
 import { getImageUrl } from "@/lib/getImageUrl";
+import { formatDate } from "@/lib/secApi";
 
 const Page = () => {
   const session = useSession();
 
   const [orders, setOrders] = useState<
     | (Order & {
-        _count: { items: number };
-        user: { email: string; image: string };
-      })[]
+      _count: { items: number };
+      user: { email: string; image: string };
+    })[]
     | null
   >(null);
   const [orderStatusTab, setOrderStatusTab] = useState<string>("PENDING");
@@ -214,7 +215,7 @@ const Page = () => {
                     </TableCell>
 
                     <TableCell>
-                      {new Date(createdAt).toLocaleDateString()}
+                      {formatDate(createdAt)}
                     </TableCell>
                     <TableCell>
                       <div className="flex items-center gap-2">

@@ -11,16 +11,16 @@ import { faq } from "../data/core";
 
 const FaqQuestion = () => {
   return (
-    <div className="h-full w-full">
+    <div className="h-full w-full reveal">
       <h3 className="text-center font-bold"></h3>
       <Accordion
         defaultValue={faq[0].value}
         type="single"
-        className="bg-background mx-auto max-w-5xl text-lg"
+        className="bg-background mx-auto max-w-5xl text-lg reveal"
       >
         {faq.map(({ label, value, content }, index) => (
-          <AccordionItem key={index} value={value}>
-            <AccordionTrigger className="text-base font-semibold">
+          <AccordionItem className="reveal" key={index} value={value}>
+            <AccordionTrigger className="text-base font-semibold ">
               {label}
             </AccordionTrigger>
             <AccordionContent className="flex flex-col text-sm">

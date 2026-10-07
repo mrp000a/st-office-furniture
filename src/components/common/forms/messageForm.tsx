@@ -66,7 +66,7 @@ const MessageForm = () => {
   };
 
   return (
-    <div className="h-full w-full">
+    <div className="h-full w-full reveal">
       <div className="bg-background border-gray-secondary/80 shadow-foreground/20 mx-auto w-full max-w-384 rounded-md border p-3 shadow-lg lg:p-6">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div className="mb-7">

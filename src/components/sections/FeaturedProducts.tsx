@@ -1,4 +1,5 @@
 // FeaturedProducts.tsx - Server Component
+import { getFeaturedProducts } from "@/lib/dbApis/product";
 import { filterProductType } from "../data/core";
 import ProductsSections from "./productsSection";
 
@@ -10,16 +11,12 @@ const FeaturedProducts = async () => {
     order: "desc",
     category: "",
   };
-  // fetch data
-  const data = await fetch(
-    `${process.env.NEXT_PUBLIC_URL_SITE}/api/products?limit=${filterOption.limit}&order=${filterOption.order}&category=${filterOption.category}`,
-    { next: { revalidate: 600 } },
-  ).then((res) => res.json());
 
-  const featuredProducts = data.result;
+  // const featuredProducts = data.result;
+  const featuredProducts = await getFeaturedProducts({ category: filterOption.category, limit: filterOption.limit, order: filterOption.order, isFeatured: true, })
   // console.log(data);
 
-  if (!data || featuredProducts.length === 0) {
+  if (featuredProducts.length === 0) {
     return <></>;
   }
 

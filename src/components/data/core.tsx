@@ -13,7 +13,7 @@ import SlideImageA2 from "@/components/images/Home/WhatsApp Image 2026-09-09 at 
 import SlideImageB from "@/components/images/Home/1788806073943.jpg.jpeg";
 import SlideImageC from "@/components/images/Home/1788806442172.jpg.jpeg";
 import SlideImageD from "@/components/images/Home/1788806591614.jpg.jpeg";
-import SlideImageE from "@/components/images/Home/1788806975340.jpg.jpeg";
+import SlideImageE from "@/components/images/Home/hero/whisk_image_1760968660830_1.jpg";
 
 import officeImage1 from "@/components/images/Office/modern sofas.webp";
 import officeImage2 from "@/components/images/Office/vecteezy_ai-generated-abstract-blurred-background-of-modern-office_41713016.jpg";
@@ -23,8 +23,9 @@ import officeImage4 from "@/components/images/Office/imageoffice4.jpg";
 import RegisterImage from "@/components/images/Office/francesco-liotti-3HP6_D9hxFY-unsplash.jpg";
 import LogInImage from "@/components/images/Office/kam-idris-_HqHX3LBN18-unsplash.jpg";
 
-import { FaFacebook, FaInstagram, FaWhatsapp, FaYoutube } from "react-icons/fa";
+import { FaCartPlus, FaFacebook, FaInstagram, FaWhatsapp, FaYoutube } from "react-icons/fa";
 import {
+  FaBagShopping,
   FaLocationDot,
   FaPhone,
   FaRegStar,
@@ -53,7 +54,7 @@ import {
 import { IconType } from "react-icons/lib";
 import { TbCategoryPlus } from "react-icons/tb";
 import { OrderStatus } from "@/generated/prisma";
-import { IoMailOpenOutline, IoMailUnreadOutline } from "react-icons/io5";
+import { IoGiftOutline, IoMailOpenOutline, IoMailUnreadOutline } from "react-icons/io5";
 
 export const coreInfo = {
   name: "ST Office Furniture",
@@ -118,8 +119,11 @@ export const LoginAndRegisterPageImages = {
 
 export const dropdownAdminData = [
   { label: "Profile", icon: UserIcon, href: "/profile" },
-  { label: "Billing", icon: CreditCardIcon, href: "#" },
-  { label: "Setting", icon: SettingsIcon, href: "#" },
+  { label: "Orders", icon: FaBagShopping, href: "/profile/orders" },
+  { label: "Cart", icon: FaCartPlus, href: "/profile/cartitems" },
+  { label: "Gifts", icon: IoGiftOutline, href: "/profile/gifts" },
+  // { label: "Billing", icon: CreditCardIcon, href: "#" },
+  { label: "Setting", icon: SettingsIcon, href: "/profile/settings" },
 ];
 
 export const navItems: {
@@ -280,7 +284,8 @@ export const CategoriesNav = [
   { label: "Visitors Chair", href: "/c/visitors-chair" },
   { label: "Wooden Chair", href: "/c/wooden-chair" },
   { label: "Waiting Chair", href: "/c/waiting-chair" },
-  { label: "Event Chair", href: "/c/even-chair" },
+  { label: "Event Chair", href: "/c/event-chair" },
+  { label: "Academic chair", href: "/c/academic-chair" },
   { label: "Stool", href: "/c/stool" },
   { label: "Chair Accessories", href: "/c/chair-accessories" },
   { label: "Sofa", href: "/c/sofa" },
@@ -370,6 +375,37 @@ export const stars = {
 };
 
 export type ProductItemType = {
+  price: number;
+  discountPrice: number | null;
+  discount: number | null;
+  category?: {
+    name: string;
+    id: number;
+    createdAt: Date;
+    updatedAt: Date;
+    image: string | null;
+    description: string | null;
+  } | null;
+  _count?: {
+    descriptions: number;
+    reviews: number;
+    orderItems: number;
+    cartItems: number;
+  };
+  id: number;
+  title: string;
+  productCode: string;
+  images: string[];
+  brand: string | null;
+  keyFeatures: string[];
+  stock: number;
+  categoryId: number | null;
+  // averageRating: number;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export type ProductItemTypeSingle = {
   price: number;
   discountPrice: number | null;
   discount: number | null;

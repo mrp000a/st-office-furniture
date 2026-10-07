@@ -18,6 +18,7 @@ import {
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import { getImageUrlProduct } from "@/lib/getImageUrl";
 import { deleteOrder } from "@/lib/api";
+import { formatDate } from "@/lib/secApi";
 
 type ordersType = {
   subtotal: number;
@@ -137,7 +138,7 @@ const MobileOrderCard = ({
           <div className="rounded-lg border p-2.5">
             <p className="text-muted-foreground text-[11px]">Date</p>
             <p className="mt-0.5 truncate text-xs font-medium">
-              {new Date(createdAt).toLocaleDateString()}
+              {formatDate(createdAt)}
             </p>
           </div>
         </div>

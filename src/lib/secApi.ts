@@ -1,7 +1,8 @@
 // useful functions
 
 export function formatDate(date: Date | string): string {
-  return new Date(date).toLocaleDateString("en-US", {
+  return new Date(date).toLocaleDateString("en-BD", {
+    timeZone: "Asia/Dhaka",
     month: "long",
     day: "numeric",
     year: "numeric",
@@ -9,7 +10,8 @@ export function formatDate(date: Date | string): string {
 }
 
 export function formatTime(date: Date | string): string {
-  return new Date(date).toLocaleTimeString("en-US", {
+  return new Date(date).toLocaleTimeString("en-BD", {
+    timeZone: "Asia/Dhaka",
     hour: "2-digit",
     minute: "2-digit",
     hour12: true,

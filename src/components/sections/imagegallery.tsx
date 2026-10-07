@@ -9,12 +9,12 @@ const Imagegallery = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   return (
     <div>
-      <div className="mx-auto grid max-w-384 grid-cols-1 gap-2 border px-2 md:grid-cols-2">
+      <div className="mx-auto grid max-w-384 grid-cols-1 gap-2 border px-2 md:grid-cols-2 reveal">
         {OfficeImages.map((item, index) => (
           <div
             key={index}
             onClick={() => setActiveIndex(activeIndex === index ? null : index)}
-            className={`group shadow-foreground/50 relative aspect-video h-full w-full cursor-pointer overflow-hidden rounded-md shadow-sm`}
+            className={`group reveal shadow-foreground/50 relative aspect-video h-full w-full cursor-pointer overflow-hidden rounded-md shadow-sm`}
           >
             <Image
               unoptimized
@@ -26,11 +26,11 @@ const Imagegallery = () => {
             />
 
             <div
-              className={`flex-center bg-foreground/50 text-background group-hover:bg-foreground/30 dark:bg-background/50 dark:text-foreground dark:group-hover:bg-background/30 relative z-20 h-full w-full px-3 transition-all duration-500 ${activeIndex === index ? "bg-foreground/30 dark:bg-background/30 backdrop-blur-sm" : ""} `}
+              className={`flex-center reveal bg-foreground/50 text-background group-hover:bg-foreground/30 dark:bg-background/50 dark:text-foreground dark:group-hover:bg-background/30 relative z-20 h-full w-full px-3 transition-all duration-500 ${activeIndex === index ? "bg-foreground/30 dark:bg-background/30 backdrop-blur-sm" : ""} `}
             >
               <div>
-                <h2 className="text-lg font-bold">{item.title}</h2>
-                <p className="font-serif italic">{item.description}</p>
+                <h2 className="text-lg font-bold reveal" >{item.title}</h2>
+                <p className="font-serif italic reveal">{item.description}</p>
                 <Button variant={"destructive"} asChild>
                   <Link href={item.href}>View Our Products</Link>
                 </Button>

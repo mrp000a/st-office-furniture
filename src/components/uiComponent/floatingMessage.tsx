@@ -1,44 +1,62 @@
+"use client";
+
 import React, { useState } from "react";
-import { ContactInfoFloating } from "../data/core";
-import { AiFillMessage } from "react-icons/ai";
 import Link from "next/link";
-import { IoMdCloseCircle } from "react-icons/io";
+import { motion, AnimatePresence } from "motion/react";
+import { AiFillMessage } from "react-icons/ai";
+import { IoMdClose } from "react-icons/io";
+import { ContactInfoFloating } from "../data/core";
 
-const FloatingMessage = ({}) => {
-  const [showMessagesBar, setShowMessagesBar] = useState<boolean>(false);
+const FloatingMessage = () => {
+  const [showMessagesBar, setShowMessagesBar] = useState(false);
+
   return (
-    <div>
-      {/* Floating Action Button (FAB) */}
-      <div
-        onClick={() => setShowMessagesBar((e) => !e)}
-        className={`border-gray-primary flex-center fixed right-4 bottom-16 z-50 h-14 w-14 cursor-pointer rounded-full border bg-green-600 p-2 transition-all duration-300 ease-in-out hover:bg-green-800 md:right-8 md:bottom-8 ${showMessagesBar ? "pointer-events-none invisible scale-50 opacity-0" : "visible scale-100 opacity-100"}`}
-      >
-        <AiFillMessage className="text-background dark:text-foreground h-7 w-7 animate-bounce" />
-      </div>
+    <div className="fixed right-4 bottom-5 z-50 md:right-7 md:bottom-7">
+      <AnimatePresence>
+        {!showMessagesBar && (
+          <motion.div initial={{ opacity: 0, scale: 0.7, y: 10 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.6, y: 10 }} transition={{ type: "spring", stiffness: 380, damping: 22 }} className="relative">
+            {/* Soft pulse */}
+            <motion.span animate={{ scale: [1, 1.45, 1], opacity: [0.35, 0, 0.35] }} transition={{ duration: 2.4, repeat: Infinity, ease: "easeOut" }} className="absolute inset-0 rounded-full bg-green-600/40" />
 
-      {/* Open Bar Options Panel */}
-      <div
-        className={`fixed right-4 bottom-16 z-50 flex origin-bottom flex-col items-center space-y-3 transition-all duration-300 ease-in-out md:right-8 md:bottom-8 ${showMessagesBar ? "visible translate-y-0 scale-100 opacity-100" : "pointer-events-none invisible translate-y-4 scale-75 opacity-0"}`}
-      >
-        {ContactInfoFloating &&
-          ContactInfoFloating.map(({ href, icon: Icon }, index) => (
-            <Link
-              target="_blank"
-              className="border-gray-primary flex-center box-border h-14 w-14 cursor-pointer rounded-full border bg-green-600 p-1 transition-all hover:bg-green-800 sm:p-2"
-              href={href}
-              key={index}
-            >
-              <Icon className="text-background dark:text-foreground h-7 w-7" />
-            </Link>
-          ))}
+            {/* FAB */}
+            <button type="button" onClick={() => setShowMessagesBar(true)} aria-label="Open contact options" className="group relative flex size-14 items-center justify-center overflow-hidden rounded-full border border-white/20 bg-green-600 text-background shadow-[0_10px_35px_-8px_rgba(22,163,74,0.7)] transition-all duration-300 hover:scale-105 hover:bg-green-700 hover:shadow-[0_14px_40px_-8px_rgba(22,163,74,0.85)] active:scale-95 sm:size-15">
+              <span className="absolute inset-0 bg-linear-to-br from-white/20 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+              <AiFillMessage className="relative size-7 transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110" />
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-        <div
-          onClick={() => setShowMessagesBar((e) => !e)}
-          className="border-gray-primary flex-center h-14 w-14 cursor-pointer rounded-full border bg-red-600 p-2 transition-all hover:bg-green-800"
-        >
-          <IoMdCloseCircle className="text-background dark:text-foreground h-7 w-7" />
-        </div>
-      </div>
+      <AnimatePresence>
+        {showMessagesBar && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute right-0 bottom-0 flex flex-col items-end gap-3">
+            {/* Header label */}
+            <motion.div initial={{ opacity: 0, x: 12, y: 10 }} animate={{ opacity: 1, x: 0, y: 0 }} transition={{ delay: 0.05 }} className="mr-1 mb-1 rounded-full border border-border/60 bg-background/95 px-3 py-1.5 text-xs font-medium text-foreground shadow-lg backdrop-blur-md">
+              How can we help?
+            </motion.div>
+
+            {/* Contact options */}
+            {ContactInfoFloating?.map(({name , href, icon: Icon }, index) => (
+              <motion.div key={index} initial={{ opacity: 0, x: 25, scale: 0.7 }} animate={{ opacity: 1, x: 0, scale: 1 }} exit={{ opacity: 0, x: 20, scale: 0.7 }} transition={{ type: "spring", stiffness: 400, damping: 24, delay: index * 0.06 }} className="group flex items-center gap-2">
+                {/* Desktop label */}
+                <span className="pointer-events-none hidden rounded-lg border border-border/60 bg-background/95 px-3 py-1.5 text-xs font-medium whitespace-nowrap text-foreground opacity-0 shadow-md transition-all duration-200 group-hover:-translate-x-1 group-hover:opacity-100 sm:block">
+                  {name}
+                </span>
+
+                <Link href={href} target="_blank" rel="noopener noreferrer" aria-label="Contact us" className="group/button relative flex size-12 items-center justify-center overflow-hidden rounded-full border border-white/20 bg-green-600 text-background shadow-lg transition-all duration-300 hover:scale-110 hover:bg-green-700 hover:shadow-xl active:scale-95 sm:size-13">
+                  <span className="absolute inset-0 bg-linear-to-br from-white/20 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover/button:opacity-100" />
+                  <Icon className="relative size-6 transition-transform duration-300 group-hover/button:scale-110" />
+                </Link>
+              </motion.div>
+            ))}
+
+            {/* Close button */}
+            <motion.button initial={{ opacity: 0, scale: 0.6 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.6 }} transition={{ delay: (ContactInfoFloating?.length ?? 0) * 0.06 }} type="button" onClick={() => setShowMessagesBar(false)} aria-label="Close contact options" className="group mt-1 flex size-14 items-center justify-center rounded-full border border-border/60 bg-background text-foreground shadow-xl transition-all duration-300 hover:scale-105 hover:bg-muted active:scale-95 sm:size-15">
+              <IoMdClose className="size-7 transition-transform duration-300 group-hover:rotate-90" />
+            </motion.button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

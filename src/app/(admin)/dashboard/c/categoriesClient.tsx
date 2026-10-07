@@ -30,6 +30,7 @@ import { useState } from "react";
 import { IoReload } from "react-icons/io5";
 import { getImageUrlProduct } from "@/lib/getImageUrl";
 import Link from "next/link";
+import { formatDate } from "@/lib/secApi";
 
 export default function CategoriesPageClient({
   categories,
@@ -154,7 +155,7 @@ export default function CategoriesPageClient({
                     </p>
 
                     <div className="text-gray-primary text-xs">
-                      {new Date(createdAt).toDateString()}
+                      {formatDate(createdAt)}
                     </div>
                   </div>
 

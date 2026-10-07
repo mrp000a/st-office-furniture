@@ -13,6 +13,7 @@ import { deleteProduct } from "@/lib/api";
 import { useAlertDialog } from "@/components/hooks/use-alert-dialog";
 import { AdminProductItem } from "@/lib/formDataTypes";
 import { getImageUrlProduct } from "@/lib/getImageUrl";
+import { formatDate } from "@/lib/secApi";
 
 const ProductAdmin = ({ item }: { item: AdminProductItem }) => {
   const { confirm } = useAlertDialog();
@@ -224,7 +225,7 @@ const ProductAdmin = ({ item }: { item: AdminProductItem }) => {
             </span>
 
             <span className="text-gray-primary font-medium">
-              {new Date(item.createdAt).toLocaleDateString()}
+              {formatDate(item.createdAt)}
             </span>
           </div>
 
@@ -235,7 +236,7 @@ const ProductAdmin = ({ item }: { item: AdminProductItem }) => {
             </span>
 
             <span className="text-gray-primary font-medium">
-              {new Date(item.updatedAt).toLocaleDateString()}
+              {formatDate(item.updatedAt)}
             </span>
           </div>
         </div>

@@ -1,6 +1,7 @@
 import { Star } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { getImageUrl } from "@/lib/getImageUrl";
+import { formatDate } from "@/lib/secApi";
 
 type ReviewCardProps = {
   review: {
@@ -30,23 +31,22 @@ export function ReviewCard({ review }: ReviewCardProps) {
         <div className="flex items-start justify-between gap-4">
           <div className="">
             <h4 className="font-semibold">{review.user.name ?? "Anonymous"}</h4>
-            <span className="text-gray-primary break-after-auto text-xs">
+            {/* <span className="text-gray-primary break-after-auto text-xs">
               {review.user.email ?? "N/A"}
-            </span>
+            </span> */}
           </div>
           <div className="flex flex-col items-end gap-2">
             <p className="text-muted-foreground text-xs">
-              {new Date(review.createdAt).toLocaleDateString()}
+              {formatDate(review.createdAt)}
             </p>
             <div className="flex items-center gap-0.5">
               {[1, 2, 3, 4, 5].map((star) => (
                 <Star
                   key={star}
-                  className={`size-4 ${
-                    star <= review.rating
+                  className={`size-4 ${star <= review.rating
                       ? "fill-yellow-400 text-yellow-400"
                       : "text-muted-foreground"
-                  }`}
+                    }`}
                 />
               ))}
             </div>

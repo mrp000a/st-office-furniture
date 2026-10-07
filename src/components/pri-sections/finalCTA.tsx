@@ -11,22 +11,22 @@ const benefits = [
 
 export function FinalCTA() {
   return (
-    <section className="relative overflow-hidden bg-zinc-950 py-20 text-white sm:py-24 lg:py-32">
+    <section className="relative reveal overflow-hidden bg-zinc-950 py-20 text-white sm:py-24 lg:py-32">
       {/* ================= BACKGROUND ================= */}
 
       {/* Large glow */}
-      <div className="bg-primary/10 pointer-events-none absolute top-1/2 -left-40 size-[500px] -translate-y-1/2 rounded-full blur-[120px]" />
+      <div className="dark:bg-primary/10 bg-background/10 pointer-events-none absolute top-1/2 -left-40 size-[500px] -translate-y-1/2 rounded-full blur-[120px]" />
 
-      <div className="bg-primary/10 pointer-events-none absolute -top-40 -right-40 size-[500px] rounded-full blur-[120px]" />
+      <div className="dark:bg-primary/10 bg-background/10 pointer-events-none absolute -top-40 -right-40 size-[500px] rounded-full blur-[120px]" />
 
       {/* Background grid */}
       <div className="pointer-events-none absolute inset-0 [background-image:linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] [background-size:60px_60px] opacity-[0.035]" />
 
-      <div className="relative mx-auto max-w-384 px-4 sm:px-6 lg:px-8">
+      <div className="relative reveal mx-auto max-w-384 px-4 sm:px-6 lg:px-8">
         <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03]">
           {/* ================= IMAGE ================= */}
 
-          <div className="absolute inset-y-0 right-0 hidden w-[45%] lg:block">
+          <div className="absolute reveal inset-y-0 right-0 hidden w-[45%] lg:block">
             <Image
               unoptimized
               src={WhyChooseImage}
@@ -43,7 +43,7 @@ export function FinalCTA() {
 
           {/* ================= CONTENT ================= */}
 
-          <div className="relative max-w-3xl px-6 py-14 sm:px-10 sm:py-16 lg:px-16 lg:py-20">
+          <div className="relative reveal max-w-3xl px-6 py-14 sm:px-10 sm:py-16 lg:px-16 lg:py-20">
             {/* Eyebrow */}
             <div className="mb-6 flex items-center gap-3">
               <span className="bg-primary h-px w-10" />
@@ -54,23 +54,23 @@ export function FinalCTA() {
             </div>
 
             {/* Heading */}
-            <h2 className="max-w-2xl text-4xl leading-[1.08] font-bold tracking-tight sm:text-5xl lg:text-6xl">
+            <h2 className="max-w-2xl reveal text-4xl leading-[1.08] font-bold tracking-tight sm:text-5xl lg:text-6xl">
               Make your workspace
               <span className="text-primary block">work better.</span>
             </h2>
 
             {/* Description */}
-            <p className="mt-6 max-w-xl text-base leading-7 text-zinc-400 sm:text-lg">
+            <p className="mt-6 max-w-xl reveal text-base leading-7 text-zinc-400 sm:text-lg">
               Discover thoughtfully designed furniture that brings comfort,
               productivity, and professional style into every workspace.
             </p>
 
             {/* Benefits */}
-            <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3">
+            <div className="mt-8 flex flex-wrap reveal gap-x-6 gap-y-3">
               {benefits.map((benefit) => (
                 <div
                   key={benefit}
-                  className="flex items-center gap-2 text-sm text-zinc-300"
+                  className="flex items-center reveal gap-2 text-sm text-zinc-300"
                 >
                   <span className="bg-primary/15 flex size-5 items-center justify-center rounded-full">
                     <Check className="text-primary size-3" strokeWidth={3} />
@@ -82,11 +82,11 @@ export function FinalCTA() {
             </div>
 
             {/* Buttons */}
-            <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-10 flex reveal flex-col gap-3 sm:flex-row">
               {/* Primary */}
               <Link
                 href="/products"
-                className="group bg-primary text-primary-foreground shadow-primary/10 hover:shadow-primary/20 inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-sm font-semibold shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl"
+                className="group bg-primary reveal text-primary-foreground shadow-primary/10 hover:shadow-primary/20 inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-sm font-semibold shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl"
               >
                 <ShoppingBag className="size-4" />
                 Explore Furniture
@@ -96,7 +96,7 @@ export function FinalCTA() {
               {/* Secondary */}
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-6 py-3.5 text-sm font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:border-white/25 hover:bg-white/10"
+                className="inline-flex reveal items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-6 py-3.5 text-sm font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:border-white/25 hover:bg-white/10"
               >
                 <MessageCircle className="size-4" />
                 Talk to an Expert
@@ -104,7 +104,7 @@ export function FinalCTA() {
             </div>
 
             {/* Small trust message */}
-            <p className="mt-6 text-xs text-zinc-500">
+            <p className="mt-6 text-xs text-zinc-500 reveal">
               Need help choosing the right furniture?{" "}
               <Link
                 href="/contact"

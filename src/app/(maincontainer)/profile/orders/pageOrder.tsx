@@ -31,6 +31,7 @@ import PaginationLayout from "@/components/common/paginationLayout";
 import { useRouter, useSearchParams } from "next/navigation";
 import { OrderStatusBadge } from "@/components/uiComponent/order-status-badge";
 import { getImageUrl } from "@/lib/getImageUrl";
+import { formatBDDate, formatMoney, formatTime } from "@/lib/secApi";
 
 const PageProfileOrders = ({
   orders,
@@ -108,102 +109,298 @@ const PageProfileOrders = ({
       </div>
       {/* main data table */}
       <div className="w-full overflow-auto">
+
         {orders && orders.length > 0 ? (
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Order Id</TableHead>
-                {/* <TableHead>Order Id</TableHead> */}
-                <TableHead>Customer</TableHead>
-                <TableHead>Address</TableHead>
-                <TableHead>Items</TableHead>
-                <TableHead>Total</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Date</TableHead>
-                <TableHead>Buttons</TableHead>
-              </TableRow>
-            </TableHeader>
+          <>
+            {/* ========================= DESKTOP ========================= */}
+            <div className="hidden w-full md:block">
+              <div className="overflow-hidden rounded-xl border bg-card">
+                <Table>
+                  <TableHeader>
+                    <TableRow className="bg-muted/40 hover:bg-muted/40">
+                      <TableHead className="w-28">Order</TableHead>
+                      <TableHead>Customer</TableHead>
+                      <TableHead>Delivery Address</TableHead>
+                      <TableHead className="text-center">Items</TableHead>
+                      <TableHead>Total</TableHead>
+                      <TableHead>Status</TableHead>
+                      <TableHead>Placed</TableHead>
+                      <TableHead className="text-right">Action</TableHead>
+                    </TableRow>
+                  </TableHeader>
 
-            <TableBody className="">
+                  <TableBody>
+                    {orders.map(
+                      ({
+                        id,
+                        publicId,
+                        receiverName,
+                        receiverEmail,
+                        receiverPhone,
+                        address,
+                        user,
+                        status,
+                        total,
+                        _count,
+                        createdAt,
+                      }) => (
+                        <TableRow
+                          key={id}
+                          className="group transition-colors hover:bg-muted/30"
+                        >
+                          {/* ORDER */}
+                          <TableCell>
+                            <div>
+                              <p className="font-mono text-sm font-semibold">
+                                #{id}
+                              </p>
+
+                              <p className="mt-0.5 max-w-24 truncate font-mono text-[10px] text-muted-foreground">
+                                {publicId}
+                              </p>
+                            </div>
+                          </TableCell>
+
+                          {/* CUSTOMER */}
+                          <TableCell>
+                            <div className="flex min-w-48 items-center gap-3">
+                              <div className="relative size-9 shrink-0 overflow-hidden rounded-full border bg-muted">
+                                {user?.image ? (
+                                  <Image
+                                    unoptimized
+                                    src={getImageUrl(user.image)}
+                                    alt={user.email ?? receiverName}
+                                    fill
+                                    sizes="36px"
+                                    className="object-cover"
+                                  />
+                                ) : (
+                                  <FaUserCircle className="size-full text-muted-foreground" />
+                                )}
+                              </div>
+
+                              <div className="min-w-0">
+                                <p className="truncate font-semibold">
+                                  {receiverName}
+                                </p>
+
+                                <p className="truncate text-xs text-muted-foreground">
+                                  {receiverPhone}
+                                </p>
+
+                                <p className="max-w-48 truncate text-[11px] text-muted-foreground">
+                                  {receiverEmail}
+                                </p>
+                              </div>
+                            </div>
+                          </TableCell>
+
+                          {/* ADDRESS */}
+                          <TableCell>
+                            <p className="max-w-60 min-w-44 whitespace-normal wrap-break-word text-sm leading-relaxed text-muted-foreground">
+                              {address || "No address provided"}
+                            </p>
+                          </TableCell>
+
+                          {/* ITEMS */}
+                          <TableCell className="text-center">
+                            <span className="inline-flex min-w-8 items-center justify-center rounded-full bg-muted px-2 py-1 text-xs font-semibold">
+                              {Number(_count.items)}
+                            </span>
+                          </TableCell>
+
+                          {/* TOTAL */}
+                          <TableCell>
+                            <p className="whitespace-nowrap text-sm font-bold">
+                              {formatMoney(total)}
+                            </p>
+                          </TableCell>
+
+                          {/* STATUS */}
+                          <TableCell>
+                            <OrderStatusBadge status={status} />
+                          </TableCell>
+
+                          {/* DATE */}
+                          <TableCell>
+                            <div className="whitespace-nowrap">
+                              <p className="text-sm font-medium">
+                                {formatBDDate(createdAt)}
+                              </p>
+
+                              <p className="text-[11px] text-muted-foreground">
+                                {formatTime(createdAt)}
+                              </p>
+                            </div>
+                          </TableCell>
+
+                          {/* ACTION */}
+                          <TableCell className="text-right">
+                            <Button
+                              asChild
+                              size="sm"
+                              variant="outline"
+                              className="gap-1.5"
+                            >
+                              <Link href={`/order/${publicId}`}>
+                                View Order
+                              </Link>
+                            </Button>
+                          </TableCell>
+                        </TableRow>
+                      ),
+                    )}
+                  </TableBody>
+                </Table>
+              </div>
+            </div>
+
+            {/* ========================= MOBILE ========================= */}
+            <div className="space-y-3 md:hidden">
               {orders.map(
-                (
-                  {
-                    id,
-                    publicId,
-                    receiverName,
-                    receiverEmail,
-                    receiverPhone,
-                    address,
-                    user,
-                    status,
-                    total,
-                    _count,
-                    createdAt,
-                  },
-                  index,
-                ) => (
-                  <TableRow key={index} className="">
-                    <TableCell className="font-medium">#{id}</TableCell>
-
-                    <TableCell>
-                      <div className="flex items-center justify-start gap-1">
-                        <span className="relative z-10 inline-block max-h-6 min-h-6 max-w-6 min-w-6 overflow-hidden rounded-full">
+                ({
+                  id,
+                  publicId,
+                  receiverName,
+                  receiverEmail,
+                  receiverPhone,
+                  address,
+                  user,
+                  status,
+                  total,
+                  _count,
+                  createdAt,
+                }) => (
+                  <div
+                    key={id}
+                    className="overflow-hidden rounded-xl border bg-card shadow-sm"
+                  >
+                    {/* CARD HEADER */}
+                    <div className="flex items-start justify-between gap-3 border-b bg-muted/20 p-4">
+                      <div className="flex min-w-0 items-center gap-3">
+                        <div className="relative size-10 shrink-0 overflow-hidden rounded-full border bg-muted">
                           {user?.image ? (
                             <Image
                               unoptimized
-                              src={getImageUrl(user?.image)}
-                              alt={user.email}
-                              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                              src={getImageUrl(user.image)}
+                              alt={user.email ?? receiverName}
                               fill
-                              className="h-full w-full object-cover"
+                              sizes="40px"
+                              className="object-cover"
                             />
                           ) : (
-                            <FaUserCircle className="h-full w-full" />
+                            <FaUserCircle className="size-full text-muted-foreground" />
                           )}
-                        </span>
-                        <div>
-                          <p className="font-medium">{receiverName}</p>
-                          <div className="flex flex-wrap items-center gap-x-2 text-[10px]">
-                            <p className="text-muted-foreground">
-                              {receiverEmail}
-                            </p>
-                            <p className="text-muted-foreground">
-                              {receiverPhone}
-                            </p>
-                          </div>
+                        </div>
+
+                        <div className="min-w-0">
+                          <p className="truncate font-semibold">
+                            {receiverName}
+                          </p>
+
+                          <p className="truncate text-xs text-muted-foreground">
+                            {receiverPhone}
+                          </p>
                         </div>
                       </div>
-                    </TableCell>
 
-                    <TableCell>
-                      <p className="">{address ?? "N/A"}</p>
-                    </TableCell>
-                    <TableCell>{Number(_count.items)}</TableCell>
+                      <div className="shrink-0 text-right">
+                        <p className="font-mono text-sm font-semibold">
+                          #{id}
+                        </p>
 
-                    <TableCell>৳{Number(total).toLocaleString()}</TableCell>
-
-                    <TableCell>
-                      <OrderStatusBadge status={status} />
-                    </TableCell>
-
-                    <TableCell>
-                      {new Date(createdAt).toLocaleDateString()}
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex items-center gap-2">
-                        <Button className="" asChild>
-                          <Link href={`/order/${publicId}`}>View</Link>
-                        </Button>
+                        <p className="mt-0.5 text-[10px] text-muted-foreground">
+                          {new Date(createdAt).toLocaleDateString("en-BD", {
+                            day: "2-digit",
+                            month: "short",
+                            year: "numeric",
+                          })}
+                        </p>
                       </div>
-                    </TableCell>
-                  </TableRow>
+                    </div>
+
+                    {/* CARD BODY */}
+                    <div className="p-4">
+                      {/* STATUS + TOTAL */}
+                      <div className="flex items-center justify-between gap-3">
+                        <OrderStatusBadge status={status} />
+
+                        <div className="text-right">
+                          <p className="text-[10px] uppercase tracking-wide text-muted-foreground">
+                            Total
+                          </p>
+
+                          <p className="text-lg font-bold">
+                            ৳{Number(total).toLocaleString("en-BD")}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* ORDER META */}
+                      <div className="mt-4 grid grid-cols-2 gap-3">
+                        <div className="rounded-lg bg-muted/40 p-3">
+                          <p className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
+                            Items
+                          </p>
+
+                          <p className="mt-1 text-sm font-semibold">
+                            {Number(_count.items)}{" "}
+                            {Number(_count.items) === 1 ? "item" : "items"}
+                          </p>
+                        </div>
+
+                        <div className="rounded-lg bg-muted/40 p-3">
+                          <p className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
+                            Order Date
+                          </p>
+
+                          <p className="mt-1 text-sm font-semibold">
+                            {new Date(createdAt).toLocaleDateString("en-BD", {
+                              day: "2-digit",
+                              month: "short",
+                              year: "numeric",
+                            })}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* ADDRESS */}
+                      <div className="mt-3 rounded-lg border bg-background p-3">
+                        <p className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
+                          Delivery Address
+                        </p>
+
+                        <p className="mt-1 line-clamp-2 text-sm leading-relaxed">
+                          {address || "No address provided"}
+                        </p>
+                      </div>
+
+                      {/* EMAIL */}
+                      <div className="mt-3">
+                        <p className="truncate text-xs text-muted-foreground">
+                          {receiverEmail}
+                        </p>
+                      </div>
+
+                      {/* ACTION */}
+                      <Button
+                        asChild
+                        className="mt-4 w-full"
+                      >
+                        <Link href={`/order/${publicId}`}>
+                          View Order
+                        </Link>
+                      </Button>
+                    </div>
+                  </div>
                 ),
               )}
-            </TableBody>
-          </Table>
+            </div>
+          </>
         ) : (
           <NoItemsFound />
         )}
+
       </div>
       <PaginationLayout currentPage={currentPage} totalPages={totalPages} />
     </div>

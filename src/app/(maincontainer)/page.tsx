@@ -13,11 +13,15 @@ import SpecialCategories from "@/components/sections/SpecialCategories";
 
 import React from "react";
 import SendMessageContact from "./(otherpages)/contact/comp/sendMessageContact";
+import { Hero } from "@/components/pri-sections/home-hero-anim";
+import { Hero2 } from "@/components/pri-sections/home-hero-2";
 
 const Page = () => {
   return (
     <div className="mx-auto w-full">
-      <HeroSectionA />
+      {/* <Hero2 products={[{ id: 122, price: 223, title: "Product", images: [""] }, { id: 12, price: 223, title: "Product", images: [""] }, { id: 129, price: 223, title: "Product", images: [""] },]} /> */}
+      <Hero />
+      {/* <HeroSectionA /> */}
       <FeaturedProducts />
       <SpecialCategories />
       <TrustStrip />

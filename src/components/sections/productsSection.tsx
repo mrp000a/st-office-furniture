@@ -8,6 +8,7 @@ import ProductClient from "@/components/uiComponent/productClient";
 import Link from "next/link";
 import { FaChair, FaCouch, FaTools } from "react-icons/fa";
 import { MdWorkspacePremium } from "react-icons/md";
+import { ProductItemType } from "../data/core";
 
 const icons = {
   chair: FaChair,
@@ -24,15 +25,8 @@ const ProductsSections = ({
   icon,
   href,
 }: {
-  products: (Product & {
-    category: Category;
+  products: (ProductItemType & {
     averageRating: number;
-    _count: {
-      descriptions: number;
-      reviews: number;
-      orderItems: number;
-      cartItems: number;
-    };
   })[];
   title?: string;
   subTitle?: string;
@@ -56,8 +50,9 @@ const ProductsSections = ({
 
   return (
     <section>
-      <div className="bg-background/30 relative mx-auto w-full max-w-384 rounded-md border p-2">
-        <div className="flex flex-wrap items-center justify-between gap-2">
+      <div className="bg-background/30 relative mx-auto w-full max-w-384 rounded-md border p-2 reveal">
+        {/* heading */}
+        <div className="flex flex-wrap items-center justify-between gap-2 reveal">
           <div>
             <span className="flex items-center gap-2">
               <div className="text-green-primary relative">
@@ -81,7 +76,7 @@ const ProductsSections = ({
         </div>
         <div
           ref={scrollContainerRef}
-          className="relative flex h-110 w-full scrollbar-none items-stretch gap-3 overflow-x-auto overflow-y-hidden p-2"
+          className="relative reveal flex h-110 w-full scrollbar-none items-stretch gap-3 overflow-x-auto overflow-y-hidden p-2"
         >
           {products &&
             products.length > 0 &&

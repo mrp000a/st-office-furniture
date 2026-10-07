@@ -73,6 +73,9 @@ model Product {
   category      Category?            @relation(fields: [categoryId], references: [id])
   descriptions  ProductDescription[]
 
+  isFeatured Boolean @default(false)
+  isPopular  Boolean @default(false)
+
   @@index([categoryId])
 }
 
@@ -125,7 +128,7 @@ model CartItem {
 }
 
 model Order {
-  id       Int    @id @default(autoincrement())
+  id       Int     @id @default(autoincrement())
   publicId String? @unique @default(cuid())
 
   subtotal       Decimal     @db.Decimal(12, 2)

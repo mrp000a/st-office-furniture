@@ -59,7 +59,7 @@ function RatingStars({ rating }: { rating: number }) {
 
 export function ReviewsSection() {
   return (
-    <section className="bg-muted/30 relative overflow-hidden py-20 sm:py-24 lg:py-32">
+    <section className="bg-muted/30 reveal relative overflow-hidden py-20 sm:py-24 lg:py-32">
       {/* Background decoration */}
       <div className="bg-primary/5 pointer-events-none absolute top-20 left-0 size-80 rounded-full blur-[100px]" />
       <div className="bg-primary/5 pointer-events-none absolute right-0 bottom-0 size-96 rounded-full blur-[120px]" />
@@ -67,29 +67,29 @@ export function ReviewsSection() {
       <div className="relative mx-auto max-w-384 px-4 sm:px-6 lg:px-8">
         {/* ================= HEADER ================= */}
 
-        <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
+        <div className="flex flex-col reveal justify-between gap-8 lg:flex-row lg:items-end">
           <div className="max-w-2xl">
             <div className="mb-4 flex items-center gap-3">
               <span className="bg-primary h-px w-9" />
 
-              <span className="text-primary text-xs font-semibold tracking-[0.25em] uppercase">
+              <span className="text-primary reveal text-xs font-semibold tracking-[0.25em] uppercase">
                 Customer Stories
               </span>
             </div>
 
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
+            <h2 className="text-3xl reveal font-bold tracking-tight sm:text-4xl lg:text-5xl">
               Trusted by people who{" "}
               <span className="text-primary">value better workspaces.</span>
             </h2>
 
-            <p className="text-muted-foreground mt-5 max-w-xl text-sm leading-7 sm:text-base">
+            <p className="text-muted-foreground reveal mt-5 max-w-xl text-sm leading-7 sm:text-base">
               From home offices to professional workplaces, our customers choose
               ST Office Furniture for comfort, quality, and dependable service.
             </p>
           </div>
 
           {/* Overall rating */}
-          <div className="bg-background flex shrink-0 items-center gap-4 rounded-2xl border px-5 py-4 shadow-sm">
+          <div className="bg-background reveal flex shrink-0 items-center gap-4 rounded-2xl border px-5 py-4 shadow-sm">
             <div>
               <div className="text-3xl font-bold tracking-tight">4.8</div>
 
@@ -112,7 +112,7 @@ export function ReviewsSection() {
           {reviews.map((review) => (
             <article
               key={review.name}
-              className="group bg-background relative flex h-full flex-col rounded-2xl border p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl sm:p-7"
+              className="group reveal bg-background relative flex h-full flex-col rounded-2xl border p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl sm:p-7"
             >
               {/* Quote icon */}
               <div className="bg-primary/10 absolute top-6 right-6 flex size-9 items-center justify-center rounded-full">
@@ -182,7 +182,7 @@ export function ReviewsSection() {
 
         {/* ================= BOTTOM CTA ================= */}
 
-        <div className="bg-background mt-10 flex flex-col items-center justify-between gap-5 rounded-2xl border px-6 py-6 sm:flex-row sm:px-8">
+        <div className="bg-background reveal mt-10 flex flex-col items-center justify-between gap-5 rounded-2xl border px-6 py-6 sm:flex-row sm:px-8">
           <div>
             <p className="text-sm font-semibold">
               See what our customers are saying

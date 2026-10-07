@@ -2,6 +2,7 @@
 import { FileText, Truck, Undo2, UserShield } from "lucide-react";
 import Image from "next/image";
 import React from "react";
+import { motion } from 'motion/react'
 import {
   ContactInfoFooter,
   coreInfo,
@@ -20,8 +21,8 @@ import backgroundImageDark from "@/components/images/Home/darkfooterimage.png";
 const Footer = () => {
   const pathname = usePathname();
   return (
-    <footer className="relative z-10">
-      <Image
+    <footer className="relative z-10 overflow-hidden dark:bg-black bg-white">
+      {/* <Image
         unoptimized
         src={backgroundImage}
         alt="Background"
@@ -38,6 +39,37 @@ const Footer = () => {
         fill
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 60vw"
         className="z-0 hidden object-cover object-center dark:block"
+      /> */}
+
+      <motion.div
+        animate={{
+          x: [0, 80, -40, 60, 0],
+          y: [0, -60, 40, -30, 0],
+          scale: [1, 1.12, 0.92, 1.08, 1],
+          rotate: [0, 8, -5, 6, 0],
+        }}
+        transition={{
+          duration: 24,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        className="pointer-events-none absolute -left-24 top-0 size-[500px] rounded-full bg-blue-500/40 blur-[150px] dark:bg-blue-400/40"
+      />
+
+      <motion.div
+        animate={{
+          x: [0, -70, 35, -50, 0],
+          y: [0, 50, -45, 30, 0],
+          scale: [1, 0.9, 1.14, 0.96, 1],
+          rotate: [0, -7, 5, -4, 0],
+        }}
+        transition={{
+          duration: 27,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 2,
+        }}
+        className="pointer-events-none absolute -right-24 bottom-0 size-[520px] rounded-full bg-blue-500/40 blur-[160px] dark:bg-blue-400/40"
       />
 
       <div

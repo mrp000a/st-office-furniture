@@ -48,7 +48,7 @@ const MobileNavDrawar = ({
                 variant={
                   pathname === href
                     ? "destructive"
-                    : href !== "/" && pathname.startsWith(href)
+                    : href !== "/" && pathname.startsWith(`${href}/`)
                       ? "destructive"
                       : "outline"
                 }

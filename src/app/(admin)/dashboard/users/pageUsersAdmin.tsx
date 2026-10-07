@@ -19,7 +19,9 @@ import { NoItemsFound } from "@/components/uiComponent/uiCom";
 import {
   ChevronRight,
   CirclePlus,
+  Edit2,
   Settings,
+  Trash2,
   Verified,
   VerifiedIcon,
 } from "lucide-react";
@@ -41,6 +43,7 @@ import SearchShowClient from "@/components/common/searchShowClient";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { getImageUrlProduct } from "@/lib/getImageUrl";
 import { Badge } from "@/components/ui/badge";
+import { formatBDDate, formatBDDateTime, formatTime } from "@/lib/secApi";
 
 const PageUsersAdmin = ({
   users,
@@ -111,27 +114,25 @@ const PageUsersAdmin = ({
       <SearchShowClient />
       {users && users.length > 0 ? (
         <div className="w-full">
-          <Table className="">
-            <TableHeader>
-              <TableRow>
-                <TableHead>User Id</TableHead>
-                {/* <TableHead>Order Id</TableHead> */}
-                <TableHead>User</TableHead>
-                <TableHead>Phone</TableHead>
-                <TableHead>Address</TableHead>
-                {/* <TableHead>Payment</TableHead> */}
-                <TableHead>Role</TableHead>
-                <TableHead>Varified</TableHead>
-                <TableHead>Gender</TableHead>
-                <TableHead>Date</TableHead>
-                <TableHead>Buttons</TableHead>
-              </TableRow>
-            </TableHeader>
+          <div className="hidden md:block">
+            <Table className="">
+              <TableHeader>
+                <TableRow className="bg-muted/40 hover:bg-muted/40">
+                  <TableHead className="w-16">ID</TableHead>
+                  <TableHead>User</TableHead>
+                  <TableHead>Contact</TableHead>
+                  <TableHead>Address</TableHead>
+                  <TableHead>Role</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead>Gender</TableHead>
+                  <TableHead>Joined</TableHead>
+                  <TableHead className="text-right">Actions</TableHead>
+                </TableRow>
+              </TableHeader>
 
-            <TableBody className="">
-              {users.map(
-                (
-                  {
+              <TableBody>
+                {users.map(
+                  ({
                     name,
                     id,
                     image,
@@ -142,117 +143,367 @@ const PageUsersAdmin = ({
                     role,
                     emailVerified,
                     createdAt,
-                  },
-                  index,
-                ) => (
-                  <TableRow key={index} className="">
-                    <TableCell className="font-medium">#{id}</TableCell>
+                  }) => (
+                    <TableRow
+                      key={id}
+                      className="group transition-colors hover:bg-muted/30"
+                    >
+                      {/* ID */}
+                      <TableCell>
+                        <span className="font-mono text-xs font-medium text-muted-foreground">
+                          #{id}
+                        </span>
+                      </TableCell>
 
-                    <TableCell>
-                      <div className="flex items-center justify-start gap-1">
-                        <span className="relative z-10 inline-block max-h-6 min-h-6 max-w-6 min-w-6 overflow-hidden rounded-full">
-                          <Avatar className="size-6">
+                      {/* User */}
+                      <TableCell>
+                        <div className="flex min-w-48 items-center gap-3">
+                          <Avatar className="size-9 shrink-0 border">
                             <AvatarImage
-                              alt="userImage"
+                              alt={name ?? "User"}
                               src={getImageUrlProduct(image)}
                             />
-                            <AvatarFallback>
+                            <AvatarFallback className="text-xs font-semibold">
                               {name?.charAt(0).toUpperCase() ?? "U"}
                             </AvatarFallback>
                           </Avatar>
-                        </span>
-                        <div>
-                          <p className="font-medium">{name}</p>
-                          <div className="flex flex-wrap items-center gap-x-2 text-[10px]">
-                            <p className="text-muted-foreground">{email}</p>
+
+                          <div className="min-w-0">
+                            <p className="truncate font-semibold leading-tight">
+                              {name || "Unnamed User"}
+                            </p>
+
+                            <p className="mt-0.5 max-w-52 truncate text-xs text-muted-foreground">
+                              {email || "No email"}
+                            </p>
                           </div>
                         </div>
-                      </div>
-                    </TableCell>
+                      </TableCell>
 
-                    <TableCell>{phone}</TableCell>
+                      {/* Contact */}
+                      <TableCell>
+                        <div className="space-y-1 text-sm">
+                          <p className="font-medium">
+                            {phone || "N/A"}
+                          </p>
 
-                    <TableCell className="">
-                      <p className="max-w-60 min-w-48 wrap-break-word whitespace-normal">
-                        {address ?? "N/A"}
-                      </p>
-                    </TableCell>
+                          <p className="max-w-44 truncate text-xs text-muted-foreground">
+                            {email || "No email"}
+                          </p>
+                        </div>
+                      </TableCell>
 
-                    <TableCell>{role}</TableCell>
-                    <TableCell>
-                      <Badge
-                        variant={emailVerified ? "default" : "destructive"}
-                      >
+                      {/* Address */}
+                      <TableCell>
+                        <p className="max-w-56 min-w-40 whitespace-normal wrap-break-word text-sm text-muted-foreground">
+                          {address || "No address provided"}
+                        </p>
+                      </TableCell>
+
+                      {/* Role */}
+                      <TableCell>
+                        <Badge
+                          variant="outline"
+                          className="font-medium capitalize"
+                        >
+                          {role?.toLowerCase()}
+                        </Badge>
+                      </TableCell>
+
+                      {/* Verification */}
+                      <TableCell>
                         {emailVerified ? (
-                          <>
-                            <VerifiedIcon /> Varified
-                          </>
+                          <Badge
+                            variant="default"
+                            className="gap-1.5 bg-green-600 hover:bg-green-600"
+                          >
+                            <VerifiedIcon className="size-3.5" />
+                            Verified
+                          </Badge>
                         ) : (
-                          "Not Varified"
+                          <Badge
+                            variant="destructive"
+                            className="gap-1.5"
+                          >
+                            <span className="size-1.5 rounded-full bg-current" />
+                            Unverified
+                          </Badge>
                         )}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>{gender}</TableCell>
+                      </TableCell>
 
-                    <TableCell>
-                      {new Date(createdAt).toLocaleDateString()}
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex items-center gap-2">
-                        <Button
-                          onClick={() => {
-                            setEditUserData({
-                              name,
-                              email,
-                              gender: gender ?? "MALE",
-                              role,
-                              id,
-                              phone: phone ?? "",
-                              image: image ?? "",
-                              address: address ?? "",
-                            });
-                            setOpenEditUser(true);
-                          }}
-                          variant={"destructive"}
-                        >
-                          Edit
-                        </Button>
-                        <Button
-                          onClick={async () => {
-                            const isConfirm = await confirm({
-                              title: `Are you sure? Delete the user!`,
-                              description: (
-                                <span>
-                                  {"This action can't be undone. Delete "}
-                                  <strong className="font-bold">{name}.</strong>
-                                </span>
-                              ),
-                              confirmText: "Delete",
-                            });
-                            if (!isConfirm) return;
-                            await deleteUser({
-                              id,
-                              email,
-                              image: image ?? undefined,
-                            });
+                      {/* Gender */}
+                      <TableCell>
+                        <span className="text-sm capitalize">
+                          {gender?.toLowerCase() || "N/A"}
+                        </span>
+                      </TableCell>
 
-                            // toast.error("User can't be deleted!", {
-                            //   description: new Date().toDateString(),
-                            // });
+                      {/* Date */}
+                      <TableCell>
+                        <div className="whitespace-nowrap">
+                          <p className="text-sm font-medium">
+                            {formatBDDate(createdAt) || "N/A"}
+                          </p>
 
-                            router.refresh();
-                          }}
-                          className="bg-green-primary"
-                        >
-                          Delete
-                        </Button>
+                          <p className="text-[11px] text-muted-foreground">
+                            {formatTime(createdAt) || "N/A"}
+                          </p>
+                        </div>
+                      </TableCell>
+
+                      {/* Actions */}
+                      <TableCell>
+                        <div className="flex justify-end gap-2">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => {
+                              setEditUserData({
+                                name,
+                                email,
+                                gender: gender ?? "MALE",
+                                role,
+                                id,
+                                phone: phone ?? "",
+                                image: image ?? "",
+                                address: address ?? "",
+                              });
+
+                              setOpenEditUser(true);
+                            }}
+                          >
+                            <Edit2 /> Edit
+                          </Button>
+
+                          <Button
+                            size="sm"
+                            variant="destructive"
+                            onClick={async () => {
+                              const isConfirm = await confirm({
+                                title: "Are you sure? Delete the user!",
+                                description: (
+                                  <span>
+                                    {"This action can't be undone. Delete"}{" "}
+                                    <strong className="font-bold">
+                                      {name}.
+                                    </strong>
+                                  </span>
+                                ),
+                                confirmText: "Delete",
+                              });
+
+                              if (!isConfirm) return;
+
+                              await deleteUser({
+                                id,
+                                email,
+                                image: image ?? undefined,
+                              });
+
+                              router.refresh();
+                            }}
+                          >
+                            <Trash2 />  Delete
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ),
+                )}
+              </TableBody>
+            </Table>
+          </div>
+          <div className="space-y-3 md:hidden">
+            {users.map(
+              ({
+                name,
+                id,
+                image,
+                email,
+                phone,
+                address,
+                gender,
+                role,
+                emailVerified,
+                createdAt,
+              }) => (
+                <div
+                  key={id}
+                  className="rounded-xl border bg-card p-4 shadow-sm"
+                >
+                  {/* Header */}
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex min-w-0 items-center gap-3">
+                      <Avatar className="size-11 shrink-0 border">
+                        <AvatarImage
+                          alt={name ?? "User"}
+                          src={getImageUrlProduct(image)}
+                        />
+
+                        <AvatarFallback className="font-semibold">
+                          {name?.charAt(0).toUpperCase() ?? "U"}
+                        </AvatarFallback>
+                      </Avatar>
+
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-2">
+                          <p className="truncate font-semibold">
+                            {name || "Unnamed User"}
+                          </p>
+                        </div>
+
+                        <p className="truncate text-xs text-muted-foreground">
+                          {email || "No email"}
+                        </p>
+
+                        <p className="mt-0.5 font-mono text-[10px] text-muted-foreground">
+                          User #{id}
+                        </p>
                       </div>
-                    </TableCell>
-                  </TableRow>
-                ),
-              )}
-            </TableBody>
-          </Table>
+                    </div>
+
+                    {/* Role */}
+                    <Badge
+                      variant="outline"
+                      className="shrink-0 capitalize"
+                    >
+                      {role?.toLowerCase()}
+                    </Badge>
+                  </div>
+
+                  {/* Divider */}
+                  <div className="my-4 h-px bg-border" />
+
+                  {/* Information */}
+                  <div className="grid grid-cols-2 gap-x-4 gap-y-4">
+                    {/* Phone */}
+                    <div>
+                      <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+                        Phone
+                      </p>
+
+                      <p className="mt-1 truncate text-sm font-medium">
+                        {phone || "N/A"}
+                      </p>
+                    </div>
+
+                    {/* Gender */}
+                    <div>
+                      <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+                        Gender
+                      </p>
+
+                      <p className="mt-1 text-sm font-medium capitalize">
+                        {gender?.toLowerCase() || "N/A"}
+                      </p>
+                    </div>
+
+                    {/* Verification */}
+                    <div>
+                      <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+                        Account
+                      </p>
+
+                      <div className="mt-1">
+                        {emailVerified ? (
+                          <Badge className="gap-1 bg-green-600 hover:bg-green-600">
+                            <VerifiedIcon className="size-3" />
+                            Verified
+                          </Badge>
+                        ) : (
+                          <Badge variant="destructive">
+                            Unverified
+                          </Badge>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Joined */}
+                    <div>
+                      <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+                        Joined
+                      </p>
+
+                      <p className="mt-1 text-sm font-medium">
+                        {new Date(createdAt).toLocaleDateString("en-BD", {
+                          day: "2-digit",
+                          month: "short",
+                          year: "numeric",
+                        })}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Address */}
+                  <div className="mt-4 rounded-lg bg-muted/40 p-3">
+                    <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+                      Address
+                    </p>
+
+                    <p className="mt-1 text-sm leading-relaxed">
+                      {address || "No address provided"}
+                    </p>
+                  </div>
+
+                  {/* Actions */}
+                  <div className="mt-4 grid grid-cols-2 gap-2">
+                    <Button
+                      variant="outline"
+                      className="w-full"
+                      onClick={() => {
+                        setEditUserData({
+                          name,
+                          email,
+                          gender: gender ?? "MALE",
+                          role,
+                          id,
+                          phone: phone ?? "",
+                          image: image ?? "",
+                          address: address ?? "",
+                        });
+
+                        setOpenEditUser(true);
+                      }}
+                    >
+                      <Edit2 /> Edit User
+                    </Button>
+
+                    <Button
+                      variant="destructive"
+                      className="w-full"
+                      onClick={async () => {
+                        const isConfirm = await confirm({
+                          title: "Are you sure? Delete the user!",
+                          description: (
+                            <span>
+                              {"This action can't be undone. Delete"}{" "}
+                              <strong className="font-bold">
+                                {name}.
+                              </strong>
+                            </span>
+                          ),
+                          confirmText: "Delete",
+                        });
+
+                        if (!isConfirm) return;
+
+                        await deleteUser({
+                          id,
+                          email,
+                          image: image ?? undefined,
+                        });
+
+                        router.refresh();
+                      }}
+                    >
+                      <Trash2 />  Delete
+                    </Button>
+                  </div>
+                </div>
+              ),
+            )}
+          </div>
+
         </div>
       ) : (
         <NoItemsFound />
@@ -265,7 +516,7 @@ const PageUsersAdmin = ({
         <Dialog
           open={openAddUser}
           onOpenChange={setOpenAddUser}
-          // modal={false}
+        // modal={false}
         >
           <DialogContent className="max-h-screen overflow-auto sm:max-w-lg">
             <DialogHeader>
@@ -283,7 +534,7 @@ const PageUsersAdmin = ({
         <Dialog
           open={openEditUser}
           onOpenChange={setOpenEditUser}
-          // modal={false}
+        // modal={false}
         >
           <DialogContent className="max-h-screen overflow-auto sm:max-w-lg">
             <DialogHeader>

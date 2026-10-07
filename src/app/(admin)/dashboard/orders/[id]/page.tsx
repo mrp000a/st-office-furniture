@@ -27,7 +27,7 @@ export default async function ProductsPage({ params }: Props) {
   if (order.success)
     return (
       <div>
-        <PageOrderInfo order={order.result} />;
+        <PageOrderInfo order={order.result} />
       </div>
     );
 

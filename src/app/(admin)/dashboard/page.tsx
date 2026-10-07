@@ -2,6 +2,7 @@ import React from "react";
 // import ProfileHome from "./PageProduct";
 import { prisma } from "@/lib/prisma";
 import AdminDashboardPage from "./pageDash";
+import { formatDate } from "@/lib/secApi";
 
 export const dynamic = "force-dynamic";
 // export const revalidate = 60;
@@ -93,7 +94,7 @@ const page = async () => {
         email: receiverEmail ?? receiverPhone,
         amount: Number(total),
         status,
-        date: createdAt.toDateString(),
+        date: formatDate(createdAt),
       };
     },
   );

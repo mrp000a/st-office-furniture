@@ -36,9 +36,10 @@ const SpecialCategoriesClient = ({
 
   return (
     <section>
-      <div className="bg-background/30 relative mx-auto w-full max-w-384 rounded-md border p-2">
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <span className="flex items-center gap-2">
+      <div className="bg-background/30 relative mx-auto w-full max-w-384 rounded-md border p-2 reveal">
+        {/* heading */}
+        <div className="flex flex-wrap items-center justify-between gap-2 reveal">
+          <span className="flex items-center gap-2 ">
             <div className="text-green-primary relative">
               <BiCategory
                 name="category"
@@ -57,9 +58,11 @@ const SpecialCategoriesClient = ({
             </Button>
           </span>
         </div>
+
+        {/* content  */}
         <div
           ref={scrollContainerRef}
-          className="relative flex h-100 w-full scrollbar-none items-stretch gap-3 overflow-x-auto overflow-y-hidden p-2"
+          className="relative reveal flex h-100 w-full scrollbar-none items-stretch gap-3 overflow-x-auto overflow-y-hidden p-2"
         >
           {categories &&
             categories.length > 0 &&

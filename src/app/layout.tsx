@@ -12,6 +12,7 @@ import { Toaster } from "@/components/ui/sonner";
 import Providers from "@/lib/providers";
 import { coreInfo } from "@/components/data/core";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import Gsap_Animations from "@/components/sec_lib/gsap-animation";
 
 // import siteImage from '@/components/images/siteImage.png'
 
@@ -110,9 +111,11 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="font-poppins dark:bg-background/30 flex min-h-full flex-col">
+
         <Providers>
           {children}
           <Toaster richColors icons={{}} />
+          <Gsap_Animations />
         </Providers>
         {/* <Suspense fallback={null}>
           <AnalyticsTracker />
