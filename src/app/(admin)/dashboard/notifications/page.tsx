@@ -16,6 +16,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
+import { deleteFile, uploadFile } from "@/lib/api";
+import { getImageUrl } from "@/lib/getImageUrl";
 // import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -67,9 +69,33 @@ export default function AdminNotifications() {
     event.preventDefault();
     setIsSending(true);
     const formElement = event.currentTarget;
+    let uploadedImageKey: string | undefined;
 
     try {
       const form = new FormData(formElement);
+      const imageFile = form.get("imageFile");
+      let image =
+        typeof form.get("imageUrl") === "string"
+          ? String(form.get("imageUrl")).trim()
+          : "";
+
+      if (imageFile instanceof File && imageFile.size > 0) {
+        if (imageFile.size > 5 * 1024 * 1024) {
+          throw new Error("Notification image must be 5 MB or smaller.");
+        }
+
+        const upload = await uploadFile(
+          imageFile,
+          "r2upload/notifications/images",
+        );
+        if (!upload.success || !upload.key) {
+          throw new Error(upload.message ?? "Unable to upload notification image.");
+        }
+
+        uploadedImageKey = upload.key;
+        image = getImageUrl(upload.key);
+      }
+
       const response = await fetch("/api/push/send", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -80,17 +106,26 @@ export default function AdminNotifications() {
           message: form.get("message"),
           url: form.get("url"),
           icon: form.get("icon"),
+          image,
         }),
       });
       const result = await response.json();
 
       if (!response.ok || !result.success) {
+        if (uploadedImageKey) {
+          await deleteFile(uploadedImageKey);
+          uploadedImageKey = undefined;
+        }
         toast.error(result.message ?? "Unable to send notification.");
       } else {
         toast.success(result.message);
         formElement.reset();
       }
     } catch (error) {
+      if (uploadedImageKey) {
+        await deleteFile(uploadedImageKey);
+        uploadedImageKey = undefined;
+      }
       console.error("Notification send error:", error);
       toast.error("Unable to send notification. Please try again.");
     } finally {
@@ -270,18 +305,31 @@ export default function AdminNotifications() {
               <label className="border-border bg-muted/20 hover:bg-muted/40 flex min-h-28 cursor-pointer flex-col items-center justify-center rounded-lg border border-dashed px-4 text-center transition-colors">
                 <ImagePlus className="text-muted-foreground mb-2 h-6 w-6" />
 
-                <span className="text-sm font-medium">Upload an image</span>
+                <span className="text-sm font-medium">Upload a local image</span>
 
                 <span className="text-muted-foreground mt-1 text-xs">
-                  Optional · JPG, PNG or WebP
+                  Optional · JPG, PNG or WebP · maximum 5 MB
                 </span>
 
                 <Input
+                  id="notification-image-file"
+                  name="imageFile"
                   type="file"
                   accept="image/png,image/jpeg,image/webp"
                   className="hidden"
                 />
               </label>
+
+              <Input
+                id="notification-image-url"
+                name="imageUrl"
+                type="url"
+                placeholder="Or paste a public image URL"
+              />
+
+              <p className="text-muted-foreground text-[11px]">
+                If both are provided, the uploaded local image is used.
+              </p>
             </div>
 
             {/* Action URL */}
