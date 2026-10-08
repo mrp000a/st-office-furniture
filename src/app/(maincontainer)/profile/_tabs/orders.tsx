@@ -33,9 +33,9 @@ const Page = () => {
 
   const [orders, setOrders] = useState<
     | (Order & {
-      _count: { items: number };
-      user: { email: string; image: string };
-    })[]
+        _count: { items: number };
+        user: { email: string; image: string };
+      })[]
     | null
   >(null);
   const [orderStatusTab, setOrderStatusTab] = useState<string>("PENDING");
@@ -214,9 +214,7 @@ const Page = () => {
                       </Badge>
                     </TableCell>
 
-                    <TableCell>
-                      {formatDate(createdAt)}
-                    </TableCell>
+                    <TableCell>{formatDate(createdAt)}</TableCell>
                     <TableCell>
                       <div className="flex items-center gap-2">
                         <Button className="" asChild>

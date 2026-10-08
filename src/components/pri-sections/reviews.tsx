@@ -67,7 +67,7 @@ export function ReviewsSection() {
       <div className="relative mx-auto max-w-384 px-4 sm:px-6 lg:px-8">
         {/* ================= HEADER ================= */}
 
-        <div className="flex flex-col reveal justify-between gap-8 lg:flex-row lg:items-end">
+        <div className="reveal flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
           <div className="max-w-2xl">
             <div className="mb-4 flex items-center gap-3">
               <span className="bg-primary h-px w-9" />
@@ -77,7 +77,7 @@ export function ReviewsSection() {
               </span>
             </div>
 
-            <h2 className="text-3xl reveal font-bold tracking-tight sm:text-4xl lg:text-5xl">
+            <h2 className="reveal text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
               Trusted by people who{" "}
               <span className="text-primary">value better workspaces.</span>
             </h2>

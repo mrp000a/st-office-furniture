@@ -111,7 +111,6 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="font-poppins dark:bg-background/30 flex min-h-full flex-col">
-
         <Providers>
           {children}
           <Toaster richColors icons={{}} />

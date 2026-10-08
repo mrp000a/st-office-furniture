@@ -50,9 +50,9 @@ const ProductsSections = ({
 
   return (
     <section>
-      <div className="bg-background/30 relative mx-auto w-full max-w-384 rounded-md border p-2 reveal">
+      <div className="bg-background/30 reveal relative mx-auto w-full max-w-384 rounded-md border p-2">
         {/* heading */}
-        <div className="flex flex-wrap items-center justify-between gap-2 reveal">
+        <div className="reveal flex flex-wrap items-center justify-between gap-2">
           <div>
             <span className="flex items-center gap-2">
               <div className="text-green-primary relative">
@@ -76,7 +76,7 @@ const ProductsSections = ({
         </div>
         <div
           ref={scrollContainerRef}
-          className="relative reveal flex h-110 w-full scrollbar-none items-stretch gap-3 overflow-x-auto overflow-y-hidden p-2"
+          className="reveal relative flex h-110 w-full scrollbar-none items-stretch gap-3 overflow-x-auto overflow-y-hidden p-2"
         >
           {products &&
             products.length > 0 &&

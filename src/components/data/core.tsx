@@ -23,7 +23,13 @@ import officeImage4 from "@/components/images/Office/imageoffice4.jpg";
 import RegisterImage from "@/components/images/Office/francesco-liotti-3HP6_D9hxFY-unsplash.jpg";
 import LogInImage from "@/components/images/Office/kam-idris-_HqHX3LBN18-unsplash.jpg";
 
-import { FaCartPlus, FaFacebook, FaInstagram, FaWhatsapp, FaYoutube } from "react-icons/fa";
+import {
+  FaCartPlus,
+  FaFacebook,
+  FaInstagram,
+  FaWhatsapp,
+  FaYoutube,
+} from "react-icons/fa";
 import {
   FaBagShopping,
   FaLocationDot,
@@ -54,7 +60,11 @@ import {
 import { IconType } from "react-icons/lib";
 import { TbCategoryPlus } from "react-icons/tb";
 import { OrderStatus } from "@/generated/prisma";
-import { IoGiftOutline, IoMailOpenOutline, IoMailUnreadOutline } from "react-icons/io5";
+import {
+  IoGiftOutline,
+  IoMailOpenOutline,
+  IoMailUnreadOutline,
+} from "react-icons/io5";
 
 export const coreInfo = {
   name: "ST Office Furniture",

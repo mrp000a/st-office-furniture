@@ -6,11 +6,13 @@ import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "./themeProviders";
 import React from "react";
 import PushProvider from "@/components/sec_lib/push-provider";
+import NotificationPrompt from "@/components/sec_lib/notification-prompt";
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <PushProvider />
+      <NotificationPrompt />
       <ReduxProvider>
         <ThemeProvider
           attribute="class"

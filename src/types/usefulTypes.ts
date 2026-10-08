@@ -5,8 +5,6 @@ import {
   PaymentStatus,
 } from "@/generated/prisma";
 
-
-
 export type sanitizeOrder = {
   id: number;
 

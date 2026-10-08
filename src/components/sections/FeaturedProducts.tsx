@@ -13,7 +13,12 @@ const FeaturedProducts = async () => {
   };
 
   // const featuredProducts = data.result;
-  const featuredProducts = await getFeaturedProducts({ category: filterOption.category, limit: filterOption.limit, order: filterOption.order, isFeatured: true, })
+  const featuredProducts = await getFeaturedProducts({
+    category: filterOption.category,
+    limit: filterOption.limit,
+    order: filterOption.order,
+    isFeatured: true,
+  });
   // console.log(data);
 
   if (featuredProducts.length === 0) {

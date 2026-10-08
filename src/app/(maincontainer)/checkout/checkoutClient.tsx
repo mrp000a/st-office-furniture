@@ -472,16 +472,18 @@ const CheckoutClientPage = () => {
                           key={value}
                           type="button"
                           onClick={() => setPaymentMethod(value)}
-                          className={`flex w-full cursor-pointer items-center gap-4 rounded-xl border p-4 text-left transition-all ${selected
-                            ? "border-primary bg-primary/5 ring-primary/20 ring-2"
-                            : "hover:border-primary/40 hover:bg-muted/40"
-                            }`}
+                          className={`flex w-full cursor-pointer items-center gap-4 rounded-xl border p-4 text-left transition-all ${
+                            selected
+                              ? "border-primary bg-primary/5 ring-primary/20 ring-2"
+                              : "hover:border-primary/40 hover:bg-muted/40"
+                          }`}
                         >
                           <div
-                            className={`flex size-11 shrink-0 items-center justify-center rounded-xl ${selected
-                              ? "bg-primary text-primary-foreground"
-                              : "bg-muted"
-                              }`}
+                            className={`flex size-11 shrink-0 items-center justify-center rounded-xl ${
+                              selected
+                                ? "bg-primary text-primary-foreground"
+                                : "bg-muted"
+                            }`}
                           >
                             {Icon ? (
                               <Icon className="size-6" />
@@ -510,10 +512,11 @@ const CheckoutClientPage = () => {
                           </div>
 
                           <div
-                            className={`flex size-5 shrink-0 items-center justify-center rounded-full border-2 ${selected
-                              ? "border-primary"
-                              : "border-muted-foreground/30"
-                              }`}
+                            className={`flex size-5 shrink-0 items-center justify-center rounded-full border-2 ${
+                              selected
+                                ? "border-primary"
+                                : "border-muted-foreground/30"
+                            }`}
                           >
                             {selected && (
                               <div className="bg-primary size-2.5 rounded-full" />

@@ -290,7 +290,7 @@ const PageOrderInfo = ({ order }: { order: sanitizeOrder }) => {
               </div>
             </div>
 
-            <div className="flex items-center flex-wrap">
+            <div className="flex flex-wrap items-center">
               <InvoiceButtonView id={order.publicId ?? ""} />
               <InvoiceButtonDownload id={order.publicId ?? ""} />
             </div>

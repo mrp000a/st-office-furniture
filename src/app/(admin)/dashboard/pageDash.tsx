@@ -598,10 +598,11 @@ export default function AdminDashboardPage({
                   </p>
 
                   <p
-                    className={`text-xs ${product.stock <= 5
+                    className={`text-xs ${
+                      product.stock <= 5
                         ? "text-red-500"
                         : "text-muted-foreground"
-                      }`}
+                    }`}
                   >
                     {product.stock} in stock
                   </p>
@@ -925,16 +926,18 @@ function AlertCard({
 
   return (
     <div
-      className={`flex items-start gap-3 rounded-xl border p-4 ${danger
+      className={`flex items-start gap-3 rounded-xl border p-4 ${
+        danger
           ? "border-red-500/20 bg-red-500/5"
           : "border-yellow-500/20 bg-yellow-500/5"
-        }`}
+      }`}
     >
       <div
-        className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${danger
+        className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${
+          danger
             ? "bg-red-500/10 text-red-600"
             : "bg-yellow-500/10 text-yellow-600"
-          }`}
+        }`}
       >
         <AlertTriangle className="h-4 w-4" />
       </div>

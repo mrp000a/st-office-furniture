@@ -37,14 +37,14 @@ const workspaceSolutions = [
 
 export function WorkspaceSolutions() {
   return (
-    <section className="bg-background relative overflow-hidden py-20 sm:py-24 lg:py-32 reveal">
+    <section className="bg-background reveal relative overflow-hidden py-20 sm:py-24 lg:py-32">
       <div className="mx-auto max-w-384 px-4 sm:px-6 lg:px-8">
         {/* ================= HEADER ================= */}
 
-        <div className="mb-10 flex flex-col reveal justify-between gap-6 sm:mb-14 lg:flex-row lg:items-end">
+        <div className="reveal mb-10 flex flex-col justify-between gap-6 sm:mb-14 lg:flex-row lg:items-end">
           <div className="max-w-2xl">
             {/* Eyebrow */}
-            <div className="mb-4 flex items-center gap-3 reveal">
+            <div className="reveal mb-4 flex items-center gap-3">
               <span className="bg-primary h-px w-9" />
 
               <span className="text-primary text-xs font-semibold tracking-[0.25em] uppercase">
@@ -53,12 +53,12 @@ export function WorkspaceSolutions() {
             </div>
 
             {/* Heading */}
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl reveal">
+            <h2 className="reveal text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
               Find your{" "}
               <span className="text-primary">workspace solution.</span>
             </h2>
 
-            <p className="text-muted-foreground mt-4 max-w-xl text-sm leading-6 sm:text-base reveal">
+            <p className="text-muted-foreground reveal mt-4 max-w-xl text-sm leading-6 sm:text-base">
               Whether {"you're"} working from home, building a growing team, or
               welcoming clients, find furniture designed for the space you want
               to create.
@@ -82,7 +82,7 @@ export function WorkspaceSolutions() {
             <Link
               key={solution.title}
               href={solution.href}
-              className="group relative reveal h-[430px] overflow-hidden rounded-2xl bg-zinc-900 sm:h-[470px] lg:h-[500px]"
+              className="group reveal relative h-[430px] overflow-hidden rounded-2xl bg-zinc-900 sm:h-[470px] lg:h-[500px]"
             >
               {/* Image */}
               <Image
@@ -112,7 +112,7 @@ export function WorkspaceSolutions() {
               </div>
 
               {/* Content */}
-              <div className="absolute inset-x-0 bottom-0 p-6 sm:p-7 lg:p-8 reveal">
+              <div className="reveal absolute inset-x-0 bottom-0 p-6 sm:p-7 lg:p-8">
                 {/* Small line */}
                 <div className="bg-primary mb-4 h-px w-8 transition-all duration-500 group-hover:w-14" />
 
@@ -122,12 +122,12 @@ export function WorkspaceSolutions() {
                 </h3>
 
                 {/* Subtitle */}
-                <p className="mt-2 text-base reveal font-medium text-white/90">
+                <p className="reveal mt-2 text-base font-medium text-white/90">
                   {solution.subtitle}
                 </p>
 
                 {/* Description */}
-                <div className="grid reveal grid-rows-[0fr] transition-all duration-500 group-hover:grid-rows-[1fr]">
+                <div className="reveal grid grid-rows-[0fr] transition-all duration-500 group-hover:grid-rows-[1fr]">
                   <div className="overflow-hidden">
                     <p className="mt-3 max-w-sm text-sm leading-6 text-white/65">
                       {solution.description}
@@ -136,7 +136,7 @@ export function WorkspaceSolutions() {
                 </div>
 
                 {/* Explore */}
-                <div className="mt-5 flex reveal items-center gap-2 text-sm font-semibold text-white">
+                <div className="reveal mt-5 flex items-center gap-2 text-sm font-semibold text-white">
                   <span>Explore solution</span>
 
                   <span className="group-hover:bg-primary flex size-8 items-center justify-center rounded-full bg-white/10 transition-all duration-300">
@@ -149,10 +149,10 @@ export function WorkspaceSolutions() {
         </div>
 
         {/* Mobile / secondary CTA */}
-        <div className="mt-8 sm:hidden reveal">
+        <div className="reveal mt-8 sm:hidden">
           <Link
             href="/workspace-solutions"
-            className="group inline-flex reveal items-center gap-2 text-sm font-semibold"
+            className="group reveal inline-flex items-center gap-2 text-sm font-semibold"
           >
             Explore all solutions
             <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />

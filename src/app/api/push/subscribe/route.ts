@@ -8,6 +8,16 @@ export async function POST(req: Request) {
     const session = await getServerSession(authOptions);
 
     const subscription = await req.json();
+    if (
+      typeof subscription?.endpoint !== "string" ||
+      typeof subscription?.keys?.p256dh !== "string" ||
+      typeof subscription?.keys?.auth !== "string"
+    ) {
+      return NextResponse.json(
+        { success: false, message: "Invalid push subscription." },
+        { status: 400 },
+      );
+    }
 
     await prisma.pushSubscription.upsert({
       where: {
@@ -17,6 +27,7 @@ export async function POST(req: Request) {
         p256dh: subscription.keys.p256dh,
         auth: subscription.keys.auth,
         userId: session?.user?.id ? Number(session.user.id) : null,
+        isActive: true,
       },
       create: {
         endpoint: subscription.endpoint,

@@ -29,37 +29,37 @@ const stats = [
 
 export function StatsSection() {
   return (
-    <section className="relative reveal overflow-hidden bg-zinc-950 py-16 text-white sm:py-20 lg:py-24 dark:text-white">
+    <section className="reveal relative overflow-hidden bg-zinc-950 py-16 text-white sm:py-20 lg:py-24 dark:text-white">
       {/* Background decoration */}
       <div className="bg-primary/10 reveal pointer-events-none absolute top-0 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full blur-[100px]" />
 
       <div className="relative mx-auto max-w-384 px-4 sm:px-6 lg:px-8">
         {/* Section heading */}
-        <div className="mx-auto reveal mb-12 max-w-2xl text-center lg:mb-16">
+        <div className="reveal mx-auto mb-12 max-w-2xl text-center lg:mb-16">
           <p className="text-gray-secondary mb-3 text-xs font-semibold tracking-[0.25em] uppercase">
             ST Office Furniture
           </p>
 
-          <h2 className="text-2xl reveal font-bold tracking-tight sm:text-3xl lg:text-4xl">
+          <h2 className="reveal text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">
             Trusted by businesses and{" "}
             <span className="text-gray-secondary">individuals</span>
           </h2>
 
-          <p className="mt-4 reveal text-sm leading-6 text-zinc-400 sm:text-base">
+          <p className="reveal mt-4 text-sm leading-6 text-zinc-400 sm:text-base">
             Quality furniture, comfortable designs, and dependable service built
             around the people who choose us.
           </p>
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-2 reveal divide-x divide-zinc-800 lg:grid-cols-4">
+        <div className="reveal grid grid-cols-2 divide-x divide-zinc-800 lg:grid-cols-4">
           {stats.map((stat) => {
             const Icon = stat.icon;
 
             return (
               <div
                 key={stat.label}
-                className="group relative reveal flex flex-col items-center px-4 py-5 text-center transition-transform duration-300 hover:-translate-y-1 sm:px-8 sm:py-6"
+                className="group reveal relative flex flex-col items-center px-4 py-5 text-center transition-transform duration-300 hover:-translate-y-1 sm:px-8 sm:py-6"
               >
                 {/* Icon */}
                 <div className="group-hover:border-primary/40 group-hover:bg-primary/10 mb-5 flex size-11 items-center justify-center rounded-full border border-zinc-800 bg-zinc-900 transition-all duration-300">

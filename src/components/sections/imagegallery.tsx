@@ -9,7 +9,7 @@ const Imagegallery = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   return (
     <div>
-      <div className="mx-auto grid max-w-384 grid-cols-1 gap-2 border px-2 md:grid-cols-2 reveal">
+      <div className="reveal mx-auto grid max-w-384 grid-cols-1 gap-2 border px-2 md:grid-cols-2">
         {OfficeImages.map((item, index) => (
           <div
             key={index}
@@ -29,8 +29,8 @@ const Imagegallery = () => {
               className={`flex-center reveal bg-foreground/50 text-background group-hover:bg-foreground/30 dark:bg-background/50 dark:text-foreground dark:group-hover:bg-background/30 relative z-20 h-full w-full px-3 transition-all duration-500 ${activeIndex === index ? "bg-foreground/30 dark:bg-background/30 backdrop-blur-sm" : ""} `}
             >
               <div>
-                <h2 className="text-lg font-bold reveal" >{item.title}</h2>
-                <p className="font-serif italic reveal">{item.description}</p>
+                <h2 className="reveal text-lg font-bold">{item.title}</h2>
+                <p className="reveal font-serif italic">{item.description}</p>
                 <Button variant={"destructive"} asChild>
                   <Link href={item.href}>View Our Products</Link>
                 </Button>

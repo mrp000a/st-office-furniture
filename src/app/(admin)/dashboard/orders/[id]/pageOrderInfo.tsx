@@ -37,7 +37,14 @@ import {
   TimelineTitle,
 } from "@/components/reui/timeline";
 
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 import { Order, OrderItem, OrderLog, User } from "@/generated/prisma";
 import { NoItemsFound } from "@/components/uiComponent/uiCom";
@@ -50,7 +57,10 @@ import {
   StripeButton,
   BkashButton,
 } from "@/components/actions/Payment/Buttons";
-import { InvoiceButtonDownload, InvoiceButtonView } from "@/components/common/invoice/InvoiceButton";
+import {
+  InvoiceButtonDownload,
+  InvoiceButtonView,
+} from "@/components/common/invoice/InvoiceButton";
 
 type PageOrderInfoProps = {
   order: Order & {
@@ -120,7 +130,12 @@ const PageOrderInfo = ({ order }: PageOrderInfoProps) => {
       {/* Header */}
       <div className="flex flex-col gap-4 border-b pb-5 lg:flex-row lg:items-center lg:justify-between">
         <div className="flex items-start gap-3">
-          <Button onClick={() => router.back()} variant="outline" size="icon" className="mt-0.5 shrink-0 rounded-lg">
+          <Button
+            onClick={() => router.back()}
+            variant="outline"
+            size="icon"
+            className="mt-0.5 shrink-0 rounded-lg"
+          >
             <ArrowLeft className="size-4" />
           </Button>
 
@@ -130,10 +145,13 @@ const PageOrderInfo = ({ order }: PageOrderInfoProps) => {
                 Order #{order.id}
               </h1>
 
-              <OrderStatusBadge status={order.status} className="px-2.5 py-1 text-xs font-semibold" />
+              <OrderStatusBadge
+                status={order.status}
+                className="px-2.5 py-1 text-xs font-semibold"
+              />
             </div>
 
-            <div className="mt-1.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground sm:text-sm">
+            <div className="text-muted-foreground mt-1.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs sm:text-sm">
               {order.publicId && (
                 <span className="font-mono">ID: {order.publicId}</span>
               )}
@@ -147,34 +165,33 @@ const PageOrderInfo = ({ order }: PageOrderInfoProps) => {
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
-
-
           <InvoiceButtonView id={order.publicId ?? ""} />
 
           <InvoiceButtonDownload id={order.publicId ?? ""} />
-
         </div>
       </div>
 
       {/* Quick Stats */}
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-        <div className="rounded-xl border bg-background p-4 shadow-sm">
+        <div className="bg-background rounded-xl border p-4 shadow-sm">
           <div className="flex items-center justify-between gap-3">
             <div>
-              <p className="text-xs font-medium text-muted-foreground">Order Total</p>
+              <p className="text-muted-foreground text-xs font-medium">
+                Order Total
+              </p>
               <p className="mt-1 text-xl font-bold">{money(total)}</p>
             </div>
 
-            <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+            <div className="bg-primary/10 text-primary flex size-10 shrink-0 items-center justify-center rounded-lg">
               <CircleDollarSign className="size-5" />
             </div>
           </div>
         </div>
 
-        <div className="rounded-xl border bg-background p-4 shadow-sm">
+        <div className="bg-background rounded-xl border p-4 shadow-sm">
           <div className="flex items-center justify-between gap-3">
             <div>
-              <p className="text-xs font-medium text-muted-foreground">Paid</p>
+              <p className="text-muted-foreground text-xs font-medium">Paid</p>
               <p className="mt-1 text-xl font-bold">{money(paid)}</p>
             </div>
 
@@ -184,10 +201,10 @@ const PageOrderInfo = ({ order }: PageOrderInfoProps) => {
           </div>
         </div>
 
-        <div className="rounded-xl border bg-background p-4 shadow-sm">
+        <div className="bg-background rounded-xl border p-4 shadow-sm">
           <div className="flex items-center justify-between gap-3">
             <div>
-              <p className="text-xs font-medium text-muted-foreground">Due</p>
+              <p className="text-muted-foreground text-xs font-medium">Due</p>
               <p className="mt-1 text-xl font-bold">{money(due)}</p>
             </div>
 
@@ -197,10 +214,10 @@ const PageOrderInfo = ({ order }: PageOrderInfoProps) => {
           </div>
         </div>
 
-        <div className="rounded-xl border bg-background p-4 shadow-sm">
+        <div className="bg-background rounded-xl border p-4 shadow-sm">
           <div className="flex items-center justify-between gap-3">
             <div>
-              <p className="text-xs font-medium text-muted-foreground">Items</p>
+              <p className="text-muted-foreground text-xs font-medium">Items</p>
               <p className="mt-1 text-xl font-bold">{itemCount}</p>
             </div>
 
@@ -218,15 +235,18 @@ const PageOrderInfo = ({ order }: PageOrderInfoProps) => {
           {/* Customer + Delivery */}
           <div className="grid gap-5 lg:grid-cols-2">
             {/* Customer */}
-            <section className="rounded-xl border bg-background shadow-sm">
+            <section className="bg-background rounded-xl border shadow-sm">
               <div className="flex items-center justify-between border-b px-4 py-3.5">
                 <div className="flex items-center gap-2">
-                  <UserRound className="size-4 text-primary" />
+                  <UserRound className="text-primary size-4" />
                   <h2 className="font-semibold">Customer Information</h2>
                 </div>
 
                 {order.user && (
-                  <Link href={`/dashboard/users/${order.user.id}`} className="text-xs font-medium text-primary hover:underline">
+                  <Link
+                    href={`/dashboard/users/${order.user.id}`}
+                    className="text-primary text-xs font-medium hover:underline"
+                  >
                     View Profile
                   </Link>
                 )}
@@ -234,27 +254,37 @@ const PageOrderInfo = ({ order }: PageOrderInfoProps) => {
 
               <div className="space-y-4 p-4">
                 <div className="flex items-center gap-3">
-                  <div className="flex size-11 shrink-0 items-center justify-center rounded-full bg-primary/10 text-sm font-bold text-primary">
+                  <div className="bg-primary/10 text-primary flex size-11 shrink-0 items-center justify-center rounded-full text-sm font-bold">
                     {getInitials(order.receiverName)}
                   </div>
 
                   <div className="min-w-0">
-                    <p className="truncate font-semibold">{order.receiverName}</p>
-                    <p className="text-xs text-muted-foreground">
-                      {order.user ? `Registered customer #${order.user.id}` : "Guest customer"}
+                    <p className="truncate font-semibold">
+                      {order.receiverName}
+                    </p>
+                    <p className="text-muted-foreground text-xs">
+                      {order.user
+                        ? `Registered customer #${order.user.id}`
+                        : "Guest customer"}
                     </p>
                   </div>
                 </div>
 
                 <div className="space-y-2.5 text-sm">
-                  <a href={`tel:${order.receiverPhone}`} className="flex items-center gap-3 rounded-lg bg-muted/50 px-3 py-2.5 transition-colors hover:bg-muted">
-                    <Phone className="size-4 shrink-0 text-muted-foreground" />
+                  <a
+                    href={`tel:${order.receiverPhone}`}
+                    className="bg-muted/50 hover:bg-muted flex items-center gap-3 rounded-lg px-3 py-2.5 transition-colors"
+                  >
+                    <Phone className="text-muted-foreground size-4 shrink-0" />
                     <span className="truncate">{order.receiverPhone}</span>
                   </a>
 
                   {order.receiverEmail && (
-                    <a href={`mailto:${order.receiverEmail}`} className="flex items-center gap-3 rounded-lg bg-muted/50 px-3 py-2.5 transition-colors hover:bg-muted">
-                      <Mail className="size-4 shrink-0 text-muted-foreground" />
+                    <a
+                      href={`mailto:${order.receiverEmail}`}
+                      className="bg-muted/50 hover:bg-muted flex items-center gap-3 rounded-lg px-3 py-2.5 transition-colors"
+                    >
+                      <Mail className="text-muted-foreground size-4 shrink-0" />
                       <span className="truncate">{order.receiverEmail}</span>
                     </a>
                   )}
@@ -263,25 +293,25 @@ const PageOrderInfo = ({ order }: PageOrderInfoProps) => {
             </section>
 
             {/* Delivery */}
-            <section className="rounded-xl border bg-background shadow-sm">
+            <section className="bg-background rounded-xl border shadow-sm">
               <div className="flex items-center gap-2 border-b px-4 py-3.5">
-                <MapPin className="size-4 text-primary" />
+                <MapPin className="text-primary size-4" />
                 <h2 className="font-semibold">Delivery Information</h2>
               </div>
 
               <div className="space-y-4 p-4">
                 <div>
-                  <p className="mb-1 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+                  <p className="text-muted-foreground mb-1 text-[11px] font-semibold tracking-wider uppercase">
                     Delivery Area
                   </p>
                   <p className="font-medium">{order.deliveryArea}</p>
                 </div>
 
                 <div>
-                  <p className="mb-1 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+                  <p className="text-muted-foreground mb-1 text-[11px] font-semibold tracking-wider uppercase">
                     Shipping Address
                   </p>
-                  <p className="text-sm leading-6 text-muted-foreground">
+                  <p className="text-muted-foreground text-sm leading-6">
                     {order.address}
                   </p>
                 </div>
@@ -290,14 +320,14 @@ const PageOrderInfo = ({ order }: PageOrderInfoProps) => {
           </div>
 
           {/* Products */}
-          <section className="overflow-hidden rounded-xl border bg-background shadow-sm">
+          <section className="bg-background overflow-hidden rounded-xl border shadow-sm">
             <div className="flex flex-col gap-2 border-b px-4 py-3.5 sm:flex-row sm:items-center sm:justify-between">
               <div className="flex items-center gap-2">
-                <Package className="size-4 text-primary" />
+                <Package className="text-primary size-4" />
                 <h2 className="font-semibold">Ordered Products</h2>
               </div>
 
-              <span className="text-xs text-muted-foreground">
+              <span className="text-muted-foreground text-xs">
                 {itemCount} {itemCount === 1 ? "item" : "items"}
               </span>
             </div>
@@ -315,50 +345,73 @@ const PageOrderInfo = ({ order }: PageOrderInfoProps) => {
                   </TableHeader>
 
                   <TableBody>
-                    {order.items.map(({ product, price, productId, qty, title }, index) => {
-                      const lineTotal = Number(price) * Number(qty);
+                    {order.items.map(
+                      ({ product, price, productId, qty, title }, index) => {
+                        const lineTotal = Number(price) * Number(qty);
 
-                      return (
-                        <TableRow key={`${productId}-${index}`} className="group">
-                          <TableCell>
-                            <Link href={product?.productCode ? `/products/${product.productCode}` : "#"} className="flex min-w-0 items-center gap-3">
-                              <div className="relative size-12 shrink-0 overflow-hidden rounded-lg border bg-muted">
-                                <Image unoptimized src={getImageUrlProduct(product?.images?.[0])} alt={title || "Product"} sizes="48px" fill className="object-cover transition-transform duration-300 group-hover:scale-105" />
-                              </div>
-
-                              <div className="min-w-0 max-w-lg">
-                                <p className="line-clamp-2 font-medium transition-colors group-hover:text-primary">
-                                  {title || "Untitled Product"}
-                                </p>
-
-                                <div className="mt-1 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
-                                  <span>Item #{productId}</span>
-
-                                  {product?.productCode && (
-                                    <>
-                                      <span>•</span>
-                                      <span className="font-mono">{product.productCode}</span>
-                                    </>
-                                  )}
+                        return (
+                          <TableRow
+                            key={`${productId}-${index}`}
+                            className="group"
+                          >
+                            <TableCell>
+                              <Link
+                                href={
+                                  product?.productCode
+                                    ? `/products/${product.productCode}`
+                                    : "#"
+                                }
+                                className="flex min-w-0 items-center gap-3"
+                              >
+                                <div className="bg-muted relative size-12 shrink-0 overflow-hidden rounded-lg border">
+                                  <Image
+                                    unoptimized
+                                    src={getImageUrlProduct(
+                                      product?.images?.[0],
+                                    )}
+                                    alt={title || "Product"}
+                                    sizes="48px"
+                                    fill
+                                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                                  />
                                 </div>
-                              </div>
-                            </Link>
-                          </TableCell>
 
-                          <TableCell className="text-center font-medium">
-                            ×{Number(qty)}
-                          </TableCell>
+                                <div className="max-w-lg min-w-0">
+                                  <p className="group-hover:text-primary line-clamp-2 font-medium transition-colors">
+                                    {title || "Untitled Product"}
+                                  </p>
 
-                          <TableCell className="text-right whitespace-nowrap">
-                            {money(price)}
-                          </TableCell>
+                                  <div className="text-muted-foreground mt-1 flex flex-wrap items-center gap-2 text-xs">
+                                    <span>Item #{productId}</span>
 
-                          <TableCell className="text-right font-semibold whitespace-nowrap">
-                            {money(lineTotal)}
-                          </TableCell>
-                        </TableRow>
-                      )
-                    })}
+                                    {product?.productCode && (
+                                      <>
+                                        <span>•</span>
+                                        <span className="font-mono">
+                                          {product.productCode}
+                                        </span>
+                                      </>
+                                    )}
+                                  </div>
+                                </div>
+                              </Link>
+                            </TableCell>
+
+                            <TableCell className="text-center font-medium">
+                              ×{Number(qty)}
+                            </TableCell>
+
+                            <TableCell className="text-right whitespace-nowrap">
+                              {money(price)}
+                            </TableCell>
+
+                            <TableCell className="text-right font-semibold whitespace-nowrap">
+                              {money(lineTotal)}
+                            </TableCell>
+                          </TableRow>
+                        );
+                      },
+                    )}
                   </TableBody>
                 </Table>
               </div>
@@ -371,14 +424,14 @@ const PageOrderInfo = ({ order }: PageOrderInfoProps) => {
 
           {/* Customer Note */}
           {order.customerNote && (
-            <section className="rounded-xl border bg-background shadow-sm">
+            <section className="bg-background rounded-xl border shadow-sm">
               <div className="flex items-center gap-2 border-b px-4 py-3.5">
-                <MessageSquare className="size-4 text-primary" />
+                <MessageSquare className="text-primary size-4" />
                 <h2 className="font-semibold">Customer Note</h2>
               </div>
 
               <div className="p-4">
-                <div className="rounded-lg bg-muted/50 p-4 text-sm leading-6 text-muted-foreground">
+                <div className="bg-muted/50 text-muted-foreground rounded-lg p-4 text-sm leading-6">
                   {order.customerNote}
                 </div>
               </div>
@@ -389,9 +442,9 @@ const PageOrderInfo = ({ order }: PageOrderInfoProps) => {
         {/* RIGHT COLUMN */}
         <aside className="min-w-0 space-y-5">
           {/* Order Summary */}
-          <section className="rounded-xl border bg-background shadow-sm">
+          <section className="bg-background rounded-xl border shadow-sm">
             <div className="flex items-center gap-2 border-b px-4 py-3.5">
-              <ReceiptText className="size-4 text-primary" />
+              <ReceiptText className="text-primary size-4" />
               <h2 className="font-semibold">Order Summary</h2>
             </div>
 
@@ -443,16 +496,16 @@ const PageOrderInfo = ({ order }: PageOrderInfoProps) => {
           </section>
 
           {/* Payment */}
-          <section className="rounded-xl border bg-background shadow-sm">
+          <section className="bg-background rounded-xl border shadow-sm">
             <div className="flex items-center gap-2 border-b px-4 py-3.5">
-              <CreditCard className="size-4 text-primary" />
+              <CreditCard className="text-primary size-4" />
               <h2 className="font-semibold">Payment Information</h2>
             </div>
 
             <div className="space-y-4 p-4">
               <div className="grid grid-cols-2 gap-3">
-                <div className="rounded-lg bg-muted/50 p-3">
-                  <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+                <div className="bg-muted/50 rounded-lg p-3">
+                  <p className="text-muted-foreground text-[11px] font-medium tracking-wide uppercase">
                     Method
                   </p>
                   <p className="mt-1 text-sm font-semibold">
@@ -460,8 +513,8 @@ const PageOrderInfo = ({ order }: PageOrderInfoProps) => {
                   </p>
                 </div>
 
-                <div className="rounded-lg bg-muted/50 p-3">
-                  <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+                <div className="bg-muted/50 rounded-lg p-3">
+                  <p className="text-muted-foreground text-[11px] font-medium tracking-wide uppercase">
                     Status
                   </p>
                   <p className="mt-1 text-sm font-semibold">
@@ -472,10 +525,10 @@ const PageOrderInfo = ({ order }: PageOrderInfoProps) => {
 
               {order.transactionId && (
                 <div>
-                  <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+                  <p className="text-muted-foreground text-[11px] font-medium tracking-wide uppercase">
                     Transaction ID
                   </p>
-                  <p className="mt-1 break-all rounded-md bg-muted/50 p-2.5 font-mono text-xs">
+                  <p className="bg-muted/50 mt-1 rounded-md p-2.5 font-mono text-xs break-all">
                     {order.transactionId}
                   </p>
                 </div>
@@ -483,10 +536,10 @@ const PageOrderInfo = ({ order }: PageOrderInfoProps) => {
 
               {order.paymentId && (
                 <div>
-                  <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+                  <p className="text-muted-foreground text-[11px] font-medium tracking-wide uppercase">
                     Payment ID
                   </p>
-                  <p className="mt-1 break-all rounded-md bg-muted/50 p-2.5 font-mono text-xs">
+                  <p className="bg-muted/50 mt-1 rounded-md p-2.5 font-mono text-xs break-all">
                     {order.paymentId}
                   </p>
                 </div>
@@ -519,9 +572,9 @@ const PageOrderInfo = ({ order }: PageOrderInfoProps) => {
           </section>
 
           {/* Activity */}
-          <section className="rounded-xl border bg-background shadow-sm">
+          <section className="bg-background rounded-xl border shadow-sm">
             <div className="flex items-center gap-2 border-b px-4 py-3.5">
-              <Clock3 className="size-4 text-primary" />
+              <Clock3 className="text-primary size-4" />
               <h2 className="font-semibold">Order Activity</h2>
             </div>
 
@@ -532,50 +585,59 @@ const PageOrderInfo = ({ order }: PageOrderInfoProps) => {
 
               {order.logs?.length > 0 ? (
                 <Timeline defaultValue={3} className="w-full max-w-md">
-                  {order.logs.toReversed().map(({ status, createdAt, note, id }, index) => {
-                    const isLatest = index === 0;
+                  {order.logs
+                    .toReversed()
+                    .map(({ status, createdAt, note, id }, index) => {
+                      const isLatest = index === 0;
 
-                    const isFinal =
-                      status === "DELIVERED" ||
-                      status === "CANCELLED" ||
-                      status === "RETURNED";
-                    return (
-                      <TimelineItem key={id} step={id} className="group-data-[orientation=vertical]/timeline:ms-10">
-                        <TimelineHeader>
-                          <TimelineSeparator className="group-data-[orientation=vertical]/timeline:-left-7 group-data-[orientation=vertical]/timeline:h-[calc(100%-1.5rem-0.25rem)] group-data-[orientation=vertical]/timeline:translate-y-6.5" />
+                      const isFinal =
+                        status === "DELIVERED" ||
+                        status === "CANCELLED" ||
+                        status === "RETURNED";
+                      return (
+                        <TimelineItem
+                          key={id}
+                          step={id}
+                          className="group-data-[orientation=vertical]/timeline:ms-10"
+                        >
+                          <TimelineHeader>
+                            <TimelineSeparator className="group-data-[orientation=vertical]/timeline:-left-7 group-data-[orientation=vertical]/timeline:h-[calc(100%-1.5rem-0.25rem)] group-data-[orientation=vertical]/timeline:translate-y-6.5" />
 
-                          <TimelineDate>
-                            <span>{formatDateTime(createdAt)}</span>
-                          </TimelineDate>
+                            <TimelineDate>
+                              <span>{formatDateTime(createdAt)}</span>
+                            </TimelineDate>
 
-                          <TimelineTitle>{status}</TimelineTitle>
+                            <TimelineTitle>{status}</TimelineTitle>
 
-                          <TimelineIndicator className="group-data-completed/timeline-item:bg-primary group-data-completed/timeline-item:text-primary-foreground flex size-6 items-center justify-center group-data-completed/timeline-item:border-none group-data-[orientation=vertical]/timeline:-left-7">
-                            {isLatest && !isFinal ? (
-                              <>
-                                <span className="absolute size-2.5 rounded-full bg-primary" />
-                                <span className="absolute size-5 rounded-full bg-primary/30 animate-ping" />
-                              </>
-                            ) : (
-                              <Check className="size-3.5" />
-                            )}
-                          </TimelineIndicator>
-                        </TimelineHeader>
+                            <TimelineIndicator className="group-data-completed/timeline-item:bg-primary group-data-completed/timeline-item:text-primary-foreground flex size-6 items-center justify-center group-data-completed/timeline-item:border-none group-data-[orientation=vertical]/timeline:-left-7">
+                              {isLatest && !isFinal ? (
+                                <>
+                                  <span className="bg-primary absolute size-2.5 rounded-full" />
+                                  <span className="bg-primary/30 absolute size-5 animate-ping rounded-full" />
+                                </>
+                              ) : (
+                                <Check className="size-3.5" />
+                              )}
+                            </TimelineIndicator>
+                          </TimelineHeader>
 
-                        {note && (
-                          <TimelineContent className="whitespace-pre-line text-xs leading-5" dangerouslySetInnerHTML={{ __html: note }} />
-                        )}
-                      </TimelineItem>
-                    )
-                  })}
+                          {note && (
+                            <TimelineContent
+                              className="text-xs leading-5 whitespace-pre-line"
+                              dangerouslySetInnerHTML={{ __html: note }}
+                            />
+                          )}
+                        </TimelineItem>
+                      );
+                    })}
                 </Timeline>
               ) : (
                 <div className="flex flex-col items-center justify-center py-8 text-center">
-                  <div className="flex size-10 items-center justify-center rounded-full bg-muted">
-                    <Clock3 className="size-4 text-muted-foreground" />
+                  <div className="bg-muted flex size-10 items-center justify-center rounded-full">
+                    <Clock3 className="text-muted-foreground size-4" />
                   </div>
                   <p className="mt-2 text-sm font-medium">No activity yet</p>
-                  <p className="mt-1 text-xs text-muted-foreground">
+                  <p className="text-muted-foreground mt-1 text-xs">
                     Order activity will appear here.
                   </p>
                 </div>
@@ -601,13 +663,17 @@ const PageOrderInfo = ({ order }: PageOrderInfoProps) => {
 
       {/* Bottom Navigation */}
       <div className="flex justify-start border-t pt-5">
-        <Button onClick={() => router.back()} variant="outline" className="gap-2 rounded-lg">
+        <Button
+          onClick={() => router.back()}
+          variant="outline"
+          className="gap-2 rounded-lg"
+        >
           <ArrowLeft className="size-4" />
           Back to Orders
         </Button>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default PageOrderInfo;

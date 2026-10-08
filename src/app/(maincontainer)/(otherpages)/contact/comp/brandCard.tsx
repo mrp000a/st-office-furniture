@@ -7,9 +7,9 @@ export default function BrandCard() {
       {/* Decorative accent */}
       <div className="bg-green-primary/20 pointer-events-none w-full rounded-full blur-3xl" />
 
-      <div className="relative reveal">
+      <div className="reveal relative">
         {/* Brand */}
-        <div className="flex items-center gap-3 reveal">
+        <div className="reveal flex items-center gap-3">
           <div className="bg-green-primary flex h-11 w-11 items-center justify-center rounded-xl text-lg font-black text-white shadow-sm">
             ST
           </div>
@@ -30,20 +30,20 @@ export default function BrandCard() {
 
         {/* Message */}
         <div className="reveal">
-          <p className="text-xl leading-tight font-bold tracking-tight reveal">
+          <p className="reveal text-xl leading-tight font-bold tracking-tight">
             Better Seating.
             <br />
             <span className="text-green-primary">Better Working.</span>
           </p>
 
-          <p className="text-background/55 mt-3 max-w-70 text-xs leading-5 reveal">
+          <p className="text-background/55 reveal mt-3 max-w-70 text-xs leading-5">
             Comfortable, practical and professional furniture for modern
             workspaces.
           </p>
         </div>
 
         {/* Footer */}
-        <div className="mt-3 flex items-center justify-between gap-4 reveal">
+        <div className="reveal mt-3 flex items-center justify-between gap-4">
           <div>
             <p className="text-background/40 text-[10px] tracking-wider uppercase">
               Based in

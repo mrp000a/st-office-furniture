@@ -109,12 +109,11 @@ const PageProfileOrders = ({
       </div>
       {/* main data table */}
       <div className="w-full overflow-auto">
-
         {orders && orders.length > 0 ? (
           <>
             {/* ========================= DESKTOP ========================= */}
             <div className="hidden w-full md:block">
-              <div className="overflow-hidden rounded-xl border bg-card">
+              <div className="bg-card overflow-hidden rounded-xl border">
                 <Table>
                   <TableHeader>
                     <TableRow className="bg-muted/40 hover:bg-muted/40">
@@ -146,7 +145,7 @@ const PageProfileOrders = ({
                       }) => (
                         <TableRow
                           key={id}
-                          className="group transition-colors hover:bg-muted/30"
+                          className="group hover:bg-muted/30 transition-colors"
                         >
                           {/* ORDER */}
                           <TableCell>
@@ -155,7 +154,7 @@ const PageProfileOrders = ({
                                 #{id}
                               </p>
 
-                              <p className="mt-0.5 max-w-24 truncate font-mono text-[10px] text-muted-foreground">
+                              <p className="text-muted-foreground mt-0.5 max-w-24 truncate font-mono text-[10px]">
                                 {publicId}
                               </p>
                             </div>
@@ -164,7 +163,7 @@ const PageProfileOrders = ({
                           {/* CUSTOMER */}
                           <TableCell>
                             <div className="flex min-w-48 items-center gap-3">
-                              <div className="relative size-9 shrink-0 overflow-hidden rounded-full border bg-muted">
+                              <div className="bg-muted relative size-9 shrink-0 overflow-hidden rounded-full border">
                                 {user?.image ? (
                                   <Image
                                     unoptimized
@@ -175,7 +174,7 @@ const PageProfileOrders = ({
                                     className="object-cover"
                                   />
                                 ) : (
-                                  <FaUserCircle className="size-full text-muted-foreground" />
+                                  <FaUserCircle className="text-muted-foreground size-full" />
                                 )}
                               </div>
 
@@ -184,11 +183,11 @@ const PageProfileOrders = ({
                                   {receiverName}
                                 </p>
 
-                                <p className="truncate text-xs text-muted-foreground">
+                                <p className="text-muted-foreground truncate text-xs">
                                   {receiverPhone}
                                 </p>
 
-                                <p className="max-w-48 truncate text-[11px] text-muted-foreground">
+                                <p className="text-muted-foreground max-w-48 truncate text-[11px]">
                                   {receiverEmail}
                                 </p>
                               </div>
@@ -197,21 +196,21 @@ const PageProfileOrders = ({
 
                           {/* ADDRESS */}
                           <TableCell>
-                            <p className="max-w-60 min-w-44 whitespace-normal wrap-break-word text-sm leading-relaxed text-muted-foreground">
+                            <p className="text-muted-foreground max-w-60 min-w-44 text-sm leading-relaxed wrap-break-word whitespace-normal">
                               {address || "No address provided"}
                             </p>
                           </TableCell>
 
                           {/* ITEMS */}
                           <TableCell className="text-center">
-                            <span className="inline-flex min-w-8 items-center justify-center rounded-full bg-muted px-2 py-1 text-xs font-semibold">
+                            <span className="bg-muted inline-flex min-w-8 items-center justify-center rounded-full px-2 py-1 text-xs font-semibold">
                               {Number(_count.items)}
                             </span>
                           </TableCell>
 
                           {/* TOTAL */}
                           <TableCell>
-                            <p className="whitespace-nowrap text-sm font-bold">
+                            <p className="text-sm font-bold whitespace-nowrap">
                               {formatMoney(total)}
                             </p>
                           </TableCell>
@@ -228,7 +227,7 @@ const PageProfileOrders = ({
                                 {formatBDDate(createdAt)}
                               </p>
 
-                              <p className="text-[11px] text-muted-foreground">
+                              <p className="text-muted-foreground text-[11px]">
                                 {formatTime(createdAt)}
                               </p>
                             </div>
@@ -273,12 +272,12 @@ const PageProfileOrders = ({
                 }) => (
                   <div
                     key={id}
-                    className="overflow-hidden rounded-xl border bg-card shadow-sm"
+                    className="bg-card overflow-hidden rounded-xl border shadow-sm"
                   >
                     {/* CARD HEADER */}
-                    <div className="flex items-start justify-between gap-3 border-b bg-muted/20 p-4">
+                    <div className="bg-muted/20 flex items-start justify-between gap-3 border-b p-4">
                       <div className="flex min-w-0 items-center gap-3">
-                        <div className="relative size-10 shrink-0 overflow-hidden rounded-full border bg-muted">
+                        <div className="bg-muted relative size-10 shrink-0 overflow-hidden rounded-full border">
                           {user?.image ? (
                             <Image
                               unoptimized
@@ -289,7 +288,7 @@ const PageProfileOrders = ({
                               className="object-cover"
                             />
                           ) : (
-                            <FaUserCircle className="size-full text-muted-foreground" />
+                            <FaUserCircle className="text-muted-foreground size-full" />
                           )}
                         </div>
 
@@ -298,18 +297,16 @@ const PageProfileOrders = ({
                             {receiverName}
                           </p>
 
-                          <p className="truncate text-xs text-muted-foreground">
+                          <p className="text-muted-foreground truncate text-xs">
                             {receiverPhone}
                           </p>
                         </div>
                       </div>
 
                       <div className="shrink-0 text-right">
-                        <p className="font-mono text-sm font-semibold">
-                          #{id}
-                        </p>
+                        <p className="font-mono text-sm font-semibold">#{id}</p>
 
-                        <p className="mt-0.5 text-[10px] text-muted-foreground">
+                        <p className="text-muted-foreground mt-0.5 text-[10px]">
                           {new Date(createdAt).toLocaleDateString("en-BD", {
                             day: "2-digit",
                             month: "short",
@@ -326,7 +323,7 @@ const PageProfileOrders = ({
                         <OrderStatusBadge status={status} />
 
                         <div className="text-right">
-                          <p className="text-[10px] uppercase tracking-wide text-muted-foreground">
+                          <p className="text-muted-foreground text-[10px] tracking-wide uppercase">
                             Total
                           </p>
 
@@ -338,8 +335,8 @@ const PageProfileOrders = ({
 
                       {/* ORDER META */}
                       <div className="mt-4 grid grid-cols-2 gap-3">
-                        <div className="rounded-lg bg-muted/40 p-3">
-                          <p className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
+                        <div className="bg-muted/40 rounded-lg p-3">
+                          <p className="text-muted-foreground text-[10px] font-medium tracking-wide uppercase">
                             Items
                           </p>
 
@@ -349,8 +346,8 @@ const PageProfileOrders = ({
                           </p>
                         </div>
 
-                        <div className="rounded-lg bg-muted/40 p-3">
-                          <p className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
+                        <div className="bg-muted/40 rounded-lg p-3">
+                          <p className="text-muted-foreground text-[10px] font-medium tracking-wide uppercase">
                             Order Date
                           </p>
 
@@ -365,8 +362,8 @@ const PageProfileOrders = ({
                       </div>
 
                       {/* ADDRESS */}
-                      <div className="mt-3 rounded-lg border bg-background p-3">
-                        <p className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
+                      <div className="bg-background mt-3 rounded-lg border p-3">
+                        <p className="text-muted-foreground text-[10px] font-medium tracking-wide uppercase">
                           Delivery Address
                         </p>
 
@@ -377,19 +374,14 @@ const PageProfileOrders = ({
 
                       {/* EMAIL */}
                       <div className="mt-3">
-                        <p className="truncate text-xs text-muted-foreground">
+                        <p className="text-muted-foreground truncate text-xs">
                           {receiverEmail}
                         </p>
                       </div>
 
                       {/* ACTION */}
-                      <Button
-                        asChild
-                        className="mt-4 w-full"
-                      >
-                        <Link href={`/order/${publicId}`}>
-                          View Order
-                        </Link>
+                      <Button asChild className="mt-4 w-full">
+                        <Link href={`/order/${publicId}`}>View Order</Link>
                       </Button>
                     </div>
                   </div>
@@ -400,7 +392,6 @@ const PageProfileOrders = ({
         ) : (
           <NoItemsFound />
         )}
-
       </div>
       <PaginationLayout currentPage={currentPage} totalPages={totalPages} />
     </div>

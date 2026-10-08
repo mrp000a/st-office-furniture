@@ -15,6 +15,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { toast } from "sonner";
 // import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -60,6 +61,43 @@ const notifications = [
 ];
 
 export default function AdminNotifications() {
+  const [isSending, setIsSending] = React.useState(false);
+
+  async function sendNotification(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setIsSending(true);
+    const formElement = event.currentTarget;
+
+    try {
+      const form = new FormData(formElement);
+      const response = await fetch("/api/push/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: form.get("type"),
+          audience: form.get("audience"),
+          title: form.get("title"),
+          message: form.get("message"),
+          url: form.get("url"),
+          icon: form.get("icon"),
+        }),
+      });
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        toast.error(result.message ?? "Unable to send notification.");
+      } else {
+        toast.success(result.message);
+        formElement.reset();
+      }
+    } catch (error) {
+      console.error("Notification send error:", error);
+      toast.error("Unable to send notification. Please try again.");
+    } finally {
+      setIsSending(false);
+    }
+  }
+
   return (
     <main className="w-full space-y-6 p-3 sm:p-5 lg:p-6">
       {/* Header */}
@@ -134,11 +172,7 @@ export default function AdminNotifications() {
           </div>
 
           <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              console.log({ form: "Submitted" });
-              e.target.reset();
-            }}
+            onSubmit={sendNotification}
             className="space-y-5 p-4 sm:p-5"
           >
             {/* Type + Audience */}
@@ -146,7 +180,7 @@ export default function AdminNotifications() {
               <div className="space-y-2">
                 <label>Notification Type</label>
 
-                <Select defaultValue="promotional">
+                <Select name="type" defaultValue="promotional">
                   <SelectTrigger>
                     <SelectValue placeholder="Select notification type" />
                   </SelectTrigger>
@@ -163,7 +197,7 @@ export default function AdminNotifications() {
               <div className="space-y-2">
                 <label>Audience</label>
 
-                <Select defaultValue="all">
+                <Select name="audience" defaultValue="all">
                   <SelectTrigger>
                     <SelectValue placeholder="Select audience" />
                   </SelectTrigger>
@@ -189,6 +223,7 @@ export default function AdminNotifications() {
 
               <Input
                 id="notification-title"
+                name="title"
                 placeholder="e.g. 20% Off on All Office Chairs"
                 maxLength={60}
               />
@@ -205,10 +240,27 @@ export default function AdminNotifications() {
 
               <Textarea
                 id="notification-message"
+                name="message"
                 placeholder="Write your notification message here..."
                 maxLength={180}
                 className="min-h-28 resize-none"
               />
+            </div>
+
+            {/* Icon */}
+            <div className="space-y-2">
+              <label htmlFor="notification-icon">Notification Icon</label>
+
+              <Input
+                id="notification-icon"
+                name="icon"
+                type="url"
+                placeholder="https://example.com/notification-icon.png"
+              />
+
+              <p className="text-muted-foreground text-[11px]">
+                Optional. Use a publicly accessible square PNG or JPG URL.
+              </p>
             </div>
 
             {/* Image */}
@@ -241,6 +293,7 @@ export default function AdminNotifications() {
 
                 <Input
                   id="notification-url"
+                  name="url"
                   placeholder="/products/office-chair"
                   className="pl-9"
                 />
@@ -320,10 +373,11 @@ export default function AdminNotifications() {
 
               <Button
                 type="submit"
+                disabled={isSending}
                 className="bg-green-primary hover:bg-green-primary/90 text-white"
               >
                 <Send className="h-4 w-4" />
-                Send Notification
+                {isSending ? "Sending..." : "Send Notification"}
               </Button>
             </div>
           </form>

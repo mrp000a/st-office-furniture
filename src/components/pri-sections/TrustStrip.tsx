@@ -25,16 +25,16 @@ const trustItems = [
 
 export function TrustStrip() {
   return (
-    <section className="bg-background relative w-full reveal">
+    <section className="bg-background reveal relative w-full">
       <div className="mx-auto max-w-384 px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
-        <div className="grid grid-cols-2 reveal gap-y-8 md:grid-cols-4 md:gap-y-0">
+        <div className="reveal grid grid-cols-2 gap-y-8 md:grid-cols-4 md:gap-y-0">
           {trustItems.map((item, index) => {
             const Icon = item.icon;
 
             return (
               <div
                 key={item.title}
-                className={`flex reveal items-center gap-4 px-4 sm:px-6 md:justify-center ${
+                className={`reveal flex items-center gap-4 px-4 sm:px-6 md:justify-center ${
                   index !== 0 ? "md:border-border md:border-l" : ""
                 } `}
               >
@@ -43,7 +43,7 @@ export function TrustStrip() {
                 </div>
 
                 <div>
-                  <h3 className="text-sm reveal font-semibold sm:text-base">
+                  <h3 className="reveal text-sm font-semibold sm:text-base">
                     {item.title}
                   </h3>
 

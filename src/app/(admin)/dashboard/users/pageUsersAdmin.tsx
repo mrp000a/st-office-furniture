@@ -146,11 +146,11 @@ const PageUsersAdmin = ({
                   }) => (
                     <TableRow
                       key={id}
-                      className="group transition-colors hover:bg-muted/30"
+                      className="group hover:bg-muted/30 transition-colors"
                     >
                       {/* ID */}
                       <TableCell>
-                        <span className="font-mono text-xs font-medium text-muted-foreground">
+                        <span className="text-muted-foreground font-mono text-xs font-medium">
                           #{id}
                         </span>
                       </TableCell>
@@ -169,11 +169,11 @@ const PageUsersAdmin = ({
                           </Avatar>
 
                           <div className="min-w-0">
-                            <p className="truncate font-semibold leading-tight">
+                            <p className="truncate leading-tight font-semibold">
                               {name || "Unnamed User"}
                             </p>
 
-                            <p className="mt-0.5 max-w-52 truncate text-xs text-muted-foreground">
+                            <p className="text-muted-foreground mt-0.5 max-w-52 truncate text-xs">
                               {email || "No email"}
                             </p>
                           </div>
@@ -183,11 +183,9 @@ const PageUsersAdmin = ({
                       {/* Contact */}
                       <TableCell>
                         <div className="space-y-1 text-sm">
-                          <p className="font-medium">
-                            {phone || "N/A"}
-                          </p>
+                          <p className="font-medium">{phone || "N/A"}</p>
 
-                          <p className="max-w-44 truncate text-xs text-muted-foreground">
+                          <p className="text-muted-foreground max-w-44 truncate text-xs">
                             {email || "No email"}
                           </p>
                         </div>
@@ -195,7 +193,7 @@ const PageUsersAdmin = ({
 
                       {/* Address */}
                       <TableCell>
-                        <p className="max-w-56 min-w-40 whitespace-normal wrap-break-word text-sm text-muted-foreground">
+                        <p className="text-muted-foreground max-w-56 min-w-40 text-sm wrap-break-word whitespace-normal">
                           {address || "No address provided"}
                         </p>
                       </TableCell>
@@ -221,10 +219,7 @@ const PageUsersAdmin = ({
                             Verified
                           </Badge>
                         ) : (
-                          <Badge
-                            variant="destructive"
-                            className="gap-1.5"
-                          >
+                          <Badge variant="destructive" className="gap-1.5">
                             <span className="size-1.5 rounded-full bg-current" />
                             Unverified
                           </Badge>
@@ -245,7 +240,7 @@ const PageUsersAdmin = ({
                             {formatBDDate(createdAt) || "N/A"}
                           </p>
 
-                          <p className="text-[11px] text-muted-foreground">
+                          <p className="text-muted-foreground text-[11px]">
                             {formatTime(createdAt) || "N/A"}
                           </p>
                         </div>
@@ -303,7 +298,7 @@ const PageUsersAdmin = ({
                               router.refresh();
                             }}
                           >
-                            <Trash2 />  Delete
+                            <Trash2 /> Delete
                           </Button>
                         </div>
                       </TableCell>
@@ -329,7 +324,7 @@ const PageUsersAdmin = ({
               }) => (
                 <div
                   key={id}
-                  className="rounded-xl border bg-card p-4 shadow-sm"
+                  className="bg-card rounded-xl border p-4 shadow-sm"
                 >
                   {/* Header */}
                   <div className="flex items-start justify-between gap-3">
@@ -352,33 +347,30 @@ const PageUsersAdmin = ({
                           </p>
                         </div>
 
-                        <p className="truncate text-xs text-muted-foreground">
+                        <p className="text-muted-foreground truncate text-xs">
                           {email || "No email"}
                         </p>
 
-                        <p className="mt-0.5 font-mono text-[10px] text-muted-foreground">
+                        <p className="text-muted-foreground mt-0.5 font-mono text-[10px]">
                           User #{id}
                         </p>
                       </div>
                     </div>
 
                     {/* Role */}
-                    <Badge
-                      variant="outline"
-                      className="shrink-0 capitalize"
-                    >
+                    <Badge variant="outline" className="shrink-0 capitalize">
                       {role?.toLowerCase()}
                     </Badge>
                   </div>
 
                   {/* Divider */}
-                  <div className="my-4 h-px bg-border" />
+                  <div className="bg-border my-4 h-px" />
 
                   {/* Information */}
                   <div className="grid grid-cols-2 gap-x-4 gap-y-4">
                     {/* Phone */}
                     <div>
-                      <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+                      <p className="text-muted-foreground text-[11px] font-medium tracking-wide uppercase">
                         Phone
                       </p>
 
@@ -389,7 +381,7 @@ const PageUsersAdmin = ({
 
                     {/* Gender */}
                     <div>
-                      <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+                      <p className="text-muted-foreground text-[11px] font-medium tracking-wide uppercase">
                         Gender
                       </p>
 
@@ -400,7 +392,7 @@ const PageUsersAdmin = ({
 
                     {/* Verification */}
                     <div>
-                      <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+                      <p className="text-muted-foreground text-[11px] font-medium tracking-wide uppercase">
                         Account
                       </p>
 
@@ -411,16 +403,14 @@ const PageUsersAdmin = ({
                             Verified
                           </Badge>
                         ) : (
-                          <Badge variant="destructive">
-                            Unverified
-                          </Badge>
+                          <Badge variant="destructive">Unverified</Badge>
                         )}
                       </div>
                     </div>
 
                     {/* Joined */}
                     <div>
-                      <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+                      <p className="text-muted-foreground text-[11px] font-medium tracking-wide uppercase">
                         Joined
                       </p>
 
@@ -435,8 +425,8 @@ const PageUsersAdmin = ({
                   </div>
 
                   {/* Address */}
-                  <div className="mt-4 rounded-lg bg-muted/40 p-3">
-                    <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+                  <div className="bg-muted/40 mt-4 rounded-lg p-3">
+                    <p className="text-muted-foreground text-[11px] font-medium tracking-wide uppercase">
                       Address
                     </p>
 
@@ -477,9 +467,7 @@ const PageUsersAdmin = ({
                           description: (
                             <span>
                               {"This action can't be undone. Delete"}{" "}
-                              <strong className="font-bold">
-                                {name}.
-                              </strong>
+                              <strong className="font-bold">{name}.</strong>
                             </span>
                           ),
                           confirmText: "Delete",
@@ -496,14 +484,13 @@ const PageUsersAdmin = ({
                         router.refresh();
                       }}
                     >
-                      <Trash2 />  Delete
+                      <Trash2 /> Delete
                     </Button>
                   </div>
                 </div>
               ),
             )}
           </div>
-
         </div>
       ) : (
         <NoItemsFound />
@@ -516,7 +503,7 @@ const PageUsersAdmin = ({
         <Dialog
           open={openAddUser}
           onOpenChange={setOpenAddUser}
-        // modal={false}
+          // modal={false}
         >
           <DialogContent className="max-h-screen overflow-auto sm:max-w-lg">
             <DialogHeader>
@@ -534,7 +521,7 @@ const PageUsersAdmin = ({
         <Dialog
           open={openEditUser}
           onOpenChange={setOpenEditUser}
-        // modal={false}
+          // modal={false}
         >
           <DialogContent className="max-h-screen overflow-auto sm:max-w-lg">
             <DialogHeader>

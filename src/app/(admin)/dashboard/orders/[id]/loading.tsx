@@ -3,10 +3,10 @@ import React from "react";
 
 const OrderLoadinglayout = () => {
   return (
-    <div className="mx-auto w-full max-w-384 bg-background">
+    <div className="bg-background mx-auto w-full max-w-384">
       <div className="space-y-5 p-3 sm:p-4 lg:p-6">
         {/* Header */}
-        <div className="flex flex-col gap-4 rounded-xl border bg-card p-4 sm:p-5 lg:flex-row lg:items-center lg:justify-between">
+        <div className="bg-card flex flex-col gap-4 rounded-xl border p-4 sm:p-5 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex items-center gap-3">
             <Skeleton className="size-10 shrink-0 rounded-lg" />
             <div className="space-y-2">
@@ -24,7 +24,7 @@ const OrderLoadinglayout = () => {
         {/* Order Stats */}
         <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
           {Array.from({ length: 4 }).map((_, index) => (
-            <div key={index} className="rounded-xl border bg-card p-4">
+            <div key={index} className="bg-card rounded-xl border p-4">
               <Skeleton className="mb-3 h-4 w-20" />
               <Skeleton className="h-7 w-28 max-w-full" />
               <Skeleton className="mt-2 h-3 w-16" />
@@ -38,7 +38,7 @@ const OrderLoadinglayout = () => {
           <div className="min-w-0 space-y-5">
             {/* Customer + Delivery */}
             <div className="grid gap-5 md:grid-cols-2">
-              <div className="rounded-xl border bg-card p-5">
+              <div className="bg-card rounded-xl border p-5">
                 <Skeleton className="mb-5 h-5 w-32" />
 
                 <div className="flex items-start gap-3">
@@ -57,7 +57,7 @@ const OrderLoadinglayout = () => {
                 </div>
               </div>
 
-              <div className="rounded-xl border bg-card p-5">
+              <div className="bg-card rounded-xl border p-5">
                 <Skeleton className="mb-5 h-5 w-36" />
 
                 <div className="space-y-4">
@@ -81,7 +81,7 @@ const OrderLoadinglayout = () => {
             </div>
 
             {/* Products */}
-            <div className="overflow-hidden rounded-xl border bg-card">
+            <div className="bg-card overflow-hidden rounded-xl border">
               <div className="flex items-center justify-between border-b p-5">
                 <div className="space-y-2">
                   <Skeleton className="h-5 w-32" />
@@ -102,7 +102,10 @@ const OrderLoadinglayout = () => {
 
                 <div className="divide-y">
                   {Array.from({ length: 4 }).map((_, index) => (
-                    <div key={index} className="grid grid-cols-[minmax(220px,1fr)_90px_120px_120px] items-center gap-4 px-5 py-4">
+                    <div
+                      key={index}
+                      className="grid grid-cols-[minmax(220px,1fr)_90px_120px_120px] items-center gap-4 px-5 py-4"
+                    >
                       <div className="flex items-center gap-3">
                         <Skeleton className="size-14 shrink-0 rounded-lg" />
                         <div className="space-y-2">
@@ -140,7 +143,7 @@ const OrderLoadinglayout = () => {
             </div>
 
             {/* Customer Note */}
-            <div className="rounded-xl border bg-card p-5">
+            <div className="bg-card rounded-xl border p-5">
               <Skeleton className="mb-4 h-5 w-32" />
               <Skeleton className="h-4 w-full" />
               <Skeleton className="mt-2 h-4 w-4/5" />
@@ -150,7 +153,7 @@ const OrderLoadinglayout = () => {
           {/* Right Column */}
           <div className="space-y-5">
             {/* Order Summary */}
-            <div className="rounded-xl border bg-card p-5">
+            <div className="bg-card rounded-xl border p-5">
               <Skeleton className="mb-5 h-5 w-32" />
 
               <div className="space-y-4">
@@ -184,7 +187,7 @@ const OrderLoadinglayout = () => {
             </div>
 
             {/* Payment */}
-            <div className="rounded-xl border bg-card p-5">
+            <div className="bg-card rounded-xl border p-5">
               <div className="mb-5 flex items-center justify-between">
                 <Skeleton className="h-5 w-24" />
                 <Skeleton className="h-6 w-20 rounded-full" />
@@ -192,7 +195,10 @@ const OrderLoadinglayout = () => {
 
               <div className="space-y-4">
                 {Array.from({ length: 4 }).map((_, index) => (
-                  <div key={index} className="flex items-center justify-between gap-4">
+                  <div
+                    key={index}
+                    className="flex items-center justify-between gap-4"
+                  >
                     <Skeleton className="h-3 w-24" />
                     <Skeleton className="h-4 w-28 max-w-[55%]" />
                   </div>
@@ -203,7 +209,7 @@ const OrderLoadinglayout = () => {
             </div>
 
             {/* Activity */}
-            <div className="rounded-xl border bg-card p-5">
+            <div className="bg-card rounded-xl border p-5">
               <Skeleton className="mb-5 h-5 w-24" />
 
               <div className="space-y-6">
@@ -211,7 +217,9 @@ const OrderLoadinglayout = () => {
                   <div key={index} className="relative flex gap-3">
                     <div className="relative flex flex-col items-center">
                       <Skeleton className="size-8 rounded-full" />
-                      {index !== 3 && <div className="absolute top-8 h-10 w-px bg-border" />}
+                      {index !== 3 && (
+                        <div className="bg-border absolute top-8 h-10 w-px" />
+                      )}
                     </div>
 
                     <div className="min-w-0 flex-1 space-y-2">

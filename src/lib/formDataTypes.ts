@@ -73,13 +73,13 @@ export const PaymentMethodsInfo: {
   icon?: IconType;
   value: PaymentMethods;
 }[] = [
-    {
-      label: "Cash on Delivery",
-      description: "Pay with cash upon delivery.",
-      icon: PiMoneyWavyFill,
-      value: "COD",
-    },
-    /*
+  {
+    label: "Cash on Delivery",
+    description: "Pay with cash upon delivery.",
+    icon: PiMoneyWavyFill,
+    value: "COD",
+  },
+  /*
     {
       label: "Bkash",
       description: "Pay with Bkash.",
@@ -99,7 +99,7 @@ export const PaymentMethodsInfo: {
       value: "SSLCOMMERZ",
     },
     */
-  ];
+];
 
 export type MessageFormData = {
   name: string;

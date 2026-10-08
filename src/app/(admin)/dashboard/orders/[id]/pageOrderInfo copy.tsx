@@ -236,8 +236,6 @@ const PageOrderInfo = ({
                 </Button>
               </div>
             </div>
-
-            
           </div>
           {/* log container */}
           <div className="bg-violet-primary/5 shadow-foreground h-fit flex-1 space-y-3 rounded-sm p-2 px-4 shadow md:max-w-100">

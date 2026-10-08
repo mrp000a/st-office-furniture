@@ -2,7 +2,7 @@
 import { FileText, Truck, Undo2, UserShield } from "lucide-react";
 import Image from "next/image";
 import React from "react";
-import { motion } from 'motion/react'
+import { motion } from "motion/react";
 import {
   ContactInfoFooter,
   coreInfo,
@@ -21,7 +21,7 @@ import backgroundImageDark from "@/components/images/Home/darkfooterimage.png";
 const Footer = () => {
   const pathname = usePathname();
   return (
-    <footer className="relative z-10 overflow-hidden dark:bg-black bg-white">
+    <footer className="relative z-10 overflow-hidden bg-white dark:bg-black">
       {/* <Image
         unoptimized
         src={backgroundImage}
@@ -53,7 +53,7 @@ const Footer = () => {
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="pointer-events-none absolute -left-24 top-0 size-[500px] rounded-full bg-blue-500/40 blur-[150px] dark:bg-blue-400/40"
+        className="pointer-events-none absolute top-0 -left-24 size-[500px] rounded-full bg-blue-500/40 blur-[150px] dark:bg-blue-400/40"
       />
 
       <motion.div
