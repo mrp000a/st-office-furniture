@@ -11,7 +11,7 @@ const FloatingMessage = () => {
   const [showMessagesBar, setShowMessagesBar] = useState(false);
 
   return (
-    <div className="fixed right-4 bottom-5 z-50 md:right-7 md:bottom-7">
+    <div className="fixed right-4  bottom-15  z-50 md:right-7 md:bottom-7">
       <AnimatePresence>
         {!showMessagesBar && (
           <motion.div
