@@ -77,7 +77,7 @@ export function Hero() {
       />
 
       {/* Main layout */}
-      <div className="relative mx-auto flex h-full w-full max-w-384 items-center px-4 py-5 sm:px-6 sm:py-7 md:px-8 lg:px-10 lg:py-10">
+      <div className="relative mx-auto flex h-full w-full max-w-384 items-center px-4 py-3 sm:px-6 sm:py-7 md:px-8 lg:px-10 lg:py-10">
         <div className="grid h-full w-full items-center gap-2 md:grid-cols-12 md:gap-4 lg:gap-6">
           {/* =====================================================
               CONTENT
@@ -102,7 +102,7 @@ export function Hero() {
               animate="visible"
               variants={fadeUp}
               transition={{ duration: 0.8, delay: 0.08 }}
-              className="max-w-2xl text-[clamp(1.65rem,6vw,5.8rem)] leading-[0.9] font-semibold tracking-[-0.065em] sm:text-[clamp(2rem,6vw,5.8rem)] md:text-[clamp(2.2rem,5vw,5rem)] lg:text-[clamp(3rem,5vw,5.8rem)]"
+              className="max-w-2xl max-[450]:text-lg text-[clamp(1.65rem,6vw,5.8rem)] leading-[0.9] font-semibold tracking-[-0.065em] sm:text-[clamp(2rem,6vw,5.8rem)] md:text-[clamp(2.2rem,5vw,5rem)] lg:text-[clamp(3rem,5vw,5.8rem)]"
             >
               <span className="block">Upgrade</span>
               <span className="block">

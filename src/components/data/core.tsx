@@ -143,10 +143,10 @@ export const navItems: {
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
+  { label: "Products", href: "/products" },
   { label: "Categories", href: "/c" },
   { label: "Checkout", href: "/checkout" },
   { label: "Track Order", href: "/track-order" },
-  { label: "Products", href: "/products" },
   { label: "Profile", href: "/profile" },
 ];
 

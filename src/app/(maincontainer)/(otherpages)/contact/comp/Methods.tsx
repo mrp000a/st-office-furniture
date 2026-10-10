@@ -5,12 +5,12 @@ const Methods = () => {
   return (
     <section className="border-border bg-violet-primary/10 border-b">
       <div className="mx-auto grid w-full max-w-7xl grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-        {ContactInfoFooter.map((item) => {
+        {ContactInfoFooter.map((item, index) => {
           const Icon = item.icon;
 
           return (
             <a
-              key={item.label}
+              key={index}
               href={item.href}
               className="group border-border hover:bg-background sm:nth-odd:border-r border-b p-6 transition-colors lg:border-r lg:border-b-0 lg:last:border-r-0"
             >

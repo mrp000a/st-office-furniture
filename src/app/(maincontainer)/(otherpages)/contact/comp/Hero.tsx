@@ -26,7 +26,7 @@ const HeroContact = () => {
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <a
-              href="https://wa.me/8801XXXXXXXXX"
+              href="https://wa.me/+8801521120706"
               className="bg-green-primary inline-flex h-11 items-center justify-center gap-2 rounded-lg px-6 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:shadow-lg"
             >
               <MessageCircle className="h-4 w-4" />
@@ -34,7 +34,7 @@ const HeroContact = () => {
             </a>
 
             <a
-              href="tel:+8801XXXXXXXXX"
+              href="tel:+8801521120706"
               className="border-border bg-background hover:bg-muted inline-flex h-11 items-center justify-center gap-2 rounded-lg border px-6 text-sm font-semibold transition-colors"
             >
               <Phone className="h-4 w-4" />

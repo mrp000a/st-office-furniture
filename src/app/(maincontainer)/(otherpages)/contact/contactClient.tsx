@@ -17,15 +17,16 @@ const contactMethods = [
     icon: Phone,
     title: "Call Us",
     description: "Talk directly with our team.",
-    value: "+880 1XXXXXXXXX",
-    href: "tel:+8801XXXXXXXXX",
+    value: "+880 1",
+    href: "tel:+8801521120706",
   },
+  
   {
     icon: MessageCircle,
     title: "WhatsApp",
     description: "Quick questions and product help.",
     value: "Chat on WhatsApp",
-    href: "https://wa.me/8801XXXXXXXXX",
+    href: "https://wa.me/+8801521120706",
   },
   {
     icon: Mail,
@@ -38,7 +39,7 @@ const contactMethods = [
     icon: MapPin,
     title: "Visit Us",
     description: "Come and discuss your requirements.",
-    value: "Rajshahi, Bangladesh",
+    value: "55, North Jatrabari, Dhaka, 1204, Bangladesh",
     href: "#location",
   },
 ];
@@ -159,7 +160,7 @@ export default function ContactPage() {
                 </p>
 
                 <p className="text-gray-primary mt-1 text-xs">
-                  Rajshahi, Bangladesh
+                  55, North Jatrabari, Dhaka, 1204, Bangladesh
                 </p>
               </div>
             </div>
@@ -188,7 +189,7 @@ export default function ContactPage() {
                 <div>
                   <p className="text-sm font-semibold">Our Location</p>
                   <p className="text-gray-primary mt-1 text-sm leading-6">
-                    Rajshahi, Bangladesh
+                    55, North Jatrabari, Dhaka, 1204, Bangladesh
                   </p>
                 </div>
               </div>
@@ -206,7 +207,7 @@ export default function ContactPage() {
             </div>
 
             <a
-              href="https://maps.google.com/?q=Rajshahi,Bangladesh"
+              href="https://maps.app.goo.gl/8NxKQmxvdG1vf4rX6"
               target="_blank"
               rel="noreferrer"
               className="border-border hover:bg-muted mt-8 inline-flex h-11 w-fit items-center gap-2 rounded-lg border px-5 text-sm font-semibold transition-colors"

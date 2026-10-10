@@ -21,7 +21,6 @@ export default function NotificationPrompt() {
   useEffect(() => {
     if (
       pathname.startsWith("/dashboard") ||
-      pathname === "/test" ||
       !("Notification" in window) ||
       Notification.permission !== "default"
     ) {
@@ -75,7 +74,7 @@ export default function NotificationPrompt() {
     <aside
       role="dialog"
       aria-label="Enable notifications"
-      className="bg-background fixed right-4 bottom-4 z-50 w-[min( calc(100vw-2rem),_25rem)] rounded-xl border p-4 shadow-xl"
+      className="bg-background fixed left-4 bottom-4 z-60 box-border w-[min( calc(100vw-2rem),_25rem)] rounded-xl border p-4 shadow-xl"
     >
       <div className="flex gap-3">
         <div className="bg-green-primary/10 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg">
