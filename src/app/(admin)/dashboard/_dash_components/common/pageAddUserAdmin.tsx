@@ -9,6 +9,10 @@ import { Controller, useForm } from "react-hook-form";
 import { UserFormData } from "@/lib/formDataTypes";
 import { toast } from "sonner";
 import {
+  USER_IMAGE_MAX_SIZE,
+  validateImageFile,
+} from "@/lib/image-upload-limits";
+import {
   Popover,
   PopoverContent,
   PopoverDescription,
@@ -75,8 +79,8 @@ const PageAddUserAdmin = ({
       const imagefile = image[0];
 
       // 1kb = 1000
-      if (imagefile.size > 200000) {
-        setError("image", { message: "Max image size 200 kb" });
+      if (imagefile.size > USER_IMAGE_MAX_SIZE) {
+        setError("image", { message: "Max image size is 1 MB" });
         return;
       }
 
@@ -270,7 +274,17 @@ const PageAddUserAdmin = ({
                     type="file"
                     className="text-gray-primary block w-full text-sm file:mr-4 file:rounded-full file:border file:p-2 file:px-4 file:text-xs"
                     placeholder="Upload Image"
-                    {...register("image")}
+                    {...register("image", {
+                      validate: (files) => {
+                        const file = files?.[0];
+                        if (!file) return true;
+                        return (
+                          validateImageFile(file, "r2upload/users/images") ??
+                          true
+                        );
+                      },
+                    })}
+                    accept="image/jpeg,image/png,image/webp"
                   />
                   {errors?.image ? (
                     <InputErrorMessage>

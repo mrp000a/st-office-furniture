@@ -6,6 +6,7 @@ import { SessionContextValue } from "next-auth/react";
 import { toast } from "sonner";
 import { getSession, getUserId } from "./serverAuth";
 import { prisma } from "./prisma";
+import { validateImageFile } from "./image-upload-limits";
 
 interface UploadReturnType {
   success: boolean;
@@ -18,6 +19,11 @@ export async function uploadFile(
   file: File,
   path: string = "r2upload/others/images",
 ): Promise<UploadReturnType> {
+  const validationError = validateImageFile(file, path);
+  if (validationError) {
+    return { success: false, message: validationError };
+  }
+
   const formData = new FormData();
 
   formData.append("file", file);
@@ -272,10 +278,12 @@ export async function FindUserExists({
   phone,
 }: {
   email: string;
-  phone: string;
+  phone?: string;
 }) {
+  const params = new URLSearchParams({ email });
+  if (phone) params.set("phone", phone);
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_URL_SITE}/api/users/check?email=${email}&phone=${phone}`,
+    `${process.env.NEXT_PUBLIC_URL_SITE}/api/users/check?${params.toString()}`,
     {
       method: "GET",
       redirect: "follow",

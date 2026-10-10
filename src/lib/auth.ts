@@ -6,9 +6,12 @@ import type { NextAuthOptions } from "next-auth";
 
 import { prisma } from "./prisma";
 import { compare } from "bcryptjs";
+import bcrypt from "bcryptjs";
+import crypto from "crypto";
 
 import { ProfileDefaultImage } from "@/components/data/core";
 import { createActivity } from "./activity-log";
+import { uploadGoogleProfileImage } from "./google-profile-image";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -140,7 +143,45 @@ export const authOptions: NextAuthOptions = {
       });
 
       if (!user) {
-        return "/signin?error=GoogleAccountNotRegistered";
+        const sourceImage =
+          "picture" in profile && typeof profile.picture === "string"
+            ? profile.picture
+            : undefined;
+        const profileImage = sourceImage
+          ? await uploadGoogleProfileImage(sourceImage)
+          : undefined;
+        const googleName =
+          typeof profile.name === "string" && profile.name.trim()
+            ? profile.name.trim()
+            : email.split("@")[0];
+
+        await prisma.user.create({
+          data: {
+            name: googleName,
+            email,
+            googleId: account.providerAccountId,
+            ...(profileImage ? { image: profileImage } : {}),
+            emailVerified: true,
+            password: await bcrypt.hash(crypto.randomBytes(32).toString("hex"), 10),
+          },
+        });
+      }
+
+      if (user && !user.image) {
+        const sourceImage =
+          "picture" in profile && typeof profile.picture === "string"
+            ? profile.picture
+            : undefined;
+        const profileImage = sourceImage
+          ? await uploadGoogleProfileImage(sourceImage)
+          : undefined;
+
+        if (profileImage) {
+          await prisma.user.update({
+            where: { id: user.id },
+            data: { image: profileImage },
+          });
+        }
       }
 
       return true;
@@ -190,11 +231,15 @@ export const authOptions: NextAuthOptions = {
         });
 
         if (dbUser) {
+          const profileImage =
+            "picture" in profile && typeof profile.picture === "string"
+              ? profile.picture
+              : undefined;
           token.id = dbUser.id.toString();
           token.role = dbUser.role;
           token.name = dbUser.name;
           token.email = dbUser.email;
-          token.image = dbUser.image ?? profile.picture ?? ProfileDefaultImage;
+          token.image = dbUser.image ?? profileImage ?? ProfileDefaultImage;
           token.phone = dbUser.phone ?? "";
           token.address = dbUser.address ?? "";
           token.gender = dbUser.gender ?? "";
@@ -208,7 +253,7 @@ export const authOptions: NextAuthOptions = {
 
               data: {
                 googleId: account.providerAccountId,
-                image: dbUser.image ?? profile.picture,
+                image: dbUser.image ?? profileImage,
               },
             });
           }

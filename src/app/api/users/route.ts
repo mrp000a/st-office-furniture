@@ -48,11 +48,11 @@ export async function POST(req: Request) {
     const { role, name, email, phone, gender, image, address, password } =
       body as User;
 
-    if (!name || !email || !phone || !password)
+    if (!name || !email || !password)
       return NextResponse.json(
         {
           success: false,
-          message: "name,email,password, and phone are required!",
+          message: "Name, email, and password are required!",
         },
         { status: 400 },
       );
@@ -63,7 +63,7 @@ export async function POST(req: Request) {
       data: {
         name,
         email,
-        phone,
+        phone: phone || null,
         address,
         role: role ?? "USER",
 

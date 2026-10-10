@@ -29,6 +29,8 @@ import {
 } from "@/components/ui/select";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useRouter } from "next/navigation";
+import { USER_IMAGE_MAX_SIZE } from "@/lib/image-upload-limits";
+import { validateImageFile } from "@/lib/image-upload-limits";
 
 const PageEditUserAdmin = ({
   id,
@@ -100,8 +102,8 @@ const PageEditUserAdmin = ({
         const imagefile = image[0];
 
         // 1kb = 1000
-        if (imagefile.size > 200000) {
-          setError("image", { message: "Max image size 200 kb" });
+        if (imagefile.size > USER_IMAGE_MAX_SIZE) {
+          setError("image", { message: "Max image size is 1 MB" });
           return;
         }
 
@@ -298,7 +300,17 @@ const PageEditUserAdmin = ({
                     type="file"
                     className="text-gray-primary block w-full text-sm file:mr-4 file:rounded-full file:border file:p-2 file:px-4 file:text-xs"
                     placeholder="Upload Image"
-                    {...register("image")}
+                    accept="image/jpeg,image/png,image/webp"
+                    {...register("image", {
+                      validate: (files) => {
+                        const file = files?.[0];
+                        if (!file) return true;
+                        return (
+                          validateImageFile(file, "r2upload/users/images") ??
+                          true
+                        );
+                      },
+                    })}
                   />
                   {errors?.image ? (
                     <InputErrorMessage>

@@ -18,6 +18,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { deleteFile, uploadFile } from "@/lib/api";
 import { getImageUrl } from "@/lib/getImageUrl";
+import { OTHER_IMAGE_MAX_SIZE } from "@/lib/image-upload-limits";
 // import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -80,8 +81,8 @@ export default function AdminNotifications() {
           : "";
 
       if (imageFile instanceof File && imageFile.size > 0) {
-        if (imageFile.size > 5 * 1024 * 1024) {
-          throw new Error("Notification image must be 5 MB or smaller.");
+        if (imageFile.size > OTHER_IMAGE_MAX_SIZE) {
+          throw new Error("Notification image must be 2 MB or smaller.");
         }
 
         const upload = await uploadFile(
@@ -308,7 +309,7 @@ export default function AdminNotifications() {
                 <span className="text-sm font-medium">Upload a local image</span>
 
                 <span className="text-muted-foreground mt-1 text-xs">
-                  Optional · JPG, PNG or WebP · maximum 5 MB
+                  Optional · JPG, PNG or WebP · maximum 2 MB
                 </span>
 
                 <Input

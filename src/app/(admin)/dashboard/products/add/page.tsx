@@ -4,9 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 import { FindProductExists, getCategories, uploadFile } from "@/lib/api";
-import { CirclePlus, Info, Loader, PlusSquare, Trash } from "lucide-react";
+import { CirclePlus, Info, Loader, PlusSquare } from "lucide-react";
 import { useForm, Controller, useFieldArray } from "react-hook-form";
 import { toast } from "sonner";
+import { validateImageFile } from "@/lib/image-upload-limits";
 
 import { useRouter } from "next/navigation";
 import {
@@ -30,7 +31,6 @@ import { useEffect, useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { IoReload } from "react-icons/io5";
 import { RiDeleteBinFill } from "react-icons/ri";
-import { allowedTypes } from "@/components/data/core";
 
 const PageAddProduct = () => {
   const router = useRouter();
@@ -64,7 +64,7 @@ const PageAddProduct = () => {
   } = useForm<ProductFormData>({
     defaultValues: {
       descriptions: [{ title: "", description: "" }],
-      images: [{ file: undefined as any }],
+      images: [{ file: null }],
       keyFeatures: [{ value: "" }],
     },
   });
@@ -126,11 +126,9 @@ const PageAddProduct = () => {
     keyFeatures?.forEach((item) => keyFeaturesStrings.push(item.value));
 
     for (const imageFile of images) {
-      if (imageFile) {
-        const fileUploadData = await uploadFile(
-          imageFile.file[0],
-          "r2upload/products/images",
-        );
+      const file = imageFile.file?.[0];
+      if (file) {
+        const fileUploadData = await uploadFile(file, "r2upload/products/images");
 
         if (fileUploadData.success && fileUploadData.key) {
           imageFilesString.push(fileUploadData.key);
@@ -344,34 +342,20 @@ const PageAddProduct = () => {
                         <input
                           className="text-gray-primary block w-full rounded-md text-sm outline file:mr-2 file:rounded-full file:border file:p-1 file:px-2 file:text-xs"
                           placeholder="Upload Image"
-                          accept={"images/*"}
+                          accept="image/jpeg,image/png,image/webp"
                           id={`title-${index}`}
                           type="file"
                           {...register(`images.${index}.file` as const, {
                             required: "An image file is required",
-                            validate: {
-                              // 1. Validate File Size (Max 500 KB)
-                              lessThan500KB: (files) => {
-                                const file = files?.[0];
-                                if (!file) return true;
-
-                                // 1kb = 1000 bytes, so 500KB = 500000 bytes
-                                return (
-                                  file.size <= 500000 ||
-                                  "Max image size is 500 KB"
-                                );
-                              },
-
-                              // 2. Validate Allowed Image Formats
-                              acceptedFormats: (files) => {
-                                const file = files?.[0];
-                                if (!file) return true;
-
-                                return (
-                                  allowedTypes.includes(file.type) ||
-                                  "Image must be jpg, jpeg, png, or webp"
-                                );
-                              },
+                            validate: (files) => {
+                              const file = files?.[0];
+                              if (!file) return true;
+                              return (
+                                validateImageFile(
+                                  file,
+                                  "r2upload/products/images",
+                                ) ?? true
+                              );
                             },
                           })}
                         />
@@ -393,7 +377,7 @@ const PageAddProduct = () => {
                 </div>
                 <Button
                   type="button"
-                  onClick={() => appendImageField({ file: undefined as any })}
+                  onClick={() => appendImageField({ file: null })}
                   variant={"default"}
                   className="bg-gray-primary"
                 >

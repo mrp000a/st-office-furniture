@@ -6,16 +6,14 @@ export async function GET(req: NextRequest) {
   const email = searchParams.get("email");
   const phone = searchParams.get("phone");
 
-  if (!email || !phone)
+  if (!email)
     return NextResponse.json(
-      { success: false, message: "Email & Phone is required" },
+      { success: false, message: "Email is required" },
       { status: 400 },
     );
 
   const existingUser = await prisma.user.findFirst({
-    where: {
-      OR: [{ email: email }, { phone: phone }],
-    },
+    where: phone ? { OR: [{ email }, { phone }] } : { email },
   });
 
   if (existingUser) {

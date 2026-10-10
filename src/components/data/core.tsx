@@ -176,7 +176,7 @@ export const MobNavItems: {
 
 export const allowedImage = {
   types: ["image/jpeg", "image/png", "image/jpg"],
-  maxSize: 500000,
+  maxSize: 2 * 1024 * 1024,
 };
 
 export const ProductDefaultImage: string =

@@ -6,6 +6,9 @@ import { deleteFile, FindCategoryExists, uploadFile } from "@/lib/api";
 import { Info, Loader } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { CategoryFormData } from "@/lib/formDataTypes";
+import {
+  validateImageFile,
+} from "@/lib/image-upload-limits";
 import { toast } from "sonner";
 import {
   Popover,
@@ -16,7 +19,6 @@ import {
 } from "@/components/ui/popover";
 
 import { Textarea } from "@/components/ui/textarea";
-import { allowedTypes } from "@/components/data/core";
 import { useRouter } from "next/navigation";
 
 const PageAddCategory = ({
@@ -225,30 +227,16 @@ const PageAddCategory = ({
                     className="text-gray-primary block w-full text-sm file:mr-4 file:rounded-full file:border file:p-2 file:px-4 file:text-xs"
                     placeholder="Upload Image"
                     {...register("image", {
-                      validate: {
-                        // 1. Validate File Size (Max 500 KB)
-                        lessThan500KB: (files) => {
-                          const file = files?.[0];
-                          if (!file) return true;
-
-                          // 1kb = 1000 bytes, so 500KB = 500000 bytes
-                          return (
-                            file.size <= 500000 || "Max image size is 500 KB"
-                          );
-                        },
-
-                        // 2. Validate Allowed Image Formats
-                        acceptedFormats: (files) => {
-                          const file = files?.[0];
-                          if (!file) return true;
-
-                          return (
-                            allowedTypes.includes(file.type) ||
-                            "Image must be jpg, jpeg, png, or webp"
-                          );
-                        },
+                      validate: (files) => {
+                        const file = files?.[0];
+                        if (!file) return true;
+                        return (
+                          validateImageFile(file, "r2upload/category/images") ??
+                          true
+                        );
                       },
                     })}
+                    accept="image/jpeg,image/png,image/webp"
                   />
                   {errors?.image ? (
                     <InputErrorMessage>

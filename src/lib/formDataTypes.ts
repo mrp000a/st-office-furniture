@@ -10,7 +10,6 @@ export type UserFormData = {
   image: File[] | null;
   phone: string;
   gender?: Gender;
-
   address?: string;
 
   confirmPassword: string;
@@ -32,7 +31,7 @@ export type ProductFormData = {
   title: string;
   productCode: string;
   images: {
-    file: FileList;
+    file: FileList | null;
   }[];
 
   brand?: string;

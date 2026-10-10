@@ -1,6 +1,9 @@
 import { BUCKET, r2 } from "@/lib/r2";
 import { PutObjectCommand } from "@aws-sdk/client-s3";
 import { NextResponse } from "next/server";
+import {
+  validateImageFile,
+} from "@/lib/image-upload-limits";
 
 export async function POST(req: Request) {
   try {
@@ -18,6 +21,13 @@ export async function POST(req: Request) {
 
     const uploadPath =
       typeof path === "string" && path.length > 0 ? path : "upload";
+    const validationError = validateImageFile(file, uploadPath);
+    if (validationError) {
+      return NextResponse.json(
+        { success: false, message: validationError },
+        { status: 413 },
+      );
+    }
 
     const ext = file.name.split(".").pop()?.toLowerCase() || "jpg";
 

@@ -11,7 +11,7 @@ export default function GoogleRegButton() {
       setLoading(true);
 
       await signIn("google", {
-        callbackUrl: "/register/google",
+        callbackUrl: "/",
       });
     } catch (error) {
       console.error("Google login error:", error);

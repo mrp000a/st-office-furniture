@@ -109,18 +109,18 @@ export async function PUT(req: Request) {
     const body = await req.json();
     const { id, name, phone, gender, image, address, password } = body as User;
 
-    if (!userId || !name || !phone || !role)
+    if (!userId || !name || !role)
       return NextResponse.json(
         {
           success: false,
-          message: "name,email,password, and phone are required!",
+          message: "Name is required!",
         },
         { status: 400 },
       );
 
     const updateData: {
       name: string;
-      phone: string;
+      phone: string | null;
       role: UserRole;
       gender: Gender | null;
       image?: string;
@@ -128,7 +128,7 @@ export async function PUT(req: Request) {
       password?: string;
     } = {
       name,
-      phone,
+      phone: phone?.trim() || null,
       role: role,
       gender: gender,
       image: image ?? "",
