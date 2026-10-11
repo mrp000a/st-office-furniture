@@ -14,17 +14,16 @@ import { useAlertDialog } from "@/components/hooks/use-alert-dialog";
 import { AdminProductItem } from "@/lib/formDataTypes";
 import { getImageUrlProduct } from "@/lib/getImageUrl";
 import { formatDate } from "@/lib/secApi";
+import { getProductPricing } from "@/lib/pricing";
 
 const ProductAdmin = ({ item }: { item: AdminProductItem }) => {
   const { confirm } = useAlertDialog();
   const router = useRouter();
 
-  const discount = Number(item.discount) || 0;
-  const price = Number(item.price) || 0;
-  const discountPrice = Number(item.discountPrice) || 0;
+  const pricing = getProductPricing(item);
   const stock = Number(item.stock) || 0;
 
-  const finalPrice = discount > 0 ? discountPrice : price;
+  const finalPrice = pricing.salePrice;
 
   const stockStatus =
     stock <= 0 ? "Out of stock" : stock <= 20 ? "Low stock" : "In stock";
@@ -99,10 +98,14 @@ const ProductAdmin = ({ item }: { item: AdminProductItem }) => {
           className="bg-white object-contain transition-transform duration-500 ease-in-out group-hover:scale-110"
         />
 
-        {discount > 0 && (
+        {pricing.hasDiscount && (
           <span className="bg-red-primary text-background ring-gray-secondary dark:text-foreground absolute top-1.5 right-1.5 z-20 flex flex-col items-center justify-center rounded-md px-2 py-1 shadow-sm ring-1">
-            <span className="font-bold">{discount}%</span>
-            <span className="text-[9px]">OFF</span>
+            <span className="font-bold">{pricing.discountLabel}</span>
+            <span className="text-[9px]">
+              {pricing.discountPercent > 0 && Number(item.discount) > 0
+                ? "OFF"
+                : "SAVED"}
+            </span>
           </span>
         )}
 
@@ -145,17 +148,17 @@ const ProductAdmin = ({ item }: { item: AdminProductItem }) => {
                   ৳{finalPrice.toFixed(2)}
                 </span>
 
-                {discount > 0 && (
+                {pricing.hasDiscount && (
                   <span className="text-gray-secondary text-[10px] font-medium line-through">
-                    ৳{price.toFixed(2)}
+                    ৳{pricing.originalPrice.toFixed(2)}
                   </span>
                 )}
               </div>
             </div>
 
-            {discount > 0 && (
+            {pricing.hasDiscount && (
               <span className="shrink-0 rounded-full bg-red-500/10 px-2 py-0.5 text-[10px] font-bold text-red-500">
-                -{discount}%
+                {pricing.discountLabel}
               </span>
             )}
           </div>

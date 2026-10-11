@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { CartProductItemOrder } from "@/components/uiComponent/CartRelated";
 import { NoItemsFound } from "@/components/uiComponent/uiCom";
 import { handleDeleteCartItem } from "@/lib/api";
+import { getProductPricing } from "@/lib/pricing";
 import { RootState } from "@/redux/store";
 import Link from "next/link";
 import React from "react";
@@ -30,9 +31,7 @@ const CartItems = () => {
                   deleteCartItem={handleDeleteCartItem}
                   id={id ? id : 0}
                   image={product.images[0] ?? ProductDefaultImage}
-                  price={Number(
-                    product.discount ? product.discountPrice : product.price,
-                  )}
+                  price={getProductPricing(product).salePrice}
                   productCode={product.productCode}
                   qty={qty}
                   title={title}

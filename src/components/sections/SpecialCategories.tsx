@@ -18,7 +18,9 @@ export default async function SpecialCategories() {
   // const categories = categoriesData.result;
   // if (!categoriesData.success || categories.length === 0) return <></>;
 
-const categories = await prisma.category.findMany({orderBy: {name: "asc"}})
+  const categories = await prisma.category.findMany({
+    orderBy: { name: "asc" },
+  });
 
   return (
     <div className="bg-red-primary/10 w-full py-2">

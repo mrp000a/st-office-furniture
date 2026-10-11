@@ -258,7 +258,7 @@ export default function AdminNotifications() {
                   name="imageFile"
                   type="file"
                   accept="image/png,image/jpeg,image/webp"
-                  className="file:border-2 file:rounded-full file:px-3 "
+                  className="file:rounded-full file:border-2 file:px-3"
                 />
               </label>
 

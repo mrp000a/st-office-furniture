@@ -7,6 +7,7 @@ import { orderConfirmationEmail } from "../../../components/uiComponent/order-co
 import { Resend } from "resend";
 import { createActivity } from "@/lib/activity-log";
 import { notifyAdmins, notifyOrder } from "@/lib/notification-service";
+import { getProductPricing } from "@/lib/pricing";
 
 // const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -99,9 +100,11 @@ export async function POST(req: Request) {
     const subTotalPrice: number = items.reduce(
       (total, item) =>
         total +
-        (item.product.discount && item.product.discountPrice
-          ? Number(item.product?.discountPrice)
-          : Number(item.price)) *
+        getProductPricing({
+          price: item.price,
+          discount: item.product.discount,
+          discountPrice: item.product.discountPrice,
+        }).salePrice *
           item.qty,
       0,
     );
@@ -112,10 +115,11 @@ export async function POST(req: Request) {
     const totalPrice: number = subTotalPrice + deliveryCharge;
 
     const sanitizedItems = items.map((item, index) => {
-      const itemPrice =
-        item.product.discount && item.product.discountPrice
-          ? Number(item.product?.discountPrice)
-          : Number(item.price);
+      const itemPrice = getProductPricing({
+        price: item.price,
+        discount: item.product.discount,
+        discountPrice: item.product.discountPrice,
+      }).salePrice;
       return {
         title: item.title,
         price: itemPrice,
@@ -323,10 +327,7 @@ export async function PUT(req: Request) {
     const calculatedItems =
       normalizedItems?.map((item) => {
         const product = productMap.get(item.productId)!;
-        const price =
-          product.discount && product.discountPrice
-            ? Number(product.discountPrice)
-            : Number(product.price);
+        const price = getProductPricing(product).salePrice;
         return { ...item, price };
       }) ?? [];
     const calculatedSubtotal = calculatedItems.reduce(

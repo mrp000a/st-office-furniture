@@ -38,6 +38,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { InputErrorMessage } from "@/components/uiComponent/uiCom";
+import { getProductPricing } from "@/lib/pricing";
 import {
   DeliveryAreas as DeliveryAreaOptions,
   orderStatuses2,
@@ -233,10 +234,7 @@ export default function EditOrderPage() {
 
   const getProductPrice = (product?: ProductOption) => {
     if (!product) return 0;
-    return product.discountPrice != null &&
-      product.discountPrice < product.price
-      ? Number(product.discountPrice)
-      : Number(product.price);
+    return getProductPricing(product).salePrice;
   };
 
   const subtotal = useMemo(

@@ -1,6 +1,7 @@
 import React from "react";
 // import ProfileHome from "./PageProduct";
 import { prisma } from "@/lib/prisma";
+import { getProductPricing } from "@/lib/pricing";
 import AdminDashboardPage from "./pageDash";
 import { formatDate } from "@/lib/secApi";
 
@@ -139,7 +140,7 @@ const page = async () => {
         stock: stock,
         rating: _count.reviews,
         image: images[0],
-        price: Number(discount ? (discountPrice ?? 0) : price),
+        price: getProductPricing({ price, discount, discountPrice }).salePrice,
       };
     },
   );

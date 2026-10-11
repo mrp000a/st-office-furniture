@@ -36,6 +36,7 @@ import CouponForm from "@/components/common/forms/coupon";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { BiMoney } from "react-icons/bi";
+import { getProductPricing } from "@/lib/pricing";
 
 const Page = () => {
   const session = useSession();
@@ -413,9 +414,7 @@ const Page = () => {
                     deleteCartItem={handleDeleteCartItem}
                     id={id ? id : 0}
                     image={product.images[0] ?? ProductDefaultImage}
-                    price={Number(
-                      product.discount ? product.discountPrice : product.price,
-                    )}
+                    price={Number(getProductPricing(product).salePrice)}
                     productCode={product.productCode}
                     qty={qty}
                     title={title}
@@ -448,10 +447,7 @@ const Page = () => {
                     ? cart?.items.reduce(
                         (total, item) =>
                           total +
-                          (item.product.discount && item.product.discountPrice
-                            ? item.product?.discountPrice
-                            : item.price) *
-                            item.qty,
+                          getProductPricing(item.product).salePrice * item.qty,
                         0,
                       )
                     : 0}
@@ -476,10 +472,7 @@ const Page = () => {
                   {(cart?.items.reduce(
                     (total, item) =>
                       total +
-                      (item.product.discount && item.product.discountPrice
-                        ? item.product?.discountPrice
-                        : item.price) *
-                        item.qty,
+                      getProductPricing(item.product).salePrice * item.qty,
                     0,
                   ) ?? 0) + deliveryCharge}
                 </span>

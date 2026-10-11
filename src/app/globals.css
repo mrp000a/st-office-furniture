@@ -179,7 +179,6 @@
   --animate-cart-shake: cart-shake 0.5s ease-in-out;
 
   @keyframes cart-shake {
-
     0%,
     100% {
       transform: translateX(0);
@@ -306,7 +305,6 @@
   border-radius: 999px;
   opacity: 1;
 }
-
 
 .hero-swiper .swiper-slide .hero-eyebrow {
   opacity: 0;

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion } from "motion/react";
 import { ChevronLeft, ChevronRight, ArrowUpRight } from "lucide-react";
 import { getImageUrlProduct } from "@/lib/getImageUrl";
+import { getProductPricing } from "@/lib/pricing";
 
 type Product = {
   index?: number;
@@ -149,6 +150,7 @@ const ProductShowcase = ({ products }: ProductShowcaseProps) => {
         />
 
         {deck.map((product, index) => {
+          const pricing = getProductPricing(product);
           const position = getPosition(index);
           const isFront = index === 0;
 
@@ -223,14 +225,14 @@ const ProductShowcase = ({ products }: ProductShowcaseProps) => {
 
                 <div className="flex items-end justify-between gap-3">
                   <div>
-                    {product.discountPrice ? (
+                    {pricing.hasDiscount ? (
                       <div className="flex items-center gap-2">
                         <span className="text-green-primary text-lg font-bold">
-                          ৳{product.discountPrice.toLocaleString()}
+                          ৳{pricing.salePrice.toLocaleString()}
                         </span>
 
                         <span className="text-muted-foreground text-xs line-through">
-                          ৳{product.price.toLocaleString()}
+                          ৳{pricing.originalPrice.toLocaleString()}
                         </span>
                       </div>
                     ) : (

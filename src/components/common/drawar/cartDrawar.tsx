@@ -10,6 +10,7 @@ import {
 import { Button } from "../../ui/button";
 import { useSession } from "next-auth/react";
 import { handleDeleteCartItem, loadCart, loadCartLocal } from "@/lib/api";
+import { getProductPricing } from "@/lib/pricing";
 import { useDispatch, useSelector } from "react-redux";
 import { RotateCcw, SquareArrowRight } from "lucide-react";
 import { RootState } from "@/redux/store";
@@ -94,9 +95,7 @@ const CartDrawar = ({
                   deleteCartItem={handleDeleteCartItem}
                   id={id}
                   image={product.images[0] ?? ProductDefaultImage}
-                  price={Number(
-                    product.discount ? product.discountPrice : product.price,
-                  )}
+                  price={Number(getProductPricing(product).salePrice)}
                   productCode={product.productCode}
                   qty={qty}
                   title={title}
@@ -135,9 +134,11 @@ const CartDrawar = ({
                   {cart?.items.reduce(
                     (total, item) =>
                       total +
-                      (item.product.discount && item.product.discountPrice
-                        ? item.product?.discountPrice
-                        : item.price) *
+                      getProductPricing({
+                        price: item.price,
+                        discount: item.product.discount,
+                        discountPrice: item.product.discountPrice,
+                      }).salePrice *
                         item.qty,
                     0,
                   )}

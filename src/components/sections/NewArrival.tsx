@@ -16,7 +16,8 @@ const NewArivalsProducts = async () => {
     category: filterOption.category,
     limit: filterOption.limit,
     order: filterOption.order,
-    inStock: true, revalidate: 3,
+    inStock: true,
+    revalidate: 3,
   });
   // console.log(data);
 

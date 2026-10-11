@@ -35,6 +35,7 @@ import Link from "next/link";
 import { getImageUrlProduct } from "@/lib/getImageUrl";
 import ProductsSections from "@/components/sections/productsSection";
 import { ProductItemType } from "@/components/data/core";
+import { getProductPricing } from "@/lib/pricing";
 
 // import { useRouter } from "next/navigation";
 
@@ -97,6 +98,7 @@ const AProductPage = ({
   });
 
   const dispatch = useDispatch();
+  const pricing = getProductPricing(productInfo);
 
   const handleThumbnailClick = (index: number) => {
     if (swiperInstance) {
@@ -131,12 +133,12 @@ const AProductPage = ({
               <div className="mx-auto w-full max-w-125 space-y-3 md:m-0">
                 <div className="flex-center relative mx-auto aspect-5/4 w-full overflow-hidden rounded-md bg-white shadow-2xl lg:max-w-125">
                   <span
-                    className={`bg-red-primary dark:text-foreground flex-center text-background ring-gray-secondary absolute top-0 right-0 z-20 flex-col rounded-md px-2 py-1 text-xl font-bold ring-2 ${productInfo.discount ? "" : "hidden"}`}
+                    className={`bg-red-primary dark:text-foreground flex-center text-background ring-gray-secondary absolute top-0 right-0 z-20 flex-col rounded-md px-2 py-1 text-xl font-bold ring-2 ${pricing.hasDiscount ? "" : "hidden"}`}
                   >
-                    <span className="font-bold">
-                      {Number(productInfo.discount)}%
+                    <span className="font-bold">{pricing.discountLabel}</span>
+                    <span className="text-xs">
+                      {Number(productInfo.discount) > 0 ? "Off" : "Saving"}
                     </span>
-                    <span className="text-xs">Off</span>
                   </span>
 
                   <span
@@ -265,10 +267,10 @@ const AProductPage = ({
                         {productInfo.category?.name ?? "N/A"}
                       </span>
                     </SimpleBubble>
-                    <SimpleBubble visible={productInfo.discount ? true : false}>
+                    <SimpleBubble visible={pricing.hasDiscount}>
                       <span className="text-gray-primary">Discount:</span>{" "}
                       <span className="font-semibold">
-                        {Number(productInfo.discount).toFixed(2)}%
+                        {pricing.discountLabel}
                       </span>
                     </SimpleBubble>
                     <SimpleBubble>
@@ -298,15 +300,12 @@ const AProductPage = ({
                   <div className="border-l-green-primary border-gray-secondary w-fit rounded-md border border-l-4 p-2 text-2xl">
                     <span className="text-gray-primary">Price:</span>{" "}
                     <span className="font-semibold">
-                      ৳
-                      {Number(productInfo.discount)
-                        ? Number(productInfo.discountPrice).toFixed(2)
-                        : Number(productInfo.price).toFixed(2)}
+                      ৳{pricing.salePrice.toFixed(2)}
                     </span>
                     <span
-                      className={`px-1 text-sm line-through ${productInfo.discount ? "" : "hidden"}`}
+                      className={`px-1 text-sm line-through ${pricing.hasDiscount ? "" : "hidden"}`}
                     >
-                      ৳{Number(productInfo.price).toFixed(2)}
+                      ৳{pricing.originalPrice.toFixed(2)}
                     </span>
                   </div>
 

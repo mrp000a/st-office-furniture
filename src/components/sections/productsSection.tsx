@@ -3,12 +3,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
-import {
-  ArrowRight,
-  ChevronLeft,
-  ChevronRight,
-  Sparkles,
-} from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
 
 import { FaChair, FaCouch, FaTools } from "react-icons/fa";
 import { GiRoundStar } from "react-icons/gi";
@@ -104,23 +99,23 @@ const ProductsSections = ({
 
   return (
     <section className="mx-auto w-full max-w-screen-2xl px-3 py-5 sm:px-5 sm:py-8 lg:px-8">
-      <div className="relative overflow-hidden rounded-2xl border border-border/70 bg-card shadow-sm">
+      <div className="border-border/70 bg-card relative overflow-hidden rounded-2xl border shadow-sm">
         {/* Subtle decorative background */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -right-20 -top-24 h-56 w-56 rounded-full bg-primary/5 blur-3xl"
+          className="bg-primary/5 pointer-events-none absolute -top-24 -right-20 h-56 w-56 rounded-full blur-3xl"
         />
 
         {/* Section header */}
-        <div className="relative flex flex-col gap-4 px-4 pb-4 pt-5 sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:pb-5 sm:pt-6">
+        <div className="relative flex flex-col gap-4 px-4 pt-5 pb-4 sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:pt-6 sm:pb-5">
           <div className="flex min-w-0 items-start gap-3">
-            <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+            <div className="bg-primary/10 text-primary flex size-11 shrink-0 items-center justify-center rounded-xl">
               <Icon className="size-6" />
             </div>
 
             <div className="min-w-0 flex-1">
               <div className="flex flex-wrap items-center gap-2">
-                <h2 className="text-lg font-bold tracking-tight text-foreground sm:text-xl lg:text-2xl">
+                <h2 className="text-foreground text-lg font-bold tracking-tight sm:text-xl lg:text-2xl">
                   {title}
                 </h2>
 
@@ -130,7 +125,7 @@ const ProductsSections = ({
                 </span> */}
               </div>
 
-              <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+              <p className="text-muted-foreground mt-1 text-sm leading-relaxed">
                 {subTitle}
               </p>
 
@@ -142,7 +137,7 @@ const ProductsSections = ({
           </div>
 
           <div className="flex items-center justify-between gap-3 sm:justify-end">
-            <span className="text-xs text-muted-foreground sm:hidden">
+            <span className="text-muted-foreground text-xs sm:hidden">
               Swipe to explore
             </span>
 
@@ -160,7 +155,7 @@ const ProductsSections = ({
           </div>
         </div>
 
-        <div className="mx-4 border-t border-border/60 sm:mx-6" />
+        <div className="border-border/60 mx-4 border-t sm:mx-6" />
 
         {/* Product carousel */}
         {products.length > 0 ? (
@@ -168,7 +163,7 @@ const ProductsSections = ({
             <div
               ref={scrollContainerRef}
               aria-label={`${title} products`}
-              className="flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain scroll-smooth px-4 py-5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:px-6 sm:py-6"
+              className="flex snap-x snap-mandatory [scrollbar-width:none] gap-4 overflow-x-auto overscroll-x-contain scroll-smooth px-4 py-5 sm:px-6 sm:py-6 [&::-webkit-scrollbar]:hidden"
             >
               {products.map((item) => {
                 const sanitizedItem = {
@@ -182,7 +177,7 @@ const ProductsSections = ({
                   <div
                     key={item.id}
                     data-product-card
-                    className="w-[78%] min-w-0 max-w-[300px] flex-none snap-start sm:w-[48%] sm:max-w-none md:w-[32%] lg:w-[24%] xl:w-[22%]"
+                    className="w-[78%] max-w-[300px] min-w-0 flex-none snap-start sm:w-[48%] sm:max-w-none md:w-[32%] lg:w-[24%] xl:w-[22%]"
                   >
                     <div className="h-full transition-transform duration-300 hover:-translate-y-1">
                       <ProductClient item={sanitizedItem} />
@@ -193,7 +188,7 @@ const ProductsSections = ({
             </div>
 
             {/* Carousel navigation */}
-            <div className="pointer-events-none absolute inset-y-0 left-0 right-0 hidden items-center justify-between px-2 sm:flex">
+            <div className="pointer-events-none absolute inset-y-0 right-0 left-0 hidden items-center justify-between px-2 sm:flex">
               <Button
                 type="button"
                 variant="secondary"
@@ -201,7 +196,7 @@ const ProductsSections = ({
                 aria-label="Scroll products left"
                 disabled={!canScrollLeft}
                 onClick={() => scroll("left")}
-                className="pointer-events-auto size-10 rounded-full border border-border/70 bg-background/95 shadow-lg backdrop-blur transition-opacity disabled:opacity-0"
+                className="border-border/70 bg-background/95 pointer-events-auto size-10 rounded-full border shadow-lg backdrop-blur transition-opacity disabled:opacity-0"
               >
                 <ChevronLeft className="size-5" />
               </Button>
@@ -213,7 +208,7 @@ const ProductsSections = ({
                 aria-label="Scroll products right"
                 disabled={!canScrollRight}
                 onClick={() => scroll("right")}
-                className="pointer-events-auto size-10 rounded-full border border-border/70 bg-background/95 shadow-lg backdrop-blur transition-opacity disabled:opacity-0"
+                className="border-border/70 bg-background/95 pointer-events-auto size-10 rounded-full border shadow-lg backdrop-blur transition-opacity disabled:opacity-0"
               >
                 <ChevronRight className="size-5" />
               </Button>
@@ -221,15 +216,15 @@ const ProductsSections = ({
           </div>
         ) : (
           <div className="flex min-h-52 flex-col items-center justify-center px-4 py-12 text-center">
-            <div className="mb-3 flex size-12 items-center justify-center rounded-full bg-muted">
-              <Icon className="size-6 text-muted-foreground" />
+            <div className="bg-muted mb-3 flex size-12 items-center justify-center rounded-full">
+              <Icon className="text-muted-foreground size-6" />
             </div>
 
-            <h3 className="font-semibold text-foreground">
+            <h3 className="text-foreground font-semibold">
               No products available yet
             </h3>
 
-            <p className="mt-1 max-w-sm text-sm text-muted-foreground">
+            <p className="text-muted-foreground mt-1 max-w-sm text-sm">
               We&apos;re updating our collection. Please check back soon.
             </p>
 
@@ -240,7 +235,7 @@ const ProductsSections = ({
         )}
 
         {/* Bottom accent */}
-        <div className="h-1 w-full bg-gradient-to-r from-primary/10 via-primary/50 to-primary/10" />
+        <div className="from-primary/10 via-primary/50 to-primary/10 h-1 w-full bg-gradient-to-r" />
       </div>
     </section>
   );

@@ -140,39 +140,39 @@ export const navItems: {
   label: string;
   href: string;
 }[] = [
-    { label: "Home", href: "/" },
-    { label: "About", href: "/about" },
-    { label: "Contact", href: "/contact" },
-    { label: "Products", href: "/products" },
-    { label: "Categories", href: "/c" },
-    { label: "Checkout", href: "/checkout" },
-    { label: "Track Order", href: "/track-order" },
-    { label: "Profile", href: "/profile" },
-  ];
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
+  { label: "Products", href: "/products" },
+  { label: "Categories", href: "/c" },
+  { label: "Checkout", href: "/checkout" },
+  { label: "Track Order", href: "/track-order" },
+  { label: "Profile", href: "/profile" },
+];
 
 export const navItemShort: {
   label: string;
   href: string;
 }[] = [
-    { label: "Home", href: "/" },
-    { label: "About", href: "/about" },
-    { label: "Contact", href: "/contact" },
-    { label: "Checkout", href: "checkout" },
-    { label: "Track Order", href: "/track-order" },
-    { label: "Products", href: "/products" },
-  ];
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
+  { label: "Checkout", href: "checkout" },
+  { label: "Track Order", href: "/track-order" },
+  { label: "Products", href: "/products" },
+];
 
 export const MobNavItems: {
   label: string;
   href: string;
   Logo?: IconType;
 }[] = [
-    { label: "Products", href: "/products", Logo: Boxes },
-    { label: "Track Order", href: "/track-order", Logo: ShoppingCart },
-    { label: "Home", href: "/", Logo: Home },
-    { label: "Checkout", href: "/checkout", Logo: ShoppingCart },
-    { label: "Profile", href: "/profile", Logo: CircleUserRound },
-  ];
+  { label: "Products", href: "/products", Logo: Boxes },
+  { label: "Track Order", href: "/track-order", Logo: ShoppingCart },
+  { label: "Home", href: "/", Logo: Home },
+  { label: "Checkout", href: "/checkout", Logo: ShoppingCart },
+  { label: "Profile", href: "/profile", Logo: CircleUserRound },
+];
 
 export const allowedImage = {
   types: ["image/jpeg", "image/png", "image/jpg"],

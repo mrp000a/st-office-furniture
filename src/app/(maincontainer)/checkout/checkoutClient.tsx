@@ -62,6 +62,7 @@ import {
   handleStripePayment,
 } from "@/components/actions/Payment/Buttons";
 import { BiMoney } from "react-icons/bi";
+import { getProductPricing } from "@/lib/pricing";
 
 const CheckoutClientPage = () => {
   const session = useSession();
@@ -101,12 +102,15 @@ const CheckoutClientPage = () => {
     if (!cart?.items?.length) return 0;
 
     return cart.items.reduce((total, item) => {
-      const price =
-        item.product.discount && item.product.discountPrice
-          ? Number(item.product.discountPrice)
-          : Number(item.price);
-
-      return total + price * Number(item.qty);
+      return (
+        total +
+        getProductPricing({
+          price: item.price,
+          discount: item.product.discount,
+          discountPrice: item.product.discountPrice,
+        }).salePrice *
+          Number(item.qty)
+      );
     }, 0);
   }, [cart]);
 
@@ -636,11 +640,13 @@ const CheckoutClientPage = () => {
                           deleteCartItem={handleDeleteCartItem}
                           id={id ?? 0}
                           image={product.images[0] ?? ProductDefaultImage}
-                          price={Number(
-                            product.discount
-                              ? product.discountPrice
-                              : product.price,
-                          )}
+                          price={
+                            getProductPricing({
+                              price: product.price,
+                              discount: product.discount,
+                              discountPrice: product.discountPrice,
+                            }).salePrice
+                          }
                           productCode={product.productCode}
                           qty={qty}
                           title={title}
