@@ -148,6 +148,8 @@ const SpecialCategoriesClient = ({
           </div>
         </div>
 
+        
+
         {/* Category carousel */}
         <div className="relative">
           <div

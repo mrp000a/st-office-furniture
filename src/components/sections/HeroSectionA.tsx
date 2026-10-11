@@ -31,7 +31,7 @@ const HeroSectionA = () => {
           autoplay={{
             delay: 5500,
             disableOnInteraction: false,
-            pauseOnMouseEnter: true,
+            // pauseOnMouseEnter: true,
           }}
           pagination={{ clickable: true }}
           className="hero-swiper aspect-1376/720 w-full"
@@ -73,7 +73,7 @@ const HeroSectionA = () => {
                   <div className="mx-auto w-full max-w-384 px-6 sm:px-10 md:px-14 lg:px-20">
                     <div className="max-w-2xl">
                       {/* Eyebrow */}
-                      <div className="hero-eyebrow mb-4 flex items-center gap-3">
+                      <div className="hero-eyebrow hero-subtitle mb-4 flex items-center gap-3">
                         <span className="h-px w-8 bg-white/80 sm:w-12" />
                         <span className="text-[10px] font-semibold tracking-[0.28em] text-white/90 uppercase sm:text-xs">
                           {subtitle}

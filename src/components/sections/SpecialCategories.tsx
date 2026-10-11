@@ -5,18 +5,20 @@ import { Category } from "@/generated/prisma";
 
 export default async function SpecialCategories() {
   //   const categories = await prisma.category.findMany({});
-  const categoriesData: {
-    success: boolean;
-    result: Category[];
-    message: string;
-  } = await fetch(`${process.env.NEXT_PUBLIC_URL_SITE}/api/c`, {
-    method: "GET",
-    redirect: "follow",
-    next: { revalidate: 600 },
-  }).then((res) => res.json());
+  // const categoriesData: {
+  //   success: boolean;
+  //   result: Category[];
+  //   message: string;
+  // } = await fetch(`${process.env.NEXT_PUBLIC_URL_SITE}/api/c`, {
+  //   method: "GET",
+  //   redirect: "follow",
+  //   next: { revalidate: 600 },
+  // }).then((res) => res.json());
 
-  const categories = categoriesData.result;
-  if (!categoriesData.success || categories.length === 0) return <></>;
+  // const categories = categoriesData.result;
+  // if (!categoriesData.success || categories.length === 0) return <></>;
+
+const categories = await prisma.category.findMany({orderBy: {name: "asc"}})
 
   return (
     <div className="bg-red-primary/10 w-full py-2">
