@@ -57,7 +57,7 @@ export async function POST(request: Request) {
 
     const subscriptions = await prisma.pushSubscription.findMany({
       where: { isActive: true, ...userFilter },
-      select: { id: true, endpoint: true, p256dh: true, auth: true },
+      select: { id: true, userId: true, endpoint: true, p256dh: true, auth: true },
     });
 
     if (subscriptions.length === 0) {
@@ -71,6 +71,18 @@ export async function POST(request: Request) {
     let failed = 0;
 
     for (const subscription of subscriptions) {
+      const notification = await prisma.notification.create({
+        data: {
+          userId: subscription.userId,
+          title,
+          body: message,
+          type: "ADMIN",
+          url: url || null,
+          icon: icon || null,
+          image: image || null,
+        },
+      });
+
       try {
         await sendPushNotification(subscription, {
           title,
@@ -80,6 +92,10 @@ export async function POST(request: Request) {
           ...(image ? { image } : {}),
         });
         sent += 1;
+        await prisma.notification.update({
+          where: { id: notification.id },
+          data: { delivered: true, deliveredAt: new Date(), error: null },
+        });
       } catch (error: unknown) {
         failed += 1;
         const statusCode =
@@ -98,6 +114,15 @@ export async function POST(request: Request) {
         } else {
           console.error("Push notification delivery failed:", error);
         }
+        await prisma.notification.update({
+          where: { id: notification.id },
+          data: {
+            error:
+              error instanceof Error
+                ? error.message
+                : "Push notification delivery failed.",
+          },
+        });
       }
     }
 

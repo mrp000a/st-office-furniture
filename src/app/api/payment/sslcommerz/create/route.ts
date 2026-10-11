@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { prisma } from "@/lib/prisma";
+import { notifyOrder } from "@/lib/notification-service";
 import { initiateSslCommerzPayment } from "@/lib/sslcommerz/initiate-payment";
 
 export async function POST(request: NextRequest) {
@@ -110,7 +111,7 @@ export async function POST(request: NextRequest) {
      * BEFORE redirecting customer.
      */
 
-    await prisma.order.update({
+    const updatedOrder = await prisma.order.update({
       where: {
         id: order.id,
       },
@@ -124,6 +125,13 @@ export async function POST(request: NextRequest) {
 
         transactionId: tranId,
       },
+    });
+
+    await notifyOrder(updatedOrder.id, {
+      type: "PAYMENT_STARTED",
+      title: "Payment started",
+      body: `Complete payment for order #${updatedOrder.id} to continue processing.`,
+      url: `/order/${updatedOrder.publicId}`,
     });
 
     return NextResponse.json({

@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { getSession, getUserId } from "@/lib/serverAuth";
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
+import { notifyOrder } from "@/lib/notification-service";
 
 export async function POST(req: Request) {
   try {
@@ -37,6 +38,15 @@ export async function POST(req: Request) {
       data: {
         status: status,
       },
+    });
+
+    await notifyOrder(createOrderLog.orderId, {
+      type: "ORDER_STATUS",
+      title: `Order ${status.toLowerCase()}`,
+      body:
+        note?.trim() ||
+        `Your order #${createOrderLog.orderId} is now ${status.toLowerCase()}.`,
+      url: `/order/${createOrderLog.order.publicId}`,
     });
 
     await createActivity({

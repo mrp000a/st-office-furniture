@@ -29,6 +29,7 @@ model User {
   orders             Order[]
   proReviews         ProReview[]
   pushSubscriptions  PushSubscription[]
+  notifications      Notification[]
   verificationTokens VerificationToken[]
 }
 
@@ -237,6 +238,25 @@ model PushSubscription {
   isActive  Boolean  @default(true)
 
   @@index([userId])
+}
+
+model Notification {
+  id          Int      @id @default(autoincrement())
+  userId      Int?
+  title       String
+  body        String
+  type        String
+  url         String?
+  icon        String?
+  image       String?
+  delivered   Boolean  @default(false)
+  deliveredAt DateTime?
+  error       String?
+  createdAt   DateTime @default(now())
+  user        User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@index([type, createdAt])
 }
 
 view MonthlyDeliveredSales {

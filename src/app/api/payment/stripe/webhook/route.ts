@@ -4,6 +4,7 @@ import Stripe from "stripe";
 
 import { stripe } from "@/lib/stripe/stripe";
 import { prisma } from "@/lib/prisma";
+import { notifyOrder } from "@/lib/notification-service";
 
 export async function POST(request: NextRequest) {
   const body = await request.text();
@@ -58,7 +59,7 @@ export async function POST(request: NextRequest) {
             ? session.payment_intent
             : null;
 
-        await prisma.order.update({
+        const updatedOrder = await prisma.order.update({
           where: {
             id: Number(orderId),
           },
@@ -70,6 +71,13 @@ export async function POST(request: NextRequest) {
 
             paidAt: new Date(),
           },
+        });
+
+        await notifyOrder(updatedOrder.id, {
+          type: "PAYMENT_CONFIRMED",
+          title: "Payment confirmed",
+          body: `Payment for order #${updatedOrder.id} was confirmed successfully.`,
+          url: `/order/${updatedOrder.publicId}`,
         });
 
         break;
@@ -84,7 +92,7 @@ export async function POST(request: NextRequest) {
           break;
         }
 
-        await prisma.order.update({
+        const updatedOrder = await prisma.order.update({
           where: {
             id: Number(orderId),
           },
@@ -92,6 +100,13 @@ export async function POST(request: NextRequest) {
           data: {
             paymentStatus: "CANCELLED",
           },
+        });
+
+        await notifyOrder(updatedOrder.id, {
+          type: "PAYMENT_CANCELLED",
+          title: "Payment expired",
+          body: `Payment for order #${updatedOrder.id} expired. You can try again.`,
+          url: `/order/${updatedOrder.publicId}`,
         });
 
         break;

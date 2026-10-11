@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { createActivity } from "@/lib/activity-log";
+import { notifyUser } from "@/lib/notification-service";
 
 export async function POST(req: NextRequest) {
   try {
@@ -71,6 +72,14 @@ export async function POST(req: NextRequest) {
       userId: verificationToken.userId,
 
       entityType: "User",
+    });
+
+    await notifyUser({
+      userId: verificationToken.userId,
+      type: "ACCOUNT_VERIFIED",
+      title: "Email verified",
+      body: "Your account is verified and ready to use.",
+      url: "/signin",
     });
 
     // Delete token after successful verification

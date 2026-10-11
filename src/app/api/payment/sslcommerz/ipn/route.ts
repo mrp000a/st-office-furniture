@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { prisma } from "@/lib/prisma";
+import { notifyOrder } from "@/lib/notification-service";
 
 import { validateSslCommerzPayment } from "@/lib/sslcommerz/validate-payment";
 
@@ -55,7 +56,7 @@ export async function POST(request: NextRequest) {
      */
 
     if (status !== "VALID" || !valId) {
-      await prisma.order.update({
+      const updatedOrder = await prisma.order.update({
         where: {
           id: order.id,
         },
@@ -63,6 +64,13 @@ export async function POST(request: NextRequest) {
         data: {
           paymentStatus: status === "CANCELLED" ? "CANCELLED" : "FAILED",
         },
+      });
+
+      await notifyOrder(updatedOrder.id, {
+        type: "PAYMENT_FAILED",
+        title: "Payment unsuccessful",
+        body: `Payment for order #${updatedOrder.id} was not completed.`,
+        url: `/order/${updatedOrder.publicId}`,
       });
 
       return NextResponse.json({
@@ -160,7 +168,7 @@ export async function POST(request: NextRequest) {
      * NOW mark it PAID.
      */
 
-    await prisma.order.update({
+    const updatedOrder = await prisma.order.update({
       where: {
         id: order.id,
       },
@@ -178,6 +186,13 @@ export async function POST(request: NextRequest) {
         // transaction ID field:
         // transactionId: validation.bank_tran_id
       },
+    });
+
+    await notifyOrder(updatedOrder.id, {
+      type: "PAYMENT_CONFIRMED",
+      title: "Payment confirmed",
+      body: `Payment for order #${updatedOrder.id} was confirmed successfully.`,
+      url: `/order/${updatedOrder.publicId}`,
     });
 
     return NextResponse.json({

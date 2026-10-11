@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 import { Gender, User, UserRole } from "@/generated/prisma";
 import { getRole, getSession, getUserId, requireRole } from "@/lib/serverAuth";
 import { createActivity } from "@/lib/activity-log";
+import { notifyUser } from "@/lib/notification-service";
 
 export async function GET(req: NextRequest) {
   try {
@@ -84,6 +85,14 @@ export async function POST(req: Request) {
 
       entityId: user.id.toString(),
       entityType: "user",
+    });
+
+    await notifyUser({
+      userId: user.id,
+      type: "ACCOUNT_UPDATED",
+      title: "Profile updated",
+      body: "Your account profile was updated successfully.",
+      url: "/profile",
     });
 
     const { password: _p, ...rest } = user as User;

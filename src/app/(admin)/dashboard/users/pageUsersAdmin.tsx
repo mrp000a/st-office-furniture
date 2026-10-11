@@ -37,6 +37,7 @@ import {
 import { toast } from "sonner";
 import SearchLayout from "@/components/common/searchLayout";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import PaginationLayout from "@/components/common/paginationLayout";
 import { deleteUser } from "@/lib/api";
 import SearchShowClient from "@/components/common/searchShowClient";
@@ -249,6 +250,9 @@ const PageUsersAdmin = ({
                       {/* Actions */}
                       <TableCell>
                         <div className="flex justify-end gap-2">
+                          <Button size="sm" asChild>
+                            <Link href={`/dashboard/users/${id}`}>View</Link>
+                          </Button>
                           <Button
                             size="sm"
                             variant="outline"
@@ -436,7 +440,10 @@ const PageUsersAdmin = ({
                   </div>
 
                   {/* Actions */}
-                  <div className="mt-4 grid grid-cols-2 gap-2">
+                  <div className="mt-4 grid grid-cols-3 gap-2">
+                    <Button asChild className="w-full">
+                      <Link href={`/dashboard/users/${id}`}>View</Link>
+                    </Button>
                     <Button
                       variant="outline"
                       className="w-full"

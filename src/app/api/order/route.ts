@@ -6,6 +6,7 @@ import { getSession, getUserId, requireRole } from "@/lib/serverAuth";
 import { orderConfirmationEmail } from "../../../components/uiComponent/order-confirm-email";
 import { Resend } from "resend";
 import { createActivity } from "@/lib/activity-log";
+import { notifyOrder } from "@/lib/notification-service";
 
 // const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -166,6 +167,13 @@ export async function POST(req: Request) {
       },
     });
 
+    await notifyOrder(createOrder.id, {
+      type: "ORDER_PLACED",
+      title: "Order placed successfully",
+      body: `Your order #${createOrder.id} has been placed and is being processed.`,
+      url: `/order/${createOrder.publicId}`,
+    });
+
     if (!createOrder)
       return NextResponse.json({
         success: false,
@@ -233,7 +241,10 @@ export async function PUT(req: Request) {
       subtotal,
       total,
       userId,
-    } = body as Order;
+      items,
+    } = body as Order & {
+      items?: Array<{ productId: number; qty: number }>;
+    };
 
     if (!id || !receiverPhone || !receiverName)
       return NextResponse.json(
@@ -244,30 +255,150 @@ export async function PUT(req: Request) {
         { status: 400 },
       );
 
-    const order = await prisma.order.update({
-      where: { id: Number(id) },
-      data: {
-        id,
-        receiverEmail,
-        receiverName,
-        receiverPhone,
-        customerNote,
+    const orderId = Number(id);
+    const normalizedItems = Array.isArray(items)
+      ? items
+          .map((item) => ({
+            productId: Number(item.productId),
+            qty: Number(item.qty),
+          }))
+          .filter(
+            (item) =>
+              Number.isInteger(item.productId) &&
+              item.productId > 0 &&
+              Number.isInteger(item.qty) &&
+              item.qty > 0,
+          )
+      : null;
 
-        address,
-        deliveryArea,
-        paymentMethod,
-
-        discountAmount,
-        paidAmount,
-        paymentStatus,
-        shippingCost,
-
-        status,
-        subtotal,
-        total,
-        userId,
-      },
+    const existingOrder = await prisma.order.findUnique({
+      where: { id: orderId },
+      select: { shippingCost: true, discountAmount: true },
     });
+
+    if (!existingOrder) {
+      return NextResponse.json(
+        { success: false, message: "Order not found." },
+        { status: 404 },
+      );
+    }
+
+    const products = normalizedItems
+      ? await prisma.product.findMany({
+          where: { id: { in: normalizedItems.map((item) => item.productId) } },
+          select: {
+            id: true,
+            title: true,
+            price: true,
+            discount: true,
+            discountPrice: true,
+          },
+        })
+      : [];
+    const productMap = new Map(products.map((product) => [product.id, product]));
+
+    if (
+      normalizedItems &&
+      (normalizedItems.length === 0 ||
+        normalizedItems.some((item) => !productMap.has(item.productId)))
+    ) {
+      return NextResponse.json(
+        { success: false, message: "Every order item must reference a valid product." },
+        { status: 400 },
+      );
+    }
+
+    const calculatedItems =
+      normalizedItems?.map((item) => {
+        const product = productMap.get(item.productId)!;
+        const price =
+          product.discount && product.discountPrice
+            ? Number(product.discountPrice)
+            : Number(product.price);
+        return { ...item, price };
+      }) ?? [];
+    const calculatedSubtotal = calculatedItems.reduce(
+      (sum, item) => sum + item.price * item.qty,
+      0,
+    );
+    const nextShippingCost =
+      shippingCost === undefined || shippingCost === null
+        ? Number(existingOrder.shippingCost)
+        : Number(shippingCost);
+    const nextDiscountAmount =
+      discountAmount === undefined || discountAmount === null
+        ? Number(existingOrder.discountAmount)
+        : Number(discountAmount);
+    const nextTotal = normalizedItems
+      ? calculatedSubtotal + nextShippingCost - nextDiscountAmount
+      : total === undefined || total === null
+        ? calculatedSubtotal + nextShippingCost - nextDiscountAmount
+        : Number(total);
+
+    if (
+      !Number.isFinite(nextShippingCost) ||
+      nextShippingCost < 0 ||
+      !Number.isFinite(nextDiscountAmount) ||
+      nextDiscountAmount < 0 ||
+      !Number.isFinite(nextTotal) ||
+      nextTotal < 0
+    ) {
+      return NextResponse.json(
+        { success: false, message: "Charges and total must be valid non-negative numbers." },
+        { status: 400 },
+      );
+    }
+
+    const order = await prisma.$transaction(async (tx) => {
+      if (normalizedItems) {
+        await tx.orderItem.deleteMany({ where: { orderId } });
+      }
+
+      return tx.order.update({
+        where: { id: orderId },
+        data: {
+          receiverEmail,
+          receiverName,
+          receiverPhone,
+          customerNote,
+          address,
+          deliveryArea,
+          paymentMethod,
+          discountAmount: nextDiscountAmount,
+          paidAmount,
+          paymentStatus,
+          shippingCost: nextShippingCost,
+          status,
+          subtotal: normalizedItems ? calculatedSubtotal : subtotal,
+          total: nextTotal,
+          userId,
+          ...(normalizedItems
+            ? {
+                items: {
+                  create: calculatedItems.map((item) => ({
+                    productId: item.productId,
+                    title:
+                      products.find((product) => product.id === item.productId)
+                        ?.title ?? "Product",
+                    price: item.price,
+                    qty: item.qty,
+                  })),
+                },
+              }
+            : {}),
+        },
+        include: { items: true, logs: true },
+      });
+    });
+
+    if (status) {
+      await notifyOrder(order.id, {
+        type: "ORDER_STATUS",
+        title: `Order ${status.toLowerCase()}`,
+        body: `Your order #${order.id} is now ${status.toLowerCase()}.`,
+        url: `/order/${order.publicId}`,
+      });
+    }
 
     return NextResponse.json({ success: true, result: order });
   } catch (err: any) {

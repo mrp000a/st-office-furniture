@@ -6,6 +6,7 @@ import { Gender, User, UserRole } from "@/generated/prisma";
 import { getSession, getUserId, requireRole } from "@/lib/serverAuth";
 import crypto from "crypto";
 import { createActivity } from "@/lib/activity-log";
+import { notifyUser } from "@/lib/notification-service";
 
 export async function GET(req: NextRequest) {
   try {
@@ -86,6 +87,14 @@ export async function POST(req: Request) {
 
       entityId: user.id.toString(),
       entityType: "Order",
+    });
+
+    await notifyUser({
+      userId: user.id,
+      type: "ACCOUNT_CREATED",
+      title: "Account created",
+      body: "Your ST Office Furniture account was created. Please verify your email.",
+      url: "/signin",
     });
 
     if (user) {

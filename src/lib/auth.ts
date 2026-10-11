@@ -12,6 +12,7 @@ import crypto from "crypto";
 import { ProfileDefaultImage } from "@/components/data/core";
 import { createActivity } from "./activity-log";
 import { uploadGoogleProfileImage } from "./google-profile-image";
+import { notifyUser } from "./notification-service";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -155,7 +156,7 @@ export const authOptions: NextAuthOptions = {
             ? profile.name.trim()
             : email.split("@")[0];
 
-        await prisma.user.create({
+        const createdUser = await prisma.user.create({
           data: {
             name: googleName,
             email,
@@ -164,6 +165,14 @@ export const authOptions: NextAuthOptions = {
             emailVerified: true,
             password: await bcrypt.hash(crypto.randomBytes(32).toString("hex"), 10),
           },
+        });
+
+        await notifyUser({
+          userId: createdUser.id,
+          type: "ACCOUNT_CREATED",
+          title: "Welcome to ST Office Furniture",
+          body: "Your Google account was created and verified successfully.",
+          url: "/",
         });
       }
 

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { prisma } from "@/lib/prisma";
+import { notifyOrder } from "@/lib/notification-service";
 import { executeBkashPayment } from "@/lib/bkash/execute-payment";
 
 export async function GET(request: NextRequest) {
@@ -19,6 +20,10 @@ export async function GET(request: NextRequest) {
 
     // Customer cancelled payment
     if (status === "cancel") {
+      const order = await prisma.order.findFirst({
+        where: { paymentId: paymentID },
+        select: { id: true, publicId: true },
+      });
       await prisma.order.updateMany({
         where: {
           paymentId: paymentID,
@@ -28,6 +33,14 @@ export async function GET(request: NextRequest) {
           paymentStatus: "CANCELLED",
         },
       });
+      if (order) {
+        await notifyOrder(order.id, {
+          type: "PAYMENT_CANCELLED",
+          title: "Payment cancelled",
+          body: `Payment for order #${order.id} was cancelled.`,
+          url: `/order/${order.publicId}`,
+        });
+      }
 
       return NextResponse.redirect(
         new URL("/checkout/payment/cancelled", request.url),
@@ -36,6 +49,10 @@ export async function GET(request: NextRequest) {
 
     // Customer failed payment
     if (status === "failure") {
+      const order = await prisma.order.findFirst({
+        where: { paymentId: paymentID },
+        select: { id: true, publicId: true },
+      });
       await prisma.order.updateMany({
         where: {
           paymentId: paymentID,
@@ -45,6 +62,14 @@ export async function GET(request: NextRequest) {
           paymentStatus: "FAILED",
         },
       });
+      if (order) {
+        await notifyOrder(order.id, {
+          type: "PAYMENT_FAILED",
+          title: "Payment unsuccessful",
+          body: `Payment for order #${order.id} was not completed.`,
+          url: `/order/${order.publicId}`,
+        });
+      }
 
       return NextResponse.redirect(
         new URL("/checkout/payment/failed", request.url),
@@ -55,6 +80,10 @@ export async function GET(request: NextRequest) {
     const payment = await executeBkashPayment(paymentID);
 
     if (payment.transactionStatus !== "Completed") {
+      const order = await prisma.order.findFirst({
+        where: { paymentId: paymentID },
+        select: { id: true, publicId: true },
+      });
       await prisma.order.updateMany({
         where: {
           paymentId: paymentID,
@@ -64,6 +93,14 @@ export async function GET(request: NextRequest) {
           paymentStatus: "FAILED",
         },
       });
+      if (order) {
+        await notifyOrder(order.id, {
+          type: "PAYMENT_FAILED",
+          title: "Payment unsuccessful",
+          body: `Payment for order #${order.id} was not completed.`,
+          url: `/order/${order.publicId}`,
+        });
+      }
 
       return NextResponse.redirect(
         new URL("/checkout/payment/failed", request.url),
@@ -109,7 +146,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Update order
-    await prisma.order.update({
+    const updatedOrder = await prisma.order.update({
       where: {
         id: order.id,
       },
@@ -132,6 +169,13 @@ export async function GET(request: NextRequest) {
       },
 
       include: { logs: true },
+    });
+
+    await notifyOrder(updatedOrder.id, {
+      type: "PAYMENT_CONFIRMED",
+      title: "Payment confirmed",
+      body: `Payment for order #${updatedOrder.id} was confirmed successfully.`,
+      url: `/order/${updatedOrder.publicId}`,
     });
 
     return NextResponse.redirect(
