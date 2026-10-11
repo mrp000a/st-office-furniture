@@ -2,6 +2,7 @@
 
 import { prisma } from "@/lib/prisma";
 import { getSession, getUserId } from "@/lib/serverAuth";
+import { createActivity } from "@/lib/activity-log";
 
 export async function ProReviewAdd({
   productId,
@@ -31,6 +32,16 @@ export async function ProReviewAdd({
       };
     }
 
+    const existingReview = await prisma.proReview.findUnique({
+      where: {
+        userId_productId: {
+          userId: Number(userId),
+          productId: Number(productId),
+        },
+      },
+      select: { id: true },
+    });
+
     const review = await prisma.proReview.upsert({
       where: {
         userId_productId: {
@@ -48,6 +59,17 @@ export async function ProReviewAdd({
         rating: Number(rating),
         note,
       },
+    });
+
+    await createActivity({
+      type: "REVIEW",
+      action: existingReview ? "UPDATE" : "CREATE",
+      title: "Product review submitted",
+      description: `A ${rating}-star review was submitted for product #${productId}.`,
+      userId: Number(userId),
+      entityId: String(review.id),
+      entityType: "ProReview",
+      metadata: { productId, rating: Number(rating) },
     });
 
     return {

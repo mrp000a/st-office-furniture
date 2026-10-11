@@ -366,9 +366,9 @@ export default function EditOrderPage() {
   }
 
   return (
-    <main className="mx-auto w-full max-w-[1500px] space-y-5 px-3 pt-4 pb-28 sm:space-y-6 sm:px-6 sm:pb-8 lg:px-8">
+    <main className="mx-auto w-full max-w-375 space-y-5 px-3 pt-4 pb-28 sm:space-y-6 sm:px-6 sm:pb-8 lg:px-8">
       <header className="bg-card overflow-hidden rounded-2xl border shadow-sm">
-        <div className="from-primary/[0.10] via-primary/[0.04] bg-gradient-to-br to-transparent p-4 sm:p-6">
+        <div className="from-primary/10 via-primary/4 bg-linear-to-br to-transparent p-4 sm:p-6">
           <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex min-w-0 items-start gap-3">
               <Button
@@ -631,7 +631,7 @@ export default function EditOrderPage() {
                         <Package className="size-5" />
                       </div>
                       <div className="min-w-0 flex-1">
-                        <p className="text-sm font-semibold break-words">
+                        <p className="text-sm font-semibold wrap-break-word">
                           {product?.title ?? "Select a product"}
                         </p>
                         <p className="text-muted-foreground mt-0.5 text-xs">

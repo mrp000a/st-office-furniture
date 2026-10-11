@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   description: "Dashboard of .",
 };
 
+import { Suspense } from "react";
+import DashboardLoading from "@/app/(admin)/dashboard/loading";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -15,7 +18,9 @@ export default function RootLayout({
 }>) {
   return (
     <DashboardDrawerProvider>
-      <HeadNavCombo>{children}</HeadNavCombo>
+      <Suspense fallback={<DashboardLoading />}>
+        <HeadNavCombo>{children}</HeadNavCombo>
+      </Suspense>
     </DashboardDrawerProvider>
   );
 }

@@ -1,5 +1,51 @@
 import { Skeleton } from "@/components/ui/skeleton";
 
+export function ProductSectionSkeleton() {
+  return (
+    <section className="mx-auto w-full max-w-384 space-y-5 px-3 py-6 sm:px-5 lg:px-8">
+      <div className="flex items-end justify-between gap-4">
+        <div className="space-y-2">
+          <Skeleton className="h-4 w-28" />
+          <Skeleton className="h-8 w-56" />
+        </div>
+        <Skeleton className="h-9 w-24 rounded-lg" />
+      </div>
+      <div className="flex gap-3 overflow-hidden">
+        {Array.from({ length: 5 }).map((_, index) => (
+          <div
+            key={index}
+            className="w-65 min-w-65 space-y-3 rounded-xl border p-3"
+          >
+            <Skeleton className="aspect-square w-full rounded-lg" />
+            <Skeleton className="h-4 w-4/5" />
+            <Skeleton className="h-4 w-2/5" />
+            <Skeleton className="h-9 w-full rounded-lg" />
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+export function CategorySectionSkeleton() {
+  return (
+    <section className="mx-auto w-full max-w-384 space-y-5 px-3 py-6 sm:px-5 lg:px-8">
+      <div className="space-y-2">
+        <Skeleton className="h-4 w-28" />
+        <Skeleton className="h-8 w-64" />
+      </div>
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+        {Array.from({ length: 4 }).map((_, index) => (
+          <div key={index} className="space-y-3 rounded-xl border p-3">
+            <Skeleton className="aspect-[4/3] w-full rounded-lg" />
+            <Skeleton className="mx-auto h-5 w-2/3" />
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 export function ContentPageSkeleton() {
   return (
     <div className="bg-background mx-auto w-full max-w-384 space-y-6 px-4 py-6 sm:px-6 lg:px-8">

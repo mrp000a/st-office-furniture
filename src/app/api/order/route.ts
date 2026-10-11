@@ -6,7 +6,7 @@ import { getSession, getUserId, requireRole } from "@/lib/serverAuth";
 import { orderConfirmationEmail } from "../../../components/uiComponent/order-confirm-email";
 import { Resend } from "resend";
 import { createActivity } from "@/lib/activity-log";
-import { notifyOrder } from "@/lib/notification-service";
+import { notifyAdmins, notifyOrder } from "@/lib/notification-service";
 
 // const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -172,6 +172,13 @@ export async function POST(req: Request) {
       title: "Order placed successfully",
       body: `Your order #${createOrder.id} has been placed and is being processed.`,
       url: `/order/${createOrder.publicId}`,
+    });
+
+    await notifyAdmins({
+      type: "NEW_ORDER",
+      title: "New order received",
+      body: `${createOrder.user?.name ?? receiverName} placed order #${createOrder.id} for ৳${totalPrice.toLocaleString("en-BD")}.`,
+      url: `/dashboard/orders/${createOrder.id}`,
     });
 
     if (!createOrder)

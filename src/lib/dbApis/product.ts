@@ -9,6 +9,7 @@ type GetFeaturedProductsOptions = {
   limit?: number;
   searchString?: string;
   category?: string;
+  excludeProductId?: number;
   inStock?: boolean;
   order?: "asc" | "desc";
   revalidate?: number;
@@ -20,6 +21,7 @@ export async function getFeaturedProducts({
   limit = 10,
   revalidate = 600,
   category,
+  excludeProductId,
   inStock,
   order = "desc",
   searchString,
@@ -49,6 +51,14 @@ export async function getFeaturedProducts({
                       contains: category,
                       mode: "insensitive",
                     },
+                  },
+                }
+              : {},
+
+            excludeProductId
+              ? {
+                  id: {
+                    not: excludeProductId,
                   },
                 }
               : {},
@@ -121,6 +131,7 @@ export async function getFeaturedProducts({
     [
       "featured-products",
       category ?? "all",
+      String(excludeProductId ?? "all"),
       searchString ?? "all",
       String(limit),
       String(inStock),

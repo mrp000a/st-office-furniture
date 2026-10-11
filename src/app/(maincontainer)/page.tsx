@@ -15,6 +15,12 @@ import React from "react";
 import SendMessageContact from "./(otherpages)/contact/comp/sendMessageContact";
 import { Hero } from "@/components/pri-sections/home-hero-anim";
 import { Hero2 } from "@/components/pri-sections/home-hero-2";
+import Imagegallery from "@/components/sections/imagegallery";
+import { Suspense } from "react";
+import {
+  CategorySectionSkeleton,
+  ProductSectionSkeleton,
+} from "@/components/loading/page-skeletons";
 
 const Page = () => {
   return (
@@ -22,13 +28,19 @@ const Page = () => {
       {/* <Hero2 products={[{ id: 122, price: 223, title: "Product", images: [""] }, { id: 12, price: 223, title: "Product", images: [""] }, { id: 129, price: 223, title: "Product", images: [""] },]} /> */}
       <HeroSectionA />
       {/* <Hero /> */}
-      <FeaturedProducts />
-      <SpecialCategories />
+      <Suspense fallback={<ProductSectionSkeleton />}>
+        <FeaturedProducts />
+      </Suspense>
+      <Suspense fallback={<CategorySectionSkeleton />}>
+        <SpecialCategories />
+      </Suspense>
       <TrustStrip />
       <WhySTOfficeFurniture />
       <StatsSection />
       <WorkspaceSolutions />
-      <NewArivalsProducts />
+      <Suspense fallback={<ProductSectionSkeleton />}>
+        <NewArivalsProducts />
+      </Suspense>
       <ReviewsSection />
       <div className="bg-violet-primary/20 py-6">
         <div className="mb-5 text-center">
@@ -42,6 +54,7 @@ const Page = () => {
         </div>
         <FaqQuestion />
       </div>
+      <Imagegallery />
       <SendMessageContact />
       <FinalCTA />
     </div>

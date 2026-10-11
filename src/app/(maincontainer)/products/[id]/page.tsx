@@ -5,6 +5,7 @@ import { Product } from "@/generated/prisma";
 import { prisma } from "@/lib/prisma";
 import { getImageUrlProduct } from "@/lib/getImageUrl";
 import ProductNotFound from "@/components/common/not-found-pages/product-not-found";
+import { getFeaturedProducts } from "@/lib/dbApis/product";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -130,9 +131,22 @@ export default async function Page({ params }: Props) {
     reviewCount: reviewStats._count.rating,
   };
 
+  const relatedProducts = product.category
+    ? await getFeaturedProducts({
+        category: product.category.name,
+        excludeProductId: product.id,
+        limit: 10,
+        order: "desc",
+        inStock: true,
+      })
+    : [];
+
   return (
     <>
-      <AProductPage product={productWithRating} />
+      <AProductPage
+        product={productWithRating}
+        relatedProducts={relatedProducts}
+      />
     </>
   );
 }

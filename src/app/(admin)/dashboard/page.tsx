@@ -145,7 +145,7 @@ const page = async () => {
   );
 
   const topStockProductsRaw = await prisma.topDeliveredProducts.findMany({
-    take: 10,
+    take: 5,
     where: {},
     orderBy: { sold: "desc" },
   });

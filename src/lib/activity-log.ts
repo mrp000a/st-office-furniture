@@ -35,7 +35,7 @@ export async function createActivity({
       title,
       description,
 
-      userId: Number(userId) ?? null,
+      userId: userId == null ? null : Number(userId),
 
       entityId: entityId ?? null,
       entityType: entityType ?? null,

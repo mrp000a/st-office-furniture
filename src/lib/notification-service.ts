@@ -17,20 +17,8 @@ function getErrorMessage(error: unknown) {
 
 export async function notifyUser(payload: NotificationPayload) {
   try {
-    const notification = await prisma.notification.create({
-      data: {
-        userId: payload.userId ?? null,
-        title: payload.title,
-        body: payload.body,
-        type: payload.type,
-        url: payload.url,
-        icon: payload.icon,
-        image: payload.image,
-      },
-    });
-
     if (!payload.userId) {
-      return notification;
+      return null;
     }
 
     const subscriptions = await prisma.pushSubscription.findMany({
@@ -72,14 +60,11 @@ export async function notifyUser(payload: NotificationPayload) {
       }
     }
 
-    return prisma.notification.update({
-      where: { id: notification.id },
-      data: {
-        delivered,
-        deliveredAt: delivered ? new Date() : null,
-        error: delivered ? null : (lastError ?? "No active push subscription."),
-      },
-    });
+    return {
+      delivered,
+      deliveredAt: delivered ? new Date() : null,
+      error: delivered ? null : (lastError ?? "No active push subscription."),
+    };
   } catch (error: unknown) {
     console.error("Notification history error:", error);
     return null;
@@ -96,4 +81,55 @@ export async function notifyOrder(
   });
 
   return notifyUser({ ...payload, userId: order?.userId });
+}
+
+export async function notifyAdmins(
+  payload: Omit<NotificationPayload, "userId">,
+) {
+  try {
+    const subscriptions = await prisma.pushSubscription.findMany({
+      where: {
+        isActive: true,
+        user: { role: { in: ["ADMIN", "SUPER_ADMIN"] } },
+      },
+      select: { id: true, endpoint: true, p256dh: true, auth: true },
+    });
+
+    let delivered = 0;
+
+    for (const subscription of subscriptions) {
+      try {
+        await sendPushNotification(subscription, {
+          title: payload.title,
+          body: payload.body,
+          ...(payload.url ? { url: payload.url } : {}),
+          ...(payload.icon ? { icon: payload.icon } : {}),
+          ...(payload.image ? { image: payload.image } : {}),
+        });
+        delivered += 1;
+      } catch (error: unknown) {
+        const statusCode =
+          typeof error === "object" &&
+          error !== null &&
+          "statusCode" in error &&
+          typeof error.statusCode === "number"
+            ? error.statusCode
+            : undefined;
+
+        if (statusCode === 404 || statusCode === 410) {
+          await prisma.pushSubscription.update({
+            where: { id: subscription.id },
+            data: { isActive: false },
+          });
+        } else {
+          console.error("Admin push notification delivery failed:", error);
+        }
+      }
+    }
+
+    return { delivered, total: subscriptions.length };
+  } catch (error: unknown) {
+    console.error("Admin notification lookup error:", error);
+    return { delivered: 0, total: 0 };
+  }
 }

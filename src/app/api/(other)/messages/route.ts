@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { Message } from "@/generated/prisma";
 import { getSession, requireRole } from "@/lib/serverAuth";
 import { sendEmail } from "@/lib/api";
+import { createActivity } from "@/lib/activity-log";
 
 export async function GET() {
   try {
@@ -50,6 +51,16 @@ export async function POST(req: Request) {
         subject,
         message,
       },
+    });
+
+    await createActivity({
+      type: "MESSAGE",
+      action: "CREATE",
+      title: "Contact message received",
+      description: `${name} submitted a contact message${subject ? `: ${subject}` : ""}.`,
+      entityId: String(createMessage.id),
+      entityType: "Message",
+      metadata: { email: email ?? null, phone: phone ?? null },
     });
 
     if (createMessage && email) {

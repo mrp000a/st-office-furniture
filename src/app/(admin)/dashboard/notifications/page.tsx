@@ -1,17 +1,8 @@
 "use client";
 
 import React from "react";
-import {
-  Bell,
-  CalendarClock,
-  CheckCircle2,
-  Clock3,
-  ExternalLink,
-  ImagePlus,
-  Send,
-  Users,
-  XCircle,
-} from "lucide-react";
+import { Bell, CheckCircle2, ImagePlus, Send, XCircle } from "lucide-react";
+import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -28,43 +19,36 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-const notifications = [
-  {
-    id: 1,
-    title: "Weekend Special Offer",
-    type: "Promotional",
-    status: "Sent",
-    audience: "All Subscribers",
-    time: "2 hours ago",
-  },
-  {
-    id: 2,
-    title: "Your order has been shipped",
-    type: "Notice",
-    status: "Sent",
-    audience: "Customers",
-    time: "5 hours ago",
-  },
-  {
-    id: 3,
-    title: "New Office Chair Collection",
-    type: "Promotional",
-    status: "Scheduled",
-    audience: "All Subscribers",
-    time: "Tomorrow, 10:00 AM",
-  },
-  {
-    id: 4,
-    title: "Scheduled Maintenance",
-    type: "Notice",
-    status: "Failed",
-    audience: "All Subscribers",
-    time: "Yesterday",
-  },
-];
+type RecentNotification = {
+  id: number;
+  title: string;
+  body: string;
+  url: string | null;
+  delivered: boolean;
+  error: string | null;
+  createdAt: string;
+};
 
 export default function AdminNotifications() {
   const [isSending, setIsSending] = React.useState(false);
+  const [notifications, setNotifications] = React.useState<
+    RecentNotification[]
+  >([]);
+
+  useEffect(() => {
+    fetch("/api/push/send", { cache: "no-store" })
+      .then(async (response) => {
+        const result = await response.json();
+        if (!response.ok || !result.success) {
+          throw new Error(result.message ?? "Unable to load notifications.");
+        }
+        setNotifications(result.notifications);
+      })
+      .catch((error) => {
+        console.error("Recent notification loading error:", error);
+        toast.error("Unable to load recent notifications.");
+      });
+  }, []);
 
   async function sendNotification(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -108,7 +92,7 @@ export default function AdminNotifications() {
           title: form.get("title"),
           message: form.get("message"),
           url: form.get("url"),
-          icon: form.get("icon"),
+          icon: image,
           image,
         }),
       });
@@ -160,34 +144,6 @@ export default function AdminNotifications() {
           <span className="h-2 w-2 rounded-full bg-green-500" />
           <span className="text-muted-foreground">Active</span>
         </div>
-      </div>
-
-      {/* Statistics */}
-      <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-        <StatCard
-          icon={Users}
-          label="Subscribers"
-          value="842"
-          description="Active subscribers"
-        />
-        <StatCard
-          icon={Send}
-          label="Sent Today"
-          value="28"
-          description="Notifications sent"
-        />
-        <StatCard
-          icon={CalendarClock}
-          label="Scheduled"
-          value="4"
-          description="Upcoming notifications"
-        />
-        <StatCard
-          icon={CheckCircle2}
-          label="Delivery Rate"
-          value="98.4%"
-          description="Successful delivery"
-        />
       </div>
 
       {/* Main */}
@@ -282,31 +238,15 @@ export default function AdminNotifications() {
               />
             </div>
 
-            {/* Icon */}
-            <div className="space-y-2">
-              <label htmlFor="notification-icon">Notification Icon</label>
-
-              <Input
-                id="notification-icon"
-                name="icon"
-                type="url"
-                placeholder="https://example.com/notification-icon.png"
-              />
-
-              <p className="text-muted-foreground text-[11px]">
-                Optional. Use a publicly accessible square PNG or JPG URL.
-              </p>
-            </div>
-
             {/* Image */}
             <div className="space-y-2">
-              <label>Notification Image</label>
+              <label>Notification icon and image</label>
 
               <label className="border-border bg-muted/20 hover:bg-muted/40 flex min-h-28 cursor-pointer flex-col items-center justify-center rounded-lg border border-dashed px-4 text-center transition-colors">
                 <ImagePlus className="text-muted-foreground mb-2 h-6 w-6" />
 
                 <span className="text-sm font-medium">
-                  Upload a local image
+                  Upload notification image
                 </span>
 
                 <span className="text-muted-foreground mt-1 text-xs">
@@ -318,7 +258,7 @@ export default function AdminNotifications() {
                   name="imageFile"
                   type="file"
                   accept="image/png,image/jpeg,image/webp"
-                  className="hidden"
+                  className="file:border-2 file:rounded-full file:px-3 "
                 />
               </label>
 
@@ -330,7 +270,8 @@ export default function AdminNotifications() {
               />
 
               <p className="text-muted-foreground text-[11px]">
-                If both are provided, the uploaded local image is used.
+                Optional. The selected image is used as both the notification
+                icon and image. Uploaded files take priority over the URL.
               </p>
             </div>
 
@@ -339,13 +280,10 @@ export default function AdminNotifications() {
               <label htmlFor="notification-url">Action URL</label>
 
               <div className="relative">
-                <ExternalLink className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
-
                 <Input
                   id="notification-url"
                   name="url"
-                  placeholder="/products/office-chair"
-                  className="pl-9"
+                  placeholder="e.g /products/office-chair"
                 />
               </div>
 
@@ -354,73 +292,8 @@ export default function AdminNotifications() {
               </p>
             </div>
 
-            {/* Schedule */}
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="space-y-2">
-                <label>Delivery</label>
-
-                <Select defaultValue="now">
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-
-                  <SelectContent>
-                    <SelectItem value="now">Send Immediately</SelectItem>
-                    <SelectItem value="schedule">Schedule</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="space-y-2">
-                <label htmlFor="schedule">Schedule Time</label>
-
-                <Input id="schedule" type="datetime-local" />
-              </div>
-            </div>
-
-            {/* Preview */}
-            <div className="border-border bg-muted/20 rounded-xl border p-4">
-              <div className="mb-3 flex items-center justify-between">
-                <span className="text-muted-foreground text-xs font-semibold tracking-wider uppercase">
-                  Preview
-                </span>
-
-                <span className="text-muted-foreground text-[10px]">
-                  Push notification
-                </span>
-              </div>
-
-              <div className="border-border bg-background flex gap-3 rounded-lg border p-3 shadow-sm">
-                <div className="bg-green-primary/10 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg">
-                  <Bell className="text-green-primary h-5 w-5" />
-                </div>
-
-                <div className="min-w-0">
-                  <p className="truncate text-sm font-semibold">
-                    20% Off on All Office Chairs
-                  </p>
-                  <p className="text-muted-foreground mt-0.5 line-clamp-2 text-xs">
-                    Upgrade your workspace with our latest office chairs.
-                    Limited time offer.
-                  </p>
-                  <p className="text-muted-foreground mt-1 text-[10px]">
-                    ST Office Furniture · now
-                  </p>
-                </div>
-              </div>
-            </div>
-
             {/* Buttons */}
             <div className="border-border flex flex-col-reverse gap-2 border-t pt-5 sm:flex-row sm:justify-end">
-              <Button type="button" variant="outline">
-                Save Draft
-              </Button>
-
-              <Button type="button" variant="outline">
-                <CalendarClock className="h-4 w-4" />
-                Schedule
-              </Button>
-
               <Button
                 type="submit"
                 disabled={isSending}
@@ -462,49 +335,15 @@ export default function AdminNotifications() {
   );
 }
 
-function StatCard({
-  icon: Icon,
-  label,
-  value,
-  description,
-}: {
-  icon: React.ElementType;
-  label: string;
-  value: string;
-  description: string;
-}) {
-  return (
-    <div className="border-border bg-card rounded-xl border p-4 shadow-sm">
-      <div className="flex items-start justify-between gap-3">
-        <div className="min-w-0">
-          <p className="text-muted-foreground text-xs">{label}</p>
-          <p className="mt-1 text-2xl font-bold tracking-tight">{value}</p>
-          <p className="text-muted-foreground mt-1 truncate text-[10px]">
-            {description}
-          </p>
-        </div>
-
-        <div className="bg-green-primary/10 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg">
-          <Icon className="text-green-primary h-4 w-4" />
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function NotificationItem({
   notification,
 }: {
-  notification: (typeof notifications)[number];
+  notification: RecentNotification;
 }) {
   const statusConfig = {
     Sent: {
       icon: CheckCircle2,
       className: "text-green-600 bg-green-500/10",
-    },
-    Scheduled: {
-      icon: Clock3,
-      className: "text-orange-500 bg-orange-500/10",
     },
     Failed: {
       icon: XCircle,
@@ -512,7 +351,8 @@ function NotificationItem({
     },
   };
 
-  const config = statusConfig[notification.status as keyof typeof statusConfig];
+  const status = notification.delivered ? "Sent" : "Failed";
+  const config = statusConfig[status];
   const StatusIcon = config.icon;
 
   return (
@@ -531,21 +371,21 @@ function NotificationItem({
             </h3>
 
             <span className="text-muted-foreground shrink-0 text-[10px]">
-              {notification.time}
+              {new Date(notification.createdAt).toLocaleString("en-BD")}
             </span>
           </div>
 
           <div className="text-muted-foreground mt-1 flex flex-wrap items-center gap-1.5 text-[10px]">
-            <span>{notification.type}</span>
+            <span>Admin panel</span>
             <span>•</span>
-            <span>{notification.audience}</span>
+            <span>{notification.body}</span>
           </div>
 
           <div className="mt-2">
             <span
               className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${config.className}`}
             >
-              {notification.status}
+              {status}
             </span>
           </div>
         </div>

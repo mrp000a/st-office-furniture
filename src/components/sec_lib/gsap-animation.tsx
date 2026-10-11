@@ -1,50 +1,59 @@
 "use client";
 import { gsap } from "gsap";
-import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useEffect } from "react";
 
 const Gsap_Animations = () => {
-  useGSAP(() => {
-    gsap.registerPlugin(ScrollTrigger);
+  useEffect(() => {
+    let context: gsap.Context | undefined;
+    const frame = window.requestAnimationFrame(() => {
+      gsap.registerPlugin(ScrollTrigger);
+      context = gsap.context(() => {
+        gsap.utils.toArray<HTMLElement>(".reveal").forEach((element) => {
+          gsap.fromTo(
+            element,
+            { opacity: 0, y: 40 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 1.2,
+              ease: "power2.out",
+              scrollTrigger: {
+                once: false,
+                trigger: element,
+                start: "top 94%",
+                toggleActions: "play none none none",
+              },
+            },
+          );
+        });
 
-    gsap.utils.toArray(".reveal").forEach((el: any) => {
-      gsap.fromTo(
-        el,
-        { opacity: 0, y: 40 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1.2,
-          ease: "power2.out",
-          scrollTrigger: {
-            once: false,
-            trigger: el,
-            start: "top 94%",
-            toggleActions: "play none none none",
-          },
-        },
-      );
+        gsap.utils.toArray<HTMLElement>(".reveal-late").forEach((element) => {
+          gsap.fromTo(
+            element,
+            { opacity: 0, y: 40 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 1.5,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: element,
+                start: "top 85%",
+                toggleActions: "play reverse play reverse",
+              },
+            },
+          );
+        });
+      });
     });
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+      context?.revert();
+    };
   }, []);
-  useGSAP(() => {
-    gsap.utils.toArray(".reveal-late").forEach((el: any) => {
-      gsap.fromTo(
-        el,
-        { opacity: 0, y: 40 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1.5,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: el,
-            start: "top 85%",
-            toggleActions: "play reverse play reverse",
-          },
-        },
-      );
-    });
-  }, []);
+
   return null;
 };
 

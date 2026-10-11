@@ -6,6 +6,7 @@ import { IoNotifications } from "react-icons/io5";
 import { IconType } from "react-icons/lib";
 import { MdPointOfSale } from "react-icons/md";
 import { TbCategoryPlus } from "react-icons/tb";
+import { MdOutlineHistory } from "react-icons/md";
 
 export const DashboardNavItems: {
   label: string;
@@ -25,6 +26,11 @@ export const DashboardNavItems: {
     label: "Notifications",
     href: "/dashboard/notifications",
     icon: IoNotifications,
+  },
+  {
+    label: "Activity",
+    href: "/dashboard/activity",
+    icon: MdOutlineHistory,
   },
   { label: "Settings", href: "/dashboard/settings", icon: IoMdSettings },
 ];

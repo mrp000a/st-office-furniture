@@ -33,6 +33,7 @@ import { useState } from "react";
 import { SignOut } from "@/components/sec_lib/Sessions";
 import { IoMdLogOut } from "react-icons/io";
 import { getImageUrl } from "@/lib/getImageUrl";
+import ProfileNotificationCard from "@/components/sec_lib/profile-notification-card";
 
 type ProfileHomeProps = {
   user: {
@@ -180,6 +181,8 @@ export default function ProfileHome({
           </div>
         </div>
       </section>
+
+      <ProfileNotificationCard />
 
       {/* ========================================================= */}
       {/* STATISTICS */}

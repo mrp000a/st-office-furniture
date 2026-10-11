@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { CartItem } from "@/generated/prisma";
+import { createActivity } from "@/lib/activity-log";
 
 export async function GET(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams;
@@ -141,6 +142,17 @@ export async function POST(req: Request) {
       include: { product: true, cart: true },
     });
 
+    await createActivity({
+      type: "CART",
+      action: "UPDATE",
+      title: "Cart updated",
+      description: `${title} was added to a user's cart.`,
+      userId: Number(userId),
+      entityId: String(addCartItem.id),
+      entityType: "CartItem",
+      metadata: { productId, quantity: Number(qty) },
+    });
+
     return NextResponse.json({ success: true, result: addCartItem });
   } catch (err: any) {
     const message = err?.message ?? String(err);
@@ -170,6 +182,15 @@ export async function DELETE(req: NextRequest) {
         id: itemId,
       },
       include: {},
+    });
+
+    await createActivity({
+      type: "CART",
+      action: "DELETE",
+      title: "Cart item removed",
+      description: `Cart item #${itemId} was removed.`,
+      entityId: String(itemId),
+      entityType: "CartItem",
     });
 
     return NextResponse.json({ success: true, result: deleteItem });

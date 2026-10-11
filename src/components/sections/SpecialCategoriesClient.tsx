@@ -1,19 +1,19 @@
+
 "use client";
-import { Button } from "@/components/ui/button";
+
+import Image from "next/image";
+import Link from "next/link";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { Category } from "@/generated/prisma";
 import {
-  ArrowBigRight,
   ArrowRight,
   ChevronLeft,
   ChevronRight,
+  Layers3,
+  MoveRight,
 } from "lucide-react";
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Category } from "@/generated/prisma";
-import { getCategoriesClient } from "@/lib/api";
-import Link from "next/link";
-import { BiCategory } from "react-icons/bi";
-import Image from "next/image";
-import { TbCategoryPlus } from "react-icons/tb";
-import { ProductDefaultImage } from "../data/core";
+
+import { Button } from "@/components/ui/button";
 import { getImageUrlProduct } from "@/lib/getImageUrl";
 
 const SpecialCategoriesClient = ({
@@ -23,118 +23,226 @@ const SpecialCategoriesClient = ({
 }) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+
+  const updateScrollState = useCallback(() => {
+    const container = scrollContainerRef.current;
+
+    if (!container) return;
+
+    setCanScrollLeft(container.scrollLeft > 2);
+    setCanScrollRight(
+      container.scrollLeft + container.clientWidth <
+        container.scrollWidth - 2,
+    );
+  }, []);
+
   const scroll = (direction: "left" | "right") => {
-    if (scrollContainerRef.current) {
-      const containerWidth = scrollContainerRef.current.clientWidth;
-      const scrollAmount = containerWidth - 40; // Adjust this value to scroll more or less per click
-      scrollContainerRef.current.scrollBy({
-        left: direction === "left" ? -scrollAmount : scrollAmount,
-        behavior: "smooth",
-      });
-    }
+    const container = scrollContainerRef.current;
+
+    if (!container) return;
+
+    const firstCard = container.querySelector<HTMLElement>(
+      "[data-category-card]",
+    );
+
+    const cardWidth = firstCard?.offsetWidth ?? 280;
+    const gap = 16;
+
+    container.scrollBy({
+      left:
+        direction === "left"
+          ? -(cardWidth + gap) * 2
+          : (cardWidth + gap) * 2,
+      behavior: "smooth",
+    });
   };
 
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+
+    if (!container) return;
+
+    updateScrollState();
+
+    container.addEventListener("scroll", updateScrollState, {
+      passive: true,
+    });
+
+    const observer = new ResizeObserver(updateScrollState);
+    observer.observe(container);
+
+    return () => {
+      container.removeEventListener("scroll", updateScrollState);
+      observer.disconnect();
+    };
+  }, [categories.length, updateScrollState]);
+
+  if (categories.length === 0) return null;
+
   return (
-    <section>
-      <div className="bg-background/30 reveal relative mx-auto w-full max-w-384 rounded-md border p-2">
-        {/* heading */}
-        <div className="reveal flex flex-wrap items-center justify-between gap-2">
-          <span className="flex items-center gap-2">
-            <div className="text-green-primary relative">
-              <BiCategory
-                name="category"
-                className="absolute h-8 w-8 animate-ping fill-yellow-400 opacity-50"
-              />
-              <BiCategory name="category" className="h-8 w-8 fill-yellow-400" />
+    <section className="w-full py-6 sm:py-10">
+      <div className="mx-auto w-full max-w-384 px-3 sm:px-5 lg:px-8">
+        {/* Section heading */}
+        <div className="mb-5 flex items-end justify-between gap-3 sm:mb-7">
+          <div className="min-w-0">
+            <div className="mb-2 flex items-center gap-2">
+              <span className="flex size-8 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                <Layers3 size={17} />
+              </span>
+
+              <span className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground sm:text-sm">
+                Find your style
+              </span>
             </div>
-            <h2 className="text-lg font-bold">Shop By Categories</h2>
-          </span>
-          <span>
-            <Button variant={"destructive"} asChild>
-              <Link href={"/c"}>
-                <span>See All</span>
-                <ArrowBigRight />
+
+            <h2 className="text-xl font-bold tracking-tight sm:text-2xl lg:text-3xl">
+              Shop by{" "}
+              <span className="text-primary">Categories</span>
+            </h2>
+
+            <p className="mt-1 max-w-lg text-xs leading-5 text-muted-foreground sm:text-sm">
+              Explore furniture designed for better seating and better
+              working.
+            </p>
+          </div>
+
+          <div className="flex shrink-0 items-center gap-2">
+            {/* Desktop carousel controls */}
+            <Button
+              type="button"
+              variant="outline"
+              size="icon"
+              aria-label="Scroll categories left"
+              disabled={!canScrollLeft}
+              onClick={() => scroll("left")}
+              className="hidden size-10 rounded-full sm:flex"
+            >
+              <ChevronLeft size={19} />
+            </Button>
+
+            <Button
+              type="button"
+              variant="outline"
+              size="icon"
+              aria-label="Scroll categories right"
+              disabled={!canScrollRight}
+              onClick={() => scroll("right")}
+              className="hidden size-10 rounded-full sm:flex"
+            >
+              <ChevronRight size={19} />
+            </Button>
+
+            <Button
+              variant="ghost"
+              size="sm"
+              asChild
+              className="gap-1 rounded-full px-2 text-xs font-semibold sm:px-3 sm:text-sm"
+            >
+              <Link href="/c">
+                See all
+                <ArrowRight size={15} />
               </Link>
             </Button>
-          </span>
+          </div>
         </div>
 
-        {/* content  */}
-        <div
-          ref={scrollContainerRef}
-          className="reveal relative flex h-100 w-full scrollbar-none items-stretch gap-3 overflow-x-auto overflow-y-hidden p-2"
-        >
-          {categories &&
-            categories.length > 0 &&
-            categories.map(({ name, description, image }, index) => (
-              <div
-                key={index}
-                className="group ring-green-primary hover:ring-gray-secondary box-border flex w-68 min-w-68 rounded-md p-2 ring-2 transition-all hover:-translate-y-0.5 hover:shadow-lg hover:ring-4"
+        {/* Category carousel */}
+        <div className="relative">
+          <div
+            ref={scrollContainerRef}
+            className="flex snap-x snap-mandatory gap-3 overflow-x-auto overscroll-x-contain pb-4 scrollbar-none sm:gap-4"
+            aria-label="Product categories"
+          >
+            {categories.map((category, index) => (
+              <article
+                key={category.id}
+                data-category-card
+                className="group relative flex w-[72%] min-w-[72%] snap-start flex-col overflow-hidden rounded-2xl border border-border/70 bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 sm:w-[42%] sm:min-w-[42%] md:w-[31%] md:min-w-[31%] lg:w-[24%] lg:min-w-[24%] xl:w-[22%] xl:min-w-[22%]"
               >
-                <div className="flex h-full w-full flex-col gap-2">
-                  <Link
-                    href={`/c/${name}`}
-                    className="border-gray-primary relative z-10 box-border inline-block h-60 min-h-60 w-full overflow-hidden rounded-md border"
-                  >
-                    {image ? (
+                {/* Image */}
+                <Link
+                  href={`/c/${encodeURIComponent(category.name.trim())}`}
+                  aria-label={`Explore ${category.name}`}
+                  className="relative block overflow-hidden bg-muted/30"
+                >
+                  <div className="relative aspect-[4/3] w-full overflow-hidden bg-white dark:bg-muted/20">
+                    {category.image ? (
                       <Image
                         unoptimized
-                        src={getImageUrlProduct(image)}
-                        alt={name}
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        src={getImageUrlProduct(category.image)}
+                        alt={category.name}
                         fill
-                        className="h-full w-full cursor-pointer bg-white object-contain object-center transition-all duration-500 group-hover:scale-115"
+                        sizes="(max-width: 640px) 72vw, (max-width: 768px) 42vw, (max-width: 1024px) 31vw, 24vw"
+                        className="object-contain p-4 transition-transform duration-500 ease-out group-hover:scale-105 sm:p-5"
                       />
                     ) : (
-                      <TbCategoryPlus
-                        name="category Icon"
-                        className="h-full w-full"
-                      />
+                      <div className="flex h-full items-center justify-center">
+                        <Layers3
+                          size={42}
+                          strokeWidth={1.2}
+                          className="text-muted-foreground/50"
+                        />
+                      </div>
                     )}
-                  </Link>
-                  <div className="flex flex-1 flex-col items-start">
-                    <Link
-                      href={`/c/${name}`}
-                      className="line-clamp-2 cursor-pointer text-base font-bold"
-                    >
-                      {name}
-                    </Link>
-                    {description && (
-                      <span className="line-clamp-2 text-[10px]">
-                        Description:{description}
-                      </span>
-                    )}
+
+                    {/* Image overlay */}
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/15 via-transparent to-transparent opacity-60 transition-opacity duration-300 group-hover:opacity-100" />
+
+                    <span className="absolute left-3 top-3 rounded-full border border-border/50 bg-background/90 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-foreground shadow-sm backdrop-blur sm:text-xs">
+                      Category {String(index + 1).padStart(2, "0")}
+                    </span>
+
+                    <span className="absolute bottom-3 right-3 flex size-9 items-center justify-center rounded-full bg-background/95 text-foreground shadow-md transition-all duration-300 group-hover:rotate-[-35deg] group-hover:bg-primary group-hover:text-primary-foreground">
+                      <ArrowRight size={17} />
+                    </span>
                   </div>
-                  <Button variant={"outline"} asChild>
+                </Link>
+
+                {/* Content */}
+                <div className="flex flex-1 flex-col p-3.5 sm:p-4">
+                  <Link
+                    href={`/c/${encodeURIComponent(category.name.trim())}`}
+                    className="line-clamp-2 text-base font-bold leading-snug tracking-tight transition-colors hover:text-primary sm:text-lg"
+                  >
+                    {category.name}
+                  </Link>
+
+                  <p className="mt-2 line-clamp-2 min-h-10 text-xs leading-5 text-muted-foreground sm:text-sm">
+                    {category.description?.trim() ||
+                      `Explore our ${category.name.toLowerCase()} collection and find the right fit for your space.`}
+                  </p>
+
+                  <div className="mt-auto pt-4">
                     <Link
-                      href={`/c/${name}`}
-                      className="line-clamp-2 cursor-pointer text-base font-bold"
+                      href={`/c/${encodeURIComponent(category.name.trim())}`}
+                      className="inline-flex items-center gap-2 text-xs font-semibold text-primary transition-all duration-200 hover:gap-3 sm:text-sm"
                     >
-                      View Now
-                      <span className="bg-gray-secondary/60 flex-center text-blue-primary size-5 -rotate-45 rounded-full transition-all group-hover:rotate-0 group-hover:bg-yellow-400">
-                        <ArrowRight size={3.3} className="" />
-                      </span>
+                      Explore collection
+                      <MoveRight size={16} />
                     </Link>
-                  </Button>
+                  </div>
                 </div>
-              </div>
+              </article>
             ))}
+          </div>
+
+          {/* Subtle edge fades on larger screens */}
+          {canScrollLeft && (
+            <div className="pointer-events-none absolute inset-y-0 left-0 hidden w-6 bg-gradient-to-r from-background to-transparent sm:block" />
+          )}
+
+          {canScrollRight && (
+            <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-6 bg-gradient-to-l from-background to-transparent sm:block" />
+          )}
         </div>
-        <div className="flex-center text-4xl font-bold">
-          <button
-            onClick={() => scroll("left")}
-            className="showPrevSlide bg-gray-secondary/50 absolute top-1/2 left-0 z-20 rounded-md px-2 py-3 backdrop-blur-sm"
-          >
-            <ChevronLeft className="" />
-          </button>
-          <button
-            onClick={() => {
-              scroll("right");
-            }}
-            className="showPrevSlide bg-gray-secondary/50 absolute top-1/2 right-0 z-20 rounded-md px-2 py-3 backdrop-blur-sm"
-          >
-            <ChevronRight />
-          </button>
+
+        {/* Mobile carousel hint */}
+        <div className="mt-1 flex items-center justify-center gap-2 text-xs text-muted-foreground sm:hidden">
+          <ChevronLeft size={14} />
+          <span>Swipe to explore categories</span>
+          <ChevronRight size={14} />
         </div>
       </div>
     </section>

@@ -33,6 +33,8 @@ import ProductReviewForm from "@/components/common/forms/reviewForm";
 import { ReviewCard } from "@/components/common/reviewCard";
 import Link from "next/link";
 import { getImageUrlProduct } from "@/lib/getImageUrl";
+import ProductsSections from "@/components/sections/productsSection";
+import { ProductItemType } from "@/components/data/core";
 
 // import { useRouter } from "next/navigation";
 
@@ -73,8 +75,10 @@ type productWithRating = {
 
 const AProductPage = ({
   product: productInfo,
+  relatedProducts,
 }: {
   product: productWithRating;
+  relatedProducts: (ProductItemType & { averageRating: number })[];
 }) => {
   const router = useRouter();
   const session = useSession();
@@ -525,6 +529,15 @@ const AProductPage = ({
                 </div>
               </div>
             </div>
+            {relatedProducts && relatedProducts.length > 0 && (
+              <ProductsSections
+                products={relatedProducts}
+                title="Related Products"
+                subTitle="More products from this category."
+                href={`/products?category=${encodeURIComponent(productInfo.category?.name ?? "")}`}
+                icon="star"
+              />
+            )}
           </div>
         </div>
       ) : (
