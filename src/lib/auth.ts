@@ -163,7 +163,10 @@ export const authOptions: NextAuthOptions = {
             googleId: account.providerAccountId,
             ...(profileImage ? { image: profileImage } : {}),
             emailVerified: true,
-            password: await bcrypt.hash(crypto.randomBytes(32).toString("hex"), 10),
+            password: await bcrypt.hash(
+              crypto.randomBytes(32).toString("hex"),
+              10,
+            ),
           },
         });
 

@@ -6,9 +6,7 @@ import { deleteFile, FindCategoryExists, uploadFile } from "@/lib/api";
 import { Info, Loader } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { CategoryFormData } from "@/lib/formDataTypes";
-import {
-  validateImageFile,
-} from "@/lib/image-upload-limits";
+import { validateImageFile } from "@/lib/image-upload-limits";
 import { toast } from "sonner";
 import {
   Popover,

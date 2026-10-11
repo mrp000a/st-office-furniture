@@ -38,7 +38,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { InputErrorMessage } from "@/components/uiComponent/uiCom";
-import { DeliveryAreas as DeliveryAreaOptions, orderStatuses2 } from "@/components/data/core";
+import {
+  DeliveryAreas as DeliveryAreaOptions,
+  orderStatuses2,
+} from "@/components/data/core";
 import {
   DeliveryAreas,
   PaymentMethods,
@@ -98,7 +101,9 @@ function Field({
     <div className={`min-w-0 space-y-1.5 ${className}`}>
       <label className="block text-sm font-medium">{label}</label>
       {children}
-      {hint && !error && <p className="text-xs text-muted-foreground">{hint}</p>}
+      {hint && !error && (
+        <p className="text-muted-foreground text-xs">{hint}</p>
+      )}
       {error && <InputErrorMessage>{error}</InputErrorMessage>}
     </div>
   );
@@ -118,12 +123,12 @@ function SectionHeading({
   return (
     <div className="mb-5 flex flex-wrap items-start justify-between gap-3">
       <div className="flex min-w-0 items-start gap-3">
-        <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+        <div className="bg-primary/10 text-primary flex size-10 shrink-0 items-center justify-center rounded-xl">
           <Icon className="size-5" />
         </div>
         <div className="min-w-0">
           <h2 className="font-semibold tracking-tight">{title}</h2>
-          <p className="mt-0.5 text-sm text-muted-foreground">{description}</p>
+          <p className="text-muted-foreground mt-0.5 text-sm">{description}</p>
         </div>
       </div>
       {trailing}
@@ -180,7 +185,9 @@ export default function EditOrderPage() {
           throw new Error(orderData.message ?? "Unable to load order.");
         }
         if (!productResponse.ok) {
-          throw new Error("Order loaded, but the product list could not be loaded.");
+          throw new Error(
+            "Order loaded, but the product list could not be loaded.",
+          );
         }
         if (!active) return;
 
@@ -226,7 +233,8 @@ export default function EditOrderPage() {
 
   const getProductPrice = (product?: ProductOption) => {
     if (!product) return 0;
-    return product.discountPrice != null && product.discountPrice < product.price
+    return product.discountPrice != null &&
+      product.discountPrice < product.price
       ? Number(product.discountPrice)
       : Number(product.price);
   };
@@ -237,7 +245,9 @@ export default function EditOrderPage() {
         const product = products.find(
           (option) => option.id === Number(item.productId),
         );
-        return sum + getProductPrice(product) * Math.max(0, Number(item.qty || 0));
+        return (
+          sum + getProductPrice(product) * Math.max(0, Number(item.qty || 0))
+        );
       }, 0),
     [products, values.items],
   );
@@ -262,7 +272,9 @@ export default function EditOrderPage() {
   }, [products, productSearch]);
 
   function addProduct(product: ProductOption) {
-    const existingIndex = fields.findIndex((field) => field.productId === product.id);
+    const existingIndex = fields.findIndex(
+      (field) => field.productId === product.id,
+    );
     if (existingIndex >= 0) {
       const currentQty = Number(values.items?.[existingIndex]?.qty ?? 0);
       setValue(`items.${existingIndex}.qty`, currentQty + 1, {
@@ -282,7 +294,11 @@ export default function EditOrderPage() {
       toast.error("Add at least one product before saving.");
       return;
     }
-    if (data.items.some((item) => !item.productId || item.qty < 1 || !Number.isFinite(item.qty))) {
+    if (
+      data.items.some(
+        (item) => !item.productId || item.qty < 1 || !Number.isFinite(item.qty),
+      )
+    ) {
       toast.error("Check product selections and quantities.");
       return;
     }
@@ -317,11 +333,13 @@ export default function EditOrderPage() {
   if (loading) {
     return (
       <main className="mx-auto flex min-h-[60vh] max-w-7xl items-center justify-center p-6">
-        <div className="flex items-center gap-3 rounded-2xl border bg-card px-5 py-4 shadow-sm">
-          <Loader className="size-5 animate-spin text-primary" />
+        <div className="bg-card flex items-center gap-3 rounded-2xl border px-5 py-4 shadow-sm">
+          <Loader className="text-primary size-5 animate-spin" />
           <div>
             <p className="font-medium">Loading order details</p>
-            <p className="text-sm text-muted-foreground">Preparing the editor…</p>
+            <p className="text-muted-foreground text-sm">
+              Preparing the editor…
+            </p>
           </div>
         </div>
       </main>
@@ -331,11 +349,15 @@ export default function EditOrderPage() {
   if (loadError) {
     return (
       <main className="mx-auto max-w-3xl p-4 sm:p-6">
-        <div className="rounded-2xl border border-destructive/30 bg-destructive/5 p-6">
-          <CircleAlert className="mb-3 size-8 text-destructive" />
+        <div className="border-destructive/30 bg-destructive/5 rounded-2xl border p-6">
+          <CircleAlert className="text-destructive mb-3 size-8" />
           <h1 className="text-xl font-semibold">Could not open this order</h1>
-          <p className="mt-2 text-sm text-muted-foreground">{loadError}</p>
-          <Button className="mt-5" variant="outline" onClick={() => router.back()}>
+          <p className="text-muted-foreground mt-2 text-sm">{loadError}</p>
+          <Button
+            className="mt-5"
+            variant="outline"
+            onClick={() => router.back()}
+          >
             <ArrowLeft className="mr-2 size-4" /> Go back
           </Button>
         </div>
@@ -344,16 +366,16 @@ export default function EditOrderPage() {
   }
 
   return (
-    <main className="mx-auto w-full max-w-[1500px] space-y-5 px-3 pb-28 pt-4 sm:space-y-6 sm:px-6 sm:pb-8 lg:px-8">
-      <header className="overflow-hidden rounded-2xl border bg-card shadow-sm">
-        <div className="bg-gradient-to-br from-primary/[0.10] via-primary/[0.04] to-transparent p-4 sm:p-6">
+    <main className="mx-auto w-full max-w-[1500px] space-y-5 px-3 pt-4 pb-28 sm:space-y-6 sm:px-6 sm:pb-8 lg:px-8">
+      <header className="bg-card overflow-hidden rounded-2xl border shadow-sm">
+        <div className="from-primary/[0.10] via-primary/[0.04] bg-gradient-to-br to-transparent p-4 sm:p-6">
           <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex min-w-0 items-start gap-3">
               <Button
                 type="button"
                 variant="outline"
                 size="icon"
-                className="mt-0.5 size-10 shrink-0 rounded-xl bg-background"
+                className="bg-background mt-0.5 size-10 shrink-0 rounded-xl"
                 onClick={() => router.back()}
                 aria-label="Go back"
               >
@@ -361,23 +383,28 @@ export default function EditOrderPage() {
               </Button>
               <div className="min-w-0">
                 <div className="mb-1 flex flex-wrap items-center gap-2">
-                  <span className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">
+                  <span className="text-primary text-xs font-semibold tracking-[0.16em] uppercase">
                     Order management
                   </span>
-                  <span className="rounded-full border bg-background/80 px-2.5 py-1 text-xs font-medium">
+                  <span className="bg-background/80 rounded-full border px-2.5 py-1 text-xs font-medium">
                     #{id}
                   </span>
                 </div>
                 <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
                   Edit order
                 </h1>
-                <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
-                  Update customer details, items, fulfillment, and payment in one place.
+                <p className="text-muted-foreground mt-1 max-w-2xl text-sm">
+                  Update customer details, items, fulfillment, and payment in
+                  one place.
                 </p>
               </div>
             </div>
             <div className="flex flex-wrap gap-2 sm:justify-end">
-              <Button type="button" variant="outline" onClick={() => router.back()}>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => router.back()}
+              >
                 Cancel
               </Button>
               <Button type="submit" form="edit-order-form" disabled={saving}>
@@ -394,23 +421,31 @@ export default function EditOrderPage() {
 
         <div className="grid grid-cols-2 divide-x border-t sm:grid-cols-4">
           <div className="p-4 sm:px-5">
-            <p className="text-xs text-muted-foreground">Order total</p>
-            <p className="mt-1 text-lg font-bold tabular-nums sm:text-xl">{money(total)}</p>
+            <p className="text-muted-foreground text-xs">Order total</p>
+            <p className="mt-1 text-lg font-bold tabular-nums sm:text-xl">
+              {money(total)}
+            </p>
           </div>
           <div className="p-4 sm:px-5">
-            <p className="text-xs text-muted-foreground">Items</p>
-            <p className="mt-1 text-lg font-bold tabular-nums sm:text-xl">{itemCount}</p>
-            <p className="text-xs text-muted-foreground">{fields.length} product lines</p>
+            <p className="text-muted-foreground text-xs">Items</p>
+            <p className="mt-1 text-lg font-bold tabular-nums sm:text-xl">
+              {itemCount}
+            </p>
+            <p className="text-muted-foreground text-xs">
+              {fields.length} product lines
+            </p>
           </div>
           <div className="border-t p-4 sm:border-t-0 sm:px-5">
-            <p className="text-xs text-muted-foreground">Paid</p>
-            <p className="mt-1 text-lg font-bold tabular-nums text-emerald-600 sm:text-xl">
+            <p className="text-muted-foreground text-xs">Paid</p>
+            <p className="mt-1 text-lg font-bold text-emerald-600 tabular-nums sm:text-xl">
               {money(paidAmount)}
             </p>
           </div>
           <div className="border-t p-4 sm:border-t-0 sm:px-5">
-            <p className="text-xs text-muted-foreground">Balance due</p>
-            <p className={`mt-1 text-lg font-bold tabular-nums sm:text-xl ${dueAmount > 0 ? "text-amber-600" : "text-emerald-600"}`}>
+            <p className="text-muted-foreground text-xs">Balance due</p>
+            <p
+              className={`mt-1 text-lg font-bold tabular-nums sm:text-xl ${dueAmount > 0 ? "text-amber-600" : "text-emerald-600"}`}
+            >
               {money(dueAmount)}
             </p>
           </div>
@@ -423,7 +458,7 @@ export default function EditOrderPage() {
         className="grid min-w-0 items-start gap-5 lg:grid-cols-[minmax(0,1fr)_340px] xl:grid-cols-[minmax(0,1fr)_370px] xl:gap-6"
       >
         <div className="min-w-0 space-y-5">
-          <section className="min-w-0 rounded-2xl border bg-card p-4 shadow-sm sm:p-6">
+          <section className="bg-card min-w-0 rounded-2xl border p-4 shadow-sm sm:p-6">
             <SectionHeading
               icon={UserRound}
               title="Customer & delivery"
@@ -435,19 +470,30 @@ export default function EditOrderPage() {
                   className={inputClass}
                   placeholder="Enter full name"
                   autoComplete="name"
-                  {...register("receiverName", { required: "Name is required." })}
+                  {...register("receiverName", {
+                    required: "Name is required.",
+                  })}
                 />
               </Field>
-              <Field label="Phone number" error={errors.receiverPhone?.message} hint="Use the number the delivery team can reach.">
+              <Field
+                label="Phone number"
+                error={errors.receiverPhone?.message}
+                hint="Use the number the delivery team can reach."
+              >
                 <Input
                   className={inputClass}
                   type="tel"
                   placeholder="01XXXXXXXXX"
                   autoComplete="tel"
-                  {...register("receiverPhone", { required: "Phone is required." })}
+                  {...register("receiverPhone", {
+                    required: "Phone is required.",
+                  })}
                 />
               </Field>
-              <Field label="Email address" error={errors.receiverEmail?.message}>
+              <Field
+                label="Email address"
+                error={errors.receiverEmail?.message}
+              >
                 <Input
                   className={inputClass}
                   type="email"
@@ -459,18 +505,29 @@ export default function EditOrderPage() {
               <Field label="Delivery area" error={errors.deliveryArea?.message}>
                 <select className={selectClass} {...register("deliveryArea")}>
                   {DeliveryAreaOptions.map((area) => (
-                    <option key={area.value} value={area.value}>{area.label}</option>
+                    <option key={area.value} value={area.value}>
+                      {area.label}
+                    </option>
                   ))}
                 </select>
               </Field>
-              <Field label="Delivery address" error={errors.address?.message} className="sm:col-span-2">
+              <Field
+                label="Delivery address"
+                error={errors.address?.message}
+                className="sm:col-span-2"
+              >
                 <Textarea
                   className="min-h-24 resize-y rounded-xl"
                   placeholder="House, road, area, city and any delivery directions"
                   {...register("address", { required: "Address is required." })}
                 />
               </Field>
-              <Field label="Customer note" error={errors.customerNote?.message} hint="Optional instructions or requests from the customer." className="sm:col-span-2">
+              <Field
+                label="Customer note"
+                error={errors.customerNote?.message}
+                hint="Optional instructions or requests from the customer."
+                className="sm:col-span-2"
+              >
                 <Textarea
                   className="min-h-20 resize-y rounded-xl"
                   placeholder="Add a note for the order…"
@@ -480,13 +537,13 @@ export default function EditOrderPage() {
             </div>
           </section>
 
-          <section className="min-w-0 rounded-2xl border bg-card p-4 shadow-sm sm:p-6">
+          <section className="bg-card min-w-0 rounded-2xl border p-4 shadow-sm sm:p-6">
             <SectionHeading
               icon={ShoppingBag}
               title="Order items"
               description="Search the catalogue and adjust products and quantities."
               trailing={
-                <span className="shrink-0 rounded-full bg-muted px-3 py-1 text-xs font-medium">
+                <span className="bg-muted shrink-0 rounded-full px-3 py-1 text-xs font-medium">
                   {fields.length} {fields.length === 1 ? "line" : "lines"}
                 </span>
               }
@@ -494,7 +551,7 @@ export default function EditOrderPage() {
 
             <div className="relative mb-4">
               <div className="relative">
-                <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+                <Search className="text-muted-foreground pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2" />
                 <Input
                   className={`${inputClass} pl-9`}
                   value={productSearch}
@@ -504,33 +561,48 @@ export default function EditOrderPage() {
                 />
               </div>
               {productSearch.trim() && (
-                <div className="absolute inset-x-0 top-full z-20 mt-2 overflow-hidden rounded-xl border bg-popover p-1 shadow-xl">
+                <div className="bg-popover absolute inset-x-0 top-full z-20 mt-2 overflow-hidden rounded-xl border p-1 shadow-xl">
                   {availableProducts.length ? (
                     availableProducts.map((product) => {
-                      const alreadyAdded = fields.some((field) => field.productId === product.id);
+                      const alreadyAdded = fields.some(
+                        (field) => field.productId === product.id,
+                      );
                       return (
                         <button
                           key={product.id}
                           type="button"
                           onClick={() => addProduct(product)}
-                          className="flex w-full items-center justify-between gap-3 rounded-lg px-3 py-2.5 text-left transition hover:bg-muted"
+                          className="hover:bg-muted flex w-full items-center justify-between gap-3 rounded-lg px-3 py-2.5 text-left transition"
                         >
                           <span className="min-w-0">
-                            <span className="block truncate text-sm font-medium">{product.title}</span>
-                            <span className="mt-0.5 block text-xs text-muted-foreground">{product.productCode}</span>
+                            <span className="block truncate text-sm font-medium">
+                              {product.title}
+                            </span>
+                            <span className="text-muted-foreground mt-0.5 block text-xs">
+                              {product.productCode}
+                            </span>
                           </span>
                           <span className="flex shrink-0 items-center gap-2 text-sm font-semibold">
                             {money(getProductPrice(product))}
-                            {alreadyAdded ? <Plus className="size-4 text-primary" /> : <span className="text-primary">Add</span>}
+                            {alreadyAdded ? (
+                              <Plus className="text-primary size-4" />
+                            ) : (
+                              <span className="text-primary">Add</span>
+                            )}
                           </span>
                         </button>
                       );
                     })
                   ) : (
-                    <p className="px-3 py-4 text-center text-sm text-muted-foreground">No matching products found.</p>
+                    <p className="text-muted-foreground px-3 py-4 text-center text-sm">
+                      No matching products found.
+                    </p>
                   )}
                   {availableProducts.length === 8 && (
-                    <p className="border-t px-3 py-2 text-xs text-muted-foreground">Showing the first 8 matches. Refine your search for more specific results.</p>
+                    <p className="text-muted-foreground border-t px-3 py-2 text-xs">
+                      Showing the first 8 matches. Refine your search for more
+                      specific results.
+                    </p>
                   )}
                 </div>
               )}
@@ -539,26 +611,34 @@ export default function EditOrderPage() {
             <div className="space-y-3">
               {fields.map((field, index) => {
                 const selectedId = Number(values.items?.[index]?.productId);
-                const product = products.find((option) => option.id === selectedId);
-                const qty = Math.max(0, Number(values.items?.[index]?.qty || 0));
+                const product = products.find(
+                  (option) => option.id === selectedId,
+                );
+                const qty = Math.max(
+                  0,
+                  Number(values.items?.[index]?.qty || 0),
+                );
                 const unitPrice = getProductPrice(product);
                 const lineTotal = unitPrice * qty;
 
                 return (
-                  <div key={field.id} className="rounded-xl border bg-background p-3 sm:p-4">
+                  <div
+                    key={field.id}
+                    className="bg-background rounded-xl border p-3 sm:p-4"
+                  >
                     <div className="flex min-w-0 items-start gap-3">
-                      <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-muted text-muted-foreground">
+                      <div className="bg-muted text-muted-foreground flex size-10 shrink-0 items-center justify-center rounded-xl">
                         <Package className="size-5" />
                       </div>
                       <div className="min-w-0 flex-1">
-                        <p className="break-words text-sm font-semibold">
+                        <p className="text-sm font-semibold break-words">
                           {product?.title ?? "Select a product"}
                         </p>
-                        <p className="mt-0.5 text-xs text-muted-foreground">
-                          {product?.productCode ?? "Choose an item from the catalogue"}
+                        <p className="text-muted-foreground mt-0.5 text-xs">
+                          {product?.productCode ??
+                            "Choose an item from the catalogue"}
                         </p>
                         <div className="mt-3 grid min-w-0 gap-3 sm:grid-cols-[minmax(0,1fr)_112px]">
-                         
                           <Field
                             label="Product"
                             error={errors.items?.[index]?.productId?.message}
@@ -572,8 +652,12 @@ export default function EditOrderPage() {
                               }}
                               render={({ field }) => (
                                 <Select
-                                  value={field.value > 0 ? String(field.value) : ""}
-                                  onValueChange={(value) => field.onChange(Number(value))}
+                                  value={
+                                    field.value > 0 ? String(field.value) : ""
+                                  }
+                                  onValueChange={(value) =>
+                                    field.onChange(Number(value))
+                                  }
                                 >
                                   <SelectTrigger className="h-11 w-full rounded-xl">
                                     <SelectValue placeholder="Select a product…" />
@@ -585,7 +669,8 @@ export default function EditOrderPage() {
                                         key={option.id}
                                         value={String(option.id)}
                                       >
-                                        {option.title} — {money(getProductPrice(option))}
+                                        {option.title} —{" "}
+                                        {money(getProductPrice(option))}
                                       </SelectItem>
                                     ))}
                                   </SelectContent>
@@ -593,15 +678,24 @@ export default function EditOrderPage() {
                               )}
                             />
                           </Field>
-                          
-                          <Field label="Quantity" error={errors.items?.[index]?.qty?.message}>
+
+                          <Field
+                            label="Quantity"
+                            error={errors.items?.[index]?.qty?.message}
+                          >
                             <div className="flex h-11 items-center rounded-xl border">
                               <button
                                 type="button"
                                 aria-label="Decrease quantity"
-                                className="flex h-full w-9 shrink-0 items-center justify-center text-muted-foreground hover:bg-muted disabled:opacity-40"
+                                className="text-muted-foreground hover:bg-muted flex h-full w-9 shrink-0 items-center justify-center disabled:opacity-40"
                                 disabled={qty <= 1}
-                                onClick={() => setValue(`items.${index}.qty`, Math.max(1, qty - 1), { shouldDirty: true, shouldValidate: true })}
+                                onClick={() =>
+                                  setValue(
+                                    `items.${index}.qty`,
+                                    Math.max(1, qty - 1),
+                                    { shouldDirty: true, shouldValidate: true },
+                                  )
+                                }
                               >
                                 <Minus className="size-3.5" />
                               </button>
@@ -618,8 +712,13 @@ export default function EditOrderPage() {
                               <button
                                 type="button"
                                 aria-label="Increase quantity"
-                                className="flex h-full w-9 shrink-0 items-center justify-center text-muted-foreground hover:bg-muted"
-                                onClick={() => setValue(`items.${index}.qty`, qty + 1, { shouldDirty: true, shouldValidate: true })}
+                                className="text-muted-foreground hover:bg-muted flex h-full w-9 shrink-0 items-center justify-center"
+                                onClick={() =>
+                                  setValue(`items.${index}.qty`, qty + 1, {
+                                    shouldDirty: true,
+                                    shouldValidate: true,
+                                  })
+                                }
                               >
                                 <Plus className="size-3.5" />
                               </button>
@@ -631,7 +730,7 @@ export default function EditOrderPage() {
                         type="button"
                         variant="ghost"
                         size="icon"
-                        className="size-9 shrink-0 text-muted-foreground hover:bg-destructive/10 hover:text-destructive"
+                        className="text-muted-foreground hover:bg-destructive/10 hover:text-destructive size-9 shrink-0"
                         onClick={() => remove(index)}
                         aria-label={`Remove ${product?.title ?? "product"}`}
                       >
@@ -640,9 +739,12 @@ export default function EditOrderPage() {
                     </div>
                     <div className="mt-3 flex items-center justify-between gap-3 border-t pt-3 text-sm">
                       <span className="text-muted-foreground">
-                        {money(unitPrice)} <span className="text-xs">× {qty}</span>
+                        {money(unitPrice)}{" "}
+                        <span className="text-xs">× {qty}</span>
                       </span>
-                      <span className="font-semibold tabular-nums">{money(lineTotal)}</span>
+                      <span className="font-semibold tabular-nums">
+                        {money(lineTotal)}
+                      </span>
                     </div>
                   </div>
                 );
@@ -650,17 +752,19 @@ export default function EditOrderPage() {
 
               {fields.length === 0 && (
                 <div className="rounded-xl border border-dashed px-4 py-10 text-center">
-                  <div className="mx-auto flex size-12 items-center justify-center rounded-2xl bg-muted">
-                    <ShoppingBag className="size-5 text-muted-foreground" />
+                  <div className="bg-muted mx-auto flex size-12 items-center justify-center rounded-2xl">
+                    <ShoppingBag className="text-muted-foreground size-5" />
                   </div>
                   <p className="mt-3 font-medium">No products in this order</p>
-                  <p className="mt-1 text-sm text-muted-foreground">Search above to add the first item.</p>
+                  <p className="text-muted-foreground mt-1 text-sm">
+                    Search above to add the first item.
+                  </p>
                 </div>
               )}
             </div>
           </section>
 
-          <section className="rounded-2xl border bg-card p-4 shadow-sm sm:p-6">
+          <section className="bg-card rounded-2xl border p-4 shadow-sm sm:p-6">
             <SectionHeading
               icon={ClipboardList}
               title="Fulfillment & payment"
@@ -670,25 +774,41 @@ export default function EditOrderPage() {
               <Field label="Order status" error={errors.status?.message}>
                 <select className={selectClass} {...register("status")}>
                   {orderStatuses2.map((status) => (
-                    <option key={status} value={status}>{status.replaceAll("_", " ")}</option>
+                    <option key={status} value={status}>
+                      {status.replaceAll("_", " ")}
+                    </option>
                   ))}
                 </select>
               </Field>
-              <Field label="Payment method" error={errors.paymentMethod?.message}>
+              <Field
+                label="Payment method"
+                error={errors.paymentMethod?.message}
+              >
                 <select className={selectClass} {...register("paymentMethod")}>
                   {Object.values(PaymentMethods).map((method) => (
-                    <option key={method} value={method}>{method.replaceAll("_", " ")}</option>
+                    <option key={method} value={method}>
+                      {method.replaceAll("_", " ")}
+                    </option>
                   ))}
                 </select>
               </Field>
-              <Field label="Payment status" error={errors.paymentStatus?.message}>
+              <Field
+                label="Payment status"
+                error={errors.paymentStatus?.message}
+              >
                 <select className={selectClass} {...register("paymentStatus")}>
                   {Object.values(PaymentStatus).map((status) => (
-                    <option key={status} value={status}>{status.replaceAll("_", " ")}</option>
+                    <option key={status} value={status}>
+                      {status.replaceAll("_", " ")}
+                    </option>
                   ))}
                 </select>
               </Field>
-              <Field label="Paid amount (৳)" error={errors.paidAmount?.message} hint="Amount already received from the customer.">
+              <Field
+                label="Paid amount (৳)"
+                error={errors.paidAmount?.message}
+                hint="Amount already received from the customer."
+              >
                 <Input
                   className={inputClass}
                   type="number"
@@ -701,15 +821,19 @@ export default function EditOrderPage() {
                 />
               </Field>
             </div>
-            <div className="mt-4 flex items-start gap-2 rounded-xl bg-muted/60 p-3 text-xs text-muted-foreground">
+            <div className="bg-muted/60 text-muted-foreground mt-4 flex items-start gap-2 rounded-xl p-3 text-xs">
               <BadgeCheck className="mt-0.5 size-4 shrink-0" />
-              <p>Make sure the payment status matches the actual payment record before saving. Changing the status here does not itself collect a payment.</p>
+              <p>
+                Make sure the payment status matches the actual payment record
+                before saving. Changing the status here does not itself collect
+                a payment.
+              </p>
             </div>
           </section>
         </div>
 
         <aside className="min-w-0 space-y-5 lg:sticky lg:top-5">
-          <section className="rounded-2xl border bg-card p-4 shadow-sm sm:p-5">
+          <section className="bg-card rounded-2xl border p-4 shadow-sm sm:p-5">
             <SectionHeading
               icon={CreditCard}
               title="Price summary"
@@ -717,7 +841,10 @@ export default function EditOrderPage() {
             />
 
             <div className="space-y-4">
-              <Field label="Delivery charge (৳)" error={errors.shippingCost?.message}>
+              <Field
+                label="Delivery charge (৳)"
+                error={errors.shippingCost?.message}
+              >
                 <Input
                   className={inputClass}
                   type="number"
@@ -729,7 +856,10 @@ export default function EditOrderPage() {
                   })}
                 />
               </Field>
-              <Field label="Order discount (৳)" error={errors.discountAmount?.message}>
+              <Field
+                label="Order discount (৳)"
+                error={errors.discountAmount?.message}
+              >
                 <Input
                   className={inputClass}
                   type="number"
@@ -746,36 +876,53 @@ export default function EditOrderPage() {
             <div className="mt-5 space-y-3 border-t pt-4 text-sm">
               <div className="flex justify-between gap-3">
                 <span className="text-muted-foreground">Items subtotal</span>
-                <span className="font-medium tabular-nums">{money(subtotal)}</span>
+                <span className="font-medium tabular-nums">
+                  {money(subtotal)}
+                </span>
               </div>
               <div className="flex justify-between gap-3">
-                <span className="flex items-center gap-2 text-muted-foreground"><Truck className="size-4" /> Delivery</span>
-                <span className="font-medium tabular-nums">{money(shippingCost)}</span>
+                <span className="text-muted-foreground flex items-center gap-2">
+                  <Truck className="size-4" /> Delivery
+                </span>
+                <span className="font-medium tabular-nums">
+                  {money(shippingCost)}
+                </span>
               </div>
               <div className="flex justify-between gap-3">
                 <span className="text-muted-foreground">Discount</span>
-                <span className="font-medium tabular-nums text-emerald-600">−{money(discountAmount)}</span>
+                <span className="font-medium text-emerald-600 tabular-nums">
+                  −{money(discountAmount)}
+                </span>
               </div>
               <div className="flex items-center justify-between gap-3 border-t pt-4">
                 <span className="font-semibold">Order total</span>
-                <span className="text-xl font-bold tabular-nums">{money(total)}</span>
+                <span className="text-xl font-bold tabular-nums">
+                  {money(total)}
+                </span>
               </div>
             </div>
 
-            <div className="mt-4 rounded-xl bg-muted/70 p-4">
+            <div className="bg-muted/70 mt-4 rounded-xl p-4">
               <div className="flex items-center justify-between gap-3 text-sm">
-                <span className="flex items-center gap-2 text-muted-foreground"><Banknote className="size-4" /> Paid so far</span>
-                <span className="font-semibold tabular-nums">{money(paidAmount)}</span>
+                <span className="text-muted-foreground flex items-center gap-2">
+                  <Banknote className="size-4" /> Paid so far
+                </span>
+                <span className="font-semibold tabular-nums">
+                  {money(paidAmount)}
+                </span>
               </div>
               <div className="mt-3 flex items-center justify-between gap-3">
                 <span className="text-sm font-medium">Outstanding</span>
-                <span className={`text-lg font-bold tabular-nums ${dueAmount > 0 ? "text-amber-600" : "text-emerald-600"}`}>
+                <span
+                  className={`text-lg font-bold tabular-nums ${dueAmount > 0 ? "text-amber-600" : "text-emerald-600"}`}
+                >
                   {money(dueAmount)}
                 </span>
               </div>
               {paidAmount > total ? (
-                <p className="mt-2 flex items-center gap-1.5 text-xs text-destructive">
-                  <CircleAlert className="size-3.5" /> Paid amount exceeds the order total.
+                <p className="text-destructive mt-2 flex items-center gap-1.5 text-xs">
+                  <CircleAlert className="size-3.5" /> Paid amount exceeds the
+                  order total.
                 </p>
               ) : dueAmount === 0 ? (
                 <p className="mt-2 flex items-center gap-1.5 text-xs text-emerald-600">
@@ -787,27 +934,40 @@ export default function EditOrderPage() {
             {discountAmount > subtotal + shippingCost && (
               <p className="mt-3 flex items-start gap-2 text-xs text-amber-600">
                 <CircleAlert className="mt-0.5 size-4 shrink-0" />
-                Discount is greater than the current subtotal plus delivery. The total is capped at ৳0.
+                Discount is greater than the current subtotal plus delivery. The
+                total is capped at ৳0.
               </p>
             )}
-            <Button className="mt-5 hidden w-full rounded-xl sm:flex" type="submit" disabled={saving}>
-              {saving ? <Loader className="mr-2 size-4 animate-spin" /> : <Save className="mr-2 size-4" />}
+            <Button
+              className="mt-5 hidden w-full rounded-xl sm:flex"
+              type="submit"
+              disabled={saving}
+            >
+              {saving ? (
+                <Loader className="mr-2 size-4 animate-spin" />
+              ) : (
+                <Save className="mr-2 size-4" />
+              )}
               {saving ? "Saving order…" : "Save order changes"}
             </Button>
-            <p className="mt-3 hidden text-center text-xs text-muted-foreground sm:block">
-              {isDirty ? "You have unsaved changes." : "Changes will be saved when you submit."}
+            <p className="text-muted-foreground mt-3 hidden text-center text-xs sm:block">
+              {isDirty
+                ? "You have unsaved changes."
+                : "Changes will be saved when you submit."}
             </p>
           </section>
 
-          <section className="rounded-2xl border bg-card p-4 shadow-sm sm:p-5">
+          <section className="bg-card rounded-2xl border p-4 shadow-sm sm:p-5">
             <div className="flex items-start gap-3">
-              <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-muted">
-                <MapPin className="size-5 text-muted-foreground" />
+              <div className="bg-muted flex size-10 shrink-0 items-center justify-center rounded-xl">
+                <MapPin className="text-muted-foreground size-5" />
               </div>
               <div>
                 <h3 className="font-semibold">Before you save</h3>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  Review the delivery contact, selected products, quantities, and outstanding balance. Confirm that the order and payment statuses reflect the real order.
+                <p className="text-muted-foreground mt-1 text-sm">
+                  Review the delivery contact, selected products, quantities,
+                  and outstanding balance. Confirm that the order and payment
+                  statuses reflect the real order.
                 </p>
               </div>
             </div>
@@ -815,11 +975,13 @@ export default function EditOrderPage() {
         </aside>
       </form>
 
-      <div className="fixed inset-x-0 bottom-0 z-30 border-t bg-background/95 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur sm:hidden">
+      <div className="bg-background/95 fixed inset-x-0 bottom-0 z-30 border-t p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur sm:hidden">
         <div className="mx-auto flex max-w-3xl items-center gap-3">
           <div className="min-w-0 flex-1">
-            <p className="text-xs text-muted-foreground">Order total</p>
-            <p className="truncate text-lg font-bold tabular-nums">{money(total)}</p>
+            <p className="text-muted-foreground text-xs">Order total</p>
+            <p className="truncate text-lg font-bold tabular-nums">
+              {money(total)}
+            </p>
           </div>
           <Button
             type="submit"
@@ -827,7 +989,11 @@ export default function EditOrderPage() {
             disabled={saving}
             className="h-11 shrink-0 rounded-xl px-5"
           >
-            {saving ? <Loader className="mr-2 size-4 animate-spin" /> : <Save className="mr-2 size-4" />}
+            {saving ? (
+              <Loader className="mr-2 size-4 animate-spin" />
+            ) : (
+              <Save className="mr-2 size-4" />
+            )}
             Save order
           </Button>
         </div>

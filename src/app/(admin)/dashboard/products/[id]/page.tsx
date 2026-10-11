@@ -154,23 +154,25 @@ const PageEditProduct = ({
         }),
       });
 
-      setInitialValueofItem(JSON.stringify({
-        title: item?.title,
-        productCode: item?.productCode,
-        price: Number(item?.price),
-        discount: Number(item?.discount),
-        discountPrice: Number(item?.discountPrice),
-        stock: Number(item?.stock),
-        brand: item?.brand ?? "",
-        categoryId: item?.categoryId?.toString(),
-        descriptions: item?.descriptions?.map((e) => {
-          return { title: e.title, description: e.description };
+      setInitialValueofItem(
+        JSON.stringify({
+          title: item?.title,
+          productCode: item?.productCode,
+          price: Number(item?.price),
+          discount: Number(item?.discount),
+          discountPrice: Number(item?.discountPrice),
+          stock: Number(item?.stock),
+          brand: item?.brand ?? "",
+          categoryId: item?.categoryId?.toString(),
+          descriptions: item?.descriptions?.map((e) => {
+            return { title: e.title, description: e.description };
+          }),
+          oldImages: item.images,
+          keyFeatures: item?.keyFeatures.map((e) => {
+            return { value: e };
+          }),
         }),
-        oldImages: item.images,
-        keyFeatures: item?.keyFeatures.map((e) => {
-          return { value: e };
-        }),
-      }));
+      );
     };
     a();
   }, [item, reset]);
@@ -269,7 +271,10 @@ const PageEditProduct = ({
       for (const imageFile of images) {
         const file = imageFile.file?.[0];
         if (file) {
-          const fileUploadData = await uploadFile(file, "r2upload/products/images");
+          const fileUploadData = await uploadFile(
+            file,
+            "r2upload/products/images",
+          );
 
           if (fileUploadData.success && fileUploadData.key) {
             imageFilesString.push(fileUploadData.key);

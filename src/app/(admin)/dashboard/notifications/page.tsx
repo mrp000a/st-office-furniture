@@ -90,7 +90,9 @@ export default function AdminNotifications() {
           "r2upload/notifications/images",
         );
         if (!upload.success || !upload.key) {
-          throw new Error(upload.message ?? "Unable to upload notification image.");
+          throw new Error(
+            upload.message ?? "Unable to upload notification image.",
+          );
         }
 
         uploadedImageKey = upload.key;
@@ -207,10 +209,7 @@ export default function AdminNotifications() {
             </div>
           </div>
 
-          <form
-            onSubmit={sendNotification}
-            className="space-y-5 p-4 sm:p-5"
-          >
+          <form onSubmit={sendNotification} className="space-y-5 p-4 sm:p-5">
             {/* Type + Audience */}
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-2">
@@ -306,7 +305,9 @@ export default function AdminNotifications() {
               <label className="border-border bg-muted/20 hover:bg-muted/40 flex min-h-28 cursor-pointer flex-col items-center justify-center rounded-lg border border-dashed px-4 text-center transition-colors">
                 <ImagePlus className="text-muted-foreground mb-2 h-6 w-6" />
 
-                <span className="text-sm font-medium">Upload a local image</span>
+                <span className="text-sm font-medium">
+                  Upload a local image
+                </span>
 
                 <span className="text-muted-foreground mt-1 text-xs">
                   Optional · JPG, PNG or WebP · maximum 2 MB

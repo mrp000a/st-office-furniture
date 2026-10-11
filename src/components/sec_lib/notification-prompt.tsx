@@ -5,9 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
-import {
-  enablePushNotifications,
-} from "@/components/sec_lib/enableNotificationButton";
+import { enablePushNotifications } from "@/components/sec_lib/enableNotificationButton";
 import { Button } from "@/components/ui/button";
 
 const DISMISSED_KEY = "st-office-notification-prompt-dismissed";
@@ -49,7 +47,8 @@ export default function NotificationPrompt() {
     try {
       await enablePushNotifications();
       toast.success("Notifications enabled", {
-        description: "We will keep you updated about your orders and new products.",
+        description:
+          "We will keep you updated about your orders and new products.",
       });
       setVisible(false);
     } catch (error) {
@@ -74,7 +73,7 @@ export default function NotificationPrompt() {
     <aside
       role="dialog"
       aria-label="Enable notifications"
-      className="bg-background fixed left-4 bottom-4 z-60 box-border w-[min( calc(100vw-2rem),_25rem)] rounded-xl border p-4 shadow-xl"
+      className="bg-background w-[min( calc(100vw-2rem),_25rem)] fixed bottom-4 left-4 z-60 box-border rounded-xl border p-4 shadow-xl"
     >
       <div className="flex gap-3">
         <div className="bg-green-primary/10 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg">
@@ -114,7 +113,7 @@ export default function NotificationPrompt() {
               type="button"
               onClick={enable}
               disabled={isEnabling}
-              className="bg-green-primary text-white hover:bg-green-primary/90"
+              className="bg-green-primary hover:bg-green-primary/90 text-white"
             >
               {isEnabling ? "Enabling..." : "Enable notifications"}
             </Button>

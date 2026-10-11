@@ -88,19 +88,27 @@ const PageRegisterForm = () => {
   return (
     <div className="no-scrollbar flex w-full flex-1 flex-col overflow-y-auto lg:w-1/2">
       <div className="mx-auto w-full max-w-lg sm:pt-10">
-        <Link href="/" className="inline-flex items-center text-sm text-gray-500">
+        <Link
+          href="/"
+          className="inline-flex items-center text-sm text-gray-500"
+        >
           <ChevronLeftIcon /> Back to home
         </Link>
       </div>
       <div className="mx-auto flex w-full max-w-lg flex-1 flex-col justify-center px-2 py-5">
-        <h1 className="text-title-sm sm:text-title-md mb-2 font-semibold">Create your account</h1>
+        <h1 className="text-title-sm sm:text-title-md mb-2 font-semibold">
+          Create your account
+        </h1>
         <p className="mb-5 text-sm text-gray-500">
-          Sign up with Google or use your name, email, password, and contact details.
+          Sign up with Google or use your name, email, password, and contact
+          details.
         </p>
 
         <GoogleRegButton />
         <div className="relative py-5 text-center text-sm text-gray-400">
-          <span className="bg-background relative z-10 px-3">Or register with email</span>
+          <span className="bg-background relative z-10 px-3">
+            Or register with email
+          </span>
           <div className="absolute inset-x-0 top-1/2 border-t" />
         </div>
 
@@ -112,7 +120,9 @@ const PageRegisterForm = () => {
               placeholder="Enter your name"
               {...register("name", { required: "Name is required." })}
             />
-            {errors.name && <InputErrorMessage>{errors.name.message}</InputErrorMessage>}
+            {errors.name && (
+              <InputErrorMessage>{errors.name.message}</InputErrorMessage>
+            )}
           </div>
 
           <div className="space-y-1">
@@ -130,7 +140,9 @@ const PageRegisterForm = () => {
                 },
               })}
             />
-            {errors.email && <InputErrorMessage>{errors.email.message}</InputErrorMessage>}
+            {errors.email && (
+              <InputErrorMessage>{errors.email.message}</InputErrorMessage>
+            )}
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
@@ -149,7 +161,9 @@ const PageRegisterForm = () => {
                     "Enter a valid phone number.",
                 })}
               />
-              {errors.phone && <InputErrorMessage>{errors.phone.message}</InputErrorMessage>}
+              {errors.phone && (
+                <InputErrorMessage>{errors.phone.message}</InputErrorMessage>
+              )}
             </div>
 
             <div className="space-y-1 sm:col-span-1">
@@ -168,7 +182,9 @@ const PageRegisterForm = () => {
                   },
                 })}
               />
-              {errors.address && <InputErrorMessage>{errors.address.message}</InputErrorMessage>}
+              {errors.address && (
+                <InputErrorMessage>{errors.address.message}</InputErrorMessage>
+              )}
             </div>
           </div>
 
@@ -193,7 +209,9 @@ const PageRegisterForm = () => {
                 {showPass ? <FaEye /> : <FaEyeSlash />}
               </button>
             </div>
-            {errors.password && <InputErrorMessage>{errors.password.message}</InputErrorMessage>}
+            {errors.password && (
+              <InputErrorMessage>{errors.password.message}</InputErrorMessage>
+            )}
           </div>
 
           <div className="space-y-1">
@@ -202,10 +220,14 @@ const PageRegisterForm = () => {
               id="confirmPassword"
               type={showPass ? "text" : "password"}
               placeholder="Repeat your password"
-              {...register("confirmPassword", { required: "Please confirm your password." })}
+              {...register("confirmPassword", {
+                required: "Please confirm your password.",
+              })}
             />
             {errors.confirmPassword && (
-              <InputErrorMessage>{errors.confirmPassword.message}</InputErrorMessage>
+              <InputErrorMessage>
+                {errors.confirmPassword.message}
+              </InputErrorMessage>
             )}
           </div>
 

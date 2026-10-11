@@ -295,7 +295,9 @@ export async function PUT(req: Request) {
           },
         })
       : [];
-    const productMap = new Map(products.map((product) => [product.id, product]));
+    const productMap = new Map(
+      products.map((product) => [product.id, product]),
+    );
 
     if (
       normalizedItems &&
@@ -303,7 +305,10 @@ export async function PUT(req: Request) {
         normalizedItems.some((item) => !productMap.has(item.productId)))
     ) {
       return NextResponse.json(
-        { success: false, message: "Every order item must reference a valid product." },
+        {
+          success: false,
+          message: "Every order item must reference a valid product.",
+        },
         { status: 400 },
       );
     }
@@ -344,7 +349,10 @@ export async function PUT(req: Request) {
       nextTotal < 0
     ) {
       return NextResponse.json(
-        { success: false, message: "Charges and total must be valid non-negative numbers." },
+        {
+          success: false,
+          message: "Charges and total must be valid non-negative numbers.",
+        },
         { status: 400 },
       );
     }

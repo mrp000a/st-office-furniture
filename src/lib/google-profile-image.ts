@@ -18,13 +18,14 @@ export async function uploadGoogleProfileImage(
     });
 
     if (!response.ok) {
-      throw new Error(`Google profile image request failed (${response.status}).`);
+      throw new Error(
+        `Google profile image request failed (${response.status}).`,
+      );
     }
 
-    const contentType = response.headers.get("content-type")?.split(";")[0] ?? "";
-    if (
-      !["image/jpeg", "image/png", "image/webp"].includes(contentType)
-    ) {
+    const contentType =
+      response.headers.get("content-type")?.split(";")[0] ?? "";
+    if (!["image/jpeg", "image/png", "image/webp"].includes(contentType)) {
       throw new Error("Google profile image has an unsupported format.");
     }
 
@@ -38,7 +39,8 @@ export async function uploadGoogleProfileImage(
       throw new Error("Google profile image is empty or larger than 1 MB.");
     }
 
-    const extension = contentType.split("/")[1] === "jpeg" ? "jpg" : contentType.split("/")[1];
+    const extension =
+      contentType.split("/")[1] === "jpeg" ? "jpg" : contentType.split("/")[1];
     const key = `r2upload/users/images/google-${crypto.randomUUID()}.${extension}`;
 
     await r2.send(

@@ -12,7 +12,7 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "**.googleusercontent.com",
-        pathname: "/**"
+        pathname: "/**",
       },
       {
         protocol: "https",

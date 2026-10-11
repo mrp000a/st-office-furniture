@@ -77,7 +77,7 @@ export async function notifyUser(payload: NotificationPayload) {
       data: {
         delivered,
         deliveredAt: delivered ? new Date() : null,
-        error: delivered ? null : lastError ?? "No active push subscription.",
+        error: delivered ? null : (lastError ?? "No active push subscription."),
       },
     });
   } catch (error: unknown) {

@@ -128,7 +128,10 @@ const PageAddProduct = () => {
     for (const imageFile of images) {
       const file = imageFile.file?.[0];
       if (file) {
-        const fileUploadData = await uploadFile(file, "r2upload/products/images");
+        const fileUploadData = await uploadFile(
+          file,
+          "r2upload/products/images",
+        );
 
         if (fileUploadData.success && fileUploadData.key) {
           imageFilesString.push(fileUploadData.key);

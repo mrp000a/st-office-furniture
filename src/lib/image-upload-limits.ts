@@ -13,7 +13,11 @@ export function getImageUploadMaxSize(path: string) {
 export function validateImageFile(file: File, path: string) {
   const maxSize = getImageUploadMaxSize(path);
 
-  if (!ALLOWED_IMAGE_TYPES.includes(file.type as (typeof ALLOWED_IMAGE_TYPES)[number])) {
+  if (
+    !ALLOWED_IMAGE_TYPES.includes(
+      file.type as (typeof ALLOWED_IMAGE_TYPES)[number],
+    )
+  ) {
     return "Image must be JPG, PNG, or WebP.";
   }
 

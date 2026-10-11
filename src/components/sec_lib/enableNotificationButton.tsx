@@ -29,8 +29,7 @@ export async function enablePushNotifications() {
   }
 
   const registration = await navigator.serviceWorker.register("/sw.js");
-  const existingSubscription =
-    await registration.pushManager.getSubscription();
+  const existingSubscription = await registration.pushManager.getSubscription();
   const subscription =
     existingSubscription ??
     (await registration.pushManager.subscribe({

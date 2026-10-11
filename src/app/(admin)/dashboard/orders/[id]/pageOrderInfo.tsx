@@ -167,8 +167,10 @@ const PageOrderInfo = ({ order }: PageOrderInfoProps) => {
 
         <div className="flex flex-wrap items-center gap-2">
           <Button asChild>
-            <Link href={`/dashboard/orders/${order.id}/edit`} >
-              <Edit2 /> Edit</Link></Button>
+            <Link href={`/dashboard/orders/${order.id}/edit`}>
+              <Edit2 /> Edit
+            </Link>
+          </Button>
           <InvoiceButtonView id={order.publicId ?? ""} />
 
           <InvoiceButtonDownload id={order.publicId ?? ""} />
@@ -656,10 +658,12 @@ const PageOrderInfo = ({ order }: PageOrderInfoProps) => {
               <h3 className="font-semibold">Order documents</h3>
             </div>
 
-            <div className="space-y-2 flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2 space-y-2">
               <Button asChild>
-                <Link href={`/dashboard/orders/${order.id}/edit`} >
-                  <Edit2 /> Edit</Link></Button>
+                <Link href={`/dashboard/orders/${order.id}/edit`}>
+                  <Edit2 /> Edit
+                </Link>
+              </Button>
               <InvoiceButtonView id={order.publicId ?? ""} />
 
               <InvoiceButtonDownload id={order.publicId ?? ""} />

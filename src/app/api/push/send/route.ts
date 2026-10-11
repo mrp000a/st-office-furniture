@@ -34,7 +34,8 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           success: false,
-          message: "Title must be 60 characters or fewer and message 180 or fewer.",
+          message:
+            "Title must be 60 characters or fewer and message 180 or fewer.",
         },
         { status: 400 },
       );
@@ -57,7 +58,13 @@ export async function POST(request: Request) {
 
     const subscriptions = await prisma.pushSubscription.findMany({
       where: { isActive: true, ...userFilter },
-      select: { id: true, userId: true, endpoint: true, p256dh: true, auth: true },
+      select: {
+        id: true,
+        userId: true,
+        endpoint: true,
+        p256dh: true,
+        auth: true,
+      },
     });
 
     if (subscriptions.length === 0) {

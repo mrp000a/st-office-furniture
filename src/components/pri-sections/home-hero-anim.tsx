@@ -102,7 +102,7 @@ export function Hero() {
               animate="visible"
               variants={fadeUp}
               transition={{ duration: 0.8, delay: 0.08 }}
-              className="max-w-2xl max-[450]:text-lg text-[clamp(1.65rem,6vw,5.8rem)] leading-[0.9] font-semibold tracking-[-0.065em] sm:text-[clamp(2rem,6vw,5.8rem)] md:text-[clamp(2.2rem,5vw,5rem)] lg:text-[clamp(3rem,5vw,5.8rem)]"
+              className="max-w-2xl text-[clamp(1.65rem,6vw,5.8rem)] leading-[0.9] font-semibold tracking-[-0.065em] max-[450]:text-lg sm:text-[clamp(2rem,6vw,5.8rem)] md:text-[clamp(2.2rem,5vw,5rem)] lg:text-[clamp(3rem,5vw,5.8rem)]"
             >
               <span className="block">Upgrade</span>
               <span className="block">

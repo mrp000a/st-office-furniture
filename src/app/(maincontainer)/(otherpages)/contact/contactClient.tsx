@@ -20,7 +20,7 @@ const contactMethods = [
     value: "+880 1",
     href: "tel:+8801521120706",
   },
-  
+
   {
     icon: MessageCircle,
     title: "WhatsApp",

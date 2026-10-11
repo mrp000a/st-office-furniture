@@ -1,9 +1,7 @@
 import { BUCKET, r2 } from "@/lib/r2";
 import { PutObjectCommand } from "@aws-sdk/client-s3";
 import { NextResponse } from "next/server";
-import {
-  validateImageFile,
-} from "@/lib/image-upload-limits";
+import { validateImageFile } from "@/lib/image-upload-limits";
 
 export async function POST(req: Request) {
   try {
