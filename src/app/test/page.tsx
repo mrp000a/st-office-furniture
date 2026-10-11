@@ -1,6 +1,7 @@
 "use client";
 
 import EnableNotificationButton from "@/components/sec_lib/enableNotificationButton";
+import ContentPageSkeleton from "./loading";
 
 const Page = () => {
   const handleClick = async () => {
@@ -17,7 +18,7 @@ const Page = () => {
     });
   };
   return (
-    <div>
+    <div className="">
       <EnableNotificationButton />
       <div className="w-full max-w-lg">
         {/* <ChartBarDemoTooltipSales chartData={[{month: "jan", order_count: 12, total_sales: 234}]} /> */}
@@ -33,6 +34,8 @@ const Page = () => {
       </div>
       {/* <AboutPage /> */}
       {/* <MessageForm /> */}
+
+      <ContentPageSkeleton />
     </div>
   );
 };

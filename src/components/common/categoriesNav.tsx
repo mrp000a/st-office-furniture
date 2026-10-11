@@ -19,7 +19,7 @@ const CategoriesNavBar = () => {
   const pathname = usePathname();
 
   return (
-    <nav className="bg-green-primary text-background relative z-40 w-full">
+    <nav className="bg-green-primary text-background relative z-30 w-full">
       <div className="mx-auto flex h-7 max-w-384 items-center px-3 sm:px-4 lg:px-6">
         {/* Mobile */}
         <div className="md:hidden">

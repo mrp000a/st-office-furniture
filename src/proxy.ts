@@ -32,8 +32,8 @@ export default withAuth(
     if (
       token?.role !== "SUPER_ADMIN" &&
       (pathname.startsWith("/super_admin") ||
-        pathname.startsWith("/super_dashboard") ||
-        pathname.startsWith("/test"))
+        pathname.startsWith("/super_dashboard"))
+      //|| pathname.startsWith("/test")
     ) {
       return NextResponse.redirect(new URL("/", req.url));
     }
@@ -70,6 +70,6 @@ export const config = {
     "/profile",
     "/signin",
     "/register",
-    "/test",
+    // "/test",
   ],
 };
